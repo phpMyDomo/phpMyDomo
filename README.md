@@ -1,5 +1,5 @@
 ## About phpMyDomo
-phpMyDomo is an open-source Web Application aimed to provides a clean, customizable, fast and intuitive interface to many Home Automation software. With todays Chinese phones and tablets starting as low as $40, it become a cheap an powerfull way to build remotes to control anything in your house. phpMyDomo wants to be the ultimate remote that works as well on this devices, as on any computer browser.
+phpMyDomo is an open-source Web Application aimed to provides a clean, customizable, fast and intuitive interface to many Home Automation software. With todays Chinese phones and tablets starting as low as $40, it become a cheap an powerfull way to build remotes to control anything in your house. phpMyDomo wants to be the ultimate WebApp that works as well on these devices, as on any computer browser.
 
 Currently supported software include __Domoticz__ and __Domogik__.
 
@@ -10,7 +10,7 @@ This is a Work In Progress : At this time only Switches and Sensors are fully su
 - Minimal requirements : a php-enabled web server
 - Responsive design : work on any web browser: computer, tablet, phone
 - Multiple Skins, build your own easely
-- Multi language
+- Multiples languages
 - Any Home Automation Software supported via Api Plugins
 - Object oriented, MVC design: easily build your own pages, in minutes...
 - Fast loading
@@ -23,7 +23,8 @@ The main goal of this app is to gather talented developers, designers and users,
 If we succeed to make the coolest human interface for HA, we might then incite Home Automation software developers to build an unified JSON API, by proposing a standard way of interfacing together.
 
 What's needed:
-- Language File
+
+- Language Files
 - API plugins to support others Home Automation Software
 - Talented CSS and Photoshop designers
 - Any ideas to make it better.... ;-)
