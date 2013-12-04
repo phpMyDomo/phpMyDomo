@@ -1,0 +1,12 @@
+# Hidden files -------------
+.svn/
+
+# Mac hidden -----------------
+.AppleDouble
+:2e*
+/Icon*
+.#*
+.afpDeleted*
+
+# ignored dirs -----------------
+#/www/cache/*
