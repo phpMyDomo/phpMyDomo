@@ -1,12 +1,25 @@
-# Hidden files -------------
-.svn/
-
-# Mac hidden -----------------
+# OS generated files -----------------
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+Icon?
+ehthumbs.db
+Thumbs.db
 .AppleDouble
 :2e*
-/Icon*
 .#*
 .afpDeleted*
 
+
 # ignored dirs -----------------
-#/www/cache/*
+/www/inc/cache/*
+!/www/inc/cache/*/
+/www/inc/cache/*/*
+
+!.gitkeep
+
+# ignored files -----------------
+__*
+/www/inc/conf/config.php
