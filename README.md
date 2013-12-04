@@ -32,7 +32,7 @@ So Please fork this Repo, and make Pull-Requests ;-)
 
 
 ## Screenshots
-![alt text](doc/screenshots/01.png "Main page (Default Skin)")
-![alt text](doc/screenshots/02.png "Main page on phone (Default Skin)")
-![alt text](doc/screenshots/03.png "Main page (Black Skin)")
-![alt text](doc/screenshots/04.png "Devices List (Black Skin)")
+![alt text](doc/screenshots/01.png?raw=true "Main page (Default Skin)")
+![alt text](doc/screenshots/02.png?raw=true "Main page on phone (Default Skin)")
+![alt text](doc/screenshots/03.png?raw=true "Main page (Black Skin)")
+![alt text](doc/screenshots/04.png?raw=true "Devices List (Black Skin)")
