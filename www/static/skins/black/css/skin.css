@@ -1,0 +1,84 @@
+/* @override http://domo.lo.lo/static/skins/black/css/skin.css */
+
+body{
+	background: #444 url(../img/background.jpg) repeat;
+}
+#lay_footer{
+	border-top: 1px solid rgba(150,150,150,0.1);
+}
+#body_home .block_right,
+#body_home .groups,
+#body_cameras .camera{
+	border-color: #000;
+	background-color: #333;
+	box-shadow: 3px 3px 7px rgba(0,0,0,0.6);
+	-moz-box-shadow: 3px 3px 7px rgba(0,0,0,0.6);
+	-webkit-box-shadow: 3px 3px 7px rgba(0,0,0,0.6);
+}
+#body_home .block_right .panel-heading,
+#body_home .groups .panel-heading,
+#body_cameras .camera .panel-heading{
+	text-shadow: -1px -1px 1px rgba(0,0,0,1) ;
+	background: #333;
+	color: #555;
+	font-weight: bold;
+	border: none;
+	border-bottom: 1px solid rgba(0,0,0,1);
+
+background: rgb(43,45,48);
+background: -moz-linear-gradient(top,  rgba(43,45,48,1) 0%, rgba(15,15,15,1) 100%);
+background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,rgba(43,45,48,1)), color-stop(100%,rgba(15,15,15,1)));
+background: -webkit-linear-gradient(top,  rgba(43,45,48,1) 0%,rgba(15,15,15,1) 100%);
+background: -o-linear-gradient(top,  rgba(43,45,48,1) 0%,rgba(15,15,15,1) 100%);
+background: -ms-linear-gradient(top,  rgba(43,45,48,1) 0%,rgba(15,15,15,1) 100%);
+background: linear-gradient(to bottom,  rgba(43,45,48,1) 0%,rgba(15,15,15,1) 100%);
+filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#2b2d30', endColorstr='#0f0f0f',GradientType=0 );
+
+
+}
+#body_home .block_right .panel-body-full{
+	background-color: #000;
+}
+#body_home .groups .panel-body,
+#body_cameras .camera .panel-body-full{
+	background-color: #222;
+}
+
+#body_home .block_right .panel-body-full,
+#body_home .groups .panel-body,
+#body_cameras .camera .panel-body-full{
+	border-top: 1px solid rgba(150,150,150,0.05);	
+	border-radius: 0 0 4px 4px;
+	-moz-border-radius: 0 0 4px 4px;
+	-webkit-border-radius: 0 0 4px 4px;
+}
+#body_home .block_right .panel-body-full{
+	border-top-color: rgba(150,150,150,0.2);		
+}
+#body_home .block_right TD{
+	border-color: #222;
+	color: #444;
+}
+#body_home .block_right .td_value{
+	color: #666;
+}
+#body_home .groups .sensor{
+	color: #444;
+	text-shadow: -1px -1px 1px rgba(0,0,0,0.9) ;
+}
+#body_home .groups .sensor B{
+	color: #555;
+}
+.div_devices_border{
+	border: 1px solid #222;
+	background-color: #888;
+	box-shadow: 3px 3px 7px rgba(0,0,0,0.6);
+	-moz-box-shadow: 3px 3px 7px rgba(0,0,0,0.6);
+	-webkit-box-shadow: 3px 3px 7px rgba(0,0,0,0.6);
+}
+.div_devices_border .table TD{
+	border-color: #666;
+}
+#body_cameras .iframe_border{
+	border-color: #000;
+}
