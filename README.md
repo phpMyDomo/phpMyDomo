@@ -1,5 +1,5 @@
 ## About phpMyDomo
-phpMyDomo is an open-source Web Application aimed to provides a clean, customizable, fast and intuitive interface to many Home Automation software. With todays Chinese phones and tablets starting as low as $40, it become a cheap an powerfull way to build remotes to control anything in your house. phpMyDomo wants to be the ultimate WebApp that works as well on these devices, as on any computer browser.
+phpMyDomo is an open-source Web Application aimed to provide a clean, customizable, fast and intuitive interface to many Home Automation software. With todays chinese phones and tablets starting as low as $50, it becomes a cheap an powerfull way to build remotes to control anything in your house. phpMyDomo wants to be the ultimate WebApp that works as well on these devices, as on any computer browser.
 
 Currently supported software include __Domoticz__ and __Domogik__.
 
@@ -8,28 +8,30 @@ This is a Work In Progress : At this time only Switches and Sensors are fully su
 
 ## Features
 - Minimal requirements : a php-enabled web server
-- Responsive design : work on any web browser: computer, tablet, phone
-- Multiple Skins, build your own easely
-- Multiples languages
+- Responsive design : works well on any web browser: computer, tablet, phone
+- Multiple Skins, build your own easily
+- Multiples languages supported
 - Any Home Automation Software supported via Api Plugins
-- Object oriented, MVC design: easily build your own pages, in minutes...
+- Easily customizable
+- Object oriented, MVC design : easily build your own custom pages, in minutes...
 - Fast loading
+- Free and Open Source
 
 ## Install
-Just [download the archive](archive/master.zip), and follow the [Install guide](doc/INSTALL.md)
+Just [download the 'Master' archive](archive/master.zip), and follow the [Install guide](doc/INSTALL.md)
 
 ## Developers Wanted
-The main goal of this app is to gather talented developers, designers and users, to build a cool WebApp that can control any Home Automation software.
-If we succeed to make the coolest human interface for HA, we might then incite Home Automation software developers to build an unified JSON API, by proposing a standard way of interfacing together.
+The main goal of this app is to gather talented developers, designers and users, to build the coolest WebApp that can control any Home Automation software.
 
 What's needed:
 
 - Language Files
+- Finish current Domoticz and Domogiz APIs
 - API plugins to support others Home Automation Software
-- Talented CSS and Photoshop designers
-- Any ideas to make it better.... ;-)
+- Talented CSS and Photoshop designers to make Skins
+- Any ideas or code to make it better.... ;-)
 
-So Please fork this Repo, and make Pull-Requests ;-)
+So Please fork this Repo, and make Pull-Requests to the Develop branch ;-)
 
 
 ## Screenshots
