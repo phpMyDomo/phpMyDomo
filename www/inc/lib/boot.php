@@ -4,7 +4,7 @@ ini_set('display_errors','On');
 
 // base ------------------------------------------------------------------------------------
 $conf=array();
-$conf['app']['version']		="0.1";
+$conf['app']['version']		="0.11";
 $conf['app']['name']		="phpMyDomo";
 $conf['app']['protocol']	=(strtolower(substr($_SERVER["SERVER_PROTOCOL"],0,5))=='https') ? 'https://':'http://';
 
@@ -30,14 +30,15 @@ isset($conf['menu_foot']) or $conf['menu_foot']=array_keys($conf['menu_urls']);
 $conf['paths']['includes']	=dirname(dirname(__FILE__)).'/';
 $conf['paths']['www']		=dirname(dirname(dirname(__FILE__))).'/';
 
-$conf['paths']['apis']		=$conf['paths']['includes'].'api/';
-$conf['paths']['confs']		=$conf['paths']['includes'].'conf/';
-$conf['paths']['caches']	=$conf['paths']['includes'].'cache/';
-$conf['paths']['libs']		=$conf['paths']['includes'].'lib/';
-$conf['paths']['langs']		=$conf['paths']['includes'].'lang/';
-$conf['paths']['pages']		=$conf['paths']['includes'].'page/';
-$conf['paths']['smarty']	=$conf['paths']['includes'].'smarty/';
-$conf['paths']['vendor']	=$conf['paths']['includes'].'vendor/';
+$conf['paths']['apis']			=$conf['paths']['includes'].'api/';
+$conf['paths']['confs']			=$conf['paths']['includes'].'conf/';
+$conf['paths']['caches']		=$conf['paths']['includes'].'cache/';
+$conf['paths']['libs']			=$conf['paths']['includes'].'lib/';
+$conf['paths']['langs']			=$conf['paths']['includes'].'lang/';
+$conf['paths']['pages']			=$conf['paths']['includes'].'page/';
+$conf['paths']['smarty']		=$conf['paths']['includes'].'smarty/';
+$conf['paths']['vendor']		=$conf['paths']['includes'].'vendor/';
+$conf['libs']['jsonrpc_client']	=$conf['paths']['vendor']."JsonRPC/src/JsonRPC/Client.php";
 
 
 // require ---------------------------------------------------------------------------------
