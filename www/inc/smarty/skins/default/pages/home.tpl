@@ -39,45 +39,8 @@
 {* ##################################################################################### *}
 {capture assign=page_right}
 
-{* Weather Block -------------------------------------------------- *}
-
-{if $p.blocks.weather}
-<div class="panel panel-default block_right" id="block_weather">
-	<div class="panel-heading"><i class="fa fa-cloud"></i> {$lg.blocks_titles.weather}</div>
-	<div class="panel-body-full">
-	<table cellspacing=0 cellpadding=0>
-	{foreach from=$p.blocks.weather item=id}
-		<tr>
-			<td class='td_icon'><img src='{$p.dirs.static}/global/img/icon48_type_{$data.devices.$id.img_type}.png'></td>
-			<td class='td_name'>{$lg.types.{$data.devices.$id.type}}</td>
-			<td class='td_value'>{$data.devices.$id.value}</td>
-			<td class='td_unit'>{$p.units.{$data.devices.$id.type}}</td>
-		</tr>	
-	{/foreach}
-	</table>
-	</div>
-</div>
-{/if}
-
-{* Sensors Block -------------------------------------------------- *}
-
-{if $p.blocks.sensors}
-<div class="panel panel-default block_right" id="block_sensors">
-	<div class="panel-heading"><i class="fa fa-info-circle"></i> {$lg.blocks_titles.sensors}</div>
-	<div class="panel-body-full">
-	<table cellspacing=0 cellpadding=0>
-	{foreach from=$p.blocks.sensors item=id}
-		<tr>
-			<td class='td_icon'><img src='{$p.dirs.static}/global/img/icon48_type_{$data.devices.$id.img_type}.png'></td>
-			<td class='td_name'>{$data.devices.$id.name}</td>
-			<td class='td_value'>{$data.devices.$id.value}</td>
-			<td class='td_unit'>{$p.units.{$data.devices.$id.type}}</td>
-		</tr>	
-	{/foreach}
-	</table>
-	</div>
-</div>
-{/if}
+{include file="{$p.template}/inc_block.tpl" type='weather' devices=$data.devices icon='fa fa-cloud'}
+{include file="{$p.template}/inc_block.tpl" type='sensors' devices=$data.devices icon='fa fa-info-circle'}
 
 
 {* Calendar Block -------------------------------------------------- *}
