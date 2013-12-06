@@ -48,36 +48,64 @@ Domoticz API
 			foreach($devices as $d){
 				$raw=$d['raw'];
 				if($raw['Type']=='Group'){
-					$this->RegisterDevice('scene','group',	$d,	'Status');
+					$d['class']	='scene';
+					$d['type']	='group';
 				}
 				elseif($raw['Type']=='Scene'){
-					$this->RegisterDevice('scene','scene',	$d,	'Status');
+					$d['class']	='scene';
+					$d['type']	='scene';
 				}
 				elseif($raw['Type']=='Temp + Humidity + Baro'){
-					$this->RegisterDevice('sensor','temp',	$d,	'Temp');
-					$this->RegisterDevice('sensor','hum',	$d,	'Humidity');
-					$this->RegisterDevice('sensor','baro',	$d,	'Barometer');
+					$d['class']	='sensor';
+
+					$d['type']	='temp';
+					$d['value']	=$raw['Temp'];
+					$this->RegisterDevice($d);
+					
+					$d['type']	='hygro';
+					$d['value']	=$raw['Humidity'];
+					$this->RegisterDevice($d);
+
+					$d['type']	='baro';
+					$d['value']	=$raw['Barometer'];
+
 				}
 				elseif($raw['Type']=='Wind'){
-					$this->RegisterDevice('sensor','wind_temp',		$d,	'Temp');
-					$this->RegisterDevice('sensor','wind_chill',	$d,	'Chill');
-					$this->RegisterDevice('sensor','wind_speed',	$d,	'Speed');
-					$this->RegisterDevice('sensor','wind_gust',		$d,	'Gust');
+					$d['class']	='sensor';
+
+					$d['type']	='wind_temp';
+					$d['value']	=$raw['Temp'];
+					$this->RegisterDevice($d);
+
+					$d['type']	='wind_chill';
+					$d['value']	=$raw['Chill'];
+					$this->RegisterDevice($d);
+
+					$d['type']	='wind_speed';
+					$d['value']	=$raw['Speed'];
+					$this->RegisterDevice($d);
+
+					$d['type']	='wind_gust';
+					$d['value']	=$raw['Gust'];
+
 				}
 				elseif($raw['Type']=='Rain'){
-					$this->RegisterDevice('sensor','rain',		$d,	'Rain');
+					$d['class']	='sensor';
+					$d['type']	='rain';
+					$d['value']	=$raw['Rain'];
 				}
 				elseif($raw['Type']=='Temp'){
-					$this->RegisterDevice('sensor','temp',		$d,	'Temp');
+					$d['class']	='sensor';
+					$d['type']	='temp';
+					$d['value']	=$raw['Temp'];
 				}
 				elseif($raw['SwitchType']=='On/Off'){
-					$this->RegisterDevice('command','switch',		$d,	'Status');
+					$d['class']	='command';
+					$d['type']	='switch';
 				}
-				else{
-					$this->RegisterDevice('undef','undef',		$d,	'Status');					
-				}
+				$this->RegisterDevice($d);
 			}
-			//$this->Debug('Devices',$devices);
+			//$this->Debug('Devices',$this->devices);
 		}
 		else{
 			if($this->debug){
@@ -92,7 +120,9 @@ Domoticz API
 				$raw=$cam['raw'];
 				if($raw['Enabled'] !='true'){continue;}
 				$cam['url']	=$this->_MakeCameraUrl($raw);
-				$this->RegisterDevice('camera','cam_ip',$cam,	'Enabled');
+				$cam['class']	="camera";
+				$cam['type']	="cam_ip";
+				$this->RegisterDevice($cam);
 			}
 		}
 		else{

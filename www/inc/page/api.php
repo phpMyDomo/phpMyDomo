@@ -3,15 +3,15 @@ class PMD_Page extends PMD_Root_Page{
 
 	//----------------------------------------------------------------------------------
 	function Run(){
-		isset($_GET['i'])	and $id			=$_GET['i'];
+		isset($_GET['a'])	and $address	=$_GET['a'];
 		isset($_GET['v'])	and $val		=$_GET['v'];
 		isset($_GET['c'])	and $command	=$_GET['c'];
 		isset($_GET['t'])	and $type		=$_GET['t'];
 		
-		if($id and strlen($val)){
+		if($address and strlen($val)){
 			isset($command)		or $command="set";
 			isset($type)		or $type="device";
-			$out=$this->o_api->ApiFetch($command, $type, $id , $val);
+			$out=$this->o_api->ApiFetch($command, $type, $address , $val);
 
 			//toDO json answer
 			

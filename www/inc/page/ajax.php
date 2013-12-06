@@ -14,12 +14,12 @@ class PMD_Page extends PMD_Root_Page{
 
 	//----------------------------------------------------------------------------------
 	private function _modeSet(){
-		isset($_GET['i'])	and $id			=$_GET['i'];
+		isset($_GET['a'])	and $address	=$_GET['a'];
 		isset($_GET['v'])	and $val		=$_GET['v'];
 		isset($_GET['t'])	and $type		=$_GET['t'];
-		if($id and strlen($val)){
-			$type or $type='device'; // or scene
-			if($this->o_api->ApiFetch('set', $type, $id , $val)){
+		if($address and strlen($val)){
+			$type or $type='switch'; // or scene
+			if($this->o_api->ApiFetch('set', $type, $address , $val)){
 				$this->_jsonOk();
 				exit;
 			}
@@ -36,7 +36,9 @@ class PMD_Page extends PMD_Root_Page{
 	//----------------------------------------------------------------------------------
 	private function _jsonError($exit=1){
 		$arr=array();
-		$arr['status']='err';
+		$arr['status']		='err';
+		$arr['api_url']		=$this->o_api->api_url;
+		$arr['api_response']	=$this->o_api->api_response;
 		echo json_encode($arr);
 		if($exit){
 			exit;

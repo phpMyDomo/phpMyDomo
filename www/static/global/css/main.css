@@ -70,17 +70,52 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#000000', end
 	font-size: 11px;
 	color: #666;
 }
+
 /* @end */
 /* @end */
 
+
+
+
+#body_home .popover{
+	max-width: 600px;
+	width: auto;
+	background: #ddd;
+}
+#body_home .popover .arrow{
+	display: none;
+}
+#body_home .popover-title{
+	padding: 4px;
+	text-align: center;
+}
+#body_home .popover-content {
+	white-space: nowrap;
+	padding: 18px 15px;
+}
+#body_home .popover .legend{
+	font-size: 10px;
+	margin: 0 5px;
+	color: #666;
+}
+#body_home .slider-horizontal{
+	width: 400px !important;
+}
 
 
 /* @group Buttons
 ------------------------------------------- */
+.button_group{
+	margin: 4px;
+}
 .button_big{
 	line-height: 36px ;
-	margin: 4px;
 	padding: 6px 12px 6px 6px;
+	margin: 0;
+}
+.button_dim{
+	padding: 13px 14px 12px 14px;
+	
 }
 .button_big .but_img{
 	display: inline-block;
@@ -167,6 +202,13 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#000000', end
 
 /* @group Page Devices
 ------------------------------------------- */
+.div_devices .popover{
+	max-width: 600px;
+	width: auto;
+}
+.div_devices .popover-content PRE{
+	font-size: 9px;	
+}
 .div_devices{
 	text-align: center;
 }
@@ -191,8 +233,12 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#000000', end
 .table_devices TR:first-child TD{
 	border: none;
 }
+.table_devices .td_img{
+	
+}
 .table_devices .td_img img{
 	height: 30px;
+	width: 30px;
 	margin-right: 10px;
 }
 .table_devices .td_type I{
@@ -209,6 +255,12 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#000000', end
 .table_devices .td_value{
 	text-align: right;
 	font-weight: bold;
+}
+.table_devices .td_value img{
+	height: 24px;
+}
+.table_devices .td_value A{
+	color: #444;
 }
 .table_devices .td_unit{
 	padding-left: 0 ;
@@ -251,4 +303,71 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#000000', end
 }
 /* @end */
 
+/* @group Page Update
+------------------------------------------- */
+#body_utils_update .panel-body{
+	font-size: 13px;
+	padding-bottom: 40px;
+}
+#body_utils_update .panel-body H3{
+	margin-top: 40px;
+	margin-bottom: 20px;
+	border-top: 1px solid #ccc;
+	padding-top: 15px;
+	font-size: 16px;
+	color: #777;
+}
+#body_utils_update .panel-body H3:first-child{
+	margin-top: 0;
+	padding: 0;
+	border: none;
+}
+#body_utils_update .centered{
+	text-align: center;
+}
+
+#body_utils_update .changelog{
+	margin: 0;
+	padding: 0 0 20px 20px;
+}
+#body_utils_update .changelog UL{
+	padding: 0 0 15px 20px;
+}
+#body_utils_update .changelog H5 I{
+	color: #AAA;
+	font-style: normal;
+	font-weight: normal;
+}
+#body_utils_update .changelog LI{
+	font-size: 12px;
+	list-style: none;
+	padding: 0 0 3px 0;
+	margin: 0;
+	line-height: 130%;
+	color: #000;
+}
+#body_utils_update .changelog LI .fa{
+	margin-right: 3px;
+}
+#body_utils_update .changelog LI.dev{
+	color: #668;	
+}
+#body_utils_update .changelog LI.new .fa{
+	color: #0A0;
+}
+#body_utils_update .changelog LI.fix .fa{
+	color: #E00;
+}
+#body_utils_update .changelog LI.dev .fa{
+	color: #00F;
+}
+#body_utils_update .mess{
+	padding: 10px 0 20px 0;
+	font-size: 16px;
+}
+#body_utils_update .mess_success{
+	color: #000;
+	font-weight: bold;
+}
+/* @end */
 

@@ -1,7 +1,9 @@
 jQuery( document ).ready(function() {
-    console.log( "ready!" );
+    console.log( "JS Ready!" );
     
-    var ajax_url='/ajax'
+    var ajax_url='/ajax';
+	var refresh_time=12;
+
     /* Reload page -------------------------------------- */
 	var reload_time=$('#jsReload').attr('data-time');
 	SetReload(reload_time);
@@ -16,7 +18,7 @@ jQuery( document ).ready(function() {
     		'off': img.attr('data-off'),
     	};
     	var type	=but.attr('data-type');
-    	var id		=but.attr('data-id');
+    	var address	=but.attr('data-address');
     	var state	=but.attr('data-state');
     	var onclass	=but.attr('data-onclass');
     	but.removeClass('active').addClass('active');
@@ -26,11 +28,11 @@ jQuery( document ).ready(function() {
     		target='off'
     	}
     	
-    	$.getJSON( ajax_url, { mode: "set", i: id, v: target, t: type } )
+    	$.getJSON( ajax_url, { mode: "set", a: address, v: target, t: type } )
   			.done(function( json ) {
-				SetReload(5);
 			    but.removeClass('active');
   				if(json.status=='ok'){
+					SetReload(refresh_time);
   					console.log('OK');
 					but.removeClass(onclass);
 					but.attr('data-state',target);
@@ -44,13 +46,49 @@ jQuery( document ).ready(function() {
   				}
 			})
 			.fail(function( jqxhr, textStatus, error ) {
-				SetReload(reload_time);
 			    but.removeClass('active');
 				var err = textStatus + ", " + error;
 				console.log( "Request Failed: " + err );
 			});    	
     });
+
+    /* Button Level (to do) -------------------------------------- */
+   $('.jsButLevel').click(function(e){
+    	e.preventDefault();
+    	var but		=$(this);
+		
+    });
+
+ 	
+ 	var sliderVal;
+
+
+    $("#body_home .jsPopover").popover({
+        html: true,
+        placement: 'auto bottom',
+        content: function () {
+            return $("#dim_popover").html();
+        }
+    }).click(function () {
+
+        $('#rangeSlider').slider().on('slide', function (ev) {
+            sliderVal = ev.value;
+        });
+        if (sliderVal) {
+            $('#rangeSlider').slider('setValue', sliderVal)
+        }
+    });
+
+
     
+    /* Debug Devices ------------------------------------------------------------------------ */
+    $('#body_devices .jsPopover').popover({
+    	trigger: 'hover',
+    	html: true
+    });
+    
+
+
 });
 
 /* FUNCTIONS ################################################################################### */

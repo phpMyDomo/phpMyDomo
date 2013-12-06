@@ -24,9 +24,10 @@ class PMD_ApiClient extends PMD_Root_ApiClient{
 
 /* 
 Domogiz 0.3 API
+(only Device listing is supported. )
 
 WorkInProgress:
-Missing : Get values and format values for each devices
+Missing values and states for each devices. Domogiz 0.4 should be better
 
 */
 
@@ -42,82 +43,107 @@ Missing : Get values and format values for each devices
 			$i=0;
 			foreach($devices as $d){
 				$raw=$d['raw'];
-				//id is user as the address to send commands to
-				$d['id']=$raw['device_type']['device_technology_id'].'/'.$raw['address'];
+				//address to send commands to
+				// Api Doc is not very usefull : What is the correct address?
+				//$d['address']=$raw['device_type']['device_technology_id'].'/'.$raw['address'];
+				$d['address']=$raw['device_type']['id'].'/'.$raw['address'];
 
 				// by master device usages
 				if($raw['device_usage_id']=='air_conditionning'){
-					$this->RegisterDevice('command','therm',	$d, $raw['id']);
+					$d['class']	='command';
+					$d['type']	='therm';
 				}
 				elseif($raw['device_usage_id']=='ventilation'){
-					$this->RegisterDevice('command','fan',	$d, $raw['id']);
+					$d['class']	='command';
+					$d['type']	='fan';
 				}
 				elseif($raw['device_usage_id']=='heating'){
-					$this->RegisterDevice('command','heating',	$d, $raw['id']);
+					$d['class']	='command';
+					$d['type']	='heating';
 				}
 				elseif($raw['device_usage_id']=='shutter'){
-					$this->RegisterDevice('command','shutter',	$d, $raw['id']);
+					$d['class']	='command';
+					$d['type']	='shutter';
 				}
 
 				// by device_type_id (RFXCOM) ---------
 				elseif($raw['device_type_id']=='online_service.weather'){
-					$this->RegisterDevice('sensor','temp',	$d, $raw['id']);					
+					$d['class']	='sensor';
+					$d['type']	='temp';
 				}
 				elseif($raw['device_type_id']=='rfxcom.thb'){
-					$d['sub_id']='temp';
-					$this->RegisterDevice('sensor','temp',	$d, $raw['id'].'_'.$d['sub_id']);
-					$d['sub_id']='baro';
-					$this->RegisterDevice('sensor','baro',	$d, $raw['id'].'_'.$d['sub_id']);					
+					$d['class']	='sensor';
+
+					$d['type']	='temp';
+					$this->RegisterDevice($d);
+
+					$d['type']	='baro';
 				}
 				elseif($raw['device_type_id']=='rfxcom.th'){
-					$this->RegisterDevice('sensor','temp',	$d, $raw['id']);					
+					$d['class']	='sensor';
+					$d['type']	='temp';
 				}
 				elseif($raw['device_type_id']=='rfxcom.wind'){
-					$d['sub_id']='speed';
-					$this->RegisterDevice('sensor','wind_speed',	$d, $raw['id'].'_'.$d['sub_id']);					
-					$d['sub_id']='gust';
-					$this->RegisterDevice('sensor','wind_gust',	$d, $raw['id'].'_'.$d['sub_id']);					
+					$d['class']	='sensor';
+					
+					$d['type']	='wind_speed';
+					$this->RegisterDevice($d);
+
+					$d['type']	='wind_gust';
 				}
 				elseif($raw['device_type_id']=='rfxcom.rain'){
-					$this->RegisterDevice('sensor','rain',	$d, $raw['id']);					
+					$d['class']	='sensor';
+					$d['type']	='rain';
 				}
 				elseif($raw['device_type_id']=='rfxcom.humidity'){
-					$this->RegisterDevice('sensor','hum',	$d, $raw['id']);					
+					$d['class']	='sensor';
+					$d['type']	='hygro';
 				}
 				elseif($raw['device_type_id']=='rfxcom.uv'){
-					$this->RegisterDevice('sensor','uv',	$d, $raw['id']);					
+					$d['class']	='sensor';
+					$d['type']	='uv';
 				}
 				elseif($raw['device_type_id']=='rfxcom.rfxmeter'){
-					$this->RegisterDevice('sensor','current',	$d, $raw['id']);					
+					$d['class']	='sensor';
+					$d['type']	='current';
 				}
 				elseif($raw['device_type_id']=='rfxcom.elec1'){
-					$this->RegisterDevice('sensor','current',	$d, $raw['id']);					
+					$d['class']	='sensor';
+					$d['type']	='current';
 				}
 				elseif($raw['device_type_id']=='rfxcom.elec2'){
-					$this->RegisterDevice('sensor','current',	$d, $raw['id']);					
+					$d['class']	='sensor';
+					$d['type']	='current';
 				}
 				elseif($raw['device_type_id']=='rfxcom.rfxsensor'){
-					$this->RegisterDevice('sensor','temp',	$d, $raw['id']);					
+					$d['class']	='sensor';
+					$d['type']	='temp';
 				}
 				
 				elseif($raw['device_type_id']=='rfxcom.curtain1_harrison'){
-					$this->RegisterDevice('command','switch',	$d, $raw['id']);					
+					$d['class']	='command';
+					$d['type']	='switch';
 				}
 
 				elseif($raw['device_type_id']=='rfxcom.lighting1_arc_switch'){
-					$this->RegisterDevice('command','switch',	$d, $raw['id']);					
+					$d['class']	='command';
+					$d['type']	='switch';
 				}
 				elseif($raw['device_type_id']=='rfxcom.lighting1_chacon_switch'){
-					$this->RegisterDevice('command','switch',	$d, $raw['id']);					
+					$d['class']	='command';
+					$d['type']	='switch';
 				}
 				elseif($raw['device_type_id']=='rfxcom.lighting1_elro_switch'){
-					$this->RegisterDevice('command','switch',	$d, $raw['id']);					
+					$d['class']	='command';
+					$d['type']	='switch';
 				}
 				elseif($raw['device_type_id']=='rfxcom.lighting1_impuls_switch'){
-					$this->RegisterDevice('command','switch',	$d, $raw['id']);					
+					$d['class']	='command';
+					$d['type']	='switch';
 				}
 				elseif($raw['device_type_id']=='rfxcom.lighting1_waveman_switch'){
-					$this->RegisterDevice('command','switch',	$d, $raw['id']);					
+					$d['class']	='command';
+					$d['type']	='switch';
 				}
 				/*
 				elseif($raw['device_type_id']=='rfxcom.digimax'){
@@ -126,52 +152,64 @@ Missing : Get values and format values for each devices
 				*/
 				
 				elseif($raw['device_type_id']=='rfxcom.lighting2_ac_dimmer'){
-					$this->RegisterDevice('command','dimmer',	$d, $raw['id']);					
+					$d['class']	='command';
+					$d['type']	='dimmer';
 				}
 				elseif($raw['device_type_id']=='rfxcom.lighting1_x10_dimmer'){
-					$this->RegisterDevice('command','dimmer',	$d, $raw['id']);					
+					$d['class']	='command';
+					$d['type']	='dimmer';
 				}
 				elseif($raw['device_type_id']=='rfxcom.lighting2_homeeasy_eu_dimmer'){
-					$this->RegisterDevice('command','dimmer',	$d, $raw['id']);					
+					$d['class']	='command';
+					$d['type']	='dimmer';
 				}
 				elseif($raw['device_type_id']=='rfxcom.lighting3_koppla_dimmer'){
-					$this->RegisterDevice('command','dimmer',	$d, $raw['id']);					
+					$d['class']	='command';
+					$d['type']	='dimmer';
 				}
 
 				elseif($raw['device_type_id']=='dawndusk.status'){
-					//$this->RegisterDevice('info','dawndusk',	$d, $raw['id']);
+					continue;
 				}
 
 				// by (fallback) device_usage_id ---------
 
 				elseif($raw['device_usage_id']=='appliance' or $raw['device_usage_id']=='light' or $raw['device_usage_id']=='christmas_tree' or $raw['device_usage_id']=='portal'){
-					$this->RegisterDevice('command','switch',	$d, $raw['id']);
+					$d['class']	='command';
+					$d['type']	='switch';
 				}
 
 				elseif($raw['device_usage_id']=='water_tank'){
-					$this->RegisterDevice('sensor','level',	$d, $raw['id']);
+					$d['class']	='sensor';
+					$d['type']	='level';
 				}
 				elseif($raw['device_usage_id']=='temperature'){
-					$this->RegisterDevice('sensor','temp',	$d, $raw['id']);
+					$d['class']	='sensor';
+					$d['type']	='temp';
 				}
 				elseif($raw['device_usage_id']=='door'){
-					$this->RegisterDevice('security','door',	$d, $raw['id']);
+					$d['class']	='security';
+					$d['type']	='door';
 				}
 				elseif($raw['device_usage_id']=='window'){
-					$this->RegisterDevice('security','window',	$d, $raw['id']);
+					$d['class']	='security';
+					$d['type']	='window';
 				}
 
 				elseif($raw['device_usage_id']=='security_camera'){
-					$this->RegisterDevice('camera','cam_ip',	$d, $raw['id']);
+					$d['class']	='camera';
+					$d['type']	='cam_ip';
 				}
 
 				elseif($raw['device_usage_id']=='scene'){
-					$this->RegisterDevice('scene','scene',	$d, $raw['id']);
+					$d['class']	='scene';
+					$d['type']	='scene';
 				}
-
 				else{
-					$this->RegisterDevice('undef','undef',	$d, $raw['id']);					
+					
 				}
+				$this->RegisterDevice($d);
+
 			}
 			$this->_FetchValues();
 			//$this->Debug('Devices',$this->devices);
@@ -193,21 +231,20 @@ Missing : Get values and format values for each devices
 			foreach($this->devices as $uid => $d){
 				foreach($stats as $s){
 					if($d['raw']['id']==$s['device_id']){
+						$d['raw_stats']=$s;
 						//assign value
 						//value for commands should be ( 'on' | 'off' | 'int');
 						$d['value']=$s['value'];
-						if($d['value']=='none' or $d['value']=='0') $d['value']='off';
+						if($d['value']=='none' or $d['value']=='0') $d['state']='off';
 					}
 				}
 				
-				//assign img_type
-				$d['img_type']=$d['type'];
+				//assign state to switches
 				if($d['class'] !='sensor' and $d['class'] !='camera'){
-					$d['value'] or $d['value']='on'; //just to test
-					$d['img_type'] .="_".$d['value'];
+					$d['state'] or $d['state']='on'; //just to test
 				}
 				// replace
-				$this->devices[$uid]=$d;
+				$this->RegisterDevice($d);
 			}
 			//$this->Debug('Stats',$stats);
 		}
