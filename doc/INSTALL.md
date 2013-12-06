@@ -3,9 +3,10 @@
 
 - Apache WebServer
 - Apache ModRewrite enabled
-- php5
+- php5 >= 5.3
+- php5-curl
 
-Please make sure that you have a working Apache + php5 + ModRewrite installed. If not, you can automatically install these by doing (on Debian):
+Please make sure that you have a working Apache + php5 + php5-curl + ModRewrite installed. If not, you can automatically install these by doing (on Debian):
 
 ```sh
 cd phpMyDomo/www/inc/bin/
