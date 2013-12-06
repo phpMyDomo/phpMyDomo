@@ -54,7 +54,7 @@ $conf['libs']['root_page']		=$conf['paths']['libs']."pmd_root_page.php";
 $conf['libs']['root_api_client']=$conf['paths']['libs']."pmd_root_api_client.php";
 $conf['libs']['api_client']		=$conf['paths']['api']."api_client.php";
 $conf['libs']['smarty']			=$conf['paths']['vendor']."Smarty/libs/Smarty.class.php";
-		
+
 // set urls ---------------------------------------------------------------------------------
 $conf['urls']['www']		=$conf['app']['protocol'].$_SERVER["HTTP_HOST"];
 $conf['urls']['static']		=$conf['urls']['www'].'/static';
@@ -90,7 +90,7 @@ if(!file_exists($conf['paths']['caches'].'version')){
 	echo "OK<br>";
 
 	//success
-	file_put_contents($conf['paths']['cache'].'version',$conf['sys']['version']);
+	file_put_contents($conf['paths']['caches'].'version',$conf['app']['version']);
 	echo "<p>Cool! <b>{$conf['app']['name']} has been successfully installed!</b></p>";
 	echo "<i>(Please refresh this page if not done automatically) <meta http-equiv='refresh' content='6'></i>";
 	exit;
