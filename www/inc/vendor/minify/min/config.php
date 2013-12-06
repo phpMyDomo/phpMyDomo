@@ -58,6 +58,8 @@ $min_allowDebugFlag = false;
  */
 //require dirname(__FILE__) . '/lib/Minify/Cache/APC.php';
 //$min_cachePath = new Minify_Cache_APC();
+
+//PMD ##########################################################################
 $min_cachePath	=dirname(dirname(dirname(dirname(__FILE__)))).'/cache/minify';
 
 /**
@@ -103,7 +105,15 @@ $min_serveOptions['bubbleCssImports'] = false;
  * querystring, maxAge will be set to one year. E.g. /min/f=hello.css&123456
  */
 //$min_serveOptions['maxAge'] = 1800;
+//PMD Cache for a day ###############################################
 $min_serveOptions['maxAge'] = 86400;
+
+// PMD : Force Recache ###############################################
+if(isset($_GET['compil'])){
+	$min_serveOptions['maxAge']=0;
+	$min_serveOptions['lastModifiedTime'] = $_SERVER['REQUEST_TIME'] ;
+}
+
 
 
 /**

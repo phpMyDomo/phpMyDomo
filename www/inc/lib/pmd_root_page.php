@@ -30,7 +30,8 @@ class PMD_Root_Page extends PMD_Root{
 	var $dir_skin;
 	
 	//prevent minifying 
-	var $minify_no_cache = false;
+	var $minify_bypass 		= false;
+	var $minify_reset		= false;
 	
 	// smarty cache_lifetime
 	var $cache_lifetime=3600;
@@ -65,7 +66,7 @@ class PMD_Root_Page extends PMD_Root{
 		if($this->conf['debug']['show']){
 			$this->o_smarty->compile_check		=true;
 			$this->o_smarty->debugging			=true;
-			$this->minify_no_cache				=true;		
+			$this->minify_bypass				=true;		
 		}
 		else{
 			$this->o_smarty->compile_check		=false;
@@ -73,7 +74,7 @@ class PMD_Root_Page extends PMD_Root{
 
 		if(isset($_GET['compil'])){
 			$this->o_smarty->compile_check		=true;
-			$this->minify_no_cache				=true;		
+			$this->minify_reset					=true;		
 		}
 
 		$this->o_smarty->cache_lifetime	= $this->cache_lifetime;
@@ -98,6 +99,7 @@ class PMD_Root_Page extends PMD_Root{
 
 		$this->SetHeader('bs/css/bootstrap.min.css','css_global');
 		$this->SetHeader('bs/css/bootstrap-theme.min.css','css_global');
+		$this->SetHeader('bs/css/bootstrap-slider.min.css','css_global');
 		$this->SetHeader('bs/css/font-awesome.min.css','css_global');
 		$this->SetHeader('css/main.css','css_global');
 		$this->SetHeader('css/skin.css','css');
@@ -105,6 +107,7 @@ class PMD_Root_Page extends PMD_Root{
 		$this->SetHeader('js/jquery-1.7.2.min.js','js_global');
 		$this->SetHeader('js/jquery.lazyload.min.js','js_global');
 		$this->SetHeader('bs/js/bootstrap.min.js','js_global');
+		$this->SetHeader('bs/js/bootstrap-slider.min.js','js_global');
 		$this->SetHeader('js/main.js','js_global');
 		$this->SetHeader('js/skin.js','js');
 
@@ -125,6 +128,7 @@ class PMD_Root_Page extends PMD_Root{
 		$page['api']				=$this->conf['app']['api'];
 		$page['code']				=$this->conf['app']['page'];
 		$page['template']			=$this->dir_template;
+		$page['dirs']['www']		=$this->conf['urls']['www'];
 		$page['dirs']['static']		=$this->conf['urls']['static'];
 		$page['dirs']['skin']		=$this->dir_skin;
 		$page['dirs']['server_admin']=$this->conf['api']['urls']['admin'];
@@ -210,15 +214,17 @@ class PMD_Root_Page extends PMD_Root{
 			$minify_js	.="$abs_skin/$url,";
 		}
 
-		if($this->minify_no_cache){
+		if($this->minify_bypass){
 			$out=$html;
 		}
 		else{
 			$minify_css	=rtrim($minify_css,',');
 			$minify_js	=rtrim($minify_js,',');
 			$version=$this->conf['app']['version'];
-			$out  ="	<link rel='stylesheet' type='text/css' href='{$this->conf['urls']['minify']}/?f=$minify_css&v=$version' />\n";
-			$out .="	<script language='javascript' src='{$this->conf['urls']['minify']}/?f=$minify_js&v=$version'></script>\n";
+			$minify_query="&v=$version";
+			if($this->minify_reset){$minify_query .="&compil=1";}
+			$out  ="	<link rel='stylesheet' type='text/css' href='{$this->conf['urls']['minify']}/?f=$minify_css$minify_query' />\n";
+			$out .="	<script language='javascript' src='{$this->conf['urls']['minify']}/?f=$minify_js$minify_query'></script>\n";
 		}
 		return $out;
 	}
