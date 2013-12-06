@@ -41,6 +41,11 @@ $lang['types']['air']		="Air Conditioning";
 $lang['types']['uv']		="UV";
 $lang['types']['shutter']	="Shutter";
 $lang['types']['current']	="Current";
+$lang['types']['undef']		="Unknown";
+$lang['types']['hygro']		="Hygrometer";
+$lang['types']['bool']		="State";
+$lang['types']['pir']		="Motion";
+$lang['types']['gas']		="Gas/Smoke";
 
 // info ################################################################
 $lang['infos']['sunset']	="Sunset";

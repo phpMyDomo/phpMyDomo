@@ -39,6 +39,7 @@ $conf['units']['hum']			="%";
 $conf['units']['wind']			="m/s";
 $conf['units']['rain']			="mm";
 $conf['units']['baro']			="hPa";
+$conf['units']['hygro']			="%";
 
 $conf['units']['wind_speed']	="m/s";
 $conf['units']['wind_gust']		="m/s";
