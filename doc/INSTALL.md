@@ -51,6 +51,6 @@ By default, phpMyDomo, is configured to use the Domoticz API, on the same server
 - Launch you browser on the url where you've installed phpMyDomo.
  Click on the "Devices" Tab. If all is well configured , you should see your device list.
 
-- You can now customize the config.php file to create your group, hide menu, add cameras etc...
+- You can now customize the config.php file to create your groups, blocks, hide menu, add cameras etc...
 
 

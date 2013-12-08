@@ -16,12 +16,15 @@ You an also temporately activate debug by adding ?debug=1 to the URL
 # Roadmap
 - finalize dimmers
 - finalize/add new API clients
+- sort devices
 - better design (CSS, icons, etc...)
-- better skins (with skin configs to override simple design choice, ie buttons sizes)
-- user defined smarty templates
+- move blocks / group config to a GUI, using a light file based database (listing devices groups, blocks, customs icons)
+- better skins (with skin configs to override simple design choices, ie buttons sizes)
+- user defined pages + smarty templates
 - may be a dedicated website if many users interested
-- Integrate xPl ,as an api-client, to be able to send xPl messages
+- Integrate xPl, as an api-client, to be able to send xPl messages
 - DLNA/upnp controller
+- Asterisk Call logs displays, and basic redial
 - multiple API client support in a single phpDomo instance (if any interest)
 - ....
 

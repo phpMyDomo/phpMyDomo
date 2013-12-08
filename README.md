@@ -5,6 +5,7 @@ _The ultimate Domotic remote for the rest of us !_
 ## About phpMyDomo
 
 phpMyDomo is an open-source Web Application aimed to provide a clean, robust, customizable, fast and intuitive interface to many Home Automation software. With todays chinese phones and tablets starting as low as $50, it becomes a cheap and powerfull way to build remotes to control anything smartly in your house. phpMyDomo wants to be the ultimate WebApp that works as well on these devices, as on any computer browser.
+phpMyDomo don't aim to replace the cool domotic's software you're currently using, but rather to add a convenient web interface to it.
 
 Currently supported software include __Domoticz__, __Domotiga__ and __Domogik__.
 
@@ -12,7 +13,10 @@ This is a Work In Progress : At this time only Switches and Sensors are fully su
 
 
 ## Features
-- Responsive design : Display fine on any Android/IOS tablet and any modern (HTML5) web browser
+- Allow to Switch on/off or Dim (WIP) any supported devices or scenes, from the Dashboard page
+- View all sensors at once, or per user defined groups
+- View all cameras on a single page
+- Responsive design : Display fine on any Android/IOS tablet, phone and any modern (HTML5) web browser
 - Multiple Skins, build your own easily
 - Multiples languages supported
 - Any Home Automation Software supported via Api Plugins
@@ -21,10 +25,13 @@ This is a Work In Progress : At this time only Switches and Sensors are fully su
 - Minimal server requirements : a php-enabled web server
 - Object oriented, MVC design : easily build your own custom pages, in minutes...
 - Free and Open Source
+- Highest WAF (Wife acceptation Factor) possible
+
 
 ## Install
 Just [download the 'Master' archive](archive/master.zip), and follow the [Install guide](doc/INSTALL.md), or
 install from git : `git clone https://github.com/soif/phpMyDomo.git`
+
 
 ## Update
 Either updade from git : `git pull` (in the root phpMydomo directory) 
@@ -36,7 +43,7 @@ or
  then go to http://[your_web_server]/utils/update from your web browser
 
 
-## Skills Wanted
+## Skills Wanted !
 The main goal of this app is to gather talented developers, designers and users, to build the coolest WebApp that can control any smart domotic's software.
 
 What's needed:
@@ -54,11 +61,13 @@ What's needed:
 To resume, if you have a skill, and whish to contibute : You're Welcome !
 __So Please, fork this Repo, and make Pull-Requests to the Develop branch ;-)__
 
+
 ## Screenshots
 ![alt text](doc/screenshots/01.png?raw=true "Main page (Default Skin)")
 ![alt text](doc/screenshots/02.png?raw=true "Main page on phone (Default Skin)")
 ![alt text](doc/screenshots/03.png?raw=true "Main page (Black Skin)")
 ![alt text](doc/screenshots/04.png?raw=true "Devices List (Black Skin)")
+
 
 ## Support
 The software is provided as is, and need a minimum computer expertise to be installed and configured. I won't provide any support by email , phone, tickets, etc...  but if you're offering money, I might change my mind... ;-)
