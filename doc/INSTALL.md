@@ -32,7 +32,7 @@ If you use the default apache web directory at /var/www/ , make sure that this d
 	(other directives)
 </Directory>
 ```
-_in Debian, you just have to change "AllowOverride None" to "__AllowOverride All__"_
+_in Debian, you just have to change "AllowOverride None" to __AllowOverride All__ . _
 
 3) restart apache
 `apache2ctl restart`
@@ -46,7 +46,7 @@ rename _config-sample.php_ to __config.php__
 By default, phpMyDomo, is configured to use the Domoticz API, on the same server, port 8080. If your Domoticz/Domogik is on another server or port, please edit it to match your own environment.
 
 
-# Check if it works #########################################
+## Check if it works #########################################
 
 - Launch you browser on the url where you've installed phpMyDomo.
  Click on the "Devices" Tab. If all is well configured , you should see your device list.
