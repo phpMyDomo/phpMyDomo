@@ -26,6 +26,7 @@ $conf['app']['lang']		="en";
 URLS of remote API Server.If not set default to the same server, on the default port.
 $conf['urls']['server_domoticz']	="http://10.1.100.151";
 $conf['urls']['server_domogik']		="http://10.1.100.152";
+$conf['urls']['server_domotiga']	="http://10.1.100.153";
 */
 
 
