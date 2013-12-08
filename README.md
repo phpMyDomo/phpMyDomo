@@ -28,8 +28,15 @@ This is a Work In Progress : At this time only Switches and Sensors are fully su
 - Highest WAF (Wife acceptation Factor) possible
 
 
+## Screenshots
+![alt text](doc/screenshots/01.png?raw=true "Main page (Default Skin)")
+![alt text](doc/screenshots/02.png?raw=true "Main page on phone (Default Skin)")
+![alt text](doc/screenshots/03.png?raw=true "Main page (Black Skin)")
+![alt text](doc/screenshots/04.png?raw=true "Devices List (Black Skin)")
+
+
 ## Install
-Just [download the 'Master' archive](archive/master.zip), and follow the [Install guide](doc/INSTALL.md), or
+Just [download the 'Master' archive](https://github.com/soif/phpMyDomo/archive/master.zip), and follow the [Install guide](doc/INSTALL.md), or
 install from git : `git clone https://github.com/soif/phpMyDomo.git`
 
 
@@ -37,7 +44,7 @@ install from git : `git clone https://github.com/soif/phpMyDomo.git`
 Either updade from git : `git pull` (in the root phpMydomo directory) 
 or 
  - keep a copy of your config file (from phpMyDomo/www/inc/conf/config.php )
- - replace the phpMyDomo directory, from the latest [Master archive](archive/master.zip)
+ - replace the phpMyDomo directory, from the latest [Master archive](https://github.com/soif/phpMyDomo/archive/master.zip)
  - copy your original config.php file back in the phpMyDomo/www/inc/conf/ directory
  
  then go to http://[your_web_server]/utils/update from your web browser
@@ -58,15 +65,8 @@ What's needed:
 - Fans: to promote phpMyDomo around the web !
 - Any ideas or code to make it better.... ;-)
 
-To resume, if you have a skill, and whish to contibute : You're Welcome !
+To resume, if you have a skill, and wish to contibute : You're Welcome !
 __So Please, fork this Repo, and make Pull-Requests to the Develop branch ;-)__
-
-
-## Screenshots
-![alt text](doc/screenshots/01.png?raw=true "Main page (Default Skin)")
-![alt text](doc/screenshots/02.png?raw=true "Main page on phone (Default Skin)")
-![alt text](doc/screenshots/03.png?raw=true "Main page (Black Skin)")
-![alt text](doc/screenshots/04.png?raw=true "Devices List (Black Skin)")
 
 
 ## Support
