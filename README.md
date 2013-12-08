@@ -36,15 +36,15 @@ This is a Work In Progress : At this time only Switches and Sensors are fully su
 
 
 ## Install
-Just [download the 'Master' archive](https://github.com/soif/phpMyDomo/archive/master.zip), and follow the [Install guide](doc/INSTALL.md), or
-install from git : `git clone https://github.com/soif/phpMyDomo.git`
+Just [download the 'Master' archive](https://github.com/phpMyDomo/phpMyDomo/archive/master.zip), and follow the [Install guide](doc/INSTALL.md), or
+install from git : `git clone https://github.com/phpMyDomo/phpMyDomo.git`
 
 
 ## Update
 Either updade from git : `git pull` (in the root phpMydomo directory) 
 or 
  - keep a copy of your config file (from phpMyDomo/www/inc/conf/config.php )
- - replace the phpMyDomo directory, from the latest [Master archive](https://github.com/soif/phpMyDomo/archive/master.zip)
+ - replace the phpMyDomo directory, from the latest [Master archive](https://github.com/phpMyDomo/phpMyDomo/archive/master.zip)
  - copy your original config.php file back in the phpMyDomo/www/inc/conf/ directory
  
  then go to http://[your_web_server]/utils/update from your web browser
