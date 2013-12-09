@@ -372,5 +372,22 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#000000', end
 	color: #000;
 	font-weight: bold;
 }
+#body_utils_update .dl_help UL{
+	padding: 8px 0 0 10px;
+}
+#body_utils_update .dl_help LI{
+	list-style: none;
+	padding-bottom: 18px;
+	line-height: 140%;
+}
+#body_utils_update .dl_help LI I{
+	color: #888;
+}
+#body_utils_update .dl_help CODE{
+	margin: 2px 0;
+	display: inline-block;
+	border: 1px solid #ccc;
+}
+
 /* @end */
 

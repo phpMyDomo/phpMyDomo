@@ -7,6 +7,8 @@ class PMD_Page extends PMD_Root_Page{
 		$data=array();
 		$data['old_version']	=file_get_contents($this->conf['paths']['caches'].'version');
 		$data['new_version']	=$this->conf['app']['version'];
+		$data['dl_version']		=$this->conf['app']['dl_version'];
+		$data['paths']			=$this->conf['paths'];
 		$data['step']			=$_GET['step'];
 		$data['refresh']		=6;
 		$step=$data['step'];
@@ -15,7 +17,7 @@ class PMD_Page extends PMD_Root_Page{
 			header("location: {$this->conf['urls']['www']}/utils/reset?redirect");
 		}
 		elseif($step==2){
-			//then here we will make update depending on verion, ie mysql update
+			//then here we will make update depending on version, ie mysql update
 			
 			$data['title']="Saving Version";
 			file_put_contents($this->conf['paths']['caches'].'version',$this->conf['app']['version']);
