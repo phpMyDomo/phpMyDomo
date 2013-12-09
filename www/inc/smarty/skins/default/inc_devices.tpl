@@ -15,7 +15,10 @@
 {if $p.code=='devices'}
 			<td class="td_id">		{$i.uid}<br>({$i.address})</td>
 {elseif $p.code=='commands'}
-			<td class="td_value">	<a href='#' class="btn btn-default">ON</a> <a href='#' class="btn btn-default">OFF</a></td>
+<!--
+TODO : Implement Buttons ON, OFF
+			<td class="td_value">	<a href='#' class="btn btn-default">ON</a> <a href='#' class="btn btn-default">OFF</a></td> 
+-->
 {/if}
 		</tr>
 	{/foreach}
