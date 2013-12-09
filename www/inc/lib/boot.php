@@ -4,7 +4,7 @@ ini_set('display_errors','On');
 
 // base ------------------------------------------------------------------------------------
 $conf=array();
-$conf['app']['version']		="0.13";
+$conf['app']['version']		="0.131";
 $conf['app']['name']		="phpMyDomo";
 $conf['app']['url']			="http://www.phpmydomo.org";
 $conf['app']['protocol']	=(strtolower(substr($_SERVER["SERVER_PROTOCOL"],0,5))=='https') ? 'https://':'http://';
