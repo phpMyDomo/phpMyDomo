@@ -27,7 +27,7 @@ class PMD_Page extends PMD_Root_Page{
 			// this is finished
 			$data['step']='done';
 		}
-		elseif($data['old_version'] == $data['new_version']){
+		elseif($data['old_version'] == $data['new_version'] and ! $data['dl_version'] ){
 			$data['step']='done';
 			$data['text']="You've already performed the update";
 		}
