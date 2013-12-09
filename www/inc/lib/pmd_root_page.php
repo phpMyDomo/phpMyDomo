@@ -54,7 +54,16 @@ class PMD_Root_Page extends PMD_Root{
 		
 		$this->_initHeaders();
 		$this->_initSmarty();
+		$this->_initVersion();
 	}
+	
+	//----------------------------------------------------------------------------------
+	private function _initVersion(){
+		if($this->conf['app']['last_version'] and $this->conf['app']['last_version'] > $this->conf['app']['version']){
+			$this->conf['app']['dl_version'] = $this->conf['app']['last_version'];
+		}
+	}
+	
 	//----------------------------------------------------------------------------------
 	private function _initSmarty(){
 		require($this->conf['libs']['smarty']);
@@ -129,9 +138,7 @@ class PMD_Root_Page extends PMD_Root{
 		$page['api']				=$this->conf['app']['api'];
 		$page['code']				=$this->conf['app']['page'];
 		$page['template']			=$this->dir_template;
-		$page['dirs']['www']		=$this->conf['urls']['www'];
-		$page['dirs']['static']		=$this->conf['urls']['static'];
-		$page['dirs']['skin']		=$this->dir_skin;
+		$page['urls']				=$this->conf['urls'];
 		$page['dirs']['server_admin']=$this->conf['api']['urls']['admin'];
 		$page['headers']			=$this->_getHeaders();
 		$page['menu_urls']			=$this->conf['menu_urls'];	
