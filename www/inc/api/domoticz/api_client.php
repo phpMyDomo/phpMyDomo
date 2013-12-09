@@ -1,6 +1,7 @@
 <?php
 /*
 	phpMyDomo : Home Automation Web Interface
+	http://www.phpmydomo.org
     ----------------------------------------------
 	Copyright (C) 2013  Francois Dechery
 

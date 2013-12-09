@@ -70,7 +70,10 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#000000', end
 	font-size: 11px;
 	color: #666;
 }
-
+#lay_footer .copyright A{
+	color: #666;
+	text-decoration: underline;	
+}
 /* @end */
 /* @end */
 

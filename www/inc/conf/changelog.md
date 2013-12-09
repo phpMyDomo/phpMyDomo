@@ -1,5 +1,10 @@
 # phpMyDomo ChangeLog
 
+## Version : 0.131 - Dec 9, 2013
+- fix: show correct sesors names in dashboard
+- dev: hide commands page buttons not implemented
+- new: phpMyDomo.org web site
+
 ## Version : 0.13 - Dec 6, 2013
 - new: Domotiga API : support List Device, and maybe Switch command (not tested)
 - dev: start implementing Dimmers

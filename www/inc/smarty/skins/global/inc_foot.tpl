@@ -4,5 +4,5 @@
 		<li class="menu_{$k}{if $p.code==$k} active{/if}"><a href='/{$p.menu_urls.$k}'><i class='{$p.menu_icons.$k}'></i> {$lg.menu_head.$k|default:$k}</a></li>	
 {/foreach}
 	</ul>
-	<div class="copyright">{$c.app.name} v{$c.app.version}</div>
+	<div class="copyright"><a href="{$c.app.url}">{$c.app.name}</a> v{$c.app.version}</div>
 </div>

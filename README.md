@@ -1,5 +1,6 @@
 # phpMyDomo
 _The ultimate Domotic remote for the rest of us !_
+http://www.phpmydomo.org
 
 
 ## About phpMyDomo
