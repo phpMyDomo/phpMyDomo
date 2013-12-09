@@ -6,7 +6,6 @@ ini_set('display_errors','On');
 $conf=array();
 $conf['app']['version']		="0.131";
 $conf['app']['name']		="phpMyDomo";
-$conf['app']['url']			="http://www.phpmydomo.org";
 $conf['app']['protocol']	=(strtolower(substr($_SERVER["SERVER_PROTOCOL"],0,5))=='https') ? 'https://':'http://';
 
 // menus ------------------------------------------------------------------------------------
@@ -30,6 +29,7 @@ isset($conf['menu_foot']) or $conf['menu_foot']=array_keys($conf['menu_urls']);
 //set paths -------------------------------------------------------------------------------
 $conf['paths']['includes']	=dirname(dirname(__FILE__)).'/';
 $conf['paths']['www']		=dirname(dirname(dirname(__FILE__))).'/';
+$conf['paths']['root']		=dirname($conf['paths']['www']).'/';
 
 $conf['paths']['apis']			=$conf['paths']['includes'].'api/';
 $conf['paths']['confs']			=$conf['paths']['includes'].'conf/';
@@ -61,6 +61,11 @@ $conf['libs']['smarty']			=$conf['paths']['vendor']."Smarty/libs/Smarty.class.ph
 $conf['urls']['www']		=$conf['app']['protocol'].$_SERVER["HTTP_HOST"];
 $conf['urls']['static']		=$conf['urls']['www'].'/static';
 $conf['urls']['minify']		=$conf['urls']['www'].'/static/min';
+$conf['urls']['pmd_url']	="http://www.phpmydomo.org";
+$conf['urls']['pmd_api']	=$conf['urls']['pmd_url'].'/api/?q=';
+$conf['urls']['pmd_dl_zip']=$conf['urls']['pmd_url'].'/download/?t=zip';
+$conf['urls']['pmd_dl_gz']	=$conf['urls']['pmd_url'].'/download/?t=gz';
+
 
 
 
@@ -96,6 +101,10 @@ if(!file_exists($conf['paths']['caches'].'version')){
 	echo "<p>Cool! <b>{$conf['app']['name']} has been successfully installed!</b></p>";
 	echo "<i>(Please refresh this page if not done automatically) <meta http-equiv='refresh' content='6'></i>";
 	exit;
+}
+
+if(file_exists($conf['paths']['caches'].'last_version')){
+	$conf['app']['last_version']=(float) file_get_contents($conf['paths']['caches'].'last_version');
 }
 
 //starting ------------------------------------------------------
