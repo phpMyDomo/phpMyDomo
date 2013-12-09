@@ -31,7 +31,6 @@ chmod 755 install_debian.sh
 4) Set the virtual host for apache: 
 If you use the default apache web directory at /var/www/ , make sure that this directory has the __AllowOverride All__ and __Options Indexes__ set, ie:
 
-(debian) `nano /etc/apache2/sites-available/default`
 ```
 <Directory /var/www/>	
 	Options Indexes
@@ -39,7 +38,9 @@ If you use the default apache web directory at /var/www/ , make sure that this d
 	(other directives)
 </Directory>
 ```
-_in Debian, you just have to change "AllowOverride None" to "AllowOverride All" . _
+
+_in Debian, you just have to change "AllowOverride None" to "AllowOverride All" ._
+`nano /etc/apache2/sites-available/default`
 
 4) move the content of your phpMyDomo-phpMyDomo-XXXX/www/ directory to the directory where you have configured Apache to serve files from.
 _ie on debian, if you use the default webserver location in /var/www/, do:_
