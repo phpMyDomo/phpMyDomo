@@ -6,22 +6,29 @@
 - php5 >= 5.3
 - php5-curl
 
-Please make sure that you have a working Apache + php5 + php5-curl + ModRewrite installed. If not, you can automatically install these by doing (on Debian):
 
+
+## Installation ##############################################
+1) Download the archive and decompress it somewhere on your server, ie in your home directory : /home/USERNAME/.
+_Change "USERNAME" to your real username (ie "pi", "johndoe", etc..)_
 ```sh
-cd phpMyDomo/www/inc/bin/
+cd /home/USERNAME/
+wget http://www.phpmydomo.org/download/?t=gz -O phpMyDomo_latest.tar.gz
+tar xvfz phpMyDomo_latest.tar.gz
+```
+
+2) Please make sure that you have a working Apache + php5 + php5-curl + ModRewrite installed. If not, you can automatically install these by doing (on Debian):
+_change "phpMyDomo-phpMyDomo-XXXX" according to your exact directory name, ie "phpMyDomo-phpMyDomo-9fa72f8"_
+```sh
+cd /home/USERNAME/phpMyDomo-phpMyDomo-XXXX/www/inc/bin/
 chmod 755 install_debian.sh
 ./install_debian.sh
 ```
 
+3) If you've not already launched the install script, make the __www/inc/cache__ directory writable:
+`chmod -R 777 /home/USERNAME/phpMyDomo-phpMyDomo-XXXX/www/inc/cache`
 
-## Installation ##############################################
-
-1) If you've not already launched the install script, make the __www/inc/cache__ directory writable:
-`chmod -R 777 phpMyDomo/www/inc/cache`
-
-2) Set the virtual host for apache: 
-
+4) Set the virtual host for apache: 
 If you use the default apache web directory at /var/www/ , make sure that this directory has the __AllowOverride All__ and __Options Indexes__ set, ie:
 
 (debian) `nano /etc/apache2/sites-available/default`
@@ -32,9 +39,13 @@ If you use the default apache web directory at /var/www/ , make sure that this d
 	(other directives)
 </Directory>
 ```
-_in Debian, you just have to change "AllowOverride None" to __AllowOverride All__ . _
+_in Debian, you just have to change "AllowOverride None" to "AllowOverride All" . _
 
-3) restart apache
+4) move the content of your phpMyDomo-phpMyDomo-XXXX/www/ directory to the directory where you have configured Apache to serve files from.
+_ie on debian, if you use the default webserver location in /var/www/, do:_
+`mv -f /home/USERNAME/phpMyDomo-phpMyDomo-XXXX/www/* /var/www/`
+
+5) restart apache
 `apache2ctl restart`
 
 
