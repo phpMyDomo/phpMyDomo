@@ -8,6 +8,21 @@ To develop, please set the $conf['debug']['show'] to '1' (or true), this will:
 You an also temporately activate debug by adding ?debug=1 to the URL
 
 
+# PHP, JavaScript Coding
+Please follow the current coding style, use tabs rather than spaces.
+
+
+# CSS writing
+Please dont remove the following comments.
+`
+/* @group ----- */
+(style here)
+/* @end */
+`
+They are needed to nicely format CSS in editors like Expresso (formely CSSEdit) 
+See: http://stackoverflow.com/questions/5765887/group-and-override-in-css for more information
+
+
 # Pull requests
 - Please follow the current code style writing 
 - submit to the 'develop' branch, using git-flow features : http://nvie.com/posts/a-successful-git-branching-model/
@@ -29,8 +44,8 @@ You an also temporately activate debug by adding ?debug=1 to the URL
 - ....
 
 
-#needed
-- Git gurus to become maintainers
+# People needed
+- Git gurus to become repo maintainers
+- Involved Coders
 - Documentations writers
-- Coders
 - Designers
