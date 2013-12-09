@@ -9,7 +9,7 @@
 
 
 ## Installation ##############################################
-1) Download the archive and decompress it somewhere on your server, ie in your home directory : /home/USERNAME/.
+__1) Download the archive and decompress it__ somewhere on your server, ie in your home directory : /home/USERNAME/.
 ```sh
 cd /home/USERNAME/
 wget http://www.phpmydomo.org/download/?t=gz -O phpMyDomo_latest.tar.gz
@@ -17,7 +17,8 @@ tar xvfz phpMyDomo_latest.tar.gz
 ```
 _Change "USERNAME" to your real username (ie "pi", "johndoe", etc..)_
 
-2) Please make sure that you have a working Apache + php5 + php5-curl + ModRewrite installed. If not, you can automatically install these by doing (on Debian):
+
+__2) Make sure that you have a working Apache + php5 + php5-curl + ModRewrite installed__. If not, you can automatically install these by doing (on Debian):
 ```sh
 cd /home/USERNAME/phpMyDomo-phpMyDomo-XXXX/www/inc/bin/
 chmod 755 install_debian.sh
@@ -25,10 +26,12 @@ chmod 755 install_debian.sh
 ```
 _change "phpMyDomo-phpMyDomo-XXXX" according to your exact directory name, ie "phpMyDomo-phpMyDomo-9fa72f8"_
 
-3) If you've not already launched the install script, make the __www/inc/cache__ directory writable:
+
+__3)__ If you've not already launched the install script, __make the _www/inc/cache_ directory writable__:
 `chmod -R 777 /home/USERNAME/phpMyDomo-phpMyDomo-XXXX/www/inc/cache`
 
-4) Set the virtual host for apache: 
+
+__4) Set the virtual host for apache__: 
 If you use the default apache web directory at /var/www/ , make sure that this directory has the __AllowOverride All__ and __Options Indexes__ set, ie:
 
 ```
@@ -42,10 +45,11 @@ If you use the default apache web directory at /var/www/ , make sure that this d
 _in Debian, you just have to change "AllowOverride None" to "AllowOverride All" ._
 `nano /etc/apache2/sites-available/default`
 
-4) move the content of your phpMyDomo-phpMyDomo-XXXX/www/ directory to the directory where you have configured Apache to serve files from. Ie on debian, if you use the default webserver location in /var/www/, do: 
+__5) move the content of your phpMyDomo-phpMyDomo-XXXX/www/ directory to the directory where you have configured Apache to serve files from__.
+_Ie on debian, if you use the default webserver location in /var/www/, do:_
 `mv -f /home/USERNAME/phpMyDomo-phpMyDomo-XXXX/www/* /var/www/`
 
-5) restart apache
+__6) restart apache__
 `apache2ctl restart`
 
 
@@ -63,5 +67,4 @@ By default, phpMyDomo, is configured to use the Domoticz API, on the same server
  Click on the "Devices" Tab. If all is well configured , you should see your device list.
 
 - You can now customize the config.php file to create your groups, blocks, hide menu, add cameras etc...
-
 
