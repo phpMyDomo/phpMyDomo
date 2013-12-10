@@ -11,14 +11,14 @@
 	<a href='#' name='but_{$row.uid}' data-address='{$row.address}' data-type='{$command}' data-state='{$row.state}' data-onclass='btn-success' class='btn btn-{$style} btn-lg jsButSwitch button_big{$c}'><span class='but_img'><img src='{$p.urls.static}/global/img/icon48_type_{$row.img_type}.png' data-on="{$p.urls.static}/global/img/icon48_type_{$row.type}_on.png" data-off="{$p.urls.static}/global/img/icon48_type_{$row.type}_off.png"></span>{$row.name}</a>
 
 {if $row.type=='dimmer'}
-	<a href='#' name='but_{$row.uid}' data-address='{$row.address}' data-type='dimmer' data-value='{$row.value}'  title="{$row.name}" class='btn btn-lg btn-default jsButDimmer jsPopover button_dim'>{$row.value}</a>
+	<a href='#' name='but_{$row.uid}' data-address='{$row.address}' data-type='dimmer' data-value='{$row.value}'  title="{$row.name} (Not working)" class='btn btn-lg btn-default jsButDimmer jsPopover button_dim'>{$row.value}</a>
 {/if}
 
 </div>
 
 {if $row.type=='dimmer' && !$my_popover_created}
-<div id="dim_popover" class="hidden">
-        <span class="legend">0</span><input type="text" class="span2" value="50" id="rangeSlider" data-slider-min="10" data-slider-max="100" data-slider-step="5" data-slider-value="50"><span class="legend">100</span>
+<div id="jsPopover_{$row.address}" class="hidden">
+        <span class="legend">0</span><input type="text" id="jsSlider_{$row.address}" class="jsSlider" value="{$row.value}" data-slider-min="0" data-slider-max="100" data-slider-step="1" data-slider-value="{$row.value}"><span class="legend">100</span>
 </div>
 {$my_popover_created=1}
 {/if}

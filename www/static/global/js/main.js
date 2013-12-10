@@ -52,33 +52,31 @@ jQuery( document ).ready(function() {
 			});    	
     });
 
-    /* Button Level (to do) -------------------------------------- */
-   $('.jsButLevel').click(function(e){
-    	e.preventDefault();
-    	var but		=$(this);
+    /* Button Dimmer (to finish) -------------------------------------- */
+   $('.jsButDimmer').each(function(){
+    	var but			=$(this);
+    	var popover_id	='#jsPopover_'+ but.attr('data-address');
+    	var slider_id	='#jsSlider_'+ but.attr('data-address');
+    	
+    	but.popover({
+			html: true,
+			placement: 'bottom',
+			trigger:'manual',
+			content: $(popover_id).html()
+	   })
+	   .click(function(e){
+			e.preventDefault();
+			but.popover('toggle');
+			var value;
+			var slider	=$(slider_id).slider({}).on('slide', function (ev) {
+            	value = ev.value;
+            	but.html(value);
+            	/* slider.slider('setValue', value); */
+            	/* Do Ajax Call, avoiding sending continous values */
+        	});;
 		
-    });
-
- 	
- 	var sliderVal;
-
-
-    $("#body_home .jsPopover").popover({
-        html: true,
-        placement: 'auto bottom',
-        content: function () {
-            return $("#dim_popover").html();
-        }
-    }).click(function () {
-
-        $('#rangeSlider').slider().on('slide', function (ev) {
-            sliderVal = ev.value;
-        });
-        if (sliderVal) {
-            $('#rangeSlider').slider('setValue', sliderVal)
-        }
-    });
-
+		});
+   });
 
     
     /* Debug Devices ------------------------------------------------------------------------ */
