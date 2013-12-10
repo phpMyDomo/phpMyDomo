@@ -47,7 +47,7 @@ $api['actions']['set']['switch']		='/command/{address}/{state}';
 
 // List actions URLS -------------------------------------
 $api['actions']['list']['device']		='/base/device/list';
-$api['actions']['list']['stats']		='/stats/*/*/all';
+$api['actions']['list']['stats']		='/stats/*/*/latest';
 //$api['actions']['list']['scene']		='/';
 //$api['actions']['list']['camera']		='/';
 //$api['actions']['list']['info']		='/';
