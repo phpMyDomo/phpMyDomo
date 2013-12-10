@@ -259,8 +259,14 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#000000', end
 	text-align: right;
 	font-weight: bold;
 }
+.table_devices .td_value .mini{
+	font-size: 10px;
+	font-weight: normal;
+	margin-top: 1px;
+	margin-right: 3px;
+}
 .table_devices .td_value img{
-	height: 24px;
+	height: 20px;
 }
 .table_devices .td_value A{
 	color: #444;
@@ -297,8 +303,6 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#000000', end
 	background: #444;
 }
 #body_cameras iframe{
-	width: 320px;
-	height: 240px;
 	border: 0;
 	margin: 0;
 	padding: 0;
@@ -322,8 +326,6 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#000000', end
 }
 #body_utils_update .panel-body H3:first-child{
 	margin-top: 0;
-	padding: 0;
-	border: none;
 }
 #body_utils_update .centered{
 	text-align: center;
