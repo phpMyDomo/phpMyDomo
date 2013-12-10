@@ -8,9 +8,9 @@ http://www.phpmydomo.org
 phpMyDomo is an open-source Web Application aimed to provide a clean, robust, customizable, fast and intuitive interface to many Home Automation software. With todays chinese phones and tablets starting as low as $50, it becomes a cheap and powerfull way to build remotes to control anything smartly in your house. phpMyDomo wants to be the ultimate WebApp that works as well on these devices, as on any computer browser.
 phpMyDomo don't aim to replace the cool domotic's software you're currently using, but rather to add a convenient web interface to it.
 
-Currently supported software include __Domoticz__, __Domotiga__ and __Domogik__.
+Currently supported software include __Domoticz__, __Domotiga__, __OpenHab__ and __Domogik__.
 
-This is a Work In Progress : At this time only Switches and Sensors are fully supported in _Domoticz_ , _Domotiga_, and partially in _Domogik_.
+This is a Work In Progress : At this time only Switches and Sensors are fully supported in _Domoticz_ , _Domotiga_, _OpenHab_, and partially in _Domogik_.
 
 
 ## Features
@@ -52,11 +52,11 @@ or
 
 
 ## Skills Wanted !
-The main goal of this app is to gather talented developers, designers and users, to build the coolest WebApp that can control any smart domotic's software.
+One of the goal of this app is to gather talented developers, designers and users, to build the coolest WebApp that can control any smart domotic's software.
 
 What's needed:
 
-- Finalize and test current Domoticz, Domotiga and Domogiz APIs.
+- Finalize and test current Domoticz, Domotiga, OpenHab, and Domogiz APIs.
 - Language Files.
 - API plugins coders to support others domotic's software.
 - Talented CSS and Photoshop designers to make Skins, and make the coolest GUI ever ;-)
