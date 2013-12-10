@@ -9,6 +9,10 @@
 
 
 ## Installation ##############################################
+If you're used to Git, the best way to install phpMyDomo is to clone the git 'master' branch, and to set an Apache virtual host pointing to the phpMydomo/www directory.
+Future update will then only require a "git pull" .
+If not, here is the manual way of installing phpMyDomo:
+
 __1) Download the archive and decompress it__ somewhere on your server, ie in your home directory : /home/USERNAME/.
 ```sh
 cd /home/USERNAME/
@@ -46,8 +50,10 @@ _in Debian, you just have to change "AllowOverride None" to "AllowOverride All" 
 `nano /etc/apache2/sites-available/default`
 
 __5) move the content of your phpMyDomo-phpMyDomo-XXXX/www/ directory to the directory where you have configured Apache to serve files from__.
-_Ie on debian, if you use the default webserver location in /var/www/, do:_
+_Ie on debian, if you're using the default webserver location in /var/www/, do:_
 `mv -f /home/USERNAME/phpMyDomo-phpMyDomo-XXXX/www/* /var/www/`
+_Notice: Be sure that you've copied the /home/USERNAME/phpMyDomo-phpMyDomo-XXXX/www/.htaccess (hidden) file to your webserver root directory, else you will get a 404 when trying to access phpMyDomo from your web browser._
+
 
 __6) restart apache__
 `apache2ctl restart`
