@@ -32,36 +32,38 @@ class PMD_Page extends PMD_Root_Page{
 			$data['text']="You've already performed the update";
 		}
 		else{
+			$file='';
 			// step 0 : Ask to update
-			$data['changelog']=$this->_GetChangelog($data['old_version']);
+			if($data['dl_version']){
+				$file=$this->conf['urls']['pmd_changelog'];
+			}
+			$data['changelog']=$this->_GetChangelog($data['old_version'],$file);
 		}
 		$this->Assign('data',$data);
 		$this->Display();
 	}
 
 	//----------------------------------------------------------------------------------
-	private function _GetChangelog($last_version){
+	private function _GetChangelog($last_version,$file=''){
 		$last_version=(float) $last_version;
 		$out=array();
-		$file=$this->conf['paths']['confs'].'changelog.md';
-		if(file_exists($file)){
-			$lines=file($file);
-			foreach($lines as $line){
-				if(preg_match('/^[#]+[^0-9]*([0-9\.]+)(.*)/',$line,$m)){
-					if($last_version < $m[1]){
-						$version=$m[1];
-						$out[$version]['title']=$m[2];
-					}
-					else{
-						break;
-					}
-					continue;
+		$file or $file=$this->conf['paths']['confs'].'changelog.md';
+		$lines=file($file);
+		foreach($lines as $line){
+			if(preg_match('/^[#]+[^0-9]*([0-9\.]+)(.*)/',$line,$m)){
+				if($last_version < $m[1]){
+					$version=$m[1];
+					$out[$version]['title']=$m[2];
 				}
-				if(preg_match('/^-.*(new|fix|dev)\w*:\w*(.*)/',$line,$m)){
-					$out[$version]['lines'][$m[1]][]=$m[2];
+				else{
+					break;
 				}
-				
+				continue;
 			}
+			if(preg_match('/^-.*(new|fix|dev)\w*:\w*(.*)/',$line,$m)){
+				$out[$version]['lines'][$m[1]][]=$m[2];
+			}
+			
 		}
 		return $out;
 	}
