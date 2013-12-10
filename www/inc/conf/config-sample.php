@@ -6,7 +6,7 @@
 // ##############################################################################
 // Minimal Configuration  #######################################################
 // ##############################################################################
-//api to use : domoticz | domogik
+//api to use : domoticz | domogik | domotiga | openhab
 $conf['app']['api']			="domoticz";
 
 // Personalize the name of your Home
@@ -31,6 +31,7 @@ URLS of remote API Server.If not set default to the same server, on the default 
 $conf['urls']['server_domoticz']	="http://10.1.100.151";
 $conf['urls']['server_domogik']		="http://10.1.100.152";
 $conf['urls']['server_domotiga']	="http://10.1.100.153";
+$conf['urls']['server_openhab']		="http://demo.openhab.org";
 */
 
 

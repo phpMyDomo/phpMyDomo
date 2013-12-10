@@ -137,15 +137,24 @@ class PMD_Root_ApiClient extends PMD_Root{
 			$i=0;
 			foreach($this->conf['cameras_urls'] as $key=> $url){
 				$i++;
+				
 				$cam=array();
 				$cam['class']	='camera';
 				$cam['type']	='cam_ip';
 				$cam['url']		=$url;
 				$cam['name']	=$this->conf['cameras_names'][$key] or $cam['name']="Camera $i";
 				$cam['uid']		="conf_cam_$i";
+				if(isset($this->conf['cameras_sizes'][$key])){
+					list($cam['x'],$cam['y'])=explode('x',$this->conf['cameras_sizes'][$key]);
+				}
+				else{
+					$cam['x']=320;
+					$cam['y']=240;
+				}
 				$cameras[$cam['uid']]=$cam;
 			}
 		}
+		//$this->Debug('cameras',$cameras);
 		return $cameras;
 	}
 
@@ -201,6 +210,11 @@ class PMD_Root_ApiClient extends PMD_Root{
 		}
 		if(!$row['state'] and isset($this->vars['states'][$row['class']][$row['type']][$val])){
 			$row['state']=$this->vars['states'][$row['class']][$row['type']][$val];
+		}
+		if(!$row['state'] and $row['type']=='shutter'){
+			//is this true or the inverse?
+			if($val >0) 	$row['state']='on';
+			if($val ==0)	$row['state']='off';
 		}
 		return $row;
 	}
@@ -306,62 +320,135 @@ class PMD_Root_ApiClient extends PMD_Root{
 		
 		//- json_rpc v2 -----------------------------------------------
 		if($this->vars['method']=="json_rpc2"){
-			$method=$this->vars['actions'][$command][$type]['method'];
-			$params=$this->vars['actions'][$command][$type]['params'];
-			if(is_array($params)){
-				foreach($params as $k => $v){
-					$params[$k]=str_replace('{address}',$address,	$params[$k]);
-					$params[$k]=str_replace('{state}',	$state,		$params[$k]);
-					//cast to int because Domiga is SO sensitive
-					if($params[$k]==$address and preg_match('#^[0-9]+$#',$address)  ){
-						$params[$k]=(int) $address;
-					}
-					if($params[$k]==$state and preg_match('#^[0-9]+$#',$state)  ){
-						$params[$k]=(int) $state;
-					}
-				}
-			}
-			else{
-				$params=array();
-			}
-			$this->api_url=$this->vars['urls']['api'].', method='.$method.', params= '.json_encode($params); // used only in debug
-			$result=$this->o_jsonrpc->execute($method,$params);
-			if(is_array($result)){
-				$out=$result;
-				$this->api_status=true;
-			}
-			else{
-				$this->api_status=false;					
-			}
+			$out=$this->ApiFetchJson_rpc2($command,$type,$address,$state);
 		}
 		// json_get -------------------------------------------------
 		elseif($this->vars['method']=="json_get"){
-			$url	=$this->vars['urls']['api'];
-			$url	.= $this->vars['actions'][$command][$type];
-			$url=str_replace('{address}',	$address,	$url);
-			$url=str_replace('{state}',		$state,		$url);
-			$this->api_url=$url;
-
-			$out=file_get_contents($url);			
-			$out=json_decode($out,true);
-		
-			//status
-			if($this->vars['json']['status'] and isset($out[$this->vars['json']['status']])){
-				if($out[$this->vars['json']['status']] == $this->vars['json_status']['ok']){
-					$this->api_status=true;
-				}
-				elseif($out[$this->vars['json']['status']] == $this->vars['json_status']['err']){
-					$this->api_status=false;
-				}
-			}
-			elseif(is_array($out)){
-				$this->api_status=true;	
-			}
-
+			$out=$this->ApiFetchJson_get($command,$type,$address,$state);
+		}
+		// json_mixed -------------------------------------------------
+		elseif($this->vars['method']=="json_mixed"){
+			$out=$this->ApiFetchJson_mixed($command,$type,$address,$state);
 		}
 		
 		$this->api_response=$out;
 		return $this->api_status;
+	}
+
+	//---------------------------------------------------------------
+	function ApiFetchJson_mixed($command, $type='', $address='',$state=''){
+		$def=$this->vars['actions'][$command][$type];
+		$url	=$this->vars['urls']['api'];
+		$url .=$def['url'];
+
+		$url=str_replace('{address}',	$address,	$url);
+		$url=str_replace('{state}',		$state,		$url);
+
+		$this->api_url=$url; // used only in debug
+
+		if($def['method']=='get'){
+			$context=null;
+		}
+		elseif($def['method']=='post'){
+			$content=$def['content'];
+			$content=str_replace('{address}',	$address,	$content);
+			$content=str_replace('{state}',		$state,		$content);
+			$options = array(
+				'http' => array(
+					'header'  => "Content-type: text/plain\r\n",
+					'method'  => 'POST',
+					'content' => $content
+				),
+			  );
+			$context  = stream_context_create($options);
+			$this->api_url	.=', http_method=POST, params= '.json_encode($options['http']); // used only in debug
+		}
+		$out = trim(file_get_contents($url, false, $context));
+		if($def['result_type']=='text_state'){
+			if($out==$state){
+				$this->api_status=true;		
+			}
+			else{
+				$this->api_status=false;				
+			}
+		}
+		else{
+			$out=json_decode($out,true);
+		}
+
+		//status
+		if($this->vars['json']['status'] and isset($out[$this->vars['json']['status']])){
+			if($out[$this->vars['json']['status']] == $this->vars['json_status']['ok']){
+				$this->api_status=true;
+			}
+			elseif($out[$this->vars['json']['status']] == $this->vars['json_status']['err']){
+				$this->api_status=false;
+			}
+		}
+		elseif(is_array($out)){
+			$this->api_status=true;	
+		}
+		return $out;
+	}
+
+	//---------------------------------------------------------------
+	function ApiFetchJson_get($command, $type='', $address='',$state=''){
+		$url	=$this->vars['urls']['api'];
+		$url	.= $this->vars['actions'][$command][$type];
+		$url=str_replace('{address}',	$address,	$url);
+		$url=str_replace('{state}',		$state,		$url);
+		$this->api_url=$url;
+
+		$out=file_get_contents($url);			
+		$out=json_decode($out,true);
+	
+		//status
+		if($this->vars['json']['status'] and isset($out[$this->vars['json']['status']])){
+			if($out[$this->vars['json']['status']] == $this->vars['json_status']['ok']){
+				$this->api_status=true;
+			}
+			elseif($out[$this->vars['json']['status']] == $this->vars['json_status']['err']){
+				$this->api_status=false;
+			}
+		}
+		elseif(is_array($out)){
+			$this->api_status=true;	
+		}
+		return $out;
+	}
+
+	//---------------------------------------------------------------
+	function ApiFetchJson_rpc2($command, $type='', $address='',$state=''){
+
+		$method=$this->vars['actions'][$command][$type]['method'];
+		$params=$this->vars['actions'][$command][$type]['params'];
+
+		if(is_array($params)){
+			foreach($params as $k => $v){
+				$params[$k]=str_replace('{address}',$address,	$params[$k]);
+				$params[$k]=str_replace('{state}',	$state,		$params[$k]);
+				//cast to int because Domiga is SO sensitive
+				if($params[$k]==$address and preg_match('#^[0-9]+$#',$address)  ){
+					$params[$k]=(int) $address;
+				}
+				if($params[$k]==$state and preg_match('#^[0-9]+$#',$state)  ){
+					$params[$k]=(int) $state;
+				}
+			}
+		}
+		else{
+			$params=array();
+		}
+		$this->api_url=$this->vars['urls']['api'].', method='.$method.', params= '.json_encode($params); // used only in debug
+		$result=$this->o_jsonrpc->execute($method,$params);
+		if(is_array($result)){
+			$out=$result;
+			$this->api_status=true;
+		}
+		else{
+			$this->api_status=false;					
+		}
+		return $out;
 	}
 
 
