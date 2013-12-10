@@ -141,10 +141,11 @@ $conf['blocks']['sensors'][]="sensor_temp_rfxcom_tr1_19";
 // Cameras (if not already defined in the server devices) #######################
 // ##############################################################################
 /*
-Define IP camera streams to be displayed in the Camera Page.
+Define IP camera streams to be displayed in the Camera Page. if cameras_sizes is not defined, it defaults to 320x240
 Example:
 $conf['cameras_names']['room1']	="Room 1";
 $conf['cameras_urls']['room1']	="http://user:pass@10.0.0.1/videostream.cgi";
+$conf['cameras_sizes']['room1']	="640x480";
 
 $conf['cameras_names']['room2']	="Room 2";
 $conf['cameras_urls']['room2']	="http://user:pass@10.0.0.2/videostream.cgi";

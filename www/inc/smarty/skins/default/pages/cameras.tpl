@@ -6,7 +6,7 @@
 		<div class="panel-heading"><i class="fa fa-video-camera"></i> {$cam.name}</div>
 		<div class="panel-body-full">
 			<div class='iframe_border'>
-				<iframe src="{$cam.url}" width='322' height=242></iframe>
+				<iframe src="{$cam.url}" width={{$cam.x}+2} height={{$cam.y}+2}></iframe>
 			</div>
 		</div>
 	</div>
