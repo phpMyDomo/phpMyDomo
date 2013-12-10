@@ -3,11 +3,11 @@
 $lang['locale']="en_US.utf8";
 
 // menu head ###################################################
-$lang['menu_head']['home']		='Dashboard';
-$lang['menu_head']['cameras']	='Cameras';
-$lang['menu_head']['commands']	='Commands';
-$lang['menu_head']['sensors']	='Sensors';
-$lang['menu_head']['devices']	='Devices';
+$lang['menu_head']['home']		="Dashboard";
+$lang['menu_head']['cameras']	="Cameras";
+$lang['menu_head']['commands']	="Commands";
+$lang['menu_head']['sensors']	="Sensors";
+$lang['menu_head']['devices']	="Devices";
 
 // classes ###################################################
 $lang['classes']['scene']	="scene";
@@ -47,12 +47,13 @@ $lang['types']['bool']		="State";
 $lang['types']['pir']		="Motion";
 $lang['types']['gas']		="Gas/Smoke";
 
-// info ################################################################
+// infos ################################################################
 $lang['infos']['sunset']	="Sunset";
 $lang['infos']['sunrise']	="Sunrise";
 $lang['infos']['now']		="Now";
 
 // dates formats ########################################################
+//  date format according to : http://php.net/strftime
 $lang['dates']['day']		="%A %b %e";
 $lang['dates']['time']		="%I : %M %P";
 

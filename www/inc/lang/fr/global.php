@@ -3,11 +3,11 @@
 $lang['locale']="fr_FR.utf8";
 
 // menu head ###################################################
-$lang['menu_head']['home']		='Accueil';
-$lang['menu_head']['cameras']	='Caméras';
-$lang['menu_head']['commands']	='Commandes';
-$lang['menu_head']['sensors']	='Sondes';
-$lang['menu_head']['devices']	='Appareils';
+$lang['menu_head']['home']		="Accueil";
+$lang['menu_head']['cameras']	="Caméras";
+$lang['menu_head']['commands']	="Commandes";
+$lang['menu_head']['sensors']	="Sondes";
+$lang['menu_head']['devices']	="Appareils";
 
 // classes ###################################################
 $lang['classes']['scene']	="scène";
@@ -47,12 +47,13 @@ $lang['types']['bool']		="Etat";
 $lang['types']['pir']		="Mouvement";
 $lang['types']['gaz']		="Gas/Fumée";
 
-// info ################################################################
+// infos ################################################################
 $lang['infos']['sunset']	="Coucher de Soleil";
 $lang['infos']['sunrise']	="Lever de Soleil";
 $lang['infos']['now']		="Maintenant";
 
 // dates ################################################################
+//  date format according to : http://php.net/strftime
 $lang['dates']['day']		="%A %e %b"; // short: D M j //long: l F j
 $lang['dates']['time']		="%H : %M";
 
