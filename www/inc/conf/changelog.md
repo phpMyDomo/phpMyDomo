@@ -1,5 +1,12 @@
 # phpMyDomo ChangeLog
 
+## Version : 0.132 - Dec 10, 2013
+- fix: Domogik API values
+- new: Update show ChangeLog from remote new Version
+- fix: CSS for the Update page
+- fix: Better Installation instructions
+- dev: VersionCheck reports version and API used
+
 ## Version : 0.131 - Dec 9, 2013
 - fix: show correct sensors names in dashboard
 - dev: hide commands page buttons not implemented
