@@ -313,12 +313,12 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#000000', end
 	padding-bottom: 40px;
 }
 #body_utils_update .panel-body H3{
-	margin-top: 40px;
+	margin-top: 20px;
 	margin-bottom: 20px;
-	border-top: 1px solid #ccc;
-	padding-top: 15px;
+	background-color: #666;
+	padding: 6px;
 	font-size: 16px;
-	color: #777;
+	color: #FFF;
 }
 #body_utils_update .panel-body H3:first-child{
 	margin-top: 0;
@@ -330,11 +330,15 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#000000', end
 }
 
 #body_utils_update .changelog{
-	margin: 0;
-	padding: 0 0 20px 20px;
+	padding: 0;
+	margin: 0 0 20px 0;
 }
 #body_utils_update .changelog UL{
-	padding: 0 0 15px 20px;
+	padding: 0 0 10px 15px;
+}
+#body_utils_update .changelog H5{
+	font-size: 13px;
+	font-weight: bold;
 }
 #body_utils_update .changelog H5 I{
 	color: #AAA;
@@ -372,18 +376,18 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#000000', end
 	color: #000;
 	font-weight: bold;
 }
-#body_utils_update .dl_help UL{
+#body_utils_update .dl_install{
 	padding: 8px 0 0 10px;
 }
-#body_utils_update .dl_help LI{
+#body_utils_update .dl_install LI{
 	list-style: none;
 	padding-bottom: 18px;
 	line-height: 140%;
 }
-#body_utils_update .dl_help LI I{
+#body_utils_update .dl_install LI I{
 	color: #888;
 }
-#body_utils_update .dl_help CODE{
+#body_utils_update .dl_install CODE{
 	margin: 2px 0;
 	display: inline-block;
 	border: 1px solid #ccc;

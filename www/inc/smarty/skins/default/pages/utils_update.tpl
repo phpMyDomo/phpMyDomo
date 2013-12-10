@@ -1,3 +1,23 @@
+{function name="makeChangeLog"}
+			{if $data.changelog}
+				<h3>ChangeLog since version {$data.old_version}</h3>
+				<ul class="changelog">
+				{foreach from=$data.changelog key=v item=version}
+					<h5>Version {$v} <i>{$version.title}</i></h5>
+					<ul>	
+					{foreach from=$version.lines key=type item=lines}
+					{if $type=='new'}{$icon='plus-circle'}{elseif $type=='fix'}{$icon='check'}{elseif $type=='dev'}{$icon='gear'}{/if}
+						{foreach from=$lines item=line}
+						<li class='{$type}'><i class='fa fa-{$icon}'></i> {$type|ucfirst}: {$line}</li>
+						{/foreach}
+					{/foreach}
+					</ul>
+				{/foreach}
+				</ul>
+				<hr>
+			{/if}
+{/function}
+
 {capture assign=page_content}
 <div class="row">
 	<div class='col-md-8 col-md-offset-2'>
@@ -25,28 +45,32 @@
 
 			<div class="panel-body">
 				<div class="dl_help">
-				A new version of {$c.app.name} if available to download!<br>
-				<br>
+				<p class="mess centered">A new version of {$c.app.name} if available to download!</p>
+
+				{makeChangeLog}
+
+				<h3>Installation</h3>
 				If you had installed {$c.app.name} by cloning it with git, you just have to do:<br>
 				<code>cd {$data.paths.root} ; git pull</code><br>
 				them direclty jump to step 8.<br>
 				<br>
 				Else follow these steps:
 				
-				<ul>
+				<ul class="dl_install">
 			
-					<li> 1) Download the latest version as a <a href="{$p.urls.pmd_dl_zip}"><b>ZIP</b></a> or <a href="{$p.urls.pmd_dl_gz}"><b>GZ</b></a> archive, ie:<br>
-					<code>cd ~/ ; wget  {$p.urls.pmd_dl_zip}</code> or <code>cd ~/ ; wget  {$p.urls.pmd_dl_gz}</code>
-					</li>
-					<li> 2) make a copy of your current <b>config.php</b> : <br>
+					<li> 1) make a copy of your current <b>config.php</b> : <br>
 						<code>cp {$data.paths.confs}config.php ~/</code><br>
 						<i>if you are using a custom skin, or had made any changes to the templates, also backup your custom files.</i>
 					</li>
-					<li> 3) de-compress the archive you have just downloaded :<br>
-						<code>unzip phpMyDomo-{$c.app.name}-v.{$data.dl_version}-gdbXXXX.zip </code> or<br>
-						<code>tar xvfz phpMyDomo-{$c.app.name}-v.{$data.dl_version}-gdbXXXX.tar.gz </code>
+					<li> 2) Download the latest version as a <a href="{$p.urls.pmd_dl_zip}"><b>ZIP</b></a> or <a href="{$p.urls.pmd_dl_gz}"><b>GZ</b></a> archive, ie:<br>
+						<code>cd ~/ ; wget  {$p.urls.pmd_dl_zip} -O phpMyDomo_latest.zip</code> or<br>
+						<code>cd ~/ ; wget  {$p.urls.pmd_dl_gz} -O phpMyDomo_latest.tar.gz</code>
 					</li>
-					<li> 4) remove of your current {$c.app.name} "www" directory, ie:<br>
+					<li> 3) de-compress the archive you have just downloaded :<br>
+						<code>unzip phpMyDomo_latest.zip </code> or<br>
+						<code>tar xvfz phpMyDomo_latest.tar.gz </code>
+					</li>
+					<li> 4) remove of your current {$c.app.name} "www" directory :<br>
 						<code>rm -rf {$data.paths.www}</code>
 					</li>
 					<li> 5) replace it with your newest 'www' directory :<br>
@@ -85,23 +109,9 @@
 			</div>
 			
 			<div class="panel-body">
-			{if $data.changelog}
-				<h3>ChangeLog since version {$data.old_version}</h3>
-				<ul class="changelog">
-				{foreach from=$data.changelog key=v item=version}
-					<h5>Version {$v} <i>{$version.title}</i></h5>
-					<ul>	
-					{foreach from=$version.lines key=type item=lines}
-					{if $type=='new'}{$icon='plus-circle'}{elseif $type=='fix'}{$icon='check'}{elseif $type=='dev'}{$icon='gear'}{/if}
-						{foreach from=$lines item=line}
-						<li class='{$type}'><i class='fa fa-{$icon}'></i> {$type|ucfirst}: {$line}</li>
-						{/foreach}
-					{/foreach}
-					</ul>
-				{/foreach}
-				</ul>
-				<hr>
-			{/if}
+
+				{makeChangeLog}
+
 				<p class="mess centered">
 					Click here to start updating your <b>{$c.app.name}</b>
 				</p>
