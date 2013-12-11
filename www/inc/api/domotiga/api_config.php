@@ -6,8 +6,8 @@
 $api['method']='json_rpc2'; //api method : json_get | json_rpc2
 
 //api URL ----------------------------------------------------------------
-$api['urls']['api']	=$this->conf['urls']['www'].':9090';
-$api['urls']['www']	=$this->conf['urls']['www'].':9090';
+$api['urls']['api']	=$this->conf['urls']['host'].':9090';
+$api['urls']['www']	=$this->conf['urls']['host'].':9090';
 $api['dir_admin']	='/';
 
 // Set Commands Values -------------------------------------------------------

@@ -4,7 +4,7 @@ ini_set('display_errors','On');
 
 // base ------------------------------------------------------------------------------------
 $conf=array();
-$conf['app']['version']		="0.132";
+$conf['app']['version']		="0.133";
 $conf['app']['name']		="phpMyDomo";
 $conf['app']['protocol']	=(strtolower(substr($_SERVER["SERVER_PROTOCOL"],0,5))=='https') ? 'https://':'http://';
 
@@ -58,7 +58,9 @@ $conf['libs']['api_client']		=$conf['paths']['api']."api_client.php";
 $conf['libs']['smarty']			=$conf['paths']['vendor']."Smarty/libs/Smarty.class.php";
 
 // set urls ---------------------------------------------------------------------------------
-$conf['urls']['www']		=$conf['app']['protocol'].$_SERVER["HTTP_HOST"];
+if(!isset($conf['app']['dir'])){$conf['app']['dir']='';}
+$conf['urls']['host']		=$conf['app']['protocol'].$_SERVER["HTTP_HOST"];
+$conf['urls']['www']		=$conf['urls']['host'].$conf['app']['dir'];
 $conf['urls']['static']		=$conf['urls']['www'].'/static';
 $conf['urls']['minify']		=$conf['urls']['www'].'/static/min';
 $conf['urls']['pmd_url']	="http://www.phpmydomo.org";
@@ -100,7 +102,7 @@ if(!file_exists($conf['paths']['caches'].'version')){
 	//success
 	file_put_contents($conf['paths']['caches'].'version',$conf['app']['version']);
 	echo "<p>Cool! <b>{$conf['app']['name']} has been successfully installed!</b></p>";
-	echo "<i>(Please refresh this page if not done automatically) <meta http-equiv='refresh' content='6'></i>";
+	echo "<i>(Please refresh this page if not done automatically) <meta http-equiv='refresh' content='5'></i>";
 	exit;
 }
 

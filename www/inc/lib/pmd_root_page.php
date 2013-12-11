@@ -120,6 +120,8 @@ class PMD_Root_Page extends PMD_Root{
 		$this->SetHeader('bs/js/bootstrap-slider.min.js','js_global');
 		$this->SetHeader('js/main.js','js_global');
 		$this->SetHeader('js/skin.js','js');
+		
+		$this->SetHeadJavascript("var ajax_url='{$this->conf['urls']['www']}/ajax';");
 
 	}
 
@@ -201,8 +203,8 @@ class PMD_Root_Page extends PMD_Root{
 		$html='';
 		$minify_css='';
 		$minify_js='';
-		$abs_static	=str_replace("{$this->conf['urls']['www']}", '',$this->conf['urls']['static']);
-		$abs_skin	=str_replace("{$this->conf['urls']['www']}", '',$this->dir_skin);
+		$abs_static	=str_replace("{$this->conf['urls']['host']}", '',$this->conf['urls']['static']);
+		$abs_skin	=str_replace("{$this->conf['urls']['host']}", '',$this->dir_skin);
 
 		foreach($this->headers['css_global'] as $url){
 			$html .="	<link rel='stylesheet' type='text/css' href='{$this->conf['urls']['static']}/global/$url' />\n";
@@ -221,7 +223,7 @@ class PMD_Root_Page extends PMD_Root{
 			$html .="	<script language='javascript' src='{$this->dir_skin}/$url'></script>\n";
 			$minify_js	.="$abs_skin/$url,";
 		}
-
+		
 		if($this->minify_bypass){
 			$out=$html;
 		}
@@ -234,12 +236,25 @@ class PMD_Root_Page extends PMD_Root{
 			$out  ="	<link rel='stylesheet' type='text/css' href='{$this->conf['urls']['minify']}/?f=$minify_css$minify_query' />\n";
 			$out .="	<script language='javascript' src='{$this->conf['urls']['minify']}/?f=$minify_js$minify_query'></script>\n";
 		}
+		if(isset($this->headers['js_vars'])){
+			$out .="	<script language='javascript'>\n";
+			foreach($this->headers['js_vars'] as $var){
+				$out.="$var\n";
+			}
+			$out.="</script>";
+		}
+
 		return $out;
 	}
 
 	// -----------------------------------------------------------------------------------------------------------------
 	function SetHeader($path,$type='css'){
 		$this->headers[$type][$path]=$path;
+	}
+
+	// -----------------------------------------------------------------------------------------------------------------
+	function SetHeadJavascript($vars){
+		$this->headers['js_vars'][]=$vars;
 	}
 
 	// -----------------------------------------------------------------------------------------------------------------

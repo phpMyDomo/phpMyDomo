@@ -1,7 +1,7 @@
 jQuery( document ).ready(function() {
     console.log( "JS Ready!" );
     
-    var ajax_url='/ajax';
+    /* var ajax_url='/ajax'; */
 	var refresh_time=12;
 
     /* Reload page -------------------------------------- */

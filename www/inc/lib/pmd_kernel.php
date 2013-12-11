@@ -70,7 +70,8 @@ class PMD_Kernel{
 	//----------------------------------------------------------------------------------
 	function Controller(){
 		$url=$_SERVER['REQUEST_URI'];
-		$page=preg_replace('#^/#','',$url);
+		$sub=$this->conf['app']['dir'];
+		$page=preg_replace("#^{$sub}/#",'',$url);
 		$page=preg_replace('#\?.*#','',$page);
 		$page=preg_replace('#/$#','',$page);
 		$page=str_replace('/','_',$page);
@@ -84,7 +85,7 @@ class PMD_Kernel{
 			$this->o_page->Run();
 		}
 		else{
-			$this->PageError('404',"'$page' is not defined");
+			$this->PageError('404',"'$page' is not defined $url");
 		}
 	}
 	

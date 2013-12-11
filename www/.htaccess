@@ -3,11 +3,11 @@
 # BEGIN Controller
 <IfModule mod_rewrite.c>
 RewriteEngine On
-RewriteRule ^controller\.php$ - [L]
-RewriteRule ^static/ - [L]
+RewriteRule ^(.*)controller\.php$ - [L]
+RewriteRule ^(.*)static/ - [L]
 RewriteCond %{REQUEST_FILENAME} !-f
 RewriteCond %{REQUEST_FILENAME} !-d
-RewriteRule . /controller.php [L]
+RewriteRule . controller.php [L]
 </IfModule>
 
 # END Controller

@@ -6,8 +6,8 @@
 $api['method']='json_get'; //api method : json_get | json_rpc2
 
 //api URL ----------------------------------------------------------------
-$api['urls']['api']	=$this->conf['urls']['www'].':8080';
-$api['urls']['www']	=$this->conf['urls']['www'].':8080';
+$api['urls']['api']	=$this->conf['urls']['host'].':8080';
+$api['urls']['www']	=$this->conf['urls']['host'].':8080';
 $api['dir_admin']		='/';
 
 

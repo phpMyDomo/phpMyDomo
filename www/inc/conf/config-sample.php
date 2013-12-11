@@ -15,25 +15,34 @@ $conf['app']['home_name']	="Home Sweet Home";
 // language file to use
 $conf['app']['lang']		="en";
 
-// Uncomment to use another skin (defaults to the 'default' skin, if not set)
+// Skin : Uncomment to use another skin (defaults to the 'default' skin, if not set)
 //$conf['app']['skin']		="black";
 
-//uncomment to override the locale defined in the language file
+// SubDirectory: Uncomment ONLY if you want to install phpMydomo in a sub directory of your web server root (not recommended at this time)
+//$conf['app']['dir']		="/my_directory";
+
+//Locale: uncomment to override the locale defined in the language file
 //$conf['app']['locale']		="en_US.utf8"; 
 
 
-
-// ##############################################################################
 //	Urls  #####################################################################
-// ##############################################################################
-/*
-http://hostname_or_ip:port of the remote API Server.If not set default to the same server, on the default port.
+// Change these, if your domotic server is NOT on the same server than phpMyDomo, or if you are not using default server ports.
 
-$conf['urls']['server_domoticz']	="http://10.1.100.151:8080";
-$conf['urls']['server_domogik']		="http://10.1.100.152:40405";
-$conf['urls']['server_domotiga']	="http://10.1.100.153:9090";
-$conf['urls']['server_openhab']		="http://demo.openhab.org:8080";
-*/
+// Remote API Server. ---------------------------------------------------
+// Format : http://hostname_or_ip:port
+
+//$conf['urls']['server_domoticz']	="http://10.1.100.151:8080";
+//$conf['urls']['server_domogik']	="http://10.1.100.152:40405";
+//$conf['urls']['server_domotiga']	="http://10.1.100.153:9090";
+//$conf['urls']['server_openhab']	="http://demo.openhab.org:8080";
+
+// Server Website, the normal GUI of your domotic server -----------------
+// Format : http://hostname_or_ip:port
+
+//$conf['urls']['www_domoticz']		="http://10.1.100.151:8080";
+//$conf['urls']['www_domogik']		="http://10.1.100.152:40404";
+//$conf['urls']['www_domotiga']		="http://10.1.100.153:9090";
+//$conf['urls']['www_openhab']		="http://demo.openhab.org:8080";
 
 
 
