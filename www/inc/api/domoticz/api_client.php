@@ -107,6 +107,11 @@ class PMD_ApiClient extends PMD_Root_ApiClient{
 					$d['class']	='command';
 					$d['type']	='switch';
 				}
+				elseif($raw['SwitchType']=='Dimmer'){
+					$d['class']	='command';
+					$d['type']	='dimmer';
+					$d['value']	=$raw['LevelInt'];
+				}
 				$this->RegisterDevice($d);
 			}
 			//$this->Debug('Devices',$this->devices);
