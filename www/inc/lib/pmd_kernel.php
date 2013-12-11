@@ -90,22 +90,54 @@ class PMD_Kernel{
 	
 	//----------------------------------------------------------------------------------
 	function PageError($code='404', $txt="Not Found"){
-		echo "<h1 class='color:red'>$code: $txt</h1>";
-		exit;
+		$p['err_code']	=$code;
+		$p['err_txt']	=$txt;
+		$this->conf['app']['page']='error';
+		$page= new PMD_Root_Page($this);
+		$page->Display($p);
 	}
 
 	//----------------------------------------------------------------------------------
 	function PageDebug($txt='', $arr="", $exit=1){
-		$out='';
-		$txt and $out .="$txt<br>\n";
-		if($arr){
-			$out .="<pre>".print_r($arr,true)."</pre>\n";
-		}
+
 		if($exit){
-			echo "<h1 clor=red>Debug</h1>$out";
+			$p['content_txt']		=$txt;
+			$p['content_backtrace']	=$this->_GetBacktraceAll();
+			$p['content_arr']		=print_r($arr,true);
+			$this->conf['app']['page']='debug';
+			$page= new PMD_Root_Page($this);
+			$page->Display($p);
 			exit;
 		}
-		echo "$out";
+		else{
+			$out='';
+			$txt and $out .="$txt<br>\n";
+			if($arr){
+				$out .="<pre>".print_r($arr,true)."</pre>\n";
+			}
+			echo "<div class='debug'>$out</div>";
+		}
+	}
+
+
+	//-----------------------------------------------------------------------------------------------------------------------
+	private function _GetBacktraceAll($remove_steps=0){
+		$remove_steps +=3;
+		$backtrace = debug_backtrace();
+		
+		krsort($backtrace);
+		//remove last step
+		for ($i=0; $i < $remove_steps ; $i++) { 
+			array_pop($backtrace);
+		}
+		$cb=count($backtrace);
+		foreach($backtrace as $back){
+			if(!$back['class']){continue;}
+			$path	.= $back['class'].'->'.$back['function'];
+			$cb--; $cb and $path .=",<br> ";
+		}
+		$path=str_replace('PMD_','&copy;',$path);
+		return $path;
 	}
 
 

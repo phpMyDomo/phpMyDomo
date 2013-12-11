@@ -200,7 +200,75 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#000000', end
 /* @end */
 /* @end */
 
+/* @group Page Debug
+------------------------------------------- */
+#body_debug .h1{
+	color: #444;
+	margin-bottom: 10px;
+	font-size: 20px;
+	text-align: right;
+}
+#body_debug {
+	background-color: #aaa;
+}
+#body_debug .div_debug{
+	border: 1px solid #555;
+	box-shadow: 4px 4px 8px rgba(0,0,0,0.5);
+	-moz-box-shadow: 4px 4px 8px rgba(0,0,0,0.5);
+	-webkit-box-shadow: 4px 4px 8px rgba(0,0,0,0.5);
+}
+#body_debug H5{
+	background-color: #666;
+	margin: 0;
+	color: yellow;
+	font-weight: normal;
+	padding: 10px;
+}
+#body_debug .backtrace{
+	float: right;
+	display: inline-block;
+	font-size: 11px;
+	line-height: 150%;
+	background: #333;
+	color: #bbb;
+	padding: 10px;
+	font-family: Monaco, Courier, mono;
+	margin: 0 0 10px 10px;
+}
+#body_debug PRE{
+	border-radius: 0;
+	-moz-border-radius: 0;
+	-webkit-border-radius: 0;
+	font-size: 9px;	
+	border: none;
+	margin: 0;
+}
+/* @end */
 
+
+/* @group Page Error
+------------------------------------------- */
+#body_error .h1{
+	color: #F00;
+	margin-bottom: 20px;
+	font-size: 46px;
+}
+#body_error .well{
+	text-align: center;
+	padding: 30px 20px;
+	border: 3px solid #F00;
+	background: #fefcaf;
+	box-shadow: 4px 4px 8px rgba(0,0,0,0.5);
+	-moz-box-shadow: 4px 4px 8px rgba(0,0,0,0.5);
+	-webkit-box-shadow: 4px 4px 8px rgba(0,0,0,0.5);
+}
+#body_error .well I{
+	color: #F00;
+	font-size: 36px;
+	vertical-align: middle;
+	margin-right: 15px;
+}
+/* @end */
 
 
 /* @group Page Devices
@@ -224,6 +292,8 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#000000', end
 	-webkit-border-radius: 5px;
 	border: 1px solid rgba(0,0,0,0.2);
 	box-shadow: -1px -1px 1px rgba(100,100,100,0.1);
+	-moz-box-shadow: -1px -1px 1px rgba(100,100,100,0.1);
+	-webkit-box-shadow: -1px -1px 1px rgba(100,100,100,0.1);
 	margin: auto;
 }
 .table_devices{
@@ -396,4 +466,5 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#000000', end
 }
 
 /* @end */
+
 
