@@ -52,6 +52,7 @@ _in Debian, you just have to change "AllowOverride None" to "AllowOverride All" 
 __5) move the content of your phpMyDomo-phpMyDomo-XXXX/www/ directory to the directory where you have configured Apache to serve files from__.
 _Ie on debian, if you're using the default webserver location in /var/www/, do:_
 `mv -f /home/USERNAME/phpMyDomo-phpMyDomo-XXXX/www/* /var/www/`
+`mv -f /home/USERNAME/phpMyDomo-phpMyDomo-XXXX/www/.htaccess /var/www/`
 _Notice: Be sure that you've copied the /home/USERNAME/phpMyDomo-phpMyDomo-XXXX/www/.htaccess (hidden) file to your webserver root directory, else you will get a 404 when trying to access phpMyDomo from your web browser._
 
 
