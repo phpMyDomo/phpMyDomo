@@ -94,8 +94,10 @@ class PMD_Kernel{
 		$p['err_code']	=$code;
 		$p['err_txt']	=$txt;
 		$this->conf['app']['page']='error';
-		$page= new PMD_Root_Page($this);
-		$page->Display($p);
+		if(!is_object($this->o_page)){
+			$this->o_page= new PMD_Root_Page($this);
+		}
+		$this->o_page->Display($p);
 	}
 
 	//----------------------------------------------------------------------------------
@@ -106,8 +108,10 @@ class PMD_Kernel{
 			$p['content_backtrace']	=$this->_GetBacktraceAll();
 			$p['content_arr']		=print_r($arr,true);
 			$this->conf['app']['page']='debug';
-			$page= new PMD_Root_Page($this);
-			$page->Display($p);
+			if(!is_object($this->o_page)){
+				$this->o_page= new PMD_Root_Page($this);
+			}
+			$this->o_page->Display($p);
 			exit;
 		}
 		else{
