@@ -85,7 +85,7 @@ class PMD_Kernel{
 			$this->o_page->Run();
 		}
 		else{
-			$this->PageError('404',"'$page' is not defined $url");
+			$this->PageError('404',"<i>$page</i> is not defined !");
 		}
 	}
 	
