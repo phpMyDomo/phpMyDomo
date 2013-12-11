@@ -6,8 +6,9 @@
 	{if $row.state == 'on'}{$c=' btn-success'}{/if}
 	{$command='switch'}
 	{if $row.type=='group' || $row.type=='scene'}{$command='scene'}{/if}
+	{if $row.type=='dimmer' or $row.type=='shutter'}{$command='dimmer'}{/if}
 
-<div class="btn-group button_dim">
+<div class="btn-group jsButGroup button_dim">
 	<a href='#' name='but_{$row.uid}' data-address='{$row.address}' data-type='{$command}' data-state='{$row.state}' data-onclass='btn-success' class='btn btn-{$style} btn-lg jsButSwitch button_big{$c}'><span class='but_img'><img src='{$p.urls.static}/global/img/icon48_type_{$row.img_type}.png' data-on="{$p.urls.static}/global/img/icon48_type_{$row.type}_on.png" data-off="{$p.urls.static}/global/img/icon48_type_{$row.type}_off.png"></span>{$row.name}</a>
 
 {if $row.type=='dimmer'}

@@ -13,6 +13,8 @@ jQuery( document ).ready(function() {
     	e.preventDefault();
     	var but		=$(this);
     	var img		=but.find('IMG');
+    	var dim		=but.closest('.jsButGroup').find('.jsButDimmer')
+
     	var images={
     		'on': img.attr('data-on'),
     		'off': img.attr('data-off'),
@@ -39,6 +41,10 @@ jQuery( document ).ready(function() {
 					img.attr('src',images[target]);
 					if(target=='on'){
 						but.addClass(onclass);
+						dim.html(100);
+					}
+					else{
+						dim.html(0);
 					}
   				}
   				else{
@@ -48,7 +54,7 @@ jQuery( document ).ready(function() {
 			.fail(function( jqxhr, textStatus, error ) {
 			    but.removeClass('active');
 				var err = textStatus + ", " + error;
-				console.log( "Request Failed: " + err );
+				console.log( "Switch Request Failed: " + err );
 			});    	
     });
 
@@ -57,6 +63,7 @@ jQuery( document ).ready(function() {
     	var but			=$(this);
     	var popover_id	='#jsPopover_'+ but.attr('data-address');
     	var slider_id	='#jsSlider_'+ but.attr('data-address');
+    	var address	=but.attr('data-address');
     	
     	but.popover({
 			html: true,
@@ -67,15 +74,39 @@ jQuery( document ).ready(function() {
 	   .click(function(e){
 			e.preventDefault();
 			but.popover('toggle');
+			var last_value=null;
 			var value;
-			var slider	=$(slider_id).slider({}).on('slide', function (ev) {
-            	value = ev.value;
-            	but.html(value);
-            	/* slider.slider('setValue', value); */
-            	/* Do Ajax Call, avoiding sending continous values */
-        	});;
+			var slider	=$(slider_id).slider({
+				value: but.html()
+				})
+			.on('slide', $.throttle( 250, function (ev) {
+					SetReload(120);
+					value = ev.value;
+            		if(value != last_value){
+	            		last_value= value;
+						/* slider.slider('setValue', value); */
+					
+						/* Do Ajax Call, avoiding sending continous values */
+						console.log('Sending Dim '+value);		
+						$.getJSON( ajax_url, { mode: "set", a: address, v: value, t: 'dim_level' } )
+							.done(function( json ) {
+								if(json.status=='ok'){
+									console.log('Dim OK '+value);
+				            		but.html(value);
+								}
+								else{
+									console.log('Dim ERROR');
+								}
+							})
+							.fail(function( jqxhr, textStatus, error ) {
+								var err = textStatus + ", " + error;
+								console.log( "Dim Request Failed: " + err );
+						});
+            		}
+			}));            		
+            		
+        });
 		
-		});
    });
 
     
