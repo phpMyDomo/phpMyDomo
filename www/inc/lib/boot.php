@@ -93,7 +93,7 @@ if(!file_exists($conf['paths']['caches'].'version')){
 	echo "<H1>Installing {$conf['app']['name']} (version {$conf['app']['version']})</H1>";
 	
 	echo "Checking cache folder : ";
-	if(!is_writable($conf['paths']['caches'])){DieError("<p><b>{$conf['paths']['caches']}</b> is not writable, please chmod it to 777</p><i>chmod -R 777 {$conf['paths']['cache']}</i>");}
+	if(!is_writable($conf['paths']['caches'])){DieError("<p><b>{$conf['paths']['caches']}</b> is not writable, please chmod it to 777</p><i>chmod -R 777 {$conf['paths']['caches']}</i>");}
 	
 	echo "OK<br> Checking minimum config :";
 	if(!$conf['app']['api'])					{DieError('Client API is not set');}
