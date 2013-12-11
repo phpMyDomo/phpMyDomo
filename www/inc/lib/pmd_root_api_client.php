@@ -55,6 +55,7 @@ class PMD_Root_ApiClient extends PMD_Root{
 	battery_level 	=> (optionnal int 0/100) Battery level for sensor
 	signal_level 	=> (optionnal int 0/100) Signal level for RF sensor
 	raw_value1		=> (optionnal) raw main value of the device : used to autobuild 'state', if not specified in the RegisterDevice method
+	unit			=> (optionnal) unit of the value, if  it cant be guessed by the type (ie current) ... to improve
 */
 
 	// various info from remote server

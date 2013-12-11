@@ -103,6 +103,10 @@ class PMD_ApiClient extends PMD_Root_ApiClient{
 					$d['type']	='temp';
 					$d['value']	=$raw['Temp'];
 				}
+				elseif($raw['Type']=='Motion Sensor'){
+					$d['class']	='sensor';
+					$d['type']	='pir';
+				}
 				elseif($raw['Type']=='Temp + Humidity'){
 					$d['class']	='sensor';
 					
@@ -114,6 +118,25 @@ class PMD_ApiClient extends PMD_Root_ApiClient{
 					$d['value']	=$raw['Humidity'];
 
 				}
+				elseif($raw['Type']=='YouLess Meter'){
+					$d['class']	='sensor';
+					
+					$d['type']	='current';
+					$d['value']	=(float) preg_replace('#[^0-9\.]+#','',$raw['CounterToday']);
+					$d['unit']	="kWh";
+					$this->RegisterDevice($d,'today');
+
+					$d['type']	='current';
+					$d['value']	=(float) preg_replace('#[^0-9\.]+#','',$raw['Usage']);
+					$d['unit']	="W";
+					$this->RegisterDevice($d,'now');
+
+					$d['type']	='current';
+					$d['value']	=(float) $raw['Counter'];
+					$d['unit']	="kWh";
+
+				}
+
 				elseif($raw['SwitchType']=='On/Off'){
 					$d['class']	='command';
 					$d['type']	='switch';
