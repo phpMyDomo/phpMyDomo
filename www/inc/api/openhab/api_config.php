@@ -16,11 +16,11 @@ $api['dir_admin']	='/openhab.app';
 $api['set']['switch']['on']			='ON';
 $api['set']['switch']['off']		='OFF';
 
-//$api['set']['scene']['on']		='On';
-//$api['set']['scene']['off']		='Off';
+$api['set']['scene']['on']			='ON';
+$api['set']['scene']['off']			='OFF';
 
-//$api['set']['group']['on']		='On';
-//$api['set']['group']['off']		='Off';
+$api['set']['group']['on']			='ON';
+$api['set']['group']['off']			='OFF';
 
 $api['set']['dimmer']['on']			='100';
 $api['set']['dimmer']['off']		='0';
@@ -34,10 +34,10 @@ $api['actions']['set']['switch']		=array(
 	'content'	=>'{state}',
 	'result_type'=>'text_state'
 );
-//$api['actions']['set']['dimmer']		='/command/{address}/{state}';
-//$api['actions']['set']['dim_level']	='/command/{address}/{state}';
-//$api['actions']['set']['scene']		='/command/{address}/{state}';
-//$api['actions']['set']['group']		='/command/{address}/{state}';
+$api['actions']['set']['dimmer'] 	=$api['actions']['set']['switch'];
+$api['actions']['set']['dim_level'] =$api['actions']['set']['switch'];
+$api['actions']['set']['group'] 	=$api['actions']['set']['switch'];
+$api['actions']['set']['scene'] 	=$api['actions']['set']['switch'];
 
 
 //#############################################################################
