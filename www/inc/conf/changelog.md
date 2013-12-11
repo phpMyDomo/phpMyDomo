@@ -1,5 +1,18 @@
 # phpMyDomo ChangeLog
 
+## Version : 0.133 - Dec 11, 2013
+- new: Implement openHab API
+- new: Custom server port can be defined in the config file (if you're updating see config-sample for examples)
+- new: Cameras sizes can be defined
+- dev: Language files: date information + use only double quotes
+- dev: Dimmers slider view (dont currently send data)
+- new: Devices Page shows commands values (ie for dimmers)
+- new: RGB icons, + nicer Groups icons 
+- new: Nicer Error Page 
+- dev: Nicer Debug Page 
+- new: Allow Installation of PMD in a sub-directory
+- fix: Index page now checks if .htaccess if already present
+
 ## Version : 0.132 - Dec 10, 2013
 - fix: Domogik API values
 - new: Update show ChangeLog from remote new Version
