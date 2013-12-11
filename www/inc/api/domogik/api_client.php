@@ -20,17 +20,17 @@
     along with this program.  If not, see <http://www.gnu.org/licenses/>
 	#####################################################################
 */
+/* 
+#########################################################################################
+Domogiz 0.3 API #########################################################################
+#########################################################################################
+only Device listing is supported.
+WorkInProgress: Missing values and states for each devices. Domogiz 0.4 should be better
+
+*/
 
 class PMD_ApiClient extends PMD_Root_ApiClient{
 
-/* 
-Domogiz 0.3 API
-(only Device listing is supported. )
-
-WorkInProgress:
-Missing values and states for each devices. Domogiz 0.4 should be better
-
-*/
 
 	//----------------------------------------------------------------------------------
 	function ApiListInfos(){
