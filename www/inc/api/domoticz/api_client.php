@@ -103,6 +103,17 @@ class PMD_ApiClient extends PMD_Root_ApiClient{
 					$d['type']	='temp';
 					$d['value']	=$raw['Temp'];
 				}
+				elseif($raw['Type']=='Temp + Humidity'){
+					$d['class']	='sensor';
+					
+					$d['type']	='temp';
+					$d['value']	=$raw['Temp'];
+					$this->RegisterDevice($d);
+
+					$d['type']	='hygro';
+					$d['value']	=$raw['Humidity'];
+
+				}
 				elseif($raw['SwitchType']=='On/Off'){
 					$d['class']	='command';
 					$d['type']	='switch';
