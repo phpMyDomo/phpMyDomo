@@ -139,7 +139,7 @@ class PMD_Root_Page extends PMD_Root{
 		$page['code']				=$this->conf['app']['page'];
 		$page['template']			=$this->dir_template;
 		$page['urls']				=$this->conf['urls'];
-		$page['dirs']['server_admin']=$this->conf['api']['urls']['admin'];
+		$page['urls']['server_admin']=$this->conf['api']['urls']['admin'];
 		$page['headers']			=$this->_getHeaders();
 		$page['menu_urls']			=$this->conf['menu_urls'];	
 		$page['menu_head']			=$this->conf['menu_head'];	
@@ -151,7 +151,7 @@ class PMD_Root_Page extends PMD_Root{
 		$page['units']				=$this->conf['units'];
 		$this->Assign('p',$page);
 		
-		//$this->Debug('Page',$page);
+		//$this->Debug('Page',$page,0);
 		$template='pages/'.$this->conf['app']['page'];
 		$this->PrintDisplay($template);
 		exit;

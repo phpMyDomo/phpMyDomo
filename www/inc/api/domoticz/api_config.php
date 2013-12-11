@@ -6,14 +6,9 @@
 $api['method']='json_get'; //api method : json_get | json_rpc2
 
 //api URL ----------------------------------------------------------------
-if(isset($this->conf['urls']['server_domoticz'])){
-	$api['urls']['www']		=$this->conf['urls']['server_domoticz'].':8080';
-}
-else{
-	$api['urls']['www']	=$this->conf['urls']['www'].':8080';
-}
-$api['urls']['api']		=$api['urls']['www'].'/json.htm';
-$api['urls']['admin']	=$api['urls']['www'];
+$api['urls']['api']	=$this->conf['urls']['www'].':8080';
+$api['urls']['www']	=$this->conf['urls']['www'].':8080';
+$api['dir_admin']		='/';
 
 
 // Set Commands Values -------------------------------------------------------
@@ -34,11 +29,11 @@ $api['set']['dimmer']['max']		=16;
 
 
 // Actions -------------------------------------------------------------------
-$api['actions']['set']['switch']		='?type=command&param=switchlight&idx={address}&switchcmd={state}';
-$api['actions']['set']['dimmer']		='?type=command&param=switchlight&idx={address}&switchcmd={state}';
-$api['actions']['set']['dim_level']		='?type=command&param=switchlight&idx={address}&switchcmd=Set Level&level={state}';
-$api['actions']['set']['scene']			='?type=command&param=switchscene&idx={address}&switchcmd={state}';
-$api['actions']['set']['group']			='?type=command&param=switchscene&idx={address}&switchcmd={state}';
+$api['actions']['set']['switch']		='/json.htm?type=command&param=switchlight&idx={address}&switchcmd={state}';
+$api['actions']['set']['dimmer']		='/json.htm?type=command&param=switchlight&idx={address}&switchcmd={state}';
+$api['actions']['set']['dim_level']		='/json.htm?type=command&param=switchlight&idx={address}&switchcmd=Set Level&level={state}';
+$api['actions']['set']['scene']			='/json.htm?type=command&param=switchscene&idx={address}&switchcmd={state}';
+$api['actions']['set']['group']			='/json.htm?type=command&param=switchscene&idx={address}&switchcmd={state}';
 
 
 //#############################################################################
@@ -46,11 +41,11 @@ $api['actions']['set']['group']			='?type=command&param=switchscene&idx={address
 //#############################################################################
 
 // List actions URLS -------------------------------------
-$api['actions']['list']['device']		='?type=devices&filter=all&used=true&order=Name';
-$api['actions']['list']['scene']		='?type=scenes';
-$api['actions']['list']['camera']		='?type=cameras';
-//$api['actions']['list']['switch']		='?type=command&param=getlightswitches';
-$api['actions']['list']['info']			='?type=command&param=getSunRiseSet';
+$api['actions']['list']['device']		='/json.htm?type=devices&filter=all&used=true&order=Name';
+$api['actions']['list']['scene']		='/json.htm?type=scenes';
+$api['actions']['list']['camera']		='/json.htm?type=cameras';
+//$api['actions']['list']['switch']		='/json.htm?type=command&param=getlightswitches';
+$api['actions']['list']['info']			='/json.htm?type=command&param=getSunRiseSet';
 
 
 

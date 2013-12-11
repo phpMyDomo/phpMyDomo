@@ -27,11 +27,12 @@ $conf['app']['lang']		="en";
 //	Urls  #####################################################################
 // ##############################################################################
 /*
-URLS of remote API Server.If not set default to the same server, on the default port.
-$conf['urls']['server_domoticz']	="http://10.1.100.151";
-$conf['urls']['server_domogik']		="http://10.1.100.152";
-$conf['urls']['server_domotiga']	="http://10.1.100.153";
-$conf['urls']['server_openhab']		="http://demo.openhab.org";
+http://hostname_or_ip:port of the remote API Server.If not set default to the same server, on the default port.
+
+$conf['urls']['server_domoticz']	="http://10.1.100.151:8080";
+$conf['urls']['server_domogik']		="http://10.1.100.152:40405";
+$conf['urls']['server_domotiga']	="http://10.1.100.153:9090";
+$conf['urls']['server_openhab']		="http://demo.openhab.org:8080";
 */
 
 

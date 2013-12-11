@@ -6,15 +6,9 @@
 $api['method']='json_mixed'; //api method : json_get | json_rpc2 | json_mixed
 
 //api URL ----------------------------------------------------------------
-if(isset($this->conf['urls']['server_openhab'])){
-	//$api['urls']['www']		=$this->conf['urls']['server_openhab'].':8080';
-	$api['urls']['api']		=$this->conf['urls']['server_openhab'].':8080';
-}
-else{
-	//$api['urls']['www']	=$this->conf['urls']['www'].':8080';
-	$api['urls']['api']	=$this->conf['urls']['www'].':8080';
-}
-$api['urls']['admin']	=$api['urls']['www'].'/openhab.app';
+$api['urls']['api']	=$this->conf['urls']['www'].':8080';
+$api['urls']['www']	=$this->conf['urls']['www'].':8080';
+$api['dir_admin']	='/openhab.app';
 
 
 // Set Commands Values -------------------------------------------------------

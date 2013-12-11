@@ -6,16 +6,9 @@
 $api['method']='json_rpc2'; //api method : json_get | json_rpc2
 
 //api URL ----------------------------------------------------------------
-if(isset($this->conf['urls']['server_domotiga'])){
-	//$api['urls']['www']		=$this->conf['urls']['server_domotiga'].'';
-	$api['urls']['api']		=$this->conf['urls']['server_domotiga'].':9090';
-}
-else{
-	//$api['urls']['www']	=$this->conf['urls']['www'].'';
-	$api['urls']['api']	=$this->conf['urls']['www'].':9090';
-}
-//$api['urls']['admin']	=$api['urls']['www'].'/admin/';
-
+$api['urls']['api']	=$this->conf['urls']['www'].':9090';
+$api['urls']['www']	=$this->conf['urls']['www'].':9090';
+$api['dir_admin']	='/';
 
 // Set Commands Values -------------------------------------------------------
 // Values used when Sending a command

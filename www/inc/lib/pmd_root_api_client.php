@@ -69,9 +69,22 @@ class PMD_Root_ApiClient extends PMD_Root{
 
 	//----------------------------------------------------------------------------------
 	private function _require(){
+		$my_api		=$this->conf['app']['api'];
 		require($this->conf['paths']['api'].'api_config.php');
+
+		//override from global config
+		if(isset($this->conf['urls']["server_$my_api"])){
+			$api['urls']['api']=$this->conf['urls']["server_$my_api"];
+		}
+		if(isset($this->conf['urls']["www_$my_api"])){
+			$api['urls']['www']=$this->conf['urls']["www_$my_api"];
+		}
+		$api['urls']['www'] or $api['urls']['www']=$api['urls']['api'];
+		$api['urls']['admin']=$api['urls']['www'].$api['dir_admin'];
+
 		$this->conf['api']= $api;
 		$this->vars=& $this->conf['api'];
+		
 		if($this->vars['method']=="json_rpc2"){
 			require_once($this->conf['libs']['jsonrpc_client']);
 			$this->o_jsonrpc = new Client($this->vars['urls']['api']);

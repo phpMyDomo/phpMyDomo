@@ -6,15 +6,9 @@
 $api['method']='json_get'; //api method : json_get | json_rpc2
 
 //api URL ----------------------------------------------------------------
-if(isset($this->conf['urls']['server_domogik'])){
-	$api['urls']['www']		=$this->conf['urls']['server_domogik'].':40404';
-	$api['urls']['api']		=$this->conf['urls']['server_domogik'].':40405';
-}
-else{
-	$api['urls']['www']	=$this->conf['urls']['www'].':40404';
-	$api['urls']['api']	=$this->conf['urls']['www'].':40405';
-}
-$api['urls']['admin']	=$api['urls']['www'].'/admin/';
+$api['urls']['api']	=$this->conf['urls']['www'].':40405';
+$api['urls']['www']	=$this->conf['urls']['www'].':40404';
+$api['dir_admin']	='/admin/';
 
 
 // Set Commands Values -------------------------------------------------------
