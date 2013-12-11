@@ -116,8 +116,10 @@ class PMD_Root_Page extends PMD_Root{
 
 		$this->SetHeader('js/jquery-1.7.2.min.js','js_global');
 		$this->SetHeader('js/jquery.lazyload.min.js','js_global');
+		$this->SetHeader('js/jquery.ba-throttle-debounce.js','js_global');
 		$this->SetHeader('bs/js/bootstrap.min.js','js_global');
 		$this->SetHeader('bs/js/bootstrap-slider.min.js','js_global');
+
 		$this->SetHeader('js/main.js','js_global');
 		$this->SetHeader('js/skin.js','js');
 		
