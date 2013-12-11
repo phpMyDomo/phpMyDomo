@@ -44,7 +44,7 @@ class PMD_ApiClient extends PMD_Root_ApiClient{
 				$raw=$d['raw'];
 				$d['address']=$raw['name'];
 				if($d['address']=='Temperature' or $d['address']=='Status' or $d['address']=='Weather' or $d['address']=='Weather_Chart'){
-					
+					//skipped
 				}
 				elseif($d['address']=='Shutter_all'){
 					$d['class']	="scene";
