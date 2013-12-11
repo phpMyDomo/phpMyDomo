@@ -343,9 +343,18 @@ class PMD_Root_ApiClient extends PMD_Root{
 		elseif($this->vars['method']=="json_mixed"){
 			$out=$this->ApiFetchJson_mixed($command,$type,$address,$state);
 		}
+		// custom -------------------------------------------------
+		elseif($this->vars['method']=="custom"){
+			$out=$this->ApiFetchCustom($command,$type,$address,$state);
+		}
 		
 		$this->api_response=$out;
 		return $this->api_status;
+	}
+
+	//---------------------------------------------------------------
+	function ApiFetchCustom($command, $type='', $address='',$state=''){
+		echo "Extend this method in your plugin class";
 	}
 
 	//---------------------------------------------------------------
