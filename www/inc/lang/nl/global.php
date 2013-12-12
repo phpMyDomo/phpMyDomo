@@ -12,13 +12,13 @@ $lang['menu_head']['devices']	="Apparaten";
 // classes ###################################################
 $lang['classes']['scene']	="scene";
 $lang['classes']['sensor']	="sensor";
-$lang['classes']['command']	="command";
+$lang['classes']['command']	="commando";
 $lang['classes']['camera']	="camera";
-$lang['classes']['security']="security";
+$lang['classes']['security']="beveiliginh";
 
 // blocks ###################################################
-$lang['blocks_titles']['weather']="Weather";
-$lang['blocks_titles']['sensors']="Sensors";
+$lang['blocks_titles']['weather']="Weer";
+$lang['blocks_titles']['sensors']="Sensoren";
 
 // types blocks ###################################################
 $lang['types']['scene']		="Scene";
@@ -55,7 +55,7 @@ $lang['infos']['now']		="Nu";
 // dates formats ########################################################
 //  date format according to : http://php.net/strftime
 $lang['dates']['day']		="%A %e %b";
-$lang['dates']['time']		="%I : %M %P";
+$lang['dates']['time']		="%H : %M";
 
 // home ################################################################
 $lang['groups_names']['all_commands']="Alle Commando's";
