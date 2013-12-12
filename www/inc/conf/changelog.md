@@ -1,5 +1,13 @@
 # phpMyDomo ChangeLog
 
+## Version : 0.134 - Dec xx, 2013
+- new: Dutch translation (thanks to Pepijn Goossens)
+- new: (Experimental) Dimmers button implementation (Tested on openHab, Domoticz)
+- new: Now default to openHab Api, which has a convenient ONLINE api demo
+- new: Domoticz now supports type "Temp + Humidity", "Motion Sensor", "YouLess Meter"
+- dev: ApiFetchCustom for specific Fetch cases
+- fix: 'Cache NotWritable' Error Help text
+
 ## Version : 0.133 - Dec 11, 2013
 - new: Implement openHab API
 - new: Custom server port can be defined in the config file (if you're updating see config-sample for examples)
