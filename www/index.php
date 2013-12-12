@@ -1,4 +1,4 @@
-<?
+<?php
 $dir=dirname(__FILE__);
 if(!file_exists($dir.'/.htaccess')){
 	echo "
@@ -7,6 +7,7 @@ if(!file_exists($dir.'/.htaccess')){
 	<pre style='color:grey'>mv [ARCHIVE_PATH_OF_PMD]/phpMyDomo/www/.htaccess $dir/</pre>
 	";
 }
+
 $current_dir=dirname($_SERVER['PHP_SELF']);
 if($current_dir=='/'){$current_dir='';}
 header("location: $current_dir/home");
