@@ -14,7 +14,7 @@ $lang['classes']['scene']	="scene";
 $lang['classes']['sensor']	="sensor";
 $lang['classes']['command']	="commando";
 $lang['classes']['camera']	="camera";
-$lang['classes']['security']="beveiliginh";
+$lang['classes']['security']="beveiliging";
 
 // blocks ###################################################
 $lang['blocks_titles']['weather']="Weer";
