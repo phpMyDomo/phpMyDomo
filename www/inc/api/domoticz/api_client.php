@@ -103,10 +103,6 @@ class PMD_ApiClient extends PMD_Root_ApiClient{
 					$d['type']	='temp';
 					$d['value']	=$raw['Temp'];
 				}
-				elseif($raw['Type']=='Motion Sensor'){
-					$d['class']	='sensor';
-					$d['type']	='pir';
-				}
 				elseif($raw['Type']=='Temp + Humidity'){
 					$d['class']	='sensor';
 					
@@ -134,9 +130,11 @@ class PMD_ApiClient extends PMD_Root_ApiClient{
 					$d['type']	='current';
 					$d['value']	=(float) $raw['Counter'];
 					$d['unit']	="kWh";
-
 				}
-
+				elseif($raw['SwitchType']=='Motion Sensor'){
+					$d['class']	='sensor';
+					$d['type']	='pir';
+				}
 				elseif($raw['SwitchType']=='On/Off'){
 					$d['class']	='command';
 					$d['type']	='switch';
