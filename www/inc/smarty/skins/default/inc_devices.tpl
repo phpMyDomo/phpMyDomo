@@ -8,7 +8,7 @@
 			<td class="td_img">		<img src='{$p.urls.static}/global/img/icon48_type_{$i.img_type}.png' class='{if $c.debug.show}jsPopover{/if}' title="{$i.name}" data-content="<pre>{print_r($i,true)}</pre>"></td>
 			<td class="td_name">	{$i.name}</td>
 			<td class="td_value">	<a href='#' title="{$i.value}">{$my_val}</a></td>
-			<td class="td_unit">	{$p.units.{$i.type}}</td>
+			<td class="td_unit">	{$i.unit|default:$p.units.{$i.type}}</td>
 {if $p.code=='devices' or $p.code=='sensors'}
 			<td class="td_type">	{$lg.types.{$i.type}|default:"<u>{$i.type}</u>"}<br><i>{$lg.classes.{$i.class}|ucwords}</i></td>
 {/if}
