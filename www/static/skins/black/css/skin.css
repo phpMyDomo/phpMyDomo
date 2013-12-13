@@ -6,17 +6,15 @@ body{
 #lay_footer{
 	border-top: 1px solid rgba(150,150,150,0.1);
 }
-#body_home .block_right,
-#body_home .groups,
+#body_home .home_panel,
 #body_cameras .camera{
 	border-color: #000;
-	background-color: #333;
+	background-color: #222;
 	box-shadow: 3px 3px 7px rgba(0,0,0,0.6);
 	-moz-box-shadow: 3px 3px 7px rgba(0,0,0,0.6);
 	-webkit-box-shadow: 3px 3px 7px rgba(0,0,0,0.6);
 }
-#body_home .block_right .panel-heading,
-#body_home .groups .panel-heading,
+#body_home .home_panel .panel-heading,
 #body_cameras .camera .panel-heading{
 	text-shadow: -1px -1px 1px rgba(0,0,0,1) ;
 	background: #333;
@@ -39,13 +37,13 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#2b2d30', end
 #body_home .block_right .panel-body-full{
 	background-color: #000;
 }
-#body_home .groups .panel-body,
+#body_home .home_groups .panel-body,
 #body_cameras .camera .panel-body-full{
 	background-color: #222;
 }
 
-#body_home .block_right .panel-body-full,
-#body_home .groups .panel-body,
+#body_home .home_panel .panel-body-full,
+#body_home .home_panel .panel-body,
 #body_cameras .camera .panel-body-full{
 	border-top: 1px solid rgba(150,150,150,0.05);	
 	border-radius: 0 0 4px 4px;
@@ -62,11 +60,11 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#2b2d30', end
 #body_home .block_right .td_value{
 	color: #666;
 }
-#body_home .groups .sensor{
+#body_home .home_groups .sensor{
 	color: #444;
 	text-shadow: -1px -1px 1px rgba(0,0,0,0.9) ;
 }
-#body_home .groups .sensor B{
+#body_home .home_groups .sensor B{
 	color: #555;
 }
 .div_devices_border{

@@ -58,7 +58,12 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#000000', end
 	padding: 0;
 }
 #lay_footer .menu_foot A{
-	color: #44F;
+	color: #66F;
+	opacity: 0.5;
+}
+#lay_footer .menu_foot A:hover{
+	opacity: 1;
+	text-decoration: none;
 }
 #lay_footer .menu_foot LI{
 	display: inline-block;
@@ -109,7 +114,7 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#000000', end
 /* @group Buttons
 ------------------------------------------- */
 .button_group{
-	margin: 4px;
+	margin: 0 10px 10px 0;
 }
 .button_big{
 	line-height: 36px ;
@@ -138,25 +143,37 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#000000', end
 
 /* @group Page Home
 ------------------------------------------- */
-#body_home .groups .panel-body{
+
+#body_home .home_panel .panel-heading{
+	padding: 5px 13px;
+	font-size: 13px;
 }
-.groups .sensors .sensor{
-	color: #AAA;	
+#body_home .home_panel .panel-heading I{
+	opacity: 0.4;
+	margin-right: 4px;
 }
-.groups .sensors .sensor B{
+
+#body_home .home_groups .panel-body{
+	padding: 10px 0 0 10px;
+}
+#body_home .home_groups .sensor{
+	color: #AAA;
+}
+#body_home .home_groups .sensor B{
 	color: #666;
 	margin-right: 2px;
 }
-.groups .sensors .sensor IMG{
-	height: 20px;
+#body_home .home_groups .sensor IMG{
+	height: 16px;
 	margin-left: 15px;
 	margin-right: 2px;
 	opacity: 0.6;
+	vertical-align: text-bottom;
 }
-
 
 /* @group Blocks
 ------------------------------------------- */
+
 .block_right TABLE{
 	width: 100%;
 }
@@ -171,19 +188,18 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#000000', end
 	padding-left: 10px;
 }
 .block_right TABLE .td_icon IMG{
-	height: 24px;
+	height: 20px;
 }
 .block_right TABLE .td_name{
 	padding-left: 6px;
 	padding-right: 10px;
-	font-size: 13px;
+	font-size: 12px;
 	width: 80%;	
 }
 .block_right TABLE .td_value{
 	text-align: right;
-	font-weight: bold;
 	padding-right: 4px;
-	font-size: 115%;
+	font-size: 14px;
 	white-space: nowrap;
 }
 .block_right TABLE .td_unit{
