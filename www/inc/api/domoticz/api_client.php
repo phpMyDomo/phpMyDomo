@@ -136,6 +136,24 @@ class PMD_ApiClient extends PMD_Root_ApiClient{
 					$d['unit']	="kWh";
 
 				}
+				elseif($raw['Type']=='P1 Smart Meter){
+					$d['class']	='sensor';
+					
+					$d['type']	='current';
+					$d['value']	=(float) preg_replace('#[^0-9\.]+#','',$raw['CounterToday']);
+					$d['unit']	="kWh";
+					$this->RegisterDevice($d,'today');
+
+					$d['type']	='current';
+					$d['value']	=(float) preg_replace('#[^0-9\.]+#','',$raw['Usage']);
+					$d['unit']	="W";
+					$this->RegisterDevice($d,'now');
+
+					$d['type']	='current';
+					$d['value']	=(float) $raw['Counter'];
+					$d['unit']	="kWh";
+
+				}
 
 				elseif($raw['SwitchType']=='On/Off'){
 					$d['class']	='command';
