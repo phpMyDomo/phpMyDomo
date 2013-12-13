@@ -5,8 +5,9 @@
 - new: (Experimental) Dimmers button implementation (Tested on openHab, Domoticz)
 - new: Now default to openHab Api, which has a convenient ONLINE api demo
 - new: Domoticz now supports type "Temp + Humidity", "Motion Sensor", "YouLess Meter"
-- dev: ApiFetchCustom for specific Fetch cases
 - fix: 'Cache NotWritable' Error Help text
+- dev: ApiFetchCustom for specific Fetch cases
+- dev: Draft Pilight API (absolutely not tested,  certainly needs some fixes)
 
 ## Version : 0.133 - Dec 11, 2013
 - new: Implement openHab API
