@@ -65,6 +65,9 @@ $api['states']['scene']['group']['Off']			='off';
 $api['states']['scene']['group']['On']			='on';		
 $api['states']['scene']['group']['Mixed']		='mixed';		
 
+$api['states']['sensor']['pir']['Off']		='off';		
+$api['states']['sensor']['pir']['On']		='on';		
+
 
 //json definition (auto formatted if defined) -------------------------------
 // fields from the 'result' rows
