@@ -1,6 +1,6 @@
 # phpMyDomo ChangeLog
 
-## Version : 0.134 - Dec xx, 2013
+## Version : 0.134 - Dec 15, 2013
 - new: Dutch translation (thanks to Pepijn Goossens)
 - new: (Experimental) Dimmers button implementation (Tested on openHab, Domoticz)
 - new: Now default to openHab Api, which has a convenient ONLINE api demo
@@ -8,6 +8,8 @@
 - fix: 'Cache NotWritable' Error Help text
 - dev: ApiFetchCustom for specific Fetch cases
 - dev: Draft Pilight API (absolutely not tested,  certainly needs some fixes)
+- new: CSS enhancements
+- new: Silver example skin
 
 ## Version : 0.133 - Dec 11, 2013
 - new: Implement openHab API
