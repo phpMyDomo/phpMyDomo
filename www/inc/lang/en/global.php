@@ -46,6 +46,7 @@ $lang['types']['hygro']		="Hygrometer";
 $lang['types']['bool']		="State";
 $lang['types']['pir']		="Motion";
 $lang['types']['gas']		="Gas/Smoke";
+$lang['types']['counter']	="Counter";
 
 // infos ################################################################
 $lang['infos']['sunset']	="Sunset";
