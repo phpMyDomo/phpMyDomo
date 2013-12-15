@@ -9,7 +9,7 @@
 - dev: ApiFetchCustom for specific Fetch cases
 - dev: Draft Pilight API (absolutely not tested,  certainly needs some fixes)
 - new: CSS enhancements
-- new: Silver example skin
+- new: Additionnal Metal skin
 
 ## Version : 0.133 - Dec 11, 2013
 - new: Implement openHab API

@@ -16,7 +16,7 @@ $conf['app']['home_name']	="Home Sweet Home";
 $conf['app']['lang']		="en";
 
 // Skin : Uncomment to use another skin (defaults to the 'default' skin, if not set)
-//$conf['app']['skin']		="black"; // default | black | silver
+//$conf['app']['skin']		="black"; // default | black | metal
 
 // SubDirectory: Uncomment ONLY if you want to install phpMydomo in a sub directory of your web server root (not recommended at this time)
 //$conf['app']['dir']		="/my_directory";
@@ -76,19 +76,19 @@ Groups are displayed in the order they are created below.
 
 Definitions:
 	- GROUP_KEY: a key to identify the group (use a-z 0-1 _ or - chars) , ie "living", "room_1", "external", etc...
-	- DEVICE_IDs: Unique Id of the Device (tips: grab it from the Device page)
-	- GROUP_NAME: Pretty Group Name, ie: Living Room
+	- DEVICE_IDs: Unique Id of the Device (tips: grab it from the phpMyDomo Devices page)
+	- GROUP_NAME: Group Name Displayed, ie: "Living Room"
 	- 'command' for switches shown in the group
 	- 'sensor' for sensors displayed in the Group Title
 
-Example:
+Example 1:
 	$conf['groups_names']['GROUP_KEY']			="GROUP_NAME";
 	$conf['groups']['GROUP_KEY']['command'][]	="DEVICE_ID_1";	
 	$conf['groups']['GROUP_KEY']['command'][]	="DEVICE_ID_2";
 	$conf['groups']['GROUP_KEY']['sensor'][]	="DEVICE_ID_3";
 will create a group named "GROUP_NAME" (with ID "GROUP_KEY") displaying switches for DEVICE_ID_1 and DEVICE_ID_2, and showing DEVICE_ID_3 sensor values in the group title.
 
-Another example: (working with openHab demo API)
+Example 2: (working with openHab demo API)
 
 	// Groups Names ----------------------------------------------------
 	$conf['groups_names']['living']		="Living Room";
@@ -129,7 +129,7 @@ Another example: (working with openHab demo API)
 /*
 Blocks are shown in the right column of the HomePage.
 They are 2 user defined blocks : "weather" and "sensors".
-Example:
+Example 1:
 	$conf['blocks']['weather'][]="DEVICE_ID_4";
 	$conf['blocks']['weather'][]="DEVICE_ID_5";
 
@@ -137,7 +137,7 @@ Example:
 	$conf['blocks']['sensors'][]="DEVICE_ID_8";
 will show DEVICE_ID_4 and DEVICE_ID_5 in the 'weather' block, and DEVICE_ID_4 and DEVICE_ID_5 in the 'sensors' block
 
-Another example: (working with openHab demo API)
+Example 2: (working with openHab demo API)
 
 	// weather Block (unique ids) ---------------------------------------
 	$conf['blocks']['weather'][]="sensor_temp_weather_temperature";
