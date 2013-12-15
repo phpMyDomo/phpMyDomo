@@ -1,1 +1,5 @@
-/* Add you own style here */
+/* @override http://domo.lo.lo/static/skins/default/css/skin.css */
+
+body{
+	background: #eee url(../img/background.png) repeat;
+}

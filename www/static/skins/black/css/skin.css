@@ -4,7 +4,8 @@ body{
 	background: #444 url(../img/background.jpg) repeat;
 }
 #lay_footer{
-	border-top: 1px solid rgba(150,150,150,0.1);
+	border-top: 1px solid rgba(250,250,250,0.17);
+	background: #000;
 }
 #body_home .home_panel,
 #body_cameras .camera{
@@ -40,6 +41,9 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#2b2d30', end
 #body_home .home_groups .panel-body,
 #body_cameras .camera .panel-body-full{
 	background-color: #222;
+	border-radius:  0 0 4px 4px;
+	-moz-border-radius:  0 0 4px 4px;
+	-webkit-border-radius:  0 0 4px 4px;
 }
 
 #body_home .home_panel .panel-body-full,
