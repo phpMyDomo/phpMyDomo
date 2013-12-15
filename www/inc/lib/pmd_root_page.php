@@ -107,8 +107,9 @@ class PMD_Root_Page extends PMD_Root{
 
 		$this->dir_skin=$this->conf['urls']['static']."/skins/{$this->skin}";
 
-		$this->SetHeader('bs/css/bootstrap.min.css','css_global');
-		$this->SetHeader('bs/css/bootstrap-theme.min.css','css_global');
+		//$this->SetHeader('bs/css/bootstrap.min.css','css_global');
+		//$this->SetHeader('bs/css/bootstrap-theme.min.css','css_global');
+		$this->SetHeader('bs/css/bootstrap.spacelab.css','css_global');
 		$this->SetHeader('bs/css/bootstrap-slider.min.css','css_global');
 		$this->SetHeader('bs/css/font-awesome.min.css','css_global');
 		$this->SetHeader('css/main.css','css_global');
