@@ -16,7 +16,7 @@ $conf['app']['home_name']	="Home Sweet Home";
 $conf['app']['lang']		="en";
 
 // Skin : Uncomment to use another skin (defaults to the 'default' skin, if not set)
-//$conf['app']['skin']		="black";
+//$conf['app']['skin']		="black"; // default | black | silver
 
 // SubDirectory: Uncomment ONLY if you want to install phpMydomo in a sub directory of your web server root (not recommended at this time)
 //$conf['app']['dir']		="/my_directory";
