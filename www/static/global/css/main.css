@@ -1,11 +1,70 @@
 /* @override http://domo.lo.lo/static/global/css/main.css */
 
+/* @group Bootstrap Add.
+-------------------------------------- */
+
+.navbar-inverse{
+  text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.3);
+  background-image: -webkit-linear-gradient(#484e55, #3a3f44 60%, #313539);
+  background-image: linear-gradient(#484e55, #3a3f44 60%, #313539);
+  background-repeat: no-repeat;
+  border: 1px solid rgba(0, 0, 0, 0.6);
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ff484e55', endColorstr='#ff313539', GradientType=0);
+  filter: none;
+}
+
+.navbar-collapse{
+	padding-left: 0;
+}
+.navbar-nav > li:first-child{
+  border-left: 1px solid rgba(0, 0, 0, 0.2);	
+}
+.navbar-nav > li:first-child A{
+  border-left: 1px solid rgba(255, 255, 255, 0.1) !important;
+}
+.navbar-nav > li > a {
+  border-left: 1px solid rgba(255, 255, 255, 0.1);
+  border-right: 1px solid rgba(0, 0, 0, 0.2);
+}
+.navbar-nav > li:last-child{
+  border-right: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.navbar-inverse .navbar-nav.navbar-right > LI,
+.navbar-inverse .navbar-nav.navbar-right >LI > A{
+	border-left: none !important;
+	border-right: none;
+}
+
+.navbar-inverse .navbar-nav.navbar-right > li > a:hover {
+  border-left-color: transparent;
+  background-color: transparent;
+  opacity: 0.7;
+}
+.navbar-inverse .navbar-nav > li.active > a {
+  border-left-color: transparent;
+  background-color: rgba(255,255,255,0.1);
+}
+.navbar-inverse .navbar-nav > li.active > a:hover,
+.navbar-inverse .navbar-nav > li > a:hover{
+  background-color: rgba(0,0,0,0.1);	
+}
+.navbar-inverse .nav .open > a {
+  border-color: transparent;
+}
+
+/* @end */
+
+
+
+
 /* @group Layout
 ------------------------------------------- */
 body { 
 	padding-top: 70px;
 	background: #eee;
 }
+
 html, body {
 	height: 100%;
 }
@@ -51,15 +110,14 @@ background: -o-linear-gradient(top,  rgba(0,0,0,1) 0%,rgba(43,43,43,1) 100%);
 background: -ms-linear-gradient(top,  rgba(0,0,0,1) 0%,rgba(43,43,43,1) 100%);
 background: linear-gradient(to bottom,  rgba(0,0,0,1) 0%,rgba(43,43,43,1) 100%);
 filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#000000', endColorstr='#2b2b2b',GradientType=0 );
-
 }
 #lay_footer .menu_foot{
 	margin: 0 0  10px 0;
 	padding: 0;
 }
 #lay_footer .menu_foot A{
-	color: #66F;
-	opacity: 0.5;
+	color: #77F;
+	opacity: 0.7;
 }
 #lay_footer .menu_foot A:hover{
 	opacity: 1;
@@ -201,6 +259,7 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#000000', end
 	padding-right: 4px;
 	font-size: 14px;
 	white-space: nowrap;
+	font-weight: bold;
 }
 .block_right TABLE .td_unit{
 	padding-right: 10px;
