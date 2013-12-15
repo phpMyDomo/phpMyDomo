@@ -1,7 +1,7 @@
 {* ##################################################################################### *}
 {$my_popover_created=0}
 
-{function name=makeButton row='' style='primary'}
+{function name=makeButton row='' style='default'}
 	{$c=''}
 	{if $row.state == 'on'}{$c=' btn-success'}{/if}
 	{$command='switch'}
