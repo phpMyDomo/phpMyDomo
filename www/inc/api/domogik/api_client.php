@@ -106,15 +106,15 @@ class PMD_ApiClient extends PMD_Root_ApiClient{
 				}
 				elseif($raw['device_type_id']=='rfxcom.rfxmeter'){
 					$d['class']	='sensor';
-					$d['type']	='current';
+					$d['type']	='consum';
 				}
 				elseif($raw['device_type_id']=='rfxcom.elec1'){
 					$d['class']	='sensor';
-					$d['type']	='current';
+					$d['type']	='consum';
 				}
 				elseif($raw['device_type_id']=='rfxcom.elec2'){
 					$d['class']	='sensor';
-					$d['type']	='current';
+					$d['type']	='consum';
 				}
 				elseif($raw['device_type_id']=='rfxcom.rfxsensor'){
 					$d['class']	='sensor';

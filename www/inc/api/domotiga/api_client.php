@@ -91,7 +91,7 @@ class PMD_ApiClient extends PMD_Root_ApiClient{
 		$names['^smoke']	=array('sensor','gas',1);
 		$names['^ups']		=array('sensor','bool');
 		$names['^temp']		=array('sensor','temp',1);
-		$names['^energy']	=array('sensor','current',1);
+		$names['^energy']	=array('sensor','consum',1);
 		$names['^mail']		=array('sensor','bool');
 		$names['^door']		=array('security','door');
 		foreach($names as $reg => $class_type_values){
