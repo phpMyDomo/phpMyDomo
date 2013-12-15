@@ -46,6 +46,7 @@ $lang['types']['hygro']		="Hygrometer";
 $lang['types']['bool']		="Status";
 $lang['types']['pir']		="Beweging";
 $lang['types']['gas']		="Gas/ Rook";
+$lang['types']['counter']	="Counter"; //to translate to Dutch
 
 // infos ################################################################
 $lang['infos']['sunset']	="Zonsondergang";

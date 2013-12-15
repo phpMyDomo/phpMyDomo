@@ -46,7 +46,7 @@ $lang['types']['hygro']		="Humidité";
 $lang['types']['bool']		="Etat";
 $lang['types']['pir']		="Mouvement";
 $lang['types']['gas']		="Gas/Fumée";
-$lang['types']['counter']	="Mètre";
+$lang['types']['counter']	="Compteur";
 
 // infos ################################################################
 $lang['infos']['sunset']	="Coucher de Soleil";
