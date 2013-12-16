@@ -118,23 +118,23 @@ class PMD_Root_ApiClient extends PMD_Root{
 	}
 
 	//----------------------------------------------------------------------------------
-	function GetDevices($class='',$type=''){
-		return $this->_FilterDevices($class,$type);
+	function GetDevices($class='',$type='',$sort_field=''){
+		return $this->_FilterDevices($class,$type,$sort_field);
 	}
 
 	//----------------------------------------------------------------------------------
-	function GetCommands($type=''){
-		return $this->_FilterDevices('command',$type);
+	function GetCommands($type='',$sort_field=''){
+		return $this->_FilterDevices('command',$type,$sort_field);
 	}
 
 	//----------------------------------------------------------------------------------
-	function GetScenes($type=''){
-		return $this->_FilterDevices('scene',$type);
+	function GetScenes($type='',$sort_field=''){
+		return $this->_FilterDevices('scene',$type,$sort_field);
 	}
 
 	//----------------------------------------------------------------------------------
-	function GetSensors($type=''){
-		return $this->_FilterDevices('sensor',$type);
+	function GetSensors($type='',$sort_field=''){
+		return $this->_FilterDevices('sensor',$type,$sort_field);
 	}
 
 	//----------------------------------------------------------------------------------
@@ -173,13 +173,16 @@ class PMD_Root_ApiClient extends PMD_Root{
 	}
 
 	//----------------------------------------------------------------------------------
-	private function _FilterDevices($class='', $type=''){
+	private function _FilterDevices($class='', $type='',$sort_field=''){
 		$devices=$this->devices;
 		if($class){
 			$devices=$this->_ListDevicesIn($devices, $class, 'class');
 		}
 		if($type){
 			$devices=$this->_ListDevicesIn($devices, $type, 'type');
+		}
+		if($sort_field){
+			$devices=$this->_array_orderby($devices,$sort_field,SORT_ASC,'name','SORT_ASC');
 		}
 		return $devices;
 	}
@@ -472,6 +475,27 @@ class PMD_Root_ApiClient extends PMD_Root{
 			$this->api_status=false;					
 		}
 		return $out;
+	}
+
+
+
+	//---------------------------------------------------------------
+	//http://php.net/manual/en/function.array-multisort.php#100534
+	// ie _array_orderby($data, 'volume', SORT_DESC, 'edition', SORT_ASC);
+	private function _array_orderby(){
+		$args = func_get_args();
+		$data = array_shift($args);
+		foreach ($args as $n => $field) {
+			if (is_string($field)) {
+				$tmp = array();
+				foreach ($data as $key => $row)
+					$tmp[$key] = $row[$field];
+				$args[$n] = $tmp;
+				}
+		}
+		$args[] = &$data;
+		call_user_func_array('array_multisort', $args);
+		return array_pop($args);
 	}
 
 
