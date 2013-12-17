@@ -8,13 +8,12 @@ http://www.phpmydomo.org
 phpMyDomo is an open-source Web Application aimed to provide a clean, robust, customizable, fast and intuitive interface to many Home Automation software. With todays chinese phones and tablets starting as low as $50, it becomes a cheap and powerfull way to build remotes to control anything smartly in your house. phpMyDomo wants to be the ultimate WebApp that works as well on these devices, as on any computer browser.
 phpMyDomo don't aim to replace the cool domotic's software you're currently using, but rather to add a convenient web interface to it.
 
-Currently supported software include __Domoticz__, __Domotiga__, __OpenHab__ and __Domogik__.
+Currently supported software include __Domoticz__, __Domotiga__, __OpenHab__ and __Domogik__. (+ draft Pilight)
 
-This is a Work In Progress : At this time only Switches and Sensors are fully supported in _Domoticz_ , _Domotiga_, _OpenHab_, and partially in _Domogik_.
-
+This is a Work In Progress: Depending on the chosen server API, some features might not be fully working at this time.
 
 ## Features
-- Allow to Switch on/off or Dim (WIP) any supported devices or scenes, from the Dashboard page
+- Allow to Switch on/off or Dim (experimental) any supported devices or scenes, from the Dashboard page
 - View all sensors at once, or per user defined groups
 - View all cameras on a single page
 - Responsive design : Display fine on any Android/IOS tablet, phone and any modern (HTML5) web browser
@@ -31,7 +30,7 @@ This is a Work In Progress : At this time only Switches and Sensors are fully su
 
 ## Screenshots
 ![alt text](doc/screenshots/01.png?raw=true "Main page (Default Skin)")
-![alt text](doc/screenshots/02.png?raw=true "Main page on phone (Default Skin)")
+![alt text](doc/screenshots/02.png?raw=true "Main page on phone (Metal Skin)")
 ![alt text](doc/screenshots/03.png?raw=true "Main page (Black Skin)")
 ![alt text](doc/screenshots/04.png?raw=true "Devices List (Black Skin)")
 
@@ -56,7 +55,7 @@ One of the goal of this app is to gather talented developers, designers and user
 
 What's needed:
 
-- Finalize and test current Domoticz, Domotiga, OpenHab, and Domogiz APIs.
+- Finalize and test current Domoticz, Domotiga, OpenHab, Pilight, and Domogiz APIs.
 - Language Files.
 - API plugins coders to support others domotic's software.
 - Talented CSS and Photoshop designers to make Skins, and make the coolest GUI ever ;-)
