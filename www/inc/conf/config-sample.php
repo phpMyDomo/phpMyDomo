@@ -12,8 +12,8 @@ $conf['app']['api']			="openhab";
 // Personalize the name of your Home
 $conf['app']['home_name']	="Home Sweet Home";
 
-// language file to use
-$conf['app']['lang']		="en";
+// language file to use : (name of the folder in /www/inc/lang/)
+$conf['app']['lang']		="en";	// en | fr | nl 
 
 // Skin : Uncomment to use another skin (defaults to the 'default' skin, if not set)
 //$conf['app']['skin']		="black"; // default | black | metal
@@ -186,7 +186,7 @@ If not set, all menus are shown.
 
 
 // ##############################################################################
-//DEBUG : you don't need to change this #########################################
+// DEBUG : you don't need to change this #########################################
 // ##############################################################################
 $conf['debug']['allow']=1;					//allow debug from url (add ?debug in the url)
 $conf['debug']['force']=0;					//always show debug
