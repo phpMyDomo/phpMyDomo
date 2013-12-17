@@ -19,6 +19,8 @@ To quickly understand how it work, I suggest you to try the OpenHab API as, beca
 
 If you need to use a different protocol than json , json_rpc2, GET or POST, we will either implement it in the API_client_root if it's a Standart (ie XML),  either you build your own methods by extending the ApiFetchCustom method.
 
+When in the devices page, you can simply add ?dump to the URL (http://[server]/devices?dump) to display the raw dump of all devices.
+
 
 ## CSS writing & Skins ###################################################################
 
