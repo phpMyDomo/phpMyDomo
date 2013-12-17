@@ -135,7 +135,7 @@ class PMD_ApiClient extends PMD_Root_ApiClient{
 					$d['class']	='sensor';
 					
 					$d['type']	='counter';
-					$d['value']	=(float) preg_replace('#[^0-9\.]+#','',$raw['CounterToday'])*1000;
+					$d['value']	=(float) preg_replace('#[^0-9\.]+#','',$raw['CounterToday']);
 					$d['unit']	="kWh";
 					$this->RegisterDevice($d,'today');
 
@@ -152,14 +152,14 @@ class PMD_ApiClient extends PMD_Root_ApiClient{
 					$d['class']	='sensor';
 					
 					$d['type']	='counter';
-					$d['value']	=(float) preg_replace('#[^0-9\.]+#','',$raw['CounterToday'])*1000;
+					$d['value']	=(float) preg_replace('#[^0-9\.]+#','',$raw['CounterToday']);
 					$d['unit']	="m3";
 					$this->RegisterDevice($d,'today');
 
-					$d['type']	='consum';
-					$d['value']	=(float) preg_replace('#[^0-9\.]+#','',$raw['Usage']);
-					$d['unit']	="m3";
-					$this->RegisterDevice($d,'now');
+					//$d['type']	='consum';
+					//$d['value']	=(float) preg_replace('#[^0-9\.]+#','',$raw['Usage']);
+					//$d['unit']	="m3";
+					//$this->RegisterDevice($d,'now');
 
 					$d['type']	='counter';
 					$d['value']	=(float) $raw['Counter'];
