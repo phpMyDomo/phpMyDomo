@@ -40,13 +40,13 @@ $lang['types']['cam_ip']	="IP Camera";
 $lang['types']['air']		="Air Conditioning";
 $lang['types']['uv']		="UV";
 $lang['types']['shutter']	="Shutter";
-$lang['types']['consum']	="Consumption"; //to translate to Dutch
+$lang['types']['consum']	="Verbuik";
 $lang['types']['undef']		="Onbekend";
 $lang['types']['hygro']		="Hygrometer";
 $lang['types']['bool']		="Status";
 $lang['types']['pir']		="Beweging";
 $lang['types']['gas']		="Gas/ Rook";
-$lang['types']['counter']	="Counter"; //to translate to Dutch
+$lang['types']['counter']	="Meter";
 
 // infos ################################################################
 $lang['infos']['sunset']	="Zonsondergang";
