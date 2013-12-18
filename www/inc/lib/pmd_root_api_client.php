@@ -244,16 +244,29 @@ class PMD_Root_ApiClient extends PMD_Root{
 		else{
 			$val=$row['value'];
 		}
-		//make Value
+		//scale Value
 		if($row['type']=='dimmer'){
+			$value=$row['value'];
+
+			$zero=0;
+			if(isset($this->vars['set']['dimmer']['min']) and $this->vars['set']['dimmer']['min'] !=0){
+				$zero=$this->vars['set']['dimmer']['min'];
+				if($row['value'] == $zero){
+					$value=0;
+				}
+			}
+			
 			//scale the value from 0 to 100
 			if(isset($this->vars['set']['dimmer']['max']) and $this->vars['set']['dimmer']['max'] !=100){
-				$row['value']=round($row['value'] / $this->vars['set']['dimmer']['max'] * 100);
+				$value=round( ($row['value'] - $zero) / ($this->vars['set']['dimmer']['max'] - $zero) * 100);
 			}
+
+			$row['value']=$value;
+
 			//deduce state from value
 			if(!$row['state']){
 				$row['state']='on';
-				if($row['value'] < 1){
+				if($row['value'] == $zero){
 					$row['state']='off';
 				}
 			}
@@ -325,14 +338,11 @@ class PMD_Root_ApiClient extends PMD_Root{
 		}
 		//dim scale
 		if($command=='set' and $type=='dim_level'){
-			$min=$this->vars['set']['dimmer']['min'];
-			$max=$this->vars['set']['dimmer']['max'];
-			if($min and $state < $min ){
-				$state=$min;
-			}
-			elseif($max and $max < 100 ){
-				$state=round($state/100*$max);
-			}
+			$min=0;
+			$max=100;
+			if(isset($this->vars['set']['dimmer']['min'])){$min=$this->vars['set']['dimmer']['min'];}
+			if(isset($this->vars['set']['dimmer']['max'])){$max=$this->vars['set']['dimmer']['max'];}
+			$state=round( ($state/100 * ($max - $min))  + $min );
 		}
 		
 		//- json_rpc v2 -----------------------------------------------
