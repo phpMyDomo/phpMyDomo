@@ -45,7 +45,7 @@ class PMD_Root_ApiClient extends PMD_Root{
 	value			=> Current value of the device: (int) for dimmers | (float) for sensors) | (hex) for rgb | '' for switches
 	class 			=> Class of device: command | sensor  | scene | camera | security
 	type			=> Type of the device
-						-For Commands	: switch | dimmer | heating | shutter | fan | rgb | rgbw | therm
+						-For Commands	: switch | dimmer | heating | shutter | fan | rgb | rgbw | therm | blind
 						-For Sensors	: temp | wind_speed | wind_gust | wind_temp | wind_chill | rain | baro | hygro | uv | pir | gas | bool | consum | counter
 						-For Scenes 	: scene | group
 						-For Cameras 	: cam_ip

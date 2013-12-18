@@ -27,6 +27,9 @@ $api['set']['dimmer']['off']		='Off';
 $api['set']['dimmer']['min']		=1;
 $api['set']['dimmer']['max']		=16;
 
+$api['set']['blinds']['off']		='Open';		
+$api['set']['blinds']['on']			='Closed';		
+
 
 // Actions -------------------------------------------------------------------
 $api['actions']['set']['switch']		='/json.htm?type=command&param=switchlight&idx={address}&switchcmd={state}';
@@ -56,6 +59,9 @@ $api['states']['command']['switch']['On']		='on';
 
 $api['states']['command']['dimmer']['Off']		='off';		
 $api['states']['command']['dimmer']['On']		='on';		
+
+$api['states']['command']['blinds']['Open']		='off';		
+$api['states']['command']['blinds']['Closed']	='on';		
 
 $api['states']['scene']['scene']['Off']			='off';		
 $api['states']['scene']['scene']['On']			='on';		

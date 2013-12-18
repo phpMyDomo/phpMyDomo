@@ -35,6 +35,7 @@ $lang['types']['switch']	="Switch";
 $lang['types']['window']	="Window";
 $lang['types']['door']		="Door";
 $lang['types']['dimmer']	="Dimmer";
+$lang['types']['blinds']	="Blinds";
 $lang['types']['heating']	="Heating";
 $lang['types']['cam_ip']	="IP Camera";
 $lang['types']['air']		="Air Conditioning";
