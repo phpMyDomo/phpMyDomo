@@ -77,11 +77,14 @@ jQuery( document ).ready(function() {
 			var last_value=null;
 			var value;
 			var slider	=$(slider_id).slider({
-				value: but.html()
+				value: but.html(),
+				formater: function(v) {
+						return Math.round(v);
+					}
 				})
 			.on('slide', $.throttle( 250, function (ev) {
 					SetReload(120);
-					value = ev.value;
+					value = Math.round(ev.value);
             		if(value != last_value){
 	            		last_value= value;
 						/* slider.slider('setValue', value); */
@@ -95,6 +98,7 @@ jQuery( document ).ready(function() {
 				            		but.html(value);
 								}
 								else{
+				            		/* but.html(value); */
 									console.log('Dim ERROR');
 								}
 							})

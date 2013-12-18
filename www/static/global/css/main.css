@@ -180,8 +180,9 @@ html, body {
 	margin: 0;
 }
 .button_dim{
-	padding: 13px 14px 12px 14px;
-	
+	padding: 13px 10px 12px 10px;
+	min-width: 52px;
+	color: #CCC;
 }
 .button_big .but_img{
 	display: inline-block;

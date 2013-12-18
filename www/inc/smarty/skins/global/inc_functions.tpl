@@ -19,7 +19,7 @@
 
 {if $row.type=='dimmer' && !$my_popover_created}
 <div id="jsPopover_{$row.address}" class="hidden">
-        <span class="legend">0</span><input type="text" id="jsSlider_{$row.address}" class="jsSlider" value="{$row.value}" data-slider-min="0" data-slider-max="100" data-slider-step="1" data-slider-value="{$row.value}"><span class="legend">100</span>
+        <span class="legend">0</span><input type="text" id="jsSlider_{$row.address}" class="jsSlider" value="{$row.value}" data-slider-min="0" data-slider-max="100" data-slider-step="{100/{$row.dim_steps}}" data-slider-value="{$row.value}"><span class="legend">100</span>
 </div>
 {$my_popover_created=1}
 {/if}
