@@ -13,7 +13,7 @@ $conf['app']['api']			="openhab";
 $conf['app']['home_name']	="Home Sweet Home";
 
 // language file to use : (name of the folder in /www/inc/lang/)
-$conf['app']['lang']		="en";	// en | fr | nl 
+$conf['app']['lang']		="en";	// en | fr | nl | de
 
 // Skin : Uncomment to use another skin (defaults to the 'default' skin, if not set)
 //$conf['app']['skin']		="black"; // default | black | metal
