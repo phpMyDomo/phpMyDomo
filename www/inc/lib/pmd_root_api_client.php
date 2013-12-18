@@ -247,26 +247,29 @@ class PMD_Root_ApiClient extends PMD_Root{
 		//scale Value
 		if($row['type']=='dimmer'){
 			$value=$row['value'];
-
-			$zero=0;
-			if(isset($this->vars['set']['dimmer']['min']) and $this->vars['set']['dimmer']['min'] !=0){
-				$zero=$this->vars['set']['dimmer']['min'];
-				if($row['value'] == $zero){
-					$value=0;
-				}
-			}
+			
+			$min=0;
+			$max=100;
+			if(isset($this->vars['set']['dimmer']['min']) ){$min=$this->vars['set']['dimmer']['min'];}
+			if(isset($this->vars['set']['dimmer']['max']) ){$max=$this->vars['set']['dimmer']['max'];}
+			
 			
 			//scale the value from 0 to 100
-			if(isset($this->vars['set']['dimmer']['max']) and $this->vars['set']['dimmer']['max'] !=100){
-				$value=round( ($row['value'] - $zero) / ($this->vars['set']['dimmer']['max'] - $zero) * 100);
+			if($max !=100 or $min != 0){
+				$value=round( ($row['value'] - $min) / ($max - $min) * 100);
 			}
 
-			$row['value']=$value;
+			if($row['value'] <= $min){
+				$value=0;
+			}
+
+			$row['value']		=$value;
+			$row['dim_steps']	=$max - $min;
 
 			//deduce state from value
 			if(!$row['state']){
 				$row['state']='on';
-				if($row['value'] == $zero){
+				if($row['value'] == 0){
 					$row['state']='off';
 				}
 			}
