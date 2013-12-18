@@ -47,7 +47,7 @@ class PMD_Page extends PMD_Root_Page{
 	private function _GetChangelog($last_version,$file=''){
 		$last_version=(float) $last_version;
 		$out=array();
-		$file or $file=$this->conf['paths']['confs'].'changelog.md';
+		$file or $file=$this->conf['paths']['docs'].'changelog.md';
 		$lines=file($file);
 		foreach($lines as $line){
 			if(preg_match('/^[#]+[^0-9]*([0-9\.]+)(.*)/',$line,$m)){
