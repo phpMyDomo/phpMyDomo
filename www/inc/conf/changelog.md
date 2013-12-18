@@ -1,15 +1,21 @@
 # phpMyDomo ChangeLog
 
-## Version : 0.134 - Dec 15, 2013
+## Version : 0.134 - Dec ??, 2013
 - new: Dutch translation (thanks to Pepijn Goossens)
+- new: German translation (thanks to jkimmel)
 - new: (Experimental) Dimmers button implementation (Tested on openHab, Domoticz)
 - new: Now default to openHab Api, which has a convenient ONLINE api demo
-- new: Domoticz now supports type "Temp + Humidity", "Motion Sensor", "YouLess Meter"
+- new: Domoticz now supports type "Temp + Humidity", "Motion Sensor", "YouLess Meter", "P1 Smart Meter"
 - fix: 'Cache NotWritable' Error Help text
 - dev: ApiFetchCustom for specific Fetch cases
 - dev: Draft Pilight API (absolutely not tested,  certainly needs some fixes)
+- dev: "current" type renamed to "consum"
+- dev: Devices page shows a full Dump when adding ?dump to the url
 - new: CSS enhancements
+- new: Nginx Install HowTo (Thanks to Hans Rune)
+- fix: better type icons
 - new: Additionnal Metal skin
+- fix: Devices, Command and Sensors Page sorted by Type & Name
 
 ## Version : 0.133 - Dec 11, 2013
 - new: Implement openHab API
