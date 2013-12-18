@@ -86,4 +86,4 @@ By default, phpMyDomo, is configured to use the OpenHab API, from the live demo 
 
 
 
-_(anyone wanting to make a better, clear,  good-english version of this document is very welcome!)_
+_(BTW anyone wanting to make a better, clear,  good-english version of this document is very welcome!)_
