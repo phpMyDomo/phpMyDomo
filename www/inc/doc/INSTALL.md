@@ -71,8 +71,9 @@ __6) restart apache__
 
 ## Configuration ##########################################
 
-in phpMyDomo/www/inc/conf/
-rename _config-sample.php_ to __config.php__
+in phpMyDomo/www/inc/
+rename the directory _conf_sample_ to __conf__ :
+`mv /var/www/inc/conf_sample /var/www/inc/conf`
 
 By default, phpMyDomo, is configured to use the OpenHab API, from the live demo API server.
 
@@ -82,7 +83,7 @@ By default, phpMyDomo, is configured to use the OpenHab API, from the live demo 
 - Launch you browser on the url where you've installed phpMyDomo.
  Click on the "Devices" Tab. If all is well configured , you should see the device list from the demo server.
 
-- You can now customize the config.php file: You first have to change the API server to the one you want to use, (and set its location:port when PMD  is on a different server). Then create your groups, blocks, hide menu, add cameras etc...
+- You can now customize the www/inc/conf/config.php file: You first have to change the API server to the one you want to use, (and set its location:port when PMD  is on a different server). Then create your groups, blocks, hide menu, add cameras etc...
 
 
 
