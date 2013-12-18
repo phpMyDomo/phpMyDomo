@@ -11,6 +11,7 @@
 - dev: Draft Pilight API (absolutely not tested,  certainly needs some fixes)
 - dev: "current" type renamed to "consum"
 - dev: Devices page shows a full Dump when adding ?dump to the url
+- dev: Starting to support Blinds type in Domoticz
 - new: CSS enhancements
 - new: Nginx Install HowTo (Thanks to Hans Rune)
 - fix: better type icons
