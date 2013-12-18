@@ -31,7 +31,7 @@ chmod 755 install_debian.sh
 ```
 _change "phpMyDomo-phpMyDomo-XXXX" according to your exact directory name, ie "phpMyDomo-phpMyDomo-9fa72f8"_
 
-If some software are already installed, it wont break anything to launch this script: It will just install missing software (if any), enable modRewrite, and change the cache permission for you...
+If some software are already installed, it wont break anything to launch this script: It will just install missing software (if any), enable modRewrite, change the cache permission and rename the conf_sample directory for you...
 
 
 __3)__ If you've not already launched the install script, __make the _www/inc/cache_ directory writable__:

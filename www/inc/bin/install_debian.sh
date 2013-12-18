@@ -11,4 +11,8 @@ echo
 echo "Setting Permissions....."
 chmod -R 777 ../cache/
 
+echo
+echo "Renaming conf_sample directory to conf....."
+mv ../conf_sample ../conf
+
 echo "Install completed!"
