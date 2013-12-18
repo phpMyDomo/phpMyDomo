@@ -37,7 +37,7 @@ This is a Work In Progress: Depending on the chosen server API, some features mi
 
 
 ## Install
-Just [download the 'Master' archive](https://github.com/phpMyDomo/phpMyDomo/archive/master.zip), and follow the [Install guide](doc/INSTALL.md), or
+Just [download the 'Master' archive](https://github.com/phpMyDomo/phpMyDomo/archive/master.zip), and follow the [Install guide](www/inc/doc/INSTALL.md), or
 install from git : `git clone https://github.com/phpMyDomo/phpMyDomo.git`
 
 
