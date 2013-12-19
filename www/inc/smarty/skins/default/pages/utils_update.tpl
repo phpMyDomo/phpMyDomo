@@ -58,8 +58,8 @@
 				
 				<ul class="dl_install">
 			
-					<li> 1) make a copy of your current <b>config.php</b> : <br>
-						<code>cp {$data.paths.confs}config.php ~/</code><br>
+					<li> 1) make a copy of your current <b>conf directory</b> : <br>
+						<code>cp -r {$data.paths.confs} ~/pmd_conf/</code><br>
 						<i>if you are using a custom skin, or had made any changes to the templates, also backup your custom files.</i>
 					</li>
 					<li> 2) Download the latest version as a <a href="{$p.urls.pmd_dl_zip}"><b>ZIP</b></a> or <a href="{$p.urls.pmd_dl_gz}"><b>GZ</b></a> archive, ie:<br>
@@ -70,14 +70,14 @@
 						<code>unzip phpMyDomo_latest.zip </code> or<br>
 						<code>tar xvfz phpMyDomo_latest.tar.gz </code>
 					</li>
-					<li> 4) remove of your current {$c.app.name} "www" directory :<br>
+					<li> 4) remove your current {$c.app.name} "www" directory :<br>
 						<code>rm -rf {$data.paths.www}</code>
 					</li>
 					<li> 5) replace it with your newest 'www' directory :<br>
 						<code>mv ~/phpMyDomo-{$c.app.name}-v.{$data.dl_version}-XXXX/www {$data.paths.root}</code>
 					</li>
-					<li> 6) restore your backuped config to its original location :<br>
-						<code>mv ~/config.php {$data.paths.confs}</code>
+					<li> 6) restore your backuped conf folder to its original location :<br>
+						<code>mv ~/pmd_conf/ {$data.paths.confs}</code>
 					</li>
 					<li> 7) make sure that the cache directory and all it sub-directories are writable :<br>
 						<code>chmod -R 777 {$data.paths.caches}</code>

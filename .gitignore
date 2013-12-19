@@ -18,8 +18,9 @@ Thumbs.db
 !/www/inc/cache/*/
 /www/inc/cache/*/*
 
-!.gitkeep
 
 # ignored files -----------------
 __*
-/www/inc/conf/config.php
+/www/inc/conf/*
+
+!.gitkeep

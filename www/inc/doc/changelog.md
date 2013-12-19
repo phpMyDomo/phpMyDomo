@@ -17,6 +17,9 @@
 - dev: "current" type renamed to "consum"
 - dev: Devices page shows a full Dump when adding ?dump to the url
 - dev: Starting to support Blinds type in Domoticz
+- dev: move doc folder to www/inc/doc
+- dev: move conf/config-sample.php to to conf_sample/config.php
+- dev: move changelog.md to www/inc/doc/
 
 ## Version : 0.133 - Dec 11, 2013
 - new: Implement openHab API

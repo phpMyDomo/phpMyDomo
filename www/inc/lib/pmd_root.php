@@ -29,23 +29,23 @@ class PMD_Root{
 	var $debug=false;
 	
 	//global objects
-	var $o_fn;
+	var $o_kernel;
 	var $o_api;
 	
 
 	//----------------------------------------------------------------------------------
-	function __construct(& $class){
-		$this->o_fn		= & $class;
-		$this->o_api	= & $class->o_api;
+	function __construct(& $kernel){
+		$this->o_kernel	= & $kernel;
+		$this->o_api	= & $kernel->o_api;
 		
-		$this->conf		= & $class->conf;
-		$this->lang		= & $class->lang;
+		$this->conf		= & $kernel->conf;
+		$this->lang		= & $kernel->lang;
 		$this->debug 	= $this->conf['debug']['show'];
 	}
 
 	//----------------------------------------------------------------------------------
 	function Debug($txt='',$arr='',$exit=1){
-		return 		$this->o_fn->pageDebug($txt,$arr,$exit);
+		return 		$this->o_kernel->pageDebug($txt,$arr,$exit);
 	}
 } 
 ?>

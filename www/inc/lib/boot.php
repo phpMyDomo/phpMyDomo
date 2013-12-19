@@ -32,8 +32,10 @@ $conf['paths']['www']		=dirname(dirname(dirname(__FILE__))).'/';
 $conf['paths']['root']		=dirname($conf['paths']['www']).'/';
 
 $conf['paths']['apis']			=$conf['paths']['includes'].'api/';
+$conf['paths']['actions']		=$conf['paths']['includes'].'action/';
 $conf['paths']['confs']			=$conf['paths']['includes'].'conf/';
 $conf['paths']['caches']		=$conf['paths']['includes'].'cache/';
+$conf['paths']['docs']			=$conf['paths']['includes'].'doc/';
 $conf['paths']['libs']			=$conf['paths']['includes'].'lib/';
 $conf['paths']['langs']			=$conf['paths']['includes'].'lang/';
 $conf['paths']['pages']			=$conf['paths']['includes'].'page/';
@@ -67,7 +69,7 @@ $conf['urls']['pmd_url']	="http://www.phpmydomo.org";
 $conf['urls']['pmd_api']	=$conf['urls']['pmd_url'].'/api/?q=';
 $conf['urls']['pmd_dl_zip']=$conf['urls']['pmd_url'].'/download/?t=zip';
 $conf['urls']['pmd_dl_gz']	=$conf['urls']['pmd_url'].'/download/?t=gz';
-$conf['urls']['pmd_changelog']	='https://raw.github.com/phpMyDomo/phpMyDomo/master/www/inc/conf/changelog.md';
+$conf['urls']['pmd_changelog']	='https://raw.github.com/phpMyDomo/phpMyDomo/master/www/inc/doc/changelog.md';
 
 
 

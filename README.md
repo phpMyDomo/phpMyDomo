@@ -30,14 +30,14 @@ This is a Work In Progress: Depending on the chosen server API, some features mi
 
 
 ## Screenshots
-![alt text](doc/screenshots/01.png?raw=true "Main page (Default Skin)")
-![alt text](doc/screenshots/02.png?raw=true "Main page on phone (Metal Skin)")
-![alt text](doc/screenshots/03.png?raw=true "Main page (Black Skin)")
-![alt text](doc/screenshots/04.png?raw=true "Devices List (Black Skin)")
+![alt text](www/inc/doc/screenshots/01.png?raw=true "Main page (Default Skin)")
+![alt text](www/inc/doc/screenshots/02.png?raw=true "Main page on phone (Metal Skin)")
+![alt text](www/inc/doc/screenshots/03.png?raw=true "Main page (Black Skin)")
+![alt text](www/inc/doc/screenshots/04.png?raw=true "Devices List (Black Skin)")
 
 
 ## Install
-Just [download the 'Master' archive](https://github.com/phpMyDomo/phpMyDomo/archive/master.zip), and follow the [Install guide](doc/INSTALL.md), or
+Just [download the 'Master' archive](https://github.com/phpMyDomo/phpMyDomo/archive/master.zip), and follow the [Install guide](www/inc/doc/INSTALL.md), or
 install from git : `git clone https://github.com/phpMyDomo/phpMyDomo.git`
 
 
