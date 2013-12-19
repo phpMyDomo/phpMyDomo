@@ -3,14 +3,17 @@
 
 PLEASE READ the /phpMyDomo/doc/howto/actions.md for more informations
 
-## Required ---------------------------------------------------------------------------------------
+## Description  ----------------------------------------------------------------------------------
+This action send an email
+
+## Requirements ---------------------------------------------------------------------------------------
 The email Action requires that you have an email server setuped on the phpMyDomo host, and that it works
 You can chek this from the terminal, by trying to send you an email using:
 mail my_email@address.com
 (then enter a subject, then enter a content, then type a DOT then enter to send the mail). 
 If you receive the mail, it will work, else you have to insatll a mail server, ie Postfix or Exim.
 
-## URLS Fields  ----------------------------------------------------------------------------------
+## Fields  ----------------------------------------------------------------------------------
 - 'type'	=> (mandatory) 'email'
 - 'from' 	=> (required) The "From" email,	formated as : "Name <email@server.com>" or "email@server.com".
 - 'to'   	=> (required) The "To " email,	formated as : "Name <email@server.com>" or "email@server.com".
@@ -18,7 +21,7 @@ If you receive the mail, it will work, else you have to insatll a mail server, i
 - 'content'	=> (required) Email Content
 - 'custom'	=> (optionnal) replaces "{custom}" in the email content
 
-## Some URLS examples ----------------------------------------------------------------------------------
+## URLS examples ----------------------------------------------------------------------------------
 /action?type=email&preset=door_ring
 /action?type=email&preset=door_ring&custom=portal
 /action?type=email&preset=door_ring&to=anotheremail@server.com
@@ -33,7 +36,7 @@ If you receive the mail, it will work, else you have to insatll a mail server, i
 $action['globals']['from']		="phpMyDomo <phpmydomo@server.local>"; // use a working email, ie yours
 $action['globals']['to']		="myemail@server.com";
 $action['globals']['subject']	="phpMyDomo Notification";
-//$action['globals']['content']	="Empty Content";
+$action['globals']['content']	="Empty Content";
 
 
 // ##############################################################################
@@ -44,7 +47,6 @@ $action['globals']['subject']	="phpMyDomo Notification";
 //$action['presets']['PRESET_NAME']['FIELD']="your value here";
 
 //examples ---------------------
-
 $action['presets']['door_ring']['subject']="Someone is ringing at the door";
 $action['presets']['door_ring']['content']="I've just realized that someone is ringins at door {custom}";
 

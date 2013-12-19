@@ -22,6 +22,7 @@ Fields required in 'notify' mode:
 Fields required in 'pause' mode:
 none!
 
+
 ## URLS examples ----------------------------------------------------------------------------------
 /action?type=xbmc&preset=door_ring
 /action?type=xbmc&preset=door_ring&custom=Portal
