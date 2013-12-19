@@ -48,6 +48,8 @@ $lang['types']['bool']		="State";
 $lang['types']['pir']		="Motion";
 $lang['types']['gas']		="Gas/Smoke";
 $lang['types']['counter']	="Counter";
+$lang['types']['radiation']	="Radiations";
+$lang['types']['visibility']="Visibility";
 
 // infos ################################################################
 $lang['infos']['sunset']	="Sunset";

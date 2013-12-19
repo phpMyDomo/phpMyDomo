@@ -48,6 +48,8 @@ $lang['types']['bool']		="Etat";
 $lang['types']['pir']		="Mouvement";
 $lang['types']['gas']		="Gas/Fumée";
 $lang['types']['counter']	="Compteur";
+$lang['types']['radiation']	="Radiations";	//To translate
+$lang['types']['visibility']="Visibilité";	//To Translate
 
 // infos ################################################################
 $lang['infos']['sunset']	="Coucher de Soleil";
