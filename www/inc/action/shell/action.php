@@ -27,7 +27,7 @@ class PMD_Action extends PMD_Root_Action{
 	function Run(){
 
 		$command		=$this->GetParam('command'		,'raw');
-		$custom			=$this->GetParam('mode'			,'raw');
+		$custom			=$this->GetParam('custom'		,'raw');
 		$command		=str_replace('{custom}',$custom, $command);
 
 		$result='';
