@@ -34,15 +34,19 @@ class PMD_Action extends PMD_Root_Action{
 		$content	=str_replace('{custom}',$custom,$content);
 
 		if($from and $to and $subject and $content){
+			$p['from']		=$from;
+			$p['to']		=$to;
+			$p['subject']	=$subject;
+			$p['content']	=$content;
 			if(mail($to, $subject, $content, "From: $from\r\n")){
-				$this->DisplayJson(true, array('message'=>"Email sent from: $from, to: $to, subject: $subject, message : $content "));
+				$this->DisplayJson(true, array('code'=>200, 'message'=>"Email sucessfully sent  to $to",'sent_parameters'=>$p));
 			}
 			else{
-				$this->DisplayJson(false, array('code'=>500, 'message'=>"Error while sending message to $to"));
+				$this->DisplayJson(false, array('code'=>500, 'message'=>"Error while sending message to $to",'sent_parameters'=>$p));
 			}
 		}
 		else{
-			$this->DisplayJson(false, array('code'=>500, 'message'=>'Missing some parameters'));
+			$this->DisplayJson(false, array('code'=>500, 'message'=>'Missing some parameters!'));
 		}
 	}
 }
