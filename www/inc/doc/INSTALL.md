@@ -72,7 +72,7 @@ __6) restart apache__
 ## Configuration ##########################################
 
 in phpMyDomo/www/inc/
-rename the directory _conf_sample_ to __conf__ :
+rename the directory *conf_sample* to __conf__ :
 `mv /var/www/inc/conf_sample /var/www/inc/conf`
 
 By default, phpMyDomo, is configured to use the OpenHab API, from the live demo API server.
