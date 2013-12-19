@@ -9,6 +9,7 @@
 - new: CSS enhancements
 - new: Additionnal Metal skin
 - new: Nginx Install HowTo (Thanks to Hans Rune)
+- new: Directly check update NOW from the home page , with ?update  in the url (/home?update)
 - fix: Devices, Command and Sensors Page sorted by Type & Name
 - fix: better type icons
 - fix: 'Cache NotWritable' Error Help text

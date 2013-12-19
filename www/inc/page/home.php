@@ -17,12 +17,16 @@ class PMD_Page extends PMD_Root_Page{
 	private function _checkNewVersion(){
 		$cache_last_version=$this->conf['paths']['caches'].'last_version';
 		$cache_duration=3600*8;
-		if(!$this->conf['app']['last_version'] or filemtime($cache_last_version) < ( time() - $cache_duration) ){
+		if(!$this->conf['app']['last_version'] or filemtime($cache_last_version) < ( time() - $cache_duration) or isset($_GET['update']) ){
 			$url="{$this->conf['urls']['pmd_api']}version&version={$this->conf['app']['version']}&api={$this->conf['app']['api']}";
 			if($json=@file_get_contents($url)){
 				$arr=json_decode($json,true);
 				if(is_array($arr) and $arr['result'] and $arr['version']){
 					file_put_contents($cache_last_version,$arr['version']);
+					if( $this->conf['app']['version'] != $arr['version'] and isset($_GET['update'])){
+						header("location: {$this->conf['urls']['www']}/utils/update");
+						exit;
+					}
 				}
 			}
 		}
