@@ -44,11 +44,11 @@ install from git : `git clone https://github.com/phpMyDomo/phpMyDomo.git`
 ## Update
 Either updade from git : `git pull` (in the root phpMydomo directory) 
 or 
- - keep a copy of your config file (from phpMyDomo/www/inc/conf/config.php )
+ - keep a copy of your 'conf' directory (from phpMyDomo/www/inc/conf/ )
  - replace the phpMyDomo directory, from the latest [Master archive](https://github.com/phpMyDomo/phpMyDomo/archive/master.zip)
- - copy your original config.php file back in the phpMyDomo/www/inc/conf/ directory
+ - copy your original 'conf' directory back in the phpMyDomo/www/inc/ directory
  
- then go to http://[your_web_server]/utils/update from your web browser
+Then go to http://[your_web_server]/utils/update from your web browser
 
 
 ## Skills Wanted !
