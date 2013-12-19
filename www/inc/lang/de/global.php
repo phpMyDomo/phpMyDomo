@@ -35,19 +35,19 @@ $lang['types']['switch']	="Schalter";
 $lang['types']['door']		="Tür";
 $lang['types']['window']	="Fenster";
 $lang['types']['dimmer']	="Dimmer";
-$lang['types']['blinds']	="Blinds";		//To Translate
+$lang['types']['blinds']	="Jalousien";
 $lang['types']['heating']	="Heizung";
 $lang['types']['cam_ip']	="IP Kamera";
 $lang['types']['air']		="Klimaanlage";
 $lang['types']['uv']		="UV";
 $lang['types']['shutter']	="Schliesser";
-$lang['types']['consum']	="Consumption";	//To Translate
+$lang['types']['consum']	="Verbrauch";
 $lang['types']['undef']		="Unbekannt";
 $lang['types']['hygro']		="Feuchte";
 $lang['types']['bool']		="Status";
 $lang['types']['pir']		="Bewegung";
 $lang['types']['gaz']		="Gas/Rauch";
-$lang['types']['counter']	="Counter";		//To Translate
+$lang['types']['counter']	="Zähler";
 
 // infos ################################################################
 $lang['infos']['sunset']	="Sonnenuntergang";
