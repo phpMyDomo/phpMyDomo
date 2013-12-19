@@ -40,8 +40,10 @@ $conf['paths']['libs']			=$conf['paths']['includes'].'lib/';
 $conf['paths']['langs']			=$conf['paths']['includes'].'lang/';
 $conf['paths']['pages']			=$conf['paths']['includes'].'page/';
 $conf['paths']['smarty']		=$conf['paths']['includes'].'smarty/';
-$conf['paths']['vendor']		=$conf['paths']['includes'].'vendor/';
-$conf['libs']['jsonrpc_client']	=$conf['paths']['vendor']."JsonRPC/src/JsonRPC/Client.php";
+$conf['paths']['vendors']		=$conf['paths']['includes'].'vendor/';
+$conf['libs']['jsonrpc_client']	=$conf['paths']['vendors']."JsonRPC/src/JsonRPC/Client.php";
+$conf['libs']['growl_atoload']	=$conf['paths']['vendors']."PEAR/Net_Growl/Net/Growl/Autoload.php";
+$conf['libs']['smarty']			=$conf['paths']['vendors']."Smarty/libs/Smarty.class.php";
 
 
 // require ---------------------------------------------------------------------------------
@@ -56,8 +58,8 @@ $conf['libs']['kernel']			=$conf['paths']['libs']."pmd_kernel.php";
 $conf['libs']['root']			=$conf['paths']['libs']."pmd_root.php";
 $conf['libs']['root_page']		=$conf['paths']['libs']."pmd_root_page.php";
 $conf['libs']['root_api_client']=$conf['paths']['libs']."pmd_root_api_client.php";
+$conf['libs']['root_action']	=$conf['paths']['libs']."pmd_root_action.php";
 $conf['libs']['api_client']		=$conf['paths']['api']."api_client.php";
-$conf['libs']['smarty']			=$conf['paths']['vendor']."Smarty/libs/Smarty.class.php";
 
 // set urls ---------------------------------------------------------------------------------
 if(!isset($conf['app']['dir'])){$conf['app']['dir']='';}

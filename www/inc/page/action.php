@@ -5,7 +5,7 @@ class PMD_Page extends PMD_Root_Page{
 	function Run(){
 		$error=0;
 		$message='';
-		require_once($this->conf['paths']['libs'].'pmd_root_action.php');
+		require_once($this->conf['libs']['root_action']);
 
 		if(isset($_GET['type'])){
 			$my_action=$_GET['type'];
