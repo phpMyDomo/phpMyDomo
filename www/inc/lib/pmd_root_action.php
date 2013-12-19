@@ -28,6 +28,8 @@ class PMD_Root_Action extends PMD_Root{
 
 	var $vars;	//action config
 
+	var $parameters=array();
+
 	
 	//----------------------------------------------------------------------------------
 	function __construct(& $class, $action=''){
@@ -64,12 +66,18 @@ class PMD_Root_Action extends PMD_Root{
 		if(isset($_GET[$name])){
 			$input=urldecode($_GET[$name]);
 			if($type=='int'){
-				return intval(input);
+				return intval($input);
+			}
+			elseif($type=='float'){
+				return (float) $input;
+			}
+			elseif($type=='bool'){
+				return (bool) $input;
 			}
 			elseif($type=='str'){
-				return preg_replace('#[a-z0-9;,\s\.@&_-]#','',$input);
+				return preg_replace('#[^a-z0-9;,:/?=+%\s\.@&_-]#i','',$input);
 			}
-			elseif($type=='raw'){
+			else{
 				return $input;
 			}
 		}
@@ -78,19 +86,31 @@ class PMD_Root_Action extends PMD_Root{
 	//----------------------------------------------------------------------------------
 	//return value from either $vars.presets.preset, either from $vars.globals , or from $_GET 
 	function GetParam($name,$type='raw'){
-		$preset='';
+		$preset	='';
+		$value	='';
+		$from	='';
 		if(isset($_GET['preset'])){
 			$preset=$_GET['preset'];
 		}
+		$this->parameters['preset']=$preset;
+		
 		if($this->GetInput($name,$type)){
-			return $this->GetInput($name,$type);
+			$value = $this->GetInput($name,$type);
+			$from='(Url)	';
 		}
 		elseif(isset($this->vars['presets'][$preset][$name])){
-			return $this->vars['presets'][$preset][$name];
+			$value = $this->vars['presets'][$preset][$name];
+			$from="(Preset)	";
 		}
 		elseif(isset($this->vars['globals'][$name])){
-			return $this->vars['globals'][$name];			
+			$value = $this->vars['globals'][$name];			
+			$from='(Globals)';
 		}
+		if($name){
+			$from and $from="$from	: ";
+			$this->parameters[$name]=$from.$value;
+		}
+		return $value;
 	}
 
 
@@ -98,14 +118,15 @@ class PMD_Root_Action extends PMD_Root{
 	function DisplayJson($status=true,$data='', $and_exit=true){
 		$out=array();
 		if($status){
-			$out['result']='ok';
+			$out['result']='OK';
 		}
 		else{
-			$out['result']='err';			
+			$out['result']='ERROR';			
 		}
 		if(is_array($data)){
 			$out['data']=$data;
 		}
+		$out['inputs']=$this->parameters;
 		if(isset($_GET['debug'])){
 			$this->Debug("Action Result",$out);
 		}
