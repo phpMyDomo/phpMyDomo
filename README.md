@@ -42,13 +42,13 @@ install from git : `git clone https://github.com/phpMyDomo/phpMyDomo.git`
 
 
 ## Update
-Either updade from git : `git pull` (in the root phpMydomo directory) 
-or 
- - keep a copy of your 'conf' directory (from phpMyDomo/www/inc/conf/ )
- - replace the phpMyDomo directory, from the latest [Master archive](https://github.com/phpMyDomo/phpMyDomo/archive/master.zip)
- - copy your original 'conf' directory back in the phpMyDomo/www/inc/ directory
- 
-Then go to http://[your_web_server]/utils/update from your web browser
+*You can browse the [ChangeLog](www/inc/doc/changelog.md), no see what's new.*
+
+The are 2 method to update PMD: either from git (fastest) or manually.
+- Update from git : `git pull` (in the root phpMydomo directory). Then go to http://[your_web_server]/utils/update from your web browser, to finish the procedure.
+
+- Manually : you will see a link in the footer of each PMD page, indicating if there is an update available.
+Click the 'available' link, and follow the instructions (be sure to keep a copy of your /PMD/www/inc/conf/ folder).
 
 
 ## Skills Wanted !
