@@ -48,8 +48,8 @@ $lang['types']['bool']		="Status";
 $lang['types']['pir']		="Beweging";
 $lang['types']['gas']		="Gas/ Rook";
 $lang['types']['counter']	="Meter";
-$lang['types']['radiation']	="Radiations";	//To translate
-$lang['types']['visibility']="Visibility";	//To Translate
+$lang['types']['radiation']	="Zoninstraling";
+$lang['types']['visibility']="Zicht";
 
 // infos ################################################################
 $lang['infos']['sunset']	="Zonsondergang";
