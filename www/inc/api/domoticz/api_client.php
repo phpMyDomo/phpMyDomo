@@ -104,13 +104,13 @@ class PMD_ApiClient extends PMD_Root_ApiClient{
 					$d['value']	=$raw['UVI'];
 					$d['unit']	="UVI";
 				}
-				elseif($raw['Type']=='General' and 'SubType' =='Solar Radiation' ){
+				elseif($raw['Type']=='General' and $raw['SubType'] =='Solar Radiation' ){
 					$d['class']	='sensor';
 					$d['type']	='radiation';
 					$d['value']	=$raw['Radiation'];
 					$d['unit']	="W/m2";
 				}
-				elseif($raw['Type']=='General' and 'SubType' =='Visibility' ){
+				elseif($raw['Type']=='General' and $raw['SubType'] =='Visibility' ){
 					$d['class']	='sensor';
 					$d['type']	='visibility';
 					$d['value']	=$raw['Visibility'];
