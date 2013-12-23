@@ -1,3 +1,4 @@
+# Installing phpMyDomo
 
 ## Requirements ############################################
 
