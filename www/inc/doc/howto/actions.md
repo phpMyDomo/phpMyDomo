@@ -3,11 +3,13 @@
 Actions are usefull to trigger an action (usually a notification), depending on the state of a command or a switch.  
 Ie: You might want to receive an Email when someone ring at the door, or when a Motion sensor is triggered.
 
-Actions are triggered from an URL request like this:  
-`http://pmd_host_or_ip/action?type=ACTION
+*Actions* are triggered from an URL request like this:  `http://pmd_host_or_ip/action?type=ACTION`
 
 phpMyDomo is not an Home Automation server himself, so you will have to define this automation on your own server, with something like:  
-```WHEN switch_XXX IS ON THEN TRIGGER HTTP_REQUEST "http://pmd_host_or_ip/action?type=ACTION&preset=door_ring"```  
+```
+WHEN switch_XXX IS ON THEN 
+TRIGGER HTTP_REQUEST "http://pmd_host_or_ip/action?type=ACTION&preset=door_ring"
+```  
 The syntax, or GUI to define this automation, will obviously depend on the server you're using, and if it is able to send  HTTP requests.
 
 
@@ -17,7 +19,7 @@ Each one need to have its configuration file in the *PMD/www/inc/conf/* director
 
 Example if you want to use the "email" action, there must be an "action_email.php" file present (and configured) in the *PMD/www/inc/conf/* directory.
 
-Sample configurations can be found in the *PMD/www/inc/conf_sample/ directory* (if they are not already moved in the the *PMD/www/inc/conf directory*).
+Sample configurations can be found in the *PMD/www/inc/conf_sample/ directory* (if they are not already moved in the the *PMD/www/inc/conf* directory).
 
 
 ## Settings #########################################################################
@@ -26,15 +28,13 @@ Each action require some fields to be set in the configuration file. They are al
 ### Fields definitions ############################
 
 Example : "email" action: 
-```
-## Fields  ----------------------------------------------------------------------------------
+
 - 'type'	=> (mandatory) 'email'
 - 'from' 	=> (required) The "From" email,	formated as : "Name <email@server.com>" or "email@server.com".
 - 'to'   	=> (required) The "To " email,	formated as : "Name <email@server.com>" or "email@server.com".
 - 'subject'	=> (required) Email subject
 - 'content'	=> (required) Email Content
 - 'custom'	=> (optionnal) replaces "{custom}" in the email content
-```
 
 All these fields need to be defined either:
 - From the **$action['globals']['FIELD']**, ie `$action['globals']['to']="myemail@address.com";`
@@ -67,7 +67,7 @@ Most fields are generally required, but they will be initialized in this way:
 __So all you have to do is to fill all the "globals" fields, and define some presets that will override the fields defined as globals__
 
 Then, you will just call a preset with an url like this:  
-`http://pmd_host_or_ip/action?type=email&preset=ring_door
+`http://pmd_host_or_ip/action?type=email&preset=ring_door`
 
 If you may want to override some preset or global fields, you just add them to the URL, ie:  
 `http://pmd_host_or_ip/action?type=email&preset=ring_door&to=alternate@email.com`
@@ -77,7 +77,7 @@ If you may want to override some preset or global fields, you just add them to t
 ## Usage #################################################################################
 
 Once you have setupped the configuration file of your action, you might make tests by going to:  
-`http://pmd_host_or_ip/action?type=ACTION&preset=YOUR_FIRST_PRESET
+`http://pmd_host_or_ip/action?type=ACTION&preset=YOUR_FIRST_PRESET`
 
 You will see a JSON encoded response, indicating if it worked or not.
 

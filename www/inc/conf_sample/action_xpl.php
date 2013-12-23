@@ -8,25 +8,25 @@ This action send an xPL message on the Network
 
 
 ## Requirements  ----------------------------------------------------------------------------------
-This Action requires to have at least on xPL Hub on the network to receives, and re-direct xPL Messages
+This Action requires to have at least on xPL Hub on the network to receive and re-direct xPL Messages:  
 http://xplproject.org.uk
 
 
 ## Fields  ---------------------------------------------------------------------------------------
-- 'type'		=> (mandatory) 'xp'
-- 'xtype' 		=> (required) xPL message *Type*: xpl-cmnd | xpl-stat | xpl-trig
+- 'type'		=> (mandatory) 'xpl'
+- 'xtype' 		=> (required) xPL message *Type*: 'xpl-cmnd' | 'xpl-stat' | 'xpl-trig'
 - 'xsource' 	=> (required,) xPL message *Instance_id* part of xpl source field (max 16 chars):  Change this to differentiate sources.
 - 'xtarget' 	=> (required) xPL message *Target*.
 - 'xschema' 	=> (required) xPL message *Schema*.
 - 'xbody' 		=> (required) xPL message *Body*.
-- 'custom'		=> (optionnal) replaces "{custom}" in the  body field
+- 'custom'		=> (optionnal) replaces "{custom}" in the  xbody field
 
-for xPL messages format, please refer to:
+To learn more about xPL messages format, please refer to:  
 http://xplproject.org.uk/wiki/index.php?title=XPL_Specification_Document
 
 
 ## Some URLS examples ----------------------------------------------------------------------------
-/action?type=xpl&preset=ring_door  
+/action?type=xpl&preset=door_ring  
 
 */
 
@@ -50,10 +50,10 @@ $action['globals']['xbody']		="";
 //$action['presets']['PRESET_NAME']['FIELD']="your value here";
 
 //examples ---------------------
-$action['presets']['ring_door']['xsource']	='door1';
-$action['presets']['ring_door']['xtarget']	='xpl-server.main';
-$action['presets']['ring_door']['xschema']	='x10.basic';
-$action['presets']['ring_door']['xbody']	="sensor=PIR
+$action['presets']['door_ring']['xsource']	='door1';
+$action['presets']['door_ring']['xtarget']	='xpl-server.main';
+$action['presets']['door_ring']['xschema']	='x10.basic';
+$action['presets']['door_ring']['xbody']	="sensor=PIR
 status=ON
 tripcnt=3
 ";

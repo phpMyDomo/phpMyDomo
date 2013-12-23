@@ -8,7 +8,7 @@ This action fetch an url.
 
 ## Fields  ---------------------------------------------------------------------------------------
 - 'type'	=> (mandatory) 'http_get'
-- 'url' 	=> (required) the url to fetch: ie "http://www.myserver.com/myurl?param=xx"
+- 'url' 	=> (required) the url to fetch: ie 'http://www.myserver.com/myurl?param=xx'.
 - 'timeout' => (required) the maximum time to spend asking the remote server
 - 'custom'	=> (optionnal) replaces "{custom}" in the  url field
 

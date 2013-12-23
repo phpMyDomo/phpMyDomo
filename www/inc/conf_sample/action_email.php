@@ -7,10 +7,10 @@ PLEASE READ the /phpMyDomo/doc/howto/actions.md for more informations
 This action send an email
 
 ## Requirements ---------------------------------------------------------------------------------------
-The email Action requires that you have an email server setuped on the phpMyDomo host, and that it works
+The email Action requires that you have an email server setuped on the phpMyDomo host, and that it works.  
 You can chek this from the terminal, by trying to send you an email using:
-mail my_email@address.com
-(then enter a subject, then enter a content, then type a DOT then enter to send the mail). 
+mail my_email@address.com  
+(then enter a subject, then enter a content, then type a DOT then enter to send the mail).  
 If you receive the mail, it will work, else you have to insatll a mail server, ie Postfix or Exim.
 
 ## Fields  ----------------------------------------------------------------------------------
