@@ -16,6 +16,10 @@ class PMD_Page extends PMD_Root_Page{
 
 	//----------------------------------------------------------------------------------
 	private function _resetCache(){
+		if($this->conf['app']['demo']){
+			echo "Not in Demo Mode!!!!";
+			return;
+		}
 		$this->rmdir_recurse($this->conf['paths']['caches'].'minify/');
 		$this->rmdir_recurse($this->conf['paths']['caches'].'smarty_comp/');
 		$this->rmdir_recurse($this->conf['paths']['caches'].'smarty_cache/');
