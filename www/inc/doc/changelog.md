@@ -1,5 +1,14 @@
 # phpMyDomo ChangeLog
 
+## Version : 0.135 - Dec 23, 2013
+- new: Introduces Actions (notifications)
+- fix: New Domoticz Types : UV, Radiation, Visibility
+- fix: IOS icon
+- dev: fix PageError in api clients
+- dev: add Demo mode
+- fix: auto-truncate long names in blocks
+- fix: footer no longer triggers scroll arrows
+
 ## Version : 0.134 - Dec 19, 2013
 - new: (Experimental) Dimmers button implementation (Tested on openHab, Domoticz)
 - new: Dutch translation (thanks to Pepijn Goossens)
