@@ -208,7 +208,7 @@ class PMD_ApiClient extends PMD_Root_ApiClient{
 		}
 		else{
 			if($this->debug){
-				$this->o_fn->PageError('500',"Failed to contact server at {$this->api_url} ");
+				$this->o_kernel->PageError('500',"Failed to contact server at {$this->api_url} ");
 			}
 		}
 		
@@ -226,7 +226,7 @@ class PMD_ApiClient extends PMD_Root_ApiClient{
 		}
 		else{
 			if($this->debug){
-				$this->o_fn->PageError('500',"Failed to contact server at {$this->api_url} ");
+				$this->o_kernel->PageError('500',"Failed to contact server at {$this->api_url} ");
 			}
 		}		
 	}
