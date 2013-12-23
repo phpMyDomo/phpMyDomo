@@ -23,7 +23,7 @@ tar xvfz phpMyDomo_latest.tar.gz
 _Change "USERNAME" to your real username (ie "pi", "johndoe", etc..)_
 
 
-__2) Make sure that you have a working Apache + php5 + php5-curl + ModRewrite installed and enabled. If not, you can automatically install these by doing (on Debian):
+__2) Make sure that you have a working Apache + php5 + php5-curl + ModRewrite__ installed and enabled. If not, you can automatically install these by doing (on Debian):
 ```sh
 cd /home/USERNAME/phpMyDomo-phpMyDomo-XXXX/www/inc/bin/
 chmod 755 install_debian.sh
