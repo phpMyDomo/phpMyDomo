@@ -26,8 +26,8 @@ $lang['types']['group']		="Group";
 $lang['types']['temp']		="Temperature";
 $lang['types']['wind_speed']="Wind Speed";
 $lang['types']['wind_gust']	="Wind Gust";
-$lang['types']['wind_temp']	="Wind Temp.";
-$lang['types']['wind_chill']="Wind F. Temp.";
+$lang['types']['wind_temp']	="Wind Temperature";
+$lang['types']['wind_chill']="Wind Feel Temperature";
 $lang['types']['rain']		="Rain";
 $lang['types']['baro']		="Barometer";
 $lang['types']['hum']		="Humidity";
@@ -48,6 +48,8 @@ $lang['types']['bool']		="State";
 $lang['types']['pir']		="Motion";
 $lang['types']['gas']		="Gas/Smoke";
 $lang['types']['counter']	="Counter";
+$lang['types']['radiation']	="Radiations";
+$lang['types']['visibility']="Visibility";
 
 // infos ################################################################
 $lang['infos']['sunset']	="Sunset";

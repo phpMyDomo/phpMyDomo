@@ -136,6 +136,17 @@ html, body {
 	color: #666;
 	text-decoration: underline;	
 }
+#lay_footer .foot_demo{
+	background: red;
+	display: inline-block;
+	margin: 0 5px;
+	color: #FFF;
+	margin-left: 10px;
+	padding: 1px 5px;
+	-moz-border-radius: 4px;
+	-webkit-border-radius: 4px;
+	border-radius: 4px;
+}
 /* @end */
 /* @end */
 

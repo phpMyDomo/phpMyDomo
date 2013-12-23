@@ -1,12 +1,14 @@
 # phpMyDomo
-_The ultimate Domotic remote for the rest of us !_
+_The ultimate Domotic remote for the rest of us !_  
 
 http://www.phpmydomo.org
 
 
 ## About phpMyDomo
 
-phpMyDomo is an open-source Web Application aimed to provide a clean, robust, customizable, fast and intuitive interface to many Home Automation software. With todays chinese phones and tablets starting as low as $50, it becomes a cheap and powerfull way to build remotes to control anything smartly in your house. phpMyDomo wants to be the ultimate WebApp that works as well on these devices, as on any computer browser.
+phpMyDomo is an open-source Web Application aimed to provide a clean, robust, customizable, fast and intuitive interface to many Home Automation software. 
+
+With todays chinese phones and tablets starting as low as $50, it becomes a cheap and powerfull way to build remotes to control anything smartly in your house. phpMyDomo wants to be the ultimate WebApp that works as well on these devices, as on any computer browser.
 phpMyDomo don't aim to replace the cool domotic's software you're currently using, but rather to add a convenient web interface to it.
 
 Currently supported software include __Domoticz__, __Domotiga__, __OpenHab__ and __Domogik__. (+ draft Pilight)
@@ -45,7 +47,7 @@ install from git : `git clone https://github.com/phpMyDomo/phpMyDomo.git`
 *You can browse the [ChangeLog](www/inc/doc/changelog.md), no see what's new.*
 
 The are 2 method to update PMD: either from git (fastest) or manually.
-- Update from git : `git pull` (in the root phpMydomo directory). Then go to http://[your_web_server]/utils/update from your web browser, to finish the procedure.
+- Update from git : `git pull` (in the root phpMydomo directory). Then go to `http://[your_web_server]/utils/update` from your web browser, to finish the procedure.
 
 - Manually : you will see a link in the footer of each PMD page, indicating if there is an update available.
 Click the 'available' link, and follow the instructions (be sure to keep a copy of your /PMD/www/inc/conf/ folder).

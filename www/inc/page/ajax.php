@@ -14,6 +14,9 @@ class PMD_Page extends PMD_Root_Page{
 
 	//----------------------------------------------------------------------------------
 	private function _modeSet(){
+		if($this->conf['app']['demo']){
+			$this->_jsonError();			
+		}
 		isset($_GET['a'])	and $address	=$_GET['a'];
 		isset($_GET['v'])	and $val		=$_GET['v'];
 		isset($_GET['t'])	and $type		=$_GET['t'];

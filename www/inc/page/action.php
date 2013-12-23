@@ -7,22 +7,29 @@ class PMD_Page extends PMD_Root_Page{
 		$message='';
 		require_once($this->conf['libs']['root_action']);
 
-		if(isset($_GET['type'])){
-			$my_action=$_GET['type'];
-			$my_file=$this->conf['paths']['actions']."$my_action/action.php";
-			if(file_exists($my_file)){
-				require_once($my_file);
-				$object= new PMD_action($this->o_kernel,$my_action);
-				$object->Run();
-			}
-			else{
-				$error	=404;
-				$message="Invalid '$my_action' Action Type : No file found at $my_file";
-			}
+		if($this->conf['app']['demo']){
+			$error="401";
+			$message="Not allowed in Demo Mode!";
 		}
 		else{
-			$error=500;
-			$message="Type is not set";
+
+			if(isset($_GET['type'])){
+				$my_action=$_GET['type'];
+				$my_file=$this->conf['paths']['actions']."$my_action/action.php";
+				if(file_exists($my_file)){
+					require_once($my_file);
+					$object= new PMD_action($this->o_kernel,$my_action);
+					$object->Run();
+				}
+				else{
+					$error	=404;
+					$message="Invalid '$my_action' Action Type : No file found at $my_file";
+				}
+			}
+			else{
+				$error=500;
+				$message="Type is not set";
+			}
 		}
 		if($error){
 			$object= new PMD_root_action($this->o_kernel,false);

@@ -27,7 +27,7 @@ $lang['types']['temp']		="Temperatur";
 $lang['types']['wind_speed']="Wind Geschwindigkeit";
 $lang['types']['wind_gust']	="Wind Böen";
 $lang['types']['wind_temp']	="Wind Temperatur";
-$lang['types']['wind_chill']="Wind gefuehlte Temp.";	//Wind gefuehlte Temperatur
+$lang['types']['wind_chill']="Wind gefuehlte Temperatur";	//Wind gefuehlte Temperatur
 $lang['types']['rain']		="Regen";
 $lang['types']['baro']		="Barometer";
 $lang['types']['hum']		="Feuchte";
@@ -48,6 +48,8 @@ $lang['types']['bool']		="Status";
 $lang['types']['pir']		="Bewegung";
 $lang['types']['gaz']		="Gas/Rauch";
 $lang['types']['counter']	="Zähler";
+$lang['types']['radiation']	="Radiations";	//To translate
+$lang['types']['visibility']="Visibility";	//To Translate
 
 // infos ################################################################
 $lang['infos']['sunset']	="Sonnenuntergang";

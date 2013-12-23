@@ -27,7 +27,7 @@ $lang['types']['temp']		="Temperatuur";
 $lang['types']['wind_speed']="Wind";
 $lang['types']['wind_gust']	="Windvlaag";
 $lang['types']['wind_temp']	="Temperatuur";
-$lang['types']['wind_chill']="Gevoelstemp.";	// Gevoelstemperatuur
+$lang['types']['wind_chill']="Gevoelstemperatuur";	// Gevoelstemperatuur
 $lang['types']['rain']		="Regen";
 $lang['types']['baro']		="Barometer";
 $lang['types']['hum']		="Luchtvochtigheid";
@@ -48,6 +48,8 @@ $lang['types']['bool']		="Status";
 $lang['types']['pir']		="Beweging";
 $lang['types']['gas']		="Gas/ Rook";
 $lang['types']['counter']	="Meter";
+$lang['types']['radiation']	="Zoninstraling";
+$lang['types']['visibility']="Zicht";
 
 // infos ################################################################
 $lang['infos']['sunset']	="Zonsondergang";

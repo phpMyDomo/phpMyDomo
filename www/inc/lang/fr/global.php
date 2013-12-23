@@ -24,10 +24,10 @@ $lang['blocks_titles']['sensors']="Sondes";
 $lang['types']['scene']		="Scène";
 $lang['types']['group']		="Groupe";
 $lang['types']['temp']		="Température";
-$lang['types']['wind_speed']="Vent Vitesse";
-$lang['types']['wind_gust']	="Vent Rafales";
-$lang['types']['wind_temp']	="Vent Temp.";
-$lang['types']['wind_chill']="Vent Temp. R";
+$lang['types']['wind_speed']="Vent, Vitesse";
+$lang['types']['wind_gust']	="Vent, Rafales";
+$lang['types']['wind_temp']	="Vent, Température";
+$lang['types']['wind_chill']="Vent, T. Ressentie";
 $lang['types']['rain']		="Pluie";
 $lang['types']['baro']		="Baromètre";
 $lang['types']['hum']		="Humiditée";
@@ -48,6 +48,8 @@ $lang['types']['bool']		="Etat";
 $lang['types']['pir']		="Mouvement";
 $lang['types']['gas']		="Gas/Fumée";
 $lang['types']['counter']	="Compteur";
+$lang['types']['radiation']	="Radiations";
+$lang['types']['visibility']="Visibilité";
 
 // infos ################################################################
 $lang['infos']['sunset']	="Coucher de Soleil";

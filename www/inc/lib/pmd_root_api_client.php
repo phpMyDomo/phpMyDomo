@@ -46,7 +46,7 @@ class PMD_Root_ApiClient extends PMD_Root{
 	class 			=> Class of device: command | sensor  | scene | camera | security
 	type			=> Type of the device
 						-For Commands	: switch | dimmer | heating | shutter | fan | rgb | rgbw | therm | blind
-						-For Sensors	: temp | wind_speed | wind_gust | wind_temp | wind_chill | rain | baro | hygro | uv | pir | gas | bool | consum | counter
+						-For Sensors	: temp | wind_speed | wind_gust | wind_temp | wind_chill | rain | baro | hygro | uv | pir | gas | bool | consum | counter | visibility | radiation
 						-For Scenes 	: scene | group
 						-For Cameras 	: cam_ip
 						-For Security 	: door | window
@@ -348,23 +348,36 @@ class PMD_Root_ApiClient extends PMD_Root{
 			$state=round( ($state/100 * ($max - $min))  + $min );
 		}
 		
-		//- json_rpc v2 -----------------------------------------------
-		if($this->vars['method']=="json_rpc2"){
-			$out=$this->ApiFetchJson_rpc2($command,$type,$address,$state);
-		}
-		// json_get -------------------------------------------------
-		elseif($this->vars['method']=="json_get"){
-			$out=$this->ApiFetchJson_get($command,$type,$address,$state);
-		}
-		// json_mixed -------------------------------------------------
-		elseif($this->vars['method']=="json_mixed"){
-			$out=$this->ApiFetchJson_mixed($command,$type,$address,$state);
-		}
-		// custom -------------------------------------------------
-		elseif($this->vars['method']=="custom"){
-			$out=$this->ApiFetchCustom($command,$type,$address,$state);
-		}
+		$cache_duration	=3600*2;
+		$cache_api_file=$this->conf['paths']['caches'].'api_client/'.$this->conf['app']['api'].'_'.md5("$command,$type,$address,$state");		
 		
+		if(!$this->conf['app']['demo'] or (!file_exists($cache_api_file) or filemtime($cache_api_file) < ( time() - $cache_duration) )){
+	
+			//- json_rpc v2 -----------------------------------------------
+			if($this->vars['method']=="json_rpc2"){
+				$out=$this->ApiFetchJson_rpc2($command,$type,$address,$state);
+			}
+			// json_get -------------------------------------------------
+			elseif($this->vars['method']=="json_get"){
+				$out=$this->ApiFetchJson_get($command,$type,$address,$state);
+			}
+			// json_mixed -------------------------------------------------
+			elseif($this->vars['method']=="json_mixed"){
+				$out=$this->ApiFetchJson_mixed($command,$type,$address,$state);
+			}
+			// custom -------------------------------------------------
+			elseif($this->vars['method']=="custom"){
+				$out=$this->ApiFetchCustom($command,$type,$address,$state);
+			}
+			
+			if($this->conf['app']['demo']){
+				file_put_contents($cache_api_file,json_encode($out));
+			}
+		}
+		else{
+				$out=json_decode(file_get_contents($cache_api_file),true);
+				$this->api_status=true;
+		}
 		$this->api_response=$out;
 		return $this->api_status;
 	}

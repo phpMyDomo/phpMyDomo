@@ -98,6 +98,25 @@ class PMD_ApiClient extends PMD_Root_ApiClient{
 					$d['type']	='rain';
 					$d['value']	=$raw['Rain'];
 				}
+				elseif($raw['Type']=='UV'){
+					$d['class']	='sensor';
+					$d['type']	='uv';
+					$d['value']	=$raw['UVI'];
+					$d['unit']	="UVI";
+				}
+				elseif($raw['Type']=='General' and $raw['SubType'] =='Solar Radiation' ){
+					$d['class']	='sensor';
+					$d['type']	='radiation';
+					$d['value']	=$raw['Radiation'];
+					$d['unit']	="W/m2";
+				}
+				elseif($raw['Type']=='General' and $raw['SubType'] =='Visibility' ){
+					$d['class']	='sensor';
+					$d['type']	='visibility';
+					$d['value']	=$raw['Visibility'];
+					$d['unit']	="Km";
+				}
+
 				elseif($raw['Type']=='Temp'){
 					$d['class']	='sensor';
 					$d['type']	='temp';
@@ -189,7 +208,7 @@ class PMD_ApiClient extends PMD_Root_ApiClient{
 		}
 		else{
 			if($this->debug){
-				$this->o_fn->PageError('500',"Failed to contact server at {$this->api_url} ");
+				$this->o_kernel->PageError('500',"Failed to contact server at {$this->api_url} ");
 			}
 		}
 		
@@ -207,7 +226,7 @@ class PMD_ApiClient extends PMD_Root_ApiClient{
 		}
 		else{
 			if($this->debug){
-				$this->o_fn->PageError('500',"Failed to contact server at {$this->api_url} ");
+				$this->o_kernel->PageError('500',"Failed to contact server at {$this->api_url} ");
 			}
 		}		
 	}
