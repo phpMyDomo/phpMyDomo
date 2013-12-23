@@ -24,7 +24,9 @@ tar xvfz phpMyDomo_latest.tar.gz
 _Change "USERNAME" to your real username (ie "pi", "johndoe", etc..)_
 
 
-### 2) Make sure that you have a working Apache + php5 + php5-curl + ModRewrite installed and enabled. If not, you can automatically install these by doing (on Debian):
+### 2) Make sure that you have a working Apache + php5 + php5-curl + ModRewrite installed and enabled.
+
+If not, you can automatically install these by doing (on Debian):
 
 ```sh
 cd /home/USERNAME/phpMyDomo-phpMyDomo-XXXX/www/inc/bin/
@@ -36,13 +38,15 @@ _change "phpMyDomo-phpMyDomo-XXXX" according to your exact directory name, ie "p
 If some software are already installed, it wont break anything to launch this script: It will just install missing software (if any), enable modRewrite, change the cache permission and rename the conf_sample directory for you...
 
 
-### 3) If you've not already launched the install script, make the _www/inc/cache_ directory writable
+### 3) make the _www/inc/cache_ directory writable
+If you've not already launched the install script, do :
+
 `chmod -R 777 /home/USERNAME/phpMyDomo-phpMyDomo-XXXX/www/inc/cache`
 
 and make sure that Apache modRewrite is enabled : `a2enmod rewrite`
 
 
-### 4) Set the virtual host for apache 
+### 4) Setup the virtual host for Apache 
 If you use the default apache web directory at /var/www/ , make sure that this directory has the __AllowOverride All__ and __Options Indexes__ set, ie:
 
 ```
