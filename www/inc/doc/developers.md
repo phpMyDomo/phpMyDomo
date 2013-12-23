@@ -26,7 +26,7 @@ When in the devices page, you can simply add `?dump` to the URL (http://[server]
 
 #### Skins 
 - At any time you can change the skin on the fly by using ?skin=xxx in the url, ie:
-`/home?skin=black`, `/home?skin=default` or `/home?skin=your_skin
+`/home?skin=black`, `/home?skin=default` or `/home?skin=your_skin`
 
 #### StyleSheets 
 - If you're Not in debug mode, all CSS are minified, and cached, thus viewing change on the fly is not possible.
