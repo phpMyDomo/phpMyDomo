@@ -66,7 +66,7 @@ _in Debian, when using the default configuration, you just have to change its "A
 `nano /etc/apache2/sites-available/default`
 
 
-### 5) Move the ww directoty to the WebServer root
+### 5) Move the *www* directory to the WebServer root
 
 You have to move the content of your *phpMyDomo-phpMyDomo-XXXX/www/* directory to the directory where you have configured Apache to serve files from:
 
