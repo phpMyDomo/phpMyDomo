@@ -1,6 +1,6 @@
 # phpMyDomo ChangeLog
 
-## Version : 0.135 - Dec 23, 2013
+## Version : 0.140 - Dec 23, 2013
 - new: Introduces Actions (notifications)
 - fix: New Domoticz Types : UV, Radiation, Visibility
 - fix: IOS icon
