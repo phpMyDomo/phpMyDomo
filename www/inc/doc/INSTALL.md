@@ -10,11 +10,11 @@
 
 ## Installation ##############################################
 If you're used to Git, the best way to install phpMyDomo is to clone the git 'master' branch, and to set an Apache virtual host pointing to the phpMydomo/www directory.
-Future update will then only require a "git pull" .
+Future update will then only require a `git pull` .
 
 If not, here is the manual way of installing phpMyDomo:
 
-__1) Download the archive and decompress it__ somewhere on your server, ie in your home directory : /home/USERNAME/.
+#### 1) Download the archive and decompress it somewhere on your server, ie in your home directory : */home/USERNAME/*
 ```sh
 cd /home/USERNAME/
 wget http://www.phpmydomo.org/download/?t=gz -O phpMyDomo_latest.tar.gz
@@ -23,7 +23,8 @@ tar xvfz phpMyDomo_latest.tar.gz
 _Change "USERNAME" to your real username (ie "pi", "johndoe", etc..)_
 
 
-__2) Make sure that you have a working Apache + php5 + php5-curl + ModRewrite__ installed and enabled. If not, you can automatically install these by doing (on Debian):
+#### 2) Make sure that you have a working Apache + php5 + php5-curl + ModRewrite installed and enabled. If not, you can automatically install these by doing (on Debian):
+
 ```sh
 cd /home/USERNAME/phpMyDomo-phpMyDomo-XXXX/www/inc/bin/
 chmod 755 install_debian.sh
@@ -34,13 +35,13 @@ _change "phpMyDomo-phpMyDomo-XXXX" according to your exact directory name, ie "p
 If some software are already installed, it wont break anything to launch this script: It will just install missing software (if any), enable modRewrite, change the cache permission and rename the conf_sample directory for you...
 
 
-__3)__ If you've not already launched the install script, __make the _www/inc/cache_ directory writable__:
+#### 3) If you've not already launched the install script, __make the _www/inc/cache_ directory writable
 `chmod -R 777 /home/USERNAME/phpMyDomo-phpMyDomo-XXXX/www/inc/cache`
 
 and make sure that Apache modRewrite is enabled : `a2enmod rewrite`
 
 
-__4) Set the virtual host for apache__: 
+#### 4) Set the virtual host for apache 
 If you use the default apache web directory at /var/www/ , make sure that this directory has the __AllowOverride All__ and __Options Indexes__ set, ie:
 
 ```
@@ -56,7 +57,7 @@ _in Debian, when using the default configuration, you just have to change its "A
 `nano /etc/apache2/sites-available/default`
 
 
-__5) move the content of your phpMyDomo-phpMyDomo-XXXX/www/ directory to the directory where you have configured Apache to serve files from__.
+#### 5) move the content of your phpMyDomo-phpMyDomo-XXXX/www/ directory to the directory where you have configured Apache to serve files from
 
 _Ie on debian, if you're using the default webserver location in /var/www/, do:_
 `mv -f /home/USERNAME/phpMyDomo-phpMyDomo-XXXX/www/* /var/www/`
@@ -65,7 +66,7 @@ _Ie on debian, if you're using the default webserver location in /var/www/, do:_
 _Notice: Be sure that you've copied the /home/USERNAME/phpMyDomo-phpMyDomo-XXXX/www/.htaccess (hidden) file to your webserver root directory, else you will get a 404 when trying to access phpMyDomo from your web browser._
 
 
-__6) restart apache__
+#### 6) restart apache
 `apache2ctl restart`
 
 
