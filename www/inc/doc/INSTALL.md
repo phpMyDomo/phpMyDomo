@@ -15,7 +15,11 @@ Future update will then only require a `git pull` .
 
 If not, here is the manual way of installing phpMyDomo:
 
-### 1) Download the archive and decompress it somewhere on your server, ie in your home directory : */home/USERNAME/*
+
+### 1) Download the archive 
+
+Download the archive and decompress it somewhere on your server, ie in your home directory : */home/USERNAME/*
+
 ```sh
 cd /home/USERNAME/
 wget http://www.phpmydomo.org/download/?t=gz -O phpMyDomo_latest.tar.gz
@@ -24,9 +28,9 @@ tar xvfz phpMyDomo_latest.tar.gz
 _Change "USERNAME" to your real username (ie "pi", "johndoe", etc..)_
 
 
-### 2) Make sure that you have a working Apache + php5 + php5-curl + ModRewrite installed and enabled.
+### 2) Apache + php5 + php5-curl + ModRewrite must be installed
 
-If not, you can automatically install these by doing (on Debian):
+Make sure that you have a working Apache + php5 + php5-curl + ModRewrite installed and enabled. If not, you can automatically install these by doing (on Debian):
 
 ```sh
 cd /home/USERNAME/phpMyDomo-phpMyDomo-XXXX/www/inc/bin/
@@ -62,7 +66,9 @@ _in Debian, when using the default configuration, you just have to change its "A
 `nano /etc/apache2/sites-available/default`
 
 
-### 5) move the content of your phpMyDomo-phpMyDomo-XXXX/www/ directory to the directory where you have configured Apache to serve files from
+### 5) Move the ww directoty to the WebServer root
+
+You have to move the content of your *phpMyDomo-phpMyDomo-XXXX/www/* directory to the directory where you have configured Apache to serve files from:
 
 _Ie on debian, if you're using the default webserver location in /var/www/, do:_
 `mv -f /home/USERNAME/phpMyDomo-phpMyDomo-XXXX/www/* /var/www/`
