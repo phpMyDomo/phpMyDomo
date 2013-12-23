@@ -13,7 +13,7 @@ $devices
 		{if $type=='weather'}{$my_name=$lg.types.{$devices.$id.type}}{else}{$my_name=$devices.$id.name}{/if}
 		<tr>
 			<td class='td_icon'><img src='{$p.urls.static}/global/img/icon48_type_{$devices.$id.img_type}.png'></td>
-			<td class='td_name'>{$my_name}</td>
+			<td class='td_name' nowrap>{$my_name|truncate:13:'…':true}</td>
 			<td class='td_value'>{$devices.$id.value|number_format:1}</td>
 			<td class='td_unit'>{$devices.$id.unit|default:$p.units.{$devices.$id.type}}</td>
 		</tr>	
