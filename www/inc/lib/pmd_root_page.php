@@ -75,7 +75,7 @@ class PMD_Root_Page extends PMD_Root{
 
 		if($this->conf['debug']['show']){
 			$this->o_smarty->compile_check		=true;
-			$this->o_smarty->debugging			=true;
+			//$this->o_smarty->debugging			=true;
 			$this->minify_bypass				=true;		
 		}
 		else{
@@ -112,8 +112,6 @@ class PMD_Root_Page extends PMD_Root{
 		$this->SetHeader('bs/css/bootstrap.spacelab.css','css_global');
 		$this->SetHeader('bs/css/bootstrap-slider.min.css','css_global');
 		$this->SetHeader('bs/css/font-awesome.min.css','css_global');
-		$this->SetHeader('css/main.css','css_global');
-		$this->SetHeader('css/skin.css','css');
 
 		$this->SetHeader('js/jquery-1.7.2.min.js','js_global');
 		$this->SetHeader('js/jquery.lazyload.min.js','js_global');
@@ -121,8 +119,6 @@ class PMD_Root_Page extends PMD_Root{
 		$this->SetHeader('bs/js/bootstrap.min.js','js_global');
 		$this->SetHeader('bs/js/bootstrap-slider.min.js','js_global');
 
-		$this->SetHeader('js/main.js','js_global');
-		$this->SetHeader('js/skin.js','js');
 		
 		$this->SetHeadJavascript("var ajax_url='{$this->conf['urls']['www']}/ajax';");
 
@@ -138,6 +134,12 @@ class PMD_Root_Page extends PMD_Root{
 
 	//----------------------------------------------------------------------------------
 	function Display($page=array()){
+		$this->SetHeader('css/main.css','css_global');
+		$this->SetHeader('css/skin.css','css');
+
+		$this->SetHeader('js/main.js','js_global');
+		$this->SetHeader('js/skin.js','js');
+
 		$page['title']				=$this->lang['page']['title'];
 		$page['app_name']			=$this->conf['app']['home_name'];
 		$page['api']				=$this->conf['app']['api'];
@@ -240,11 +242,12 @@ class PMD_Root_Page extends PMD_Root{
 			$out .="	<script language='javascript' src='{$this->conf['urls']['minify']}/?f=$minify_js$minify_query'></script>\n";
 		}
 		if(isset($this->headers['js_vars'])){
-			$out .="	<script language='javascript'>\n";
+			$out_vars ="	<script language='javascript'>\n";
 			foreach($this->headers['js_vars'] as $var){
-				$out.="$var\n";
+				$out_vars.="$var\n";
 			}
-			$out.="</script>";
+			$out_vars.="	</script>\n";
+			$out=$out_vars.$out;
 		}
 
 		return $out;
@@ -257,7 +260,7 @@ class PMD_Root_Page extends PMD_Root{
 
 	// -----------------------------------------------------------------------------------------------------------------
 	function SetHeadJavascript($vars){
-		$this->headers['js_vars'][]=$vars;
+		$this->headers['js_vars'][]=$vars."\n";
 	}
 
 	// -----------------------------------------------------------------------------------------------------------------

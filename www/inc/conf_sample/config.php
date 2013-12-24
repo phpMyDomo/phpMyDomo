@@ -15,6 +15,9 @@ $conf['app']['home_name']	="Home Sweet Home";
 // language file to use : (name of the folder in /www/inc/lang/)
 $conf['app']['lang']		="en";	// en | fr | nl | de
 
+//choose a photoframe method : directory | iphoto
+$conf['app']['photoframe']		="directory"; 
+
 // Skin : Uncomment to use another skin (defaults to the 'default' skin, if not set)
 //$conf['app']['skin']		="black"; // default | black | metal
 
@@ -23,6 +26,7 @@ $conf['app']['lang']		="en";	// en | fr | nl | de
 
 //Locale: uncomment to override the locale defined in the language file
 //$conf['app']['locale']		="en_US.utf8"; 
+
 
 
 //	Urls  #####################################################################
@@ -179,8 +183,8 @@ $conf['cameras_urls']['room2']	="http://user:pass@10.0.0.2/videostream.cgi";
 Defines menus displayed on the header or footer of the page.
 If not set, all menus are shown.
 */
-//$conf['menu_head']=array('home','cameras','commands');
-//$conf['menu_foot']=array('home','cameras','commands','sensors','devices');
+$conf['menu_head']=array('home','cameras','photos','devices');
+//$conf['menu_foot']=array('home','cameras','photos','commands','sensors','devices');
 
 
 

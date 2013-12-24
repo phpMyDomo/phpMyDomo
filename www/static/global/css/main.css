@@ -553,7 +553,108 @@ html, body {
 	display: inline-block;
 	border: 1px solid #ccc;
 }
+/* @end */
+
+/* @group Page Photos
+------------------------------------------- */
+#body_photos #div_albums{
+	overflow: hidden;
+}
+#body_photos #div_albums A{
+	text-decoration: none;	
+}
+#body_photos #div_albums A:hover .panel_album IMG,
+#body_photos #div_albums A:focus .panel_album IMG,
+#body_photos #div_albums A:active .panel_album IMG {
+	opacity: 0.6;
+}
+#body_photos .panel_album{
+	float: left;
+	margin-left: 10px;
+	margin-right: 10px;
+	-webkit-box-shadow : 3px 3px 10px rgba(0,0,0,0.4);
+	-moz-box-shadow : 3px 3px 10px rgba(0,0,0,0.4);
+	box-shadow : 3px 3px 10px rgba(0,0,0,0.4);
+}
+#body_photos .panel_album .panel-heading{
+	text-align: center;
+	white-space: nowrap;
+	font-size: 13px;
+}
+#body_photos .panel_selected{
+	border-color: #00F;
+}
+
+#body_photos .panel_selected .panel-heading {
+	background-color: #DDf;
+	border-color: #00F;
+}
+
+#body_photos .panel_album .panel-body-full{
+	min-width: 200px;
+	height: 150px;
+	padding: 3px;
+	text-align: center;
+}
+#body_photos .panel_album IMG{
+	height: 100%;
+	border: 1px solid #ccc;
+}
+/* @end */
+
+/* @group Page PhotoFrame
+------------------------------------------- */
+#body_photoframe{
+	background: #000;
+}
+#body_photoframe A#prevslide,
+#body_photoframe A#nextslide{
+	opacity: 0.15 !important;
+	height: 100%;
+	background-repeat: no-repeat ;
+	top: auto;
+	bottom: 0px;
+	margin-top: 0px;
+	margin-bottom: 160px;
+}
+#body_photoframe A#prevslide{
+	left: 0;
+	width: 63px;
+	background-position: 10px 60%;
+}
+
+#body_photoframe A#nextslide{
+	right: 0;
+	width: 63px;
+	background-position: 10px 60%;
+}
+#body_photoframe #prevslide:hover,
+#body_photoframe #nextslide:hover{
+	opacity: 0.8 !important;
+}
+
+				
+#body_photoframe ul#selectAlbum{ 
+	padding:8px 0; 
+	float:right; 
+	margin-right: 20px;
+}
+#body_photoframe ul#selectAlbum SELECT{
+	background-color: #000;
+	color: #AAA;
+	font-size: 16px;
+}
+#body_photoframe #pmd_goback{
+	width: 70%;
+	height: 100%;
+	display: block;
+	position: absolute;
+	left: 15%;
+	bottom: 160px;
+}
+
 
 /* @end */
+
 
 
