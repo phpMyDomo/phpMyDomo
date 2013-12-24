@@ -1,0 +1,350 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN"
+    "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+<head>
+<meta http-equiv="Content-Type" content="application/xhtml+xml; charset=UTF-8" />
+<meta name="generator" content="AsciiDoc 8.6.8" />
+<meta name="description" content="How to get started with your first notification" />
+<meta name="keywords" content="PEAR, Network, Notification, Growl" />
+<title>Getting Started</title>
+<link rel="stylesheet" href="styles/flask.css" type="text/css" />
+<link rel="stylesheet" href="styles/pygments.css" type="text/css">
+
+
+<link rel="stylesheet" href="styles/toc2.css" type="text/css" />
+<script type="text/javascript" src="js/asciidoc.js"></script>
+<script type="text/javascript" src="js/flask.js"></script>
+<script type="text/javascript">
+/*<![CDATA[*/
+asciidoc.install(2);
+/*]]>*/
+</script>
+</head>
+<body class="article">
+<div id="header">
+<h1>Getting Started</h1>
+<span id="author">Laurent Laville</span><br />
+<span id="revnumber">version 2.7.0,</span>
+<span id="revdate">2013-01-29</span>
+<div id="toc">
+  <div id="toctitle">Table of Contents</div>
+  <noscript><p><b>JavaScript must be enabled in your browser to display the table of contents.</b></p></noscript>
+</div>
+</div>
+<div id="content">
+<div id="preamble">
+<div class="sectionbody">
+<div class="paragraph lead"><p>This simple tutorial will show you how to send different messages to Growl.</p></div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_register_your_application">Register your application</h2>
+<div class="sectionbody">
+<div class="paragraph"><p>Before to send any notification, you should register your application to Growl.</p></div>
+<div class="paragraph"><p>Consider an application as a group of elements included :</p></div>
+<div class="ulist"><ul>
+<li>
+<p>
+a unique name to identify the application
+(required)
+</p>
+</li>
+<li>
+<p>
+one icon to represent visually your application
+(optional - used default growl icon if missing)
+</p>
+</li>
+<li>
+<p>
+a list of notification types that will receive future messages
+(required - an empty list does not have sense)
+</p>
+</li>
+</ul></div>
+<div class="admonitionblock">
+<table><tr>
+<td class="icon">
+<img src="./images/icons/caution.png" alt="Caution" />
+</td>
+<td class="content">Do not register each time you send a new notification. It&#8217;s unnecessary.</td>
+</tr></table>
+</div>
+<div class="admonitionblock">
+<table><tr>
+<td class="icon">
+<img src="./images/icons/tip.png" alt="Tip" />
+</td>
+<td class="content"><strong>Net_Growl</strong> will register your application at first notification send, if
+it was not implicitly called before with <a href="#C1M4">Net_Growl::register()</a>.</td>
+</tr></table>
+</div>
+<div class="exampleblock">
+<div class="title">Example 1. Register your first application</div>
+<div class="content">
+<div class="listingblock">
+<div class="content"><div class="highlight"><pre><span class="cp">&lt;?php</span>
+<span class="k">require_once</span> <span class="s1">&#39;Net/Growl/Autoload.php&#39;</span><span class="p">;</span>
+
+<span class="nv">$notifications</span> <span class="o">=</span> <span class="k">array</span><span class="p">(</span>
+    <span class="s1">&#39;GROWL_NOTIFY_STATUS&#39;</span> <span class="o">=&gt;</span> <span class="k">array</span><span class="p">(</span>
+        <span class="s1">&#39;display&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;Status&#39;</span><span class="p">,</span>
+    <span class="p">),</span>
+    <span class="s1">&#39;GROWL_NOTIFY_PHPERROR&#39;</span> <span class="o">=&gt;</span> <span class="k">array</span><span class="p">(</span>
+        <span class="s1">&#39;display&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;Error-Log&#39;</span>
+    <span class="p">)</span>
+<span class="p">);</span>
+<span class="nv">$appName</span>  <span class="o">=</span> <span class="s1">&#39;PHP App Example using GNTP&#39;</span><span class="p">;</span>
+<span class="nv">$password</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span><span class="p">;</span>
+<span class="nv">$options</span>  <span class="o">=</span> <span class="k">array</span><span class="p">(</span>
+    <span class="s1">&#39;protocol&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;gntp&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;timeout&#39;</span>  <span class="o">=&gt;</span> <span class="mi">15</span><span class="p">,</span>
+<span class="p">);</span>
+
+<span class="k">try</span> <span class="p">{</span>
+    <span class="nv">$growl</span> <span class="o">=</span> <span class="nx">Net_Growl</span><span class="o">::</span><span class="na">singleton</span><span class="p">(</span><span class="nv">$appName</span><span class="p">,</span> <span class="nv">$notifications</span><span class="p">,</span> <span class="nv">$password</span><span class="p">,</span> <span class="nv">$options</span><span class="p">);</span>
+    <span class="nv">$growl</span><span class="o">-&gt;</span><span class="na">register</span><span class="p">();</span>
+
+<span class="p">}</span> <span class="k">catch</span> <span class="p">(</span><span class="nx">Net_Growl_Exception</span> <span class="nv">$e</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">echo</span> <span class="s1">&#39;Caught Growl exception: &#39;</span> <span class="o">.</span> <span class="nv">$e</span><span class="o">-&gt;</span><span class="na">getMessage</span><span class="p">()</span> <span class="o">.</span> <span class="nx">PHP_EOL</span><span class="p">;</span>
+<span class="cp">?&gt;</span><span class="x"></span>
+</pre></div></div></div>
+</div></div>
+<div class="paragraph"><p>Previously, we have seen how to register an application with all definitions
+given by the Net_Growl class constructor. Now we will see an alternative solution
+using a <a href="#C2">Net_Growl_Application</a> object.</p></div>
+<div class="exampleblock">
+<div class="title">Example 2. Register with a Net_Growl_Application object</div>
+<div class="content">
+<div class="listingblock">
+<div class="content"><div class="highlight"><pre><span class="cp">&lt;?php</span>
+<span class="k">require_once</span> <span class="s1">&#39;Net/Growl/Autoload.php&#39;</span><span class="p">;</span>
+
+<span class="nv">$notifications</span> <span class="o">=</span> <span class="k">array</span><span class="p">(</span>
+    <span class="s1">&#39;GROWL_NOTIFY_PHPERROR&#39;</span>
+<span class="p">);</span>
+<span class="nv">$appName</span>  <span class="o">=</span> <span class="s1">&#39;PHP App Example using GNTP&#39;</span><span class="p">;</span>
+<span class="nv">$password</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span><span class="p">;</span>
+
+<span class="nv">$app</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Net_Growl_Application</span><span class="p">(</span>
+    <span class="nv">$appName</span><span class="p">,</span>
+    <span class="nv">$notifications</span><span class="p">,</span>
+    <span class="nv">$password</span>
+<span class="p">);</span>
+<span class="nv">$options</span> <span class="o">=</span> <span class="k">array</span><span class="p">(</span>
+    <span class="s1">&#39;protocol&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;gntp&#39;</span><span class="p">,</span>
+<span class="p">);</span>
+
+<span class="nv">$growl</span> <span class="o">=</span> <span class="nx">Net_Growl</span><span class="o">::</span><span class="na">singleton</span><span class="p">(</span><span class="nv">$app</span><span class="p">,</span> <span class="k">null</span><span class="p">,</span> <span class="k">null</span><span class="p">,</span> <span class="nv">$options</span><span class="p">);</span>
+<span class="nv">$growl</span><span class="o">-&gt;</span><span class="na">register</span><span class="p">();</span>
+<span class="cp">?&gt;</span><span class="x"></span>
+</pre></div></div></div>
+</div></div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_notify_a_simple_basic_message">Notify a simple basic message</h2>
+<div class="sectionbody">
+<div class="admonitionblock">
+<table><tr>
+<td class="icon">
+<img src="./images/icons/warning.png" alt="Warning" />
+</td>
+<td class="content">
+<div class="title">Distinct UDP and GNTP communication</div>
+<div class="paragraph"><p>Default options will used the basic UDP protocol on port 9887.</p></div>
+<div class="paragraph"><p>If you want to use the new GNTP, you should specify <strong>options</strong>
+<em>protocol</em> (= gntp)</p></div>
+<div class="paragraph"><p>See <a href="#C1M1">singleton</a> method, and options parameter (#4).</p></div>
+</td>
+</tr></table>
+</div>
+<div class="paragraph"><p>We will reused the source code presented in register application feature, and
+used tip to auto-register application at first notification call.</p></div>
+<div class="listingblock">
+<div class="content"><div class="highlight"><pre><span class="cp">&lt;?php</span>
+<span class="k">require_once</span> <span class="s1">&#39;Net/Growl/Autoload.php&#39;</span><span class="p">;</span>
+
+<span class="nv">$notifications</span> <span class="o">=</span> <span class="k">array</span><span class="p">(</span>
+    <span class="s1">&#39;GROWL_NOTIFY_STATUS&#39;</span> <span class="o">=&gt;</span> <span class="k">array</span><span class="p">(</span>
+        <span class="s1">&#39;display&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;Status&#39;</span><span class="p">,</span>
+    <span class="p">),</span>
+    <span class="s1">&#39;GROWL_NOTIFY_PHPERROR&#39;</span> <span class="o">=&gt;</span> <span class="k">array</span><span class="p">(</span>
+        <span class="s1">&#39;display&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;Error-Log&#39;</span>
+    <span class="p">)</span>
+<span class="p">);</span>
+<span class="nv">$appName</span>  <span class="o">=</span> <span class="s1">&#39;PHP App Example using GNTP&#39;</span><span class="p">;</span>
+<span class="nv">$password</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span><span class="p">;</span>
+<span class="nv">$options</span>  <span class="o">=</span> <span class="k">array</span><span class="p">(</span>
+    <span class="s1">&#39;protocol&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;gntp&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;timeout&#39;</span>  <span class="o">=&gt;</span> <span class="mi">15</span><span class="p">,</span>
+<span class="p">);</span>
+
+<span class="k">try</span> <span class="p">{</span>
+    <span class="nv">$growl</span> <span class="o">=</span> <span class="nx">Net_Growl</span><span class="o">::</span><span class="na">singleton</span><span class="p">(</span><span class="nv">$appName</span><span class="p">,</span> <span class="nv">$notifications</span><span class="p">,</span> <span class="nv">$password</span><span class="p">,</span> <span class="nv">$options</span><span class="p">);</span>
+
+    <span class="nv">$name</span>        <span class="o">=</span> <span class="s1">&#39;GROWL_NOTIFY_STATUS&#39;</span><span class="p">;</span>
+    <span class="nv">$title</span>       <span class="o">=</span> <span class="s1">&#39;Congratulation&#39;</span><span class="p">;</span>
+    <span class="nv">$description</span> <span class="o">=</span> <span class="s1">&#39;You have successfully installed PEAR/Net_Growl.&#39;</span><span class="p">;</span>
+    <span class="nv">$growl</span><span class="o">-&gt;</span><span class="na">publish</span><span class="p">(</span><span class="nv">$name</span><span class="p">,</span> <span class="nv">$title</span><span class="p">,</span> <span class="nv">$description</span><span class="p">);</span>
+
+<span class="p">}</span> <span class="k">catch</span> <span class="p">(</span><span class="nx">Net_Growl_Exception</span> <span class="nv">$e</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">echo</span> <span class="s1">&#39;Caught Growl exception: &#39;</span> <span class="o">.</span> <span class="nv">$e</span><span class="o">-&gt;</span><span class="na">getMessage</span><span class="p">()</span> <span class="o">.</span> <span class="nx">PHP_EOL</span><span class="p">;</span>
+<span class="cp">?&gt;</span><span class="x"></span>
+</pre></div></div></div>
+<div class="paragraph"><p>We have defined two notifications type
+<span class="footnote"><br />[GROWL_NOTIFY_STATUS and GROWL_NOTIFY_PHPERROR]<br /></span>
+when register application on getting a Growl instance. But we use only one of them
+to send our basic <em>Congratulation</em> message.</p></div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_notify_different_message_types">Notify different message types</h2>
+<div class="sectionbody">
+<div class="paragraph"><p>You can define as much notification types as you want, depending of your need.
+For example, <a href="http://gmailgrowl.blogspot.com/">Gmail Growl</a> sets 3 types</p></div>
+<div class="ulist"><ul>
+<li>
+<p>
+New Mail
+</p>
+</li>
+<li>
+<p>
+state
+</p>
+</li>
+<li>
+<p>
+New Version
+</p>
+</li>
+</ul></div>
+<div class="paragraph"><p>Here, in our example, we will set 2 notification types</p></div>
+<div class="ulist"><ul>
+<li>
+<p>
+Status (GROWL_NOTIFY_STATUS)
+</p>
+</li>
+<li>
+<p>
+Error-Log (GROWL_NOTIFY_PHPERROR)
+</p>
+</li>
+</ul></div>
+<div class="paragraph"><p>and send messages on both channels.</p></div>
+<div class="paragraph"><p>Here are the full script, we will explain just after :</p></div>
+<div class="listingblock">
+<div class="content"><div class="highlight"><pre><span class="cp">&lt;?php</span>
+<span class="k">require_once</span> <span class="s1">&#39;Net/Growl/Autoload.php&#39;</span><span class="p">;</span>
+
+<span class="nv">$notifications</span> <span class="o">=</span> <span class="k">array</span><span class="p">(</span>
+    <span class="s1">&#39;GROWL_NOTIFY_STATUS&#39;</span> <span class="o">=&gt;</span> <span class="k">array</span><span class="p">(</span>
+        <span class="s1">&#39;display&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;Status&#39;</span><span class="p">,</span>
+    <span class="p">),</span>
+    <span class="s1">&#39;GROWL_NOTIFY_PHPERROR&#39;</span> <span class="o">=&gt;</span> <span class="k">array</span><span class="p">(</span>
+        <span class="s1">&#39;icon&#39;</span>    <span class="o">=&gt;</span> <span class="s1">&#39;http://www.laurent-laville.org/growl/images/firephp.png&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;display&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;Error-Log&#39;</span>
+    <span class="p">)</span>
+<span class="p">);</span>
+<span class="nv">$appName</span>  <span class="o">=</span> <span class="s1">&#39;PHP App Example using GNTP&#39;</span><span class="p">;</span>
+<span class="nv">$password</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span><span class="p">;</span>
+<span class="nv">$options</span>  <span class="o">=</span> <span class="k">array</span><span class="p">(</span>
+    <span class="s1">&#39;protocol&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;gntp&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;timeout&#39;</span>  <span class="o">=&gt;</span> <span class="mi">15</span><span class="p">,</span>
+    <span class="s1">&#39;AppIcon&#39;</span>  <span class="o">=&gt;</span> <span class="s1">&#39;http://www.laurent-laville.org/growl/images/Help.png&#39;</span><span class="p">,</span>
+<span class="p">);</span>
+
+<span class="k">try</span> <span class="p">{</span>
+    <span class="nv">$growl</span> <span class="o">=</span> <span class="nx">Net_Growl</span><span class="o">::</span><span class="na">singleton</span><span class="p">(</span><span class="nv">$appName</span><span class="p">,</span> <span class="nv">$notifications</span><span class="p">,</span> <span class="nv">$password</span><span class="p">,</span> <span class="nv">$options</span><span class="p">);</span>
+
+    <span class="nv">$name</span>        <span class="o">=</span> <span class="s1">&#39;GROWL_NOTIFY_STATUS&#39;</span><span class="p">;</span>
+    <span class="nv">$title</span>       <span class="o">=</span> <span class="s1">&#39;Congratulation&#39;</span><span class="p">;</span>
+    <span class="nv">$description</span> <span class="o">=</span> <span class="s1">&#39;You have successfully installed PEAR/Net_Growl.&#39;</span><span class="p">;</span>
+    <span class="nv">$growl</span><span class="o">-&gt;</span><span class="na">publish</span><span class="p">(</span><span class="nv">$name</span><span class="p">,</span> <span class="nv">$title</span><span class="p">,</span> <span class="nv">$description</span><span class="p">);</span>
+
+    <span class="nv">$name</span>        <span class="o">=</span> <span class="nx">GROWL_NOTIFY_PHPERROR</span><span class="p">;</span>
+    <span class="nv">$title</span>       <span class="o">=</span> <span class="s1">&#39;New Error&#39;</span><span class="p">;</span>
+    <span class="nv">$description</span> <span class="o">=</span> <span class="s1">&#39;You have a new PHP error in your script.&#39;</span><span class="p">;</span>
+    <span class="nv">$options</span>     <span class="o">=</span> <span class="k">array</span><span class="p">(</span>
+        <span class="s1">&#39;priority&#39;</span> <span class="o">=&gt;</span> <span class="nx">Net_Growl</span><span class="o">::</span><span class="na">PRIORITY_HIGH</span><span class="p">,</span>
+    <span class="p">);</span>
+    <span class="nv">$growl</span><span class="o">-&gt;</span><span class="na">publish</span><span class="p">(</span><span class="nv">$name</span><span class="p">,</span> <span class="nv">$title</span><span class="p">,</span> <span class="nv">$description</span><span class="p">,</span> <span class="nv">$options</span><span class="p">);</span>
+
+    <span class="nv">$name</span>        <span class="o">=</span> <span class="nx">GROWL_NOTIFY_STATUS</span><span class="p">;</span>
+    <span class="nv">$title</span>       <span class="o">=</span> <span class="s1">&#39;Welcome&#39;</span><span class="p">;</span>
+    <span class="nv">$description</span> <span class="o">=</span> <span class="s2">&quot;Welcome in PHP/GNTP world ! </span><span class="se">\n</span><span class="s2">&quot;</span>
+                 <span class="o">.</span> <span class="s2">&quot;New GNTP protocol add icon support.&quot;</span><span class="p">;</span>
+    <span class="nv">$options</span>     <span class="o">=</span> <span class="k">array</span><span class="p">(</span>
+        <span class="s1">&#39;icon&#39;</span>   <span class="o">=&gt;</span> <span class="s1">&#39;http://www.laurent-laville.org/growl/images/unknown.png&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;sticky&#39;</span> <span class="o">=&gt;</span> <span class="k">false</span><span class="p">,</span>
+    <span class="p">);</span>
+    <span class="nv">$growl</span><span class="o">-&gt;</span><span class="na">publish</span><span class="p">(</span><span class="nv">$name</span><span class="p">,</span> <span class="nv">$title</span><span class="p">,</span> <span class="nv">$description</span><span class="p">,</span> <span class="nv">$options</span><span class="p">);</span>
+
+<span class="p">}</span> <span class="k">catch</span> <span class="p">(</span><span class="nx">Net_Growl_Exception</span> <span class="nv">$e</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">echo</span> <span class="s1">&#39;Caught Growl exception: &#39;</span> <span class="o">.</span> <span class="nv">$e</span><span class="o">-&gt;</span><span class="na">getMessage</span><span class="p">()</span> <span class="o">.</span> <span class="nx">PHP_EOL</span><span class="p">;</span>
+<span class="cp">?&gt;</span><span class="x"></span>
+</pre></div></div></div>
+<div class="paragraph"><p>First message notified by code below</p></div>
+<div class="listingblock">
+<div class="content"><div class="highlight"><pre><span class="cp">&lt;?php</span>
+    <span class="nv">$name</span>        <span class="o">=</span> <span class="s1">&#39;GROWL_NOTIFY_STATUS&#39;</span><span class="p">;</span>
+    <span class="nv">$title</span>       <span class="o">=</span> <span class="s1">&#39;Congratulation&#39;</span><span class="p">;</span>
+    <span class="nv">$description</span> <span class="o">=</span> <span class="s1">&#39;You have successfully installed PEAR/Net_Growl.&#39;</span><span class="p">;</span>
+    <span class="nv">$growl</span><span class="o">-&gt;</span><span class="na">publish</span><span class="p">(</span><span class="nv">$name</span><span class="p">,</span> <span class="nv">$title</span><span class="p">,</span> <span class="nv">$description</span><span class="p">);</span>
+</pre></div></div></div>
+<div class="paragraph"><p>will show the Toast notification (only on first script run)</p></div>
+<div class="paragraph"><p><span class="image">
+<img src="images/net_growl_register.png" alt="Net_Growl Register" />
+</span></p></div>
+<div class="paragraph"><p>Followed by</p></div>
+<div class="paragraph"><p><span class="image">
+<img src="images/growl_notify_status_1.png" alt="Notify Status 1" />
+</span></p></div>
+<div class="paragraph"><p>Second message sent over the other channel (notification type) on a highest priority</p></div>
+<div class="listingblock">
+<div class="content"><div class="highlight"><pre><span class="cp">&lt;?php</span>
+    <span class="nv">$name</span>        <span class="o">=</span> <span class="nx">GROWL_NOTIFY_PHPERROR</span><span class="p">;</span>
+    <span class="nv">$title</span>       <span class="o">=</span> <span class="s1">&#39;New Error&#39;</span><span class="p">;</span>
+    <span class="nv">$description</span> <span class="o">=</span> <span class="s1">&#39;You have a new PHP error in your script.&#39;</span><span class="p">;</span>
+    <span class="nv">$options</span>     <span class="o">=</span> <span class="k">array</span><span class="p">(</span>
+        <span class="s1">&#39;priority&#39;</span> <span class="o">=&gt;</span> <span class="nx">Net_Growl</span><span class="o">::</span><span class="na">PRIORITY_HIGH</span><span class="p">,</span>
+    <span class="p">);</span>
+    <span class="nv">$growl</span><span class="o">-&gt;</span><span class="na">publish</span><span class="p">(</span><span class="nv">$name</span><span class="p">,</span> <span class="nv">$title</span><span class="p">,</span> <span class="nv">$description</span><span class="p">,</span> <span class="nv">$options</span><span class="p">);</span>
+</pre></div></div></div>
+<div class="paragraph"><p>will show this Toast notification</p></div>
+<div class="paragraph"><p><span class="image">
+<img src="images/growl_notify_phperror.png" alt="Notify PHP Error" />
+</span></p></div>
+<div class="paragraph"><p>And finally the third and last message with default application icon
+<span class="footnote"><br />[<a href="http://www.laurent-laville.org/growl/images/Help.png">http://www.laurent-laville.org/growl/images/Help.png</a> (AppIcon option of singleton method)]<br /></span>
+because resource <strong><em>http://www.laurent-laville.org/growl/images/unknown.png</em></strong> does not exist.</p></div>
+<div class="listingblock">
+<div class="content"><div class="highlight"><pre><span class="cp">&lt;?php</span>
+    <span class="nv">$name</span>        <span class="o">=</span> <span class="nx">GROWL_NOTIFY_STATUS</span><span class="p">;</span>
+    <span class="nv">$title</span>       <span class="o">=</span> <span class="s1">&#39;Welcome&#39;</span><span class="p">;</span>
+    <span class="nv">$description</span> <span class="o">=</span> <span class="s2">&quot;Welcome in PHP/GNTP world ! </span><span class="se">\n</span><span class="s2">&quot;</span>
+                 <span class="o">.</span> <span class="s2">&quot;New GNTP protocol add icon support.&quot;</span><span class="p">;</span>
+    <span class="nv">$options</span>     <span class="o">=</span> <span class="k">array</span><span class="p">(</span>
+        <span class="s1">&#39;icon&#39;</span>   <span class="o">=&gt;</span> <span class="s1">&#39;http://www.laurent-laville.org/growl/images/unknown.png&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;sticky&#39;</span> <span class="o">=&gt;</span> <span class="k">true</span><span class="p">,</span>
+    <span class="p">);</span>
+    <span class="nv">$growl</span><span class="o">-&gt;</span><span class="na">publish</span><span class="p">(</span><span class="nv">$name</span><span class="p">,</span> <span class="nv">$title</span><span class="p">,</span> <span class="nv">$description</span><span class="p">,</span> <span class="nv">$options</span><span class="p">);</span>
+</pre></div></div></div>
+<div class="paragraph"><p>will show this other one Toast notification</p></div>
+<div class="paragraph"><p><span class="image">
+<img src="images/growl_notify_status_2.png" alt="Notify Status 2" />
+</span></p></div>
+</div>
+</div>
+</div>
+<div id="footnotes"><hr /></div>
+<div id="footer">
+<div id="footer-text">
+Version 2.7.0<br />
+Last updated 2013-01-22 16:29:56 Paris, Madrid
+</div>
+</div>
+</body>
+</html>

@@ -1,0 +1,1957 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN"
+    "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+<head>
+<meta http-equiv="Content-Type" content="application/xhtml+xml; charset=UTF-8" />
+<meta name="generator" content="AsciiDoc 8.6.8" />
+<meta name="description" content="Application Programming Interface" />
+<meta name="keywords" content="PEAR, Network, Notification, Growl" />
+<title>API</title>
+<link rel="stylesheet" href="styles/flask.css" type="text/css" />
+<link rel="stylesheet" href="styles/pygments.css" type="text/css">
+
+
+<link rel="stylesheet" href="styles/toc2.css" type="text/css" />
+<script type="text/javascript" src="js/asciidoc.js"></script>
+<script type="text/javascript" src="js/flask.js"></script>
+<script type="text/javascript">
+/*<![CDATA[*/
+asciidoc.install(2);
+/*]]>*/
+</script>
+</head>
+<body class="article">
+<div id="header">
+<h1>API</h1>
+<span id="author">Laurent Laville</span><br />
+<span id="revnumber">version 2.7.0,</span>
+<span id="revdate">2013-01-29</span>
+<div id="toc">
+  <div id="toctitle">Table of Contents</div>
+  <noscript><p><b>JavaScript must be enabled in your browser to display the table of contents.</b></p></noscript>
+</div>
+</div>
+<div id="content">
+<div class="sect1">
+<h2 id="_overview">Overview</h2>
+<div class="sectionbody">
+<div class="tableblock table table-bordered table-striped">
+<table rules="rows"
+width="100%"
+frame="border"
+cellspacing="0" cellpadding="4">
+<caption class="title">Table 1. All classes</caption>
+<col width="41%" />
+<col width="58%" />
+<thead>
+<tr>
+<th align="left" valign="top">Name</th>
+<th align="left" valign="top">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left" valign="top"><p class="table"><a href="#C1">Net_Growl</a></p></td>
+<td align="left" valign="top"><p class="table">A PHP library that talk to Growl</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table"><a href="#C2">Net_Growl_Application</a></p></td>
+<td align="left" valign="top"><p class="table">Application object for Net_Growl</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table"><a href="#C3">Net_Growl_Exception</a></p></td>
+<td align="left" valign="top"><p class="table">Dedicated Exception for Net_Growl</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table"><a href="#C4">Net_Growl_Udp</a></p></td>
+<td align="left" valign="top"><p class="table">UDP adapter</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table"><a href="#C5">Net_Growl_Gntp</a></p></td>
+<td align="left" valign="top"><p class="table">GNTP adapter</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table"><a href="#C6">Net_Growl_GntpMock</a></p></td>
+<td align="left" valign="top"><p class="table">GNTP Mock adapter intended for test only</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table"><a href="#C7">Net_Growl_Response</a></p></td>
+<td align="left" valign="top"><p class="table">GNTP specialized response</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="sect2">
+<h3 id="C1">Net_Growl Class</h3>
+<div class="sect3">
+<h4 id="_synopsis">Synopsis</h4>
+<div class="listingblock">
+<div class="content"><div class="highlight"><pre><span class="cp">&lt;?php</span>
+<span class="k">class</span> <span class="nc">Net_Growl</span>
+<span class="p">{</span>
+    <span class="cm">/* constants */</span>
+    <span class="k">const</span> <span class="no">string</span> <span class="nx">VERSION</span><span class="p">;</span>
+    <span class="k">const</span> <span class="no">int</span> <span class="nx">UDP_PORT</span><span class="p">;</span>
+    <span class="k">const</span> <span class="no">int</span> <span class="nx">GNTP_PORT</span><span class="p">;</span>
+    <span class="k">const</span> <span class="no">int</span> <span class="nx">PRIORITY_LOW</span><span class="p">;</span>
+    <span class="k">const</span> <span class="no">int</span> <span class="nx">PRIORITY_MODERATE</span><span class="p">;</span>
+    <span class="k">const</span> <span class="no">int</span> <span class="nx">PRIORITY_NORMAL</span><span class="p">;</span>
+    <span class="k">const</span> <span class="no">int</span> <span class="nx">PRIORITY_HIGH</span><span class="p">;</span>
+    <span class="k">const</span> <span class="no">int</span> <span class="nx">PRIORITY_EMERGENCY</span><span class="p">;</span>
+
+    <span class="cm">/* properties */</span>
+    <span class="k">protected</span> <span class="k">array</span> <span class="nv">$options</span><span class="p">;</span>
+    <span class="k">protected</span> <span class="k">array</span> <span class="nv">$growlNotificationCallback</span><span class="p">;</span>
+    <span class="k">protected</span> <span class="nx">int</span> <span class="nv">$growlNotificationCount</span><span class="p">;</span>
+    <span class="k">protected</span> <span class="nx">bool</span> <span class="nv">$isRegistered</span><span class="p">;</span>
+    <span class="k">protected</span> <span class="k">static</span> <span class="nx">object</span> <span class="nv">$instance</span><span class="p">;</span>
+
+    <span class="k">private</span> <span class="nx">object</span> <span class="nv">$_application</span><span class="p">;</span>
+    <span class="k">private</span> <span class="nx">int</span> <span class="nv">$_growlNotificationLimit</span><span class="p">;</span>
+    <span class="k">private</span> <span class="nx">resource</span> <span class="nv">$_fp</span><span class="p">;</span>
+
+    <span class="cm">/* methods */</span>
+    <span class="k">public</span> <span class="k">static</span> <span class="k">final</span> <span class="nx">object</span> <span class="nx">singleton</span><span class="p">(</span><span class="nx">mixed</span> <span class="o">&amp;</span><span class="nv">$application</span><span class="p">,</span> <span class="k">array</span> <span class="nv">$notifications</span> <span class="p">[,</span> <span class="nx">string</span> <span class="nv">$password</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span> <span class="p">[,</span> <span class="k">array</span> <span class="nv">$options</span> <span class="o">=</span> <span class="k">array</span><span class="p">()]]</span> <span class="p">);</span>
+    <span class="k">public</span> <span class="k">static</span> <span class="k">final</span> <span class="nx">void</span> <span class="nb">reset</span><span class="p">();</span>
+    <span class="k">public</span> <span class="nx">void</span> <span class="nx">__destruct</span><span class="p">();</span>
+    <span class="k">public</span> <span class="k">array</span> <span class="nx">getOptions</span><span class="p">();</span>
+    <span class="k">public</span> <span class="nx">void</span> <span class="nx">setNotificationLimit</span><span class="p">(</span><span class="nv">$max</span><span class="p">);</span>
+    <span class="k">public</span> <span class="nx">object</span> <span class="nx">getApplication</span><span class="p">();</span>
+    <span class="k">public</span> <span class="nx">bool</span> <span class="o">|</span> <span class="nx">Net_Growl_Response</span> <span class="nx">register</span><span class="p">();</span>
+    <span class="k">public</span> <span class="nx">bool</span> <span class="o">|</span> <span class="nx">Net_Growl_Response</span> <span class="nx">notify</span><span class="p">(</span><span class="nx">string</span> <span class="nv">$name</span><span class="p">,</span> <span class="nx">string</span> <span class="nv">$title</span> <span class="p">[,</span> <span class="nx">string</span> <span class="nv">$description</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span> <span class="p">[,</span> <span class="k">array</span> <span class="nv">$options</span> <span class="o">=</span> <span class="k">array</span><span class="p">()]]</span> <span class="p">)</span>
+    <span class="k">public</span> <span class="nx">bool</span> <span class="o">|</span> <span class="nx">Net_Growl_Response</span> <span class="nx">publish</span><span class="p">(</span><span class="nx">string</span> <span class="nv">$name</span><span class="p">,</span> <span class="nx">string</span> <span class="nv">$title</span> <span class="p">[,</span> <span class="nx">string</span> <span class="nv">$description</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span> <span class="p">[,</span> <span class="k">array</span> <span class="nv">$options</span> <span class="o">=</span> <span class="k">array</span><span class="p">()]]</span> <span class="p">)</span>
+    <span class="k">public</span> <span class="nx">string</span> <span class="nx">getDefaultGrowlIcon</span><span class="p">();</span>
+    <span class="k">public</span> <span class="k">static</span> <span class="nx">void</span> <span class="nx">autoload</span><span class="p">(</span><span class="nv">$class</span><span class="p">);</span>
+    <span class="k">public</span> <span class="nx">void</span> <span class="nx">errorHandler</span><span class="p">(</span><span class="nx">int</span> <span class="nv">$errno</span><span class="p">,</span> <span class="nx">string</span> <span class="nv">$errstr</span><span class="p">,</span> <span class="nx">string</span> <span class="nv">$errfile</span><span class="p">,</span> <span class="nx">int</span> <span class="nv">$errline</span><span class="p">);</span>
+
+    <span class="k">protected</span> <span class="nx">object</span> <span class="nx">__construct</span><span class="p">(</span><span class="nx">mixed</span> <span class="o">&amp;</span><span class="nv">$application</span><span class="p">,</span> <span class="k">array</span> <span class="nv">$notifications</span> <span class="p">[,</span> <span class="nx">string</span> <span class="nv">$password</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span> <span class="p">[,</span> <span class="k">array</span> <span class="nv">$options</span> <span class="o">=</span> <span class="k">array</span><span class="p">()]]</span> <span class="p">);</span>
+    <span class="k">protected</span> <span class="nx">bool</span> <span class="o">|</span> <span class="nx">Net_Growl_Response</span> <span class="nx">sendRequest</span><span class="p">(</span><span class="nx">string</span> <span class="nv">$method</span><span class="p">,</span> <span class="nx">mixed</span> <span class="nv">$data</span> <span class="p">[,</span> <span class="nx">bool</span> <span class="nv">$callback</span> <span class="o">=</span> <span class="k">false</span><span class="p">]</span> <span class="p">);</span>
+    <span class="k">protected</span> <span class="nx">void</span> <span class="nx">debug</span><span class="p">(</span><span class="nx">string</span> <span class="nv">$message</span> <span class="p">[,</span> <span class="nx">string</span> <span class="nv">$priority</span> <span class="o">=</span> <span class="s1">&#39;debug&#39;</span><span class="p">]);</span>
+    <span class="k">protected</span> <span class="nx">string</span> <span class="nx">utf8Encode</span><span class="p">(</span><span class="nv">$data</span><span class="p">);</span>
+    <span class="k">protected</span> <span class="nx">int</span> <span class="nx">strByteLen</span><span class="p">(</span><span class="nv">$string</span><span class="p">);</span>
+
+    <span class="k">private</span> <span class="nx">string</span> <span class="nx">_readLine</span><span class="p">(</span><span class="nx">resource</span> <span class="nv">$fp</span><span class="p">);</span>
+<span class="p">}</span>
+</pre></div></div></div>
+</div>
+<div class="sect3">
+<h4 id="_constants">Constants</h4>
+<div class="tableblock table table-bordered table-striped">
+<table rules="rows"
+width="100%"
+frame="border"
+cellspacing="0" cellpadding="4">
+<caption class="title">Table 2. Net_Growl Constants</caption>
+<col width="35%" />
+<col width="15%" />
+<col width="50%" />
+<thead>
+<tr>
+<th align="left" valign="top">Name</th>
+<th align="left" valign="top">Value</th>
+<th align="left" valign="top">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left" valign="top"><p class="table">VERSION</p></td>
+<td align="left" valign="top"><p class="table">n/a</p></td>
+<td align="left" valign="top"><p class="table">PHP/Net_Growl version</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">UDP_PORT</p></td>
+<td align="left" valign="top"><p class="table">9887</p></td>
+<td align="left" valign="top"><p class="table">Growl default UDP port</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">GNTP_PORT</p></td>
+<td align="left" valign="top"><p class="table">23053</p></td>
+<td align="left" valign="top"><p class="table">Growl default GNTP port</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">PRIORITY_LOW</p></td>
+<td align="left" valign="top"><p class="table">-2</p></td>
+<td align="left" valign="top"><p class="table">Growl low priority</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">PRIORITY_MODERATE</p></td>
+<td align="left" valign="top"><p class="table">-1</p></td>
+<td align="left" valign="top"><p class="table">Growl moderate priority</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">PRIORITY_NORMAL</p></td>
+<td align="left" valign="top"><p class="table">0</p></td>
+<td align="left" valign="top"><p class="table">Growl normal priority</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">PRIORITY_HIGH</p></td>
+<td align="left" valign="top"><p class="table">1</p></td>
+<td align="left" valign="top"><p class="table">Growl high priority</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">PRIORITY_EMERGENCY</p></td>
+<td align="left" valign="top"><p class="table">2</p></td>
+<td align="left" valign="top"><p class="table">Growl emergency priority</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_methods">Methods</h4>
+<div class="tableblock table table-bordered table-striped">
+<table rules="rows"
+width="100%"
+frame="border"
+cellspacing="0" cellpadding="4">
+<caption class="title">Table 3. Net_Growl Methods</caption>
+<col width="41%" />
+<col width="58%" />
+<thead>
+<tr>
+<th align="left" valign="top">Name</th>
+<th align="left" valign="top">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left" valign="top"><p class="table"><a href="#C1M1">singleton</a></p></td>
+<td align="left" valign="top"><p class="table">Makes sure there is only one Growl connection open</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table"><a href="#C1M2">setNotificationLimit</a></p></td>
+<td align="left" valign="top"><p class="table">Limit the number of notifications</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table"><a href="#C1M3">getApplication</a></p></td>
+<td align="left" valign="top"><p class="table">Returns the registered application object</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table"><a href="#C1M4">register</a></p></td>
+<td align="left" valign="top"><p class="table">Sends a application register to Growl</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table"><a href="#C1M5">notify</a></p></td>
+<td align="left" valign="top"><p class="table">Sends a notification to Growl</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table"><a href="#C1M6">getDefaultGrowlIcon</a></p></td>
+<td align="left" valign="top"><p class="table">Returns Growl default icon logo binary data</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table"><a href="#C1M7">autoload</a></p></td>
+<td align="left" valign="top"><p class="table">Autoloader for PEAR compatible classes</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table"><a href="#C1M8">errorHandler</a></p></td>
+<td align="left" valign="top"><p class="table">Converts standard error into exception</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table"><a href="#C1M9">getOptions</a></p></td>
+<td align="left" valign="top"><p class="table">Gets options used with current Growl object</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table"><a href="#C1M10">publish</a></p></td>
+<td align="left" valign="top"><p class="table">Sends a notification to Growl (alias of notify method)</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="sect4">
+<h5 id="C1M1">Net_Growl::singleton</h5>
+<div class="sidebarblock">
+<div class="content">
+<div class="title">Synopsis</div>
+<div class="paragraph"><p>require_once &#8216;Net/Growl/Autoload.php&#8217;;</p></div>
+<div class="paragraph"><p>object <strong>Net_Growl::singleton</strong>( &amp;$application, $notifications, $password = ", $options = array() )</p></div>
+</div></div>
+<div class="paragraph"><div class="title">Description</div><p>Makes sure there is only one Growl connection open.</p></div>
+<div class="dlist"><div class="title">Parameter</div><dl>
+<dt class="hdlist1">
+mixed $application
+</dt>
+<dd>
+<p>
+    Can be either a Net_Growl_Application object or the application name string
+</p>
+</dd>
+<dt class="hdlist1">
+array $notifications
+</dt>
+<dd>
+<p>
+    List of notification types
+</p>
+</dd>
+<dt class="hdlist1">
+string $password
+</dt>
+<dd>
+<p>
+    (optional) Password for Growl
+</p>
+</dd>
+<dt class="hdlist1">
+array $options
+</dt>
+<dd>
+<p>
+    (optional) List of options :
+</p>
+<div class="ulist"><ul>
+<li>
+<p>
+<em>host</em>, <em>port</em>, <em>protocol</em>, <em>timeout</em>
+</p>
+<div class="ulist"><ul>
+<li>
+<p>
+for Growl socket server
+</p>
+</li>
+</ul></div>
+</li>
+<li>
+<p>
+<em>passwordHashAlgorithm</em>, <em>encryptionAlgorithm</em>
+</p>
+<div class="ulist"><ul>
+<li>
+<p>
+to secure communications
+</p>
+</li>
+</ul></div>
+</li>
+<li>
+<p>
+<em>debug</em>
+</p>
+<div class="ulist"><ul>
+<li>
+<p>
+to know what data are sent and received.
+</p>
+</li>
+</ul></div>
+</li>
+</ul></div>
+</dd>
+</dl></div>
+<div class="dlist"><div class="title">Throws</div><dl>
+<dt class="hdlist1">
+Net_Growl_Exception
+</dt>
+<dd>
+<p>
+    if class handler does not exists
+</p>
+</dd>
+</dl></div>
+<div class="paragraph"><div class="title">Return value</div><p>object - Net_Growl</p></div>
+</div>
+<div class="sect4">
+<h5 id="C1M2">Net_Growl::setNotificationLimit</h5>
+<div class="sidebarblock">
+<div class="content">
+<div class="title">Synopsis</div>
+<div class="paragraph"><p>require_once &#8216;Net/Growl/Autoload.php&#8217;;</p></div>
+<div class="paragraph"><p>void <strong>Net_Growl::setNotificationLimit</strong>( $max )</p></div>
+</div></div>
+<div class="paragraph"><div class="title">Description</div><p>This method limits the number of notifications to be displayed on
+the Growl user desktop. By default, there is no limit. It is used
+mostly to prevent problem with notifications within loops.</p></div>
+<div class="dlist"><div class="title">Parameter</div><dl>
+<dt class="hdlist1">
+int $max
+</dt>
+<dd>
+<p>
+    Maximum number of notifications
+</p>
+</dd>
+</dl></div>
+<div class="paragraph"><div class="title">Throws</div><p>no exceptions thrown</p></div>
+<div class="paragraph"><div class="title">Return value</div><p>void</p></div>
+</div>
+<div class="sect4">
+<h5 id="C1M3">Net_Growl::getApplication</h5>
+<div class="sidebarblock">
+<div class="content">
+<div class="title">Synopsis</div>
+<div class="paragraph"><p>require_once &#8216;Net/Growl/Autoload.php&#8217;;</p></div>
+<div class="paragraph"><p>object <strong>Net_Growl::getApplication</strong>( )</p></div>
+</div></div>
+<div class="paragraph"><div class="title">Description</div><p>Returns the registered application object</p></div>
+<div class="paragraph"><div class="title">Throws</div><p>no exceptions thrown</p></div>
+<div class="paragraph"><div class="title">Return value</div><p>object - Net_Growl_Application</p></div>
+</div>
+<div class="sect4">
+<h5 id="C1M4">Net_Growl::register</h5>
+<div class="sidebarblock">
+<div class="content">
+<div class="title">Synopsis</div>
+<div class="paragraph"><p>require_once &#8216;Net/Growl/Autoload.php&#8217;;</p></div>
+<div class="paragraph"><p>bool | Net_Growl_Response <strong>Net_Growl::register</strong>( )</p></div>
+</div></div>
+<div class="paragraph"><div class="title">Description</div><p>Sends a application register to Growl</p></div>
+<div class="dlist"><div class="title">Throws</div><dl>
+<dt class="hdlist1">
+Net_Growl_Exception
+</dt>
+<dd>
+<p>
+    if REGISTER failed
+</p>
+</dd>
+</dl></div>
+<div class="paragraph"><div class="title">Return value</div><p>void</p></div>
+</div>
+<div class="sect4">
+<h5 id="C1M5">Net_Growl::notify</h5>
+<div class="sidebarblock">
+<div class="content">
+<div class="title">Synopsis</div>
+<div class="paragraph"><p>require_once &#8216;Net/Growl/Autoload.php&#8217;;</p></div>
+<div class="paragraph"><p>bool | Net_Growl_Response <strong>Net_Growl::notify</strong>( $name, $title, $description = ", $options = array() )</p></div>
+</div></div>
+<div class="paragraph"><div class="title">Description</div><p>Sends a notification to Growl</p></div>
+<div class="paragraph"><p>Growl notifications have a name, a title, a description and
+a few options, depending on the kind of display plugin you use.
+The bubble plugin is recommended, until there is a plugin more
+appropriate for these kind of notifications.</p></div>
+<div class="paragraph"><p>The current options supported by most Growl plugins are:</p></div>
+<div class="listingblock">
+<div class="content"><div class="highlight"><pre><span class="cp">&lt;?php</span>
+ <span class="k">array</span><span class="p">(</span><span class="s1">&#39;priority&#39;</span> <span class="o">=&gt;</span> <span class="mi">0</span><span class="p">,</span> <span class="s1">&#39;sticky&#39;</span> <span class="o">=&gt;</span> <span class="k">false</span><span class="p">);</span>
+</pre></div></div></div>
+<div class="ulist"><ul>
+<li>
+<p>
+sticky: whether the bubble stays on screen until the user clicks on it.
+</p>
+</li>
+<li>
+<p>
+priority: a number from -2 (low) to 2 (high), default is 0 (normal).
+</p>
+</li>
+</ul></div>
+<div class="dlist"><div class="title">Parameter</div><dl>
+<dt class="hdlist1">
+string $name
+</dt>
+<dd>
+<p>
+    Notification name
+</p>
+</dd>
+<dt class="hdlist1">
+string $title
+</dt>
+<dd>
+<p>
+    Notification title
+</p>
+</dd>
+<dt class="hdlist1">
+string $description
+</dt>
+<dd>
+<p>
+    (optional) Notification description
+</p>
+</dd>
+<dt class="hdlist1">
+string $options
+</dt>
+<dd>
+<p>
+    (optional) few Notification options
+</p>
+</dd>
+</dl></div>
+<div class="dlist"><div class="title">Throws</div><dl>
+<dt class="hdlist1">
+Net_Growl_Exception
+</dt>
+<dd>
+<p>
+    if NOTIFY failed
+</p>
+</dd>
+</dl></div>
+<div class="paragraph"><div class="title">Return value</div><p>bool - true</p></div>
+</div>
+<div class="sect4">
+<h5 id="C1M6">Net_Growl::getDefaultGrowlIcon</h5>
+<div class="sidebarblock">
+<div class="content">
+<div class="title">Synopsis</div>
+<div class="paragraph"><p>require_once &#8216;Net/Growl/Autoload.php&#8217;;</p></div>
+<div class="paragraph"><p>string <strong>Net_Growl::getDefaultGrowlIcon</strong>( $return = true, $ver = <em>2</em> )</p></div>
+</div></div>
+<div class="paragraph"><div class="title">Description</div><p>Returns Growl default icon logo binary data.
+Decodes data encoded with MIME base64</p></div>
+<div class="dlist"><div class="title">Parameter</div><dl>
+<dt class="hdlist1">
+bool $return
+</dt>
+<dd>
+<p>
+    (optional) If used and set to FALSE,
+    getDefaultGrowlIcon() will output the binary
+    representation instead of return it
+</p>
+</dd>
+<dt class="hdlist1">
+string $ver
+</dt>
+<dd>
+<p>
+    (optional) Icon version
+</p>
+</dd>
+</dl></div>
+<div class="paragraph"><div class="title">Throws</div><p>no exceptions thrown</p></div>
+<div class="paragraph"><div class="title">Return value</div><p>string - icon logo binary data</p></div>
+<div class="exampleblock">
+<div class="title">Example 1. Display Growl Icon</div>
+<div class="content">
+<div class="listingblock">
+<div class="content"><div class="highlight"><pre><span class="cp">&lt;?php</span>
+<span class="k">require_once</span> <span class="s1">&#39;Net/Growl/Autoload.php&#39;</span><span class="p">;</span>
+
+<span class="nx">Net_Growl</span><span class="o">::</span><span class="na">getDefaultGrowlIcon</span><span class="p">(</span><span class="k">false</span><span class="p">);</span>
+<span class="cp">?&gt;</span><span class="x"></span>
+</pre></div></div></div>
+</div></div>
+</div>
+<div class="sect4">
+<h5 id="C1M7">Net_Growl::autoload</h5>
+<div class="sidebarblock">
+<div class="content">
+<div class="title">Synopsis</div>
+<div class="paragraph"><p>require_once &#8216;Net/Growl/Autoload.php&#8217;;</p></div>
+<div class="paragraph"><p>void <strong>Net_Growl::autoload</strong>( $class )</p></div>
+</div></div>
+<div class="paragraph"><div class="title">Description</div><p>Autoloader for PEAR compatible classes</p></div>
+<div class="dlist"><div class="title">Parameter</div><dl>
+<dt class="hdlist1">
+string $class
+</dt>
+<dd>
+<p>
+    Class name
+</p>
+</dd>
+</dl></div>
+<div class="dlist"><div class="title">Throws</div><dl>
+<dt class="hdlist1">
+Net_Growl_Exception
+</dt>
+<dd>
+<p>
+    if class handler cannot be loaded
+</p>
+</dd>
+</dl></div>
+<div class="paragraph"><div class="title">Return value</div><p>void</p></div>
+</div>
+<div class="sect4">
+<h5 id="C1M8">Net_Growl::errorhandler</h5>
+<div class="sidebarblock">
+<div class="content">
+<div class="title">Synopsis</div>
+<div class="paragraph"><p>require_once &#8216;Net/Growl/Autoload.php&#8217;;</p></div>
+<div class="paragraph"><p>void <strong>Net_Growl::errorhandler</strong>( $errno, $errstr, $errfile, $errline )</p></div>
+</div></div>
+<div class="paragraph"><div class="title">Description</div><p>Throws ErrorException when a standard error occured with severity level
+we are asking for (uses error_reporting)</p></div>
+<div class="dlist"><div class="title">Parameter</div><dl>
+<dt class="hdlist1">
+int $errno
+</dt>
+<dd>
+<p>
+    contains the level of the error raised
+</p>
+</dd>
+<dt class="hdlist1">
+string $errstr
+</dt>
+<dd>
+<p>
+    contains the error message
+</p>
+</dd>
+<dt class="hdlist1">
+string $errfile
+</dt>
+<dd>
+<p>
+    contains the filename that the error was raised in
+</p>
+</dd>
+<dt class="hdlist1">
+string $errline
+</dt>
+<dd>
+<p>
+    contains the line number the error was raised at
+</p>
+</dd>
+</dl></div>
+<div class="dlist"><div class="title">Throws</div><dl>
+<dt class="hdlist1">
+ErrorException
+</dt>
+<dd>
+<p>
+    corresponding to standard error/warning/notice raised
+</p>
+</dd>
+</dl></div>
+<div class="paragraph"><div class="title">Return value</div><p>void</p></div>
+</div>
+<div class="sect4">
+<h5 id="C1M9">Net_Growl::getOptions</h5>
+<div class="sidebarblock">
+<div class="content">
+<div class="title">Synopsis</div>
+<div class="paragraph"><p>require_once &#8216;Net/Growl/Autoload.php&#8217;;</p></div>
+<div class="paragraph"><p>array <strong>Net_Growl::getOptions</strong>()</p></div>
+</div></div>
+<div class="paragraph"><div class="title">Description</div><p>Gets options used with current Growl object</p></div>
+<div class="paragraph"><div class="title">Return value</div><p>array</p></div>
+</div>
+<div class="sect4">
+<h5 id="C1M10">Net_Growl::publish</h5>
+<div class="sidebarblock">
+<div class="content">
+<div class="title">Synopsis</div>
+<div class="paragraph"><p>require_once &#8216;Net/Growl/Autoload.php&#8217;;</p></div>
+<div class="paragraph"><p>bool | Net_Growl_Response <strong>Net_Growl::publish</strong>( $name, $title, $description = ", $options = array() )</p></div>
+</div></div>
+<div class="paragraph"><div class="title">Description</div><p>Sends a notification to Growl.
+Alias of notify() method.</p></div>
+<div class="paragraph"><p>Growl notifications have a name, a title, a description and
+a few options, depending on the kind of display plugin you use.
+The bubble plugin is recommended, until there is a plugin more
+appropriate for these kind of notifications.</p></div>
+<div class="paragraph"><p>The current options supported by most Growl plugins are:</p></div>
+<div class="listingblock">
+<div class="content"><div class="highlight"><pre><span class="cp">&lt;?php</span>
+ <span class="k">array</span><span class="p">(</span><span class="s1">&#39;priority&#39;</span> <span class="o">=&gt;</span> <span class="mi">0</span><span class="p">,</span> <span class="s1">&#39;sticky&#39;</span> <span class="o">=&gt;</span> <span class="k">false</span><span class="p">);</span>
+</pre></div></div></div>
+<div class="ulist"><ul>
+<li>
+<p>
+sticky: whether the bubble stays on screen until the user clicks on it.
+</p>
+</li>
+<li>
+<p>
+priority: a number from -2 (low) to 2 (high), default is 0 (normal).
+</p>
+</li>
+</ul></div>
+<div class="dlist"><div class="title">Parameter</div><dl>
+<dt class="hdlist1">
+string $name
+</dt>
+<dd>
+<p>
+    Notification name
+</p>
+</dd>
+<dt class="hdlist1">
+string $title
+</dt>
+<dd>
+<p>
+    Notification title
+</p>
+</dd>
+<dt class="hdlist1">
+string $description
+</dt>
+<dd>
+<p>
+    (optional) Notification description
+</p>
+</dd>
+<dt class="hdlist1">
+string $options
+</dt>
+<dd>
+<p>
+    (optional) few Notification options
+</p>
+</dd>
+</dl></div>
+<div class="dlist"><div class="title">Throws</div><dl>
+<dt class="hdlist1">
+Net_Growl_Exception
+</dt>
+<dd>
+<p>
+    if NOTIFY failed
+</p>
+</dd>
+</dl></div>
+<div class="paragraph"><div class="title">Return value</div><p>bool - true</p></div>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="C2">Net_Growl_Application Class</h3>
+<div class="sect3">
+<h4 id="_synopsis_2">Synopsis</h4>
+<div class="listingblock">
+<div class="content"><div class="highlight"><pre><span class="cp">&lt;?php</span>
+<span class="k">class</span> <span class="nc">Net_Growl_Application</span>
+<span class="p">{</span>
+    <span class="cm">/* properties */</span>
+    <span class="k">private</span> <span class="nx">string</span> <span class="nv">$_growlAppName</span><span class="p">;</span>
+    <span class="k">private</span> <span class="nx">string</span> <span class="nv">$_growlAppPassword</span><span class="p">;</span>
+    <span class="k">private</span> <span class="nx">Net_Growl_Icon</span> <span class="nv">$_growlAppIcon</span><span class="p">;</span>
+    <span class="k">private</span> <span class="k">array</span> <span class="nv">$_growlNotifications</span><span class="p">;</span>
+
+    <span class="cm">/* methods */</span>
+    <span class="k">public</span> <span class="nx">object</span> <span class="nx">__construct</span><span class="p">([</span><span class="nx">mixed</span> <span class="nv">$appName</span> <span class="o">=</span> <span class="k">null</span> <span class="p">[,</span> <span class="k">array</span> <span class="nv">$notifications</span> <span class="o">=</span> <span class="k">null</span> <span class="p">[,</span> <span class="nx">string</span> <span class="nv">$password</span> <span class="o">=</span> <span class="k">null</span> <span class="p">[,</span> <span class="nx">string</span> <span class="nv">$appIcon</span> <span class="o">=</span> <span class="k">null</span><span class="p">]]]]</span> <span class="p">);</span>
+    <span class="k">public</span> <span class="nx">void</span> <span class="nx">addGrowlNotifications</span><span class="p">(</span><span class="k">array</span> <span class="nv">$notifications</span><span class="p">);</span>
+    <span class="k">public</span> <span class="k">array</span> <span class="nx">getGrowlNotifications</span><span class="p">();</span>
+    <span class="k">public</span> <span class="nx">string</span> <span class="nx">setGrowlName</span><span class="p">(</span><span class="nx">string</span> <span class="nv">$appName</span><span class="p">);</span>
+    <span class="k">public</span> <span class="nx">string</span> <span class="nx">getGrowlName</span><span class="p">();</span>
+    <span class="k">public</span> <span class="nx">string</span> <span class="nx">setGrowlPassword</span><span class="p">(</span><span class="nx">string</span> <span class="nv">$password</span><span class="p">);</span>
+    <span class="k">public</span> <span class="nx">string</span> <span class="nx">getGrowlPassword</span><span class="p">();</span>
+    <span class="k">public</span> <span class="nx">string</span> <span class="nx">setGrowlIcon</span><span class="p">(</span><span class="nx">mixed</span> <span class="nv">$appIcon</span><span class="p">);</span>
+    <span class="k">public</span> <span class="nx">string</span> <span class="nx">getGrowlIcon</span><span class="p">();</span>
+
+<span class="p">}</span>
+</pre></div></div></div>
+</div>
+<div class="sect3">
+<h4 id="_methods_2">Methods</h4>
+<div class="tableblock table table-bordered table-striped">
+<table rules="rows"
+width="100%"
+frame="border"
+cellspacing="0" cellpadding="4">
+<caption class="title">Table 4. Net_Growl_Application Methods</caption>
+<col width="41%" />
+<col width="58%" />
+<thead>
+<tr>
+<th align="left" valign="top">Name</th>
+<th align="left" valign="top">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left" valign="top"><p class="table"><a href="#C2M1">__construct</a></p></td>
+<td align="left" valign="top"><p class="table">Constructs a new application to be registered by Growl</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table"><a href="#C2M2">addGrowlNotifications</a></p></td>
+<td align="left" valign="top"><p class="table">Adds notifications supported by this application</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table"><a href="#C2M3">getGrowlNotifications</a></p></td>
+<td align="left" valign="top"><p class="table">Returns the notifications accepted by Growl for this application</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table"><a href="#C2M4">setGrowlName</a></p></td>
+<td align="left" valign="top"><p class="table">Sets the application name for registration in Growl</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table"><a href="#C2M5">getGrowlName</a></p></td>
+<td align="left" valign="top"><p class="table">Returns the application name for registration in Growl</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table"><a href="#C2M6">setGrowlPassword</a></p></td>
+<td align="left" valign="top"><p class="table">Sets the password to be used by Growl to accept notification packets</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table"><a href="#C2M7">getGrowlPassword</a></p></td>
+<td align="left" valign="top"><p class="table">Returns the password to be used by Growl to accept notification packets</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table"><a href="#C2M8">setGrowlIcon</a></p></td>
+<td align="left" valign="top"><p class="table">Sets the application icon for registration in Growl</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table"><a href="#C2M9">getGrowlIcon</a></p></td>
+<td align="left" valign="top"><p class="table">Returns the application icon for registration in Growl</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="sect4">
+<h5 id="C2M1">Net_Growl_Application::__construct</h5>
+<div class="sidebarblock">
+<div class="content">
+<div class="title">Synopsis</div>
+<div class="paragraph"><p>require_once &#8216;Net/Growl/Autoload.php&#8217;;</p></div>
+<div class="paragraph"><p>object <strong>new Net_Growl_Application</strong>( $appName, $notifications, $password = ", $appIcon = " )</p></div>
+</div></div>
+<div class="paragraph"><div class="title">Description</div><p>Constructs a new application to be registered by Growl</p></div>
+<div class="dlist"><div class="title">Parameter</div><dl>
+<dt class="hdlist1">
+string $appName
+</dt>
+<dd>
+<p>
+    Application name
+</p>
+</dd>
+<dt class="hdlist1">
+array  $notifications
+</dt>
+<dd>
+<p>
+    Array of notifications
+</p>
+</dd>
+<dt class="hdlist1">
+string $password
+</dt>
+<dd>
+<p>
+    (optional) Password to be used to notify Growl
+</p>
+</dd>
+<dt class="hdlist1">
+string $appIcon
+</dt>
+<dd>
+<p>
+    (optional) Application icon
+</p>
+</dd>
+</dl></div>
+<div class="paragraph"><div class="title">Throws</div><p>no exceptions thrown</p></div>
+<div class="paragraph"><div class="title">Return value</div><p>object - Net_Growl_Application</p></div>
+<div class="exampleblock">
+<div class="title">Example 2. PEAR_Error growl handler</div>
+<div class="content">
+<div class="listingblock">
+<div class="content"><div class="highlight"><pre><span class="cp">&lt;?php</span>
+<span class="k">require_once</span> <span class="s1">&#39;Net/Growl/Autoload.php&#39;</span><span class="p">;</span>
+<span class="k">require_once</span> <span class="s1">&#39;PEAR.php&#39;</span><span class="p">;</span>
+
+<span class="nb">define</span><span class="p">(</span><span class="s1">&#39;GROWL_NOTIFY_PEARERROR&#39;</span><span class="p">,</span> <span class="s1">&#39;PEAR_Error&#39;</span><span class="p">);</span>
+
+<span class="k">function</span> <span class="nf">growlErrors</span><span class="p">(</span><span class="nv">$error</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="k">static</span> <span class="nv">$app</span><span class="p">;</span>
+
+    <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="nb">isset</span><span class="p">(</span><span class="nv">$app</span><span class="p">))</span> <span class="p">{</span>
+        <span class="nv">$app</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Net_Growl_Application</span><span class="p">(</span>
+            <span class="s1">&#39;Net_Growl&#39;</span><span class="p">,</span> <span class="k">array</span><span class="p">(</span><span class="nx">GROWL_NOTIFY_PEARERROR</span><span class="p">),</span> <span class="s1">&#39;mamasam&#39;</span>
+        <span class="p">);</span>
+    <span class="p">}</span>
+
+    <span class="nv">$growl</span> <span class="o">=</span> <span class="nx">Net_Growl</span><span class="o">::</span><span class="na">singleton</span><span class="p">(</span>
+        <span class="nv">$app</span><span class="p">,</span> <span class="k">null</span><span class="p">,</span> <span class="k">null</span><span class="p">,</span> <span class="k">array</span><span class="p">(</span><span class="s1">&#39;host&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;127.0.0.1&#39;</span><span class="p">)</span>
+    <span class="p">);</span>
+    <span class="nv">$growl</span><span class="o">-&gt;</span><span class="na">notify</span><span class="p">(</span><span class="nx">GROWL_NOTIFY_PEARERROR</span><span class="p">,</span>
+        <span class="nb">get_class</span><span class="p">(</span><span class="nv">$error</span><span class="p">),</span>
+        <span class="nv">$error</span><span class="o">-&gt;</span><span class="na">message</span><span class="o">.</span><span class="s1">&#39; in &#39;</span><span class="o">.</span><span class="nv">$_SERVER</span><span class="p">[</span><span class="s1">&#39;SCRIPT_NAME&#39;</span><span class="p">],</span>
+        <span class="k">array</span><span class="p">(</span><span class="s1">&#39;sticky&#39;</span> <span class="o">=&gt;</span> <span class="k">true</span><span class="p">)</span>
+    <span class="p">);</span>
+<span class="p">}</span>
+
+<span class="nx">PEAR</span><span class="o">::</span><span class="na">setErrorHandling</span><span class="p">(</span><span class="nx">PEAR_ERROR_CALLBACK</span><span class="p">,</span> <span class="s1">&#39;growlErrors&#39;</span><span class="p">);</span>
+
+<span class="nx">PEAR</span><span class="o">::</span><span class="na">raiseError</span><span class="p">(</span><span class="s2">&quot;The expected error you submitted does not exist&quot;</span><span class="p">);</span>
+<span class="cp">?&gt;</span><span class="x"></span>
+</pre></div></div></div>
+</div></div>
+</div>
+<div class="sect4">
+<h5 id="C2M2">Net_Growl_Application::addGrowlNotifications</h5>
+<div class="sidebarblock">
+<div class="content">
+<div class="title">Synopsis</div>
+<div class="paragraph"><p>require_once &#8216;Net/Growl/Autoload.php&#8217;;</p></div>
+<div class="paragraph"><p>void <strong>Net_Growl_Application::addGrowlNotifications</strong>( $notifications )</p></div>
+</div></div>
+<div class="paragraph"><div class="title">Description</div><p>Adds notifications supported by this application</p></div>
+<div class="paragraph"><p>Expected array format is:</p></div>
+<div class="listingblock">
+<div class="content"><div class="highlight"><pre><span class="cp">&lt;?php</span>
+ <span class="k">array</span><span class="p">(</span><span class="s1">&#39;notification name&#39;</span> <span class="o">=&gt;</span> <span class="k">array</span><span class="p">(</span><span class="s1">&#39;option name&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;option value&#39;</span><span class="p">));</span>
+</pre></div></div></div>
+<div class="paragraph"><p>At the moment, only option name <em>enabled</em> is supported. Example:</p></div>
+<div class="listingblock">
+<div class="content"><div class="highlight"><pre><span class="cp">&lt;?php</span>
+ <span class="nv">$notifications</span> <span class="o">=</span> <span class="k">array</span><span class="p">(</span><span class="s1">&#39;Test Notification&#39;</span> <span class="o">=&gt;</span> <span class="k">array</span><span class="p">(</span><span class="s1">&#39;enabled&#39;</span> <span class="o">=&gt;</span> <span class="k">true</span><span class="p">));</span>
+</pre></div></div></div>
+<div class="dlist"><div class="title">Parameter</div><dl>
+<dt class="hdlist1">
+array $notifications
+</dt>
+<dd>
+<p>
+    Array of notifications to support
+</p>
+</dd>
+</dl></div>
+<div class="paragraph"><div class="title">Throws</div><p>InvalidArgumentException</p></div>
+<div class="paragraph"><div class="title">Return value</div><p>void</p></div>
+</div>
+<div class="sect4">
+<h5 id="C2M3">Net_Growl_Application::getGrowlNotifications</h5>
+<div class="sidebarblock">
+<div class="content">
+<div class="title">Synopsis</div>
+<div class="paragraph"><p>require_once &#8216;Net/Growl/Autoload.php&#8217;;</p></div>
+<div class="paragraph"><p>array <strong>Net_Growl_Application::getGrowlNotifications</strong>( )</p></div>
+</div></div>
+<div class="paragraph"><div class="title">Description</div><p>Returns the notifications accepted by Growl for this application</p></div>
+<div class="paragraph"><p>Expected array format is:</p></div>
+<div class="listingblock">
+<div class="content"><div class="highlight"><pre><span class="cp">&lt;?php</span>
+ <span class="k">array</span><span class="p">(</span><span class="s1">&#39;notification name&#39;</span> <span class="o">=&gt;</span> <span class="k">array</span><span class="p">(</span><span class="s1">&#39;option name&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;option value&#39;</span><span class="p">));</span>
+</pre></div></div></div>
+<div class="paragraph"><p>At the moment, only option name <em>enabled</em> is supported. Example:</p></div>
+<div class="listingblock">
+<div class="content"><div class="highlight"><pre><span class="cp">&lt;?php</span>
+ <span class="nv">$notifications</span> <span class="o">=</span> <span class="k">array</span><span class="p">(</span><span class="s1">&#39;Test Notification&#39;</span> <span class="o">=&gt;</span> <span class="k">array</span><span class="p">(</span><span class="s1">&#39;enabled&#39;</span> <span class="o">=&gt;</span> <span class="k">true</span><span class="p">));</span>
+ <span class="k">return</span> <span class="nv">$notifications</span><span class="p">;</span>
+</pre></div></div></div>
+<div class="paragraph"><div class="title">Throws</div><p>no exceptions thrown</p></div>
+<div class="paragraph"><div class="title">Return value</div><p>array - list of notifications type</p></div>
+</div>
+<div class="sect4">
+<h5 id="C2M4">Net_Growl_Application::setGrowlName</h5>
+<div class="sidebarblock">
+<div class="content">
+<div class="title">Synopsis</div>
+<div class="paragraph"><p>require_once &#8216;Net/Growl/Autoload.php&#8217;;</p></div>
+<div class="paragraph"><p>string <strong>Net_Growl_Application::setGrowlName</strong>( $appName )</p></div>
+</div></div>
+<div class="paragraph"><div class="title">Description</div><p>Sets the application name for registration in Growl</p></div>
+<div class="paragraph"><div class="title">Throws</div><p>InvalidArgumentException</p></div>
+<div class="paragraph"><div class="title">Return value</div><p>void</p></div>
+</div>
+<div class="sect4">
+<h5 id="C2M5">Net_Growl_Application::getGrowlName</h5>
+<div class="sidebarblock">
+<div class="content">
+<div class="title">Synopsis</div>
+<div class="paragraph"><p>require_once &#8216;Net/Growl/Autoload.php&#8217;;</p></div>
+<div class="paragraph"><p>string <strong>Net_Growl_Application::getGrowlName</strong>( )</p></div>
+</div></div>
+<div class="paragraph"><div class="title">Description</div><p>Returns the application name for registration in Growl</p></div>
+<div class="paragraph"><div class="title">Throws</div><p>no exceptions thrown</p></div>
+<div class="paragraph"><div class="title">Return value</div><p>string&#8201;&#8212;&#8201;application name</p></div>
+</div>
+<div class="sect4">
+<h5 id="C2M6">Net_Growl_Application::setGrowlPassword</h5>
+<div class="sidebarblock">
+<div class="content">
+<div class="title">Synopsis</div>
+<div class="paragraph"><p>require_once &#8216;Net/Growl/Autoload.php&#8217;;</p></div>
+<div class="paragraph"><p>string <strong>Net_Growl_Application::setGrowlPassword</strong>( $password )</p></div>
+</div></div>
+<div class="paragraph"><div class="title">Description</div><p>Sets the password to be used by Growl to accept notification packets</p></div>
+<div class="paragraph"><div class="title">Throws</div><p>InvalidArgumentException</p></div>
+<div class="paragraph"><div class="title">Return value</div><p>void</p></div>
+</div>
+<div class="sect4">
+<h5 id="C2M7">Net_Growl_Application::getGrowlPassword</h5>
+<div class="sidebarblock">
+<div class="content">
+<div class="title">Synopsis</div>
+<div class="paragraph"><p>require_once &#8216;Net/Growl/Autoload.php&#8217;;</p></div>
+<div class="paragraph"><p>string <strong>Net_Growl_Application::getGrowlPassword</strong>( )</p></div>
+</div></div>
+<div class="paragraph"><div class="title">Description</div><p>Returns the password to be used by Growl to accept notification packets</p></div>
+<div class="paragraph"><div class="title">Throws</div><p>no exceptions thrown</p></div>
+<div class="paragraph"><div class="title">Return value</div><p>string&#8201;&#8212;&#8201;password</p></div>
+</div>
+<div class="sect4">
+<h5 id="C2M8">Net_Growl_Application::setGrowlIcon</h5>
+<div class="sidebarblock">
+<div class="content">
+<div class="title">Synopsis</div>
+<div class="paragraph"><p>require_once &#8216;Net/Growl/Autoload.php&#8217;;</p></div>
+<div class="paragraph"><p>string <strong>Net_Growl_Application::setGrowlIcon</strong>( $appIcon )</p></div>
+</div></div>
+<div class="paragraph"><div class="title">Description</div><p>Sets the application icon for registration in Growl</p></div>
+<div class="paragraph"><div class="title">Throws</div><p>InvalidArgumentException</p></div>
+<div class="paragraph"><div class="title">Return value</div><p>void</p></div>
+</div>
+<div class="sect4">
+<h5 id="C2M9">Net_Growl_Application::getGrowlIcon</h5>
+<div class="sidebarblock">
+<div class="content">
+<div class="title">Synopsis</div>
+<div class="paragraph"><p>require_once &#8216;Net/Growl/Autoload.php&#8217;;</p></div>
+<div class="paragraph"><p>string <strong>Net_Growl_Application::getGrowlIcon</strong>( )</p></div>
+</div></div>
+<div class="paragraph"><div class="title">Description</div><p>Returns the application icon for registration in Growl</p></div>
+<div class="paragraph"><div class="title">Throws</div><p>no exceptions thrown</p></div>
+<div class="paragraph"><div class="title">Return value</div><p>string&#8201;&#8212;&#8201;application icon binary data or empty if default image</p></div>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="C3">Net_Growl_Exception Class</h3>
+<div class="sect3">
+<h4 id="_synopsis_3">Synopsis</h4>
+<div class="listingblock">
+<div class="content"><div class="highlight"><pre><span class="cp">&lt;?php</span>
+<span class="k">class</span> <span class="nc">Net_Growl_Exception</span> <span class="k">extends</span> <span class="nx">Exception</span>
+<span class="p">{</span>
+<span class="p">}</span>
+</pre></div></div></div>
+</div>
+<div class="sect3">
+<h4 id="_methods_3">Methods</h4>
+<div class="admonitionblock">
+<table><tr>
+<td class="icon">
+<img src="./images/icons/important.png" alt="Important" />
+</td>
+<td class="content">Inherit all methods and properties from base Exception class.
+More details at <a href="http://www.php.net/manual/en/class.exception.php">http://www.php.net/manual/en/class.exception.php</a></td>
+</tr></table>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="C4">Net_Growl_Udp Class</h3>
+<div class="sect3">
+<h4 id="_synopsis_4">Synopsis</h4>
+<div class="listingblock">
+<div class="content"><div class="highlight"><pre><span class="cp">&lt;?php</span>
+<span class="k">class</span> <span class="nc">Net_Growl_Udp</span>
+<span class="p">{</span>
+    <span class="cm">/* methods */</span>
+    <span class="k">public</span> <span class="nx">object</span> <span class="nx">__construct</span><span class="p">(</span><span class="nx">mixed</span> <span class="nv">$application</span> <span class="p">[,</span> <span class="k">array</span> <span class="nv">$notifications</span> <span class="o">=</span> <span class="k">array</span><span class="p">()</span> <span class="p">[,</span> <span class="nx">string</span> <span class="nv">$password</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span> <span class="p">[,</span> <span class="k">array</span> <span class="nv">$options</span> <span class="o">=</span> <span class="k">array</span><span class="p">()]]]</span> <span class="p">);</span>
+    <span class="k">public</span> <span class="nx">bool</span> <span class="nx">sendRegister</span><span class="p">();</span>
+    <span class="k">public</span> <span class="nx">bool</span> <span class="nx">sendNotify</span><span class="p">(</span><span class="nv">$name</span><span class="p">,</span> <span class="nv">$title</span><span class="p">,</span> <span class="nv">$description</span><span class="p">,</span> <span class="nv">$options</span><span class="p">);</span>
+
+<span class="p">}</span>
+</pre></div></div></div>
+</div>
+<div class="sect3">
+<h4 id="_methods_4">Methods</h4>
+<div class="tableblock table table-bordered table-striped">
+<table rules="rows"
+width="100%"
+frame="border"
+cellspacing="0" cellpadding="4">
+<caption class="title">Table 5. Net_Growl_Udp Methods</caption>
+<col width="41%" />
+<col width="58%" />
+<thead>
+<tr>
+<th align="left" valign="top">Name</th>
+<th align="left" valign="top">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left" valign="top"><p class="table"><a href="#C4M1">__construct</a></p></td>
+<td align="left" valign="top"><p class="table">Constructs a new UDP adapter</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table"><a href="#C4M2">sendRegister</a></p></td>
+<td align="left" valign="top"><p class="table">Sends the REGISTER message type</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table"><a href="#C4M3">sendNotify</a></p></td>
+<td align="left" valign="top"><p class="table">Sends the NOTIFY message type</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="sect4">
+<h5 id="C4M1">Net_Growl_Udp::__construct</h5>
+<div class="sidebarblock">
+<div class="content">
+<div class="title">Synopsis</div>
+<div class="paragraph"><p>require_once &#8216;Net/Growl.php&#8217;;</p></div>
+<div class="paragraph"><p>object <strong>new Net_Growl_Udp</strong>( $application, $notifications = array(), $password = ", $options = array() )</p></div>
+</div></div>
+<div class="paragraph"><div class="title">Description</div><p>Constructs a new UDP adapter</p></div>
+<div class="dlist"><div class="title">Parameter</div><dl>
+<dt class="hdlist1">
+mixed $application
+</dt>
+<dd>
+<p>
+    Application name
+</p>
+</dd>
+<dt class="hdlist1">
+array $notifications
+</dt>
+<dd>
+<p>
+    List of notification types
+</p>
+</dd>
+<dt class="hdlist1">
+string $password
+</dt>
+<dd>
+<p>
+    (optional) Password for Growl
+</p>
+</dd>
+<dt class="hdlist1">
+array $options
+</dt>
+<dd>
+<p>
+    (optional) List of options :
+</p>
+<div class="ulist"><ul>
+<li>
+<p>
+<em>host</em>, <em>port</em>, <em>protocol</em>, <em>timeout</em>
+</p>
+<div class="ulist"><ul>
+<li>
+<p>
+for Growl socket server
+</p>
+</li>
+</ul></div>
+</li>
+<li>
+<p>
+<em>debug</em>
+</p>
+<div class="ulist"><ul>
+<li>
+<p>
+to know what data are sent and received.
+</p>
+</li>
+</ul></div>
+</li>
+</ul></div>
+</dd>
+</dl></div>
+<div class="paragraph"><div class="title">Throws</div><p>no exceptions thrown</p></div>
+<div class="paragraph"><div class="title">Return value</div><p>object - Net_Growl_Udp</p></div>
+</div>
+<div class="sect4">
+<h5 id="C4M2">Net_Growl_Udp::sendRegister</h5>
+<div class="sidebarblock">
+<div class="content">
+<div class="title">Synopsis</div>
+<div class="paragraph"><p>require_once &#8216;Net/Growl.php&#8217;;</p></div>
+<div class="paragraph"><p>bool <strong>Net_Growl_Udp::sendRegister</strong>( )</p></div>
+</div></div>
+<div class="paragraph"><div class="title">Description</div><p>Sends the REGISTER message type</p></div>
+<div class="dlist"><div class="title">Throws</div><dl>
+<dt class="hdlist1">
+Net_Growl_Exception
+</dt>
+<dd>
+<p>
+    if remote server communication failure
+</p>
+</dd>
+</dl></div>
+<div class="paragraph"><div class="title">Return value</div><p>true</p></div>
+</div>
+<div class="sect4">
+<h5 id="C4M3">Net_Growl_Udp::sendNotify</h5>
+<div class="sidebarblock">
+<div class="content">
+<div class="title">Synopsis</div>
+<div class="paragraph"><p>require_once &#8216;Net/Growl.php&#8217;;</p></div>
+<div class="paragraph"><p>bool <strong>Net_Growl_Udp::sendNotify</strong>( )</p></div>
+</div></div>
+<div class="paragraph"><div class="title">Description</div><p>Sends the NOTIFY message type</p></div>
+<div class="dlist"><div class="title">Throws</div><dl>
+<dt class="hdlist1">
+Net_Growl_Exception
+</dt>
+<dd>
+<p>
+    if remote server communication failure
+</p>
+</dd>
+</dl></div>
+<div class="paragraph"><div class="title">Return value</div><p>true</p></div>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="C5">Net_Growl_Gntp Class</h3>
+<div class="sect3">
+<h4 id="_synopsis_5">Synopsis</h4>
+<div class="listingblock">
+<div class="content"><div class="highlight"><pre><span class="cp">&lt;?php</span>
+<span class="k">class</span> <span class="nc">Net_Growl_Gntp</span>
+<span class="p">{</span>
+    <span class="cm">/* properties */</span>
+    <span class="k">private</span> <span class="k">array</span> <span class="nv">$_passwordHashAlgorithm</span><span class="p">;</span>
+
+    <span class="cm">/* methods */</span>
+    <span class="k">public</span> <span class="nx">object</span> <span class="nx">__construct</span><span class="p">(</span><span class="nx">mixed</span> <span class="nv">$application</span> <span class="p">[,</span> <span class="k">array</span> <span class="nv">$notifications</span> <span class="o">=</span> <span class="k">array</span><span class="p">()</span> <span class="p">[,</span> <span class="nx">string</span> <span class="nv">$password</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span> <span class="p">[,</span> <span class="k">array</span> <span class="nv">$options</span> <span class="o">=</span> <span class="k">array</span><span class="p">()]]]</span> <span class="p">);</span>
+    <span class="k">public</span> <span class="nx">Net_Growl_Response</span> <span class="nx">sendRegister</span><span class="p">();</span>
+    <span class="k">public</span> <span class="nx">Net_Growl_Response</span> <span class="nx">sendNotify</span><span class="p">(</span><span class="nv">$name</span><span class="p">,</span> <span class="nv">$title</span><span class="p">,</span> <span class="nv">$description</span><span class="p">,</span> <span class="nv">$options</span><span class="p">);</span>
+
+    <span class="k">protected</span> <span class="nx">string</span> <span class="nx">genMessageStructure</span><span class="p">(</span><span class="nv">$method</span><span class="p">,</span> <span class="nv">$data</span> <span class="p">[,</span> <span class="nv">$binaries</span> <span class="o">=</span> <span class="k">false</span><span class="p">]);</span>
+
+    <span class="k">private</span> <span class="k">array</span> <span class="nx">_genKey</span><span class="p">(</span><span class="nv">$password</span><span class="p">);</span>
+    <span class="k">private</span> <span class="k">array</span> <span class="nx">_genEncryption</span><span class="p">(</span><span class="nv">$key</span><span class="p">,</span> <span class="nv">$plainText</span><span class="p">);</span>
+    <span class="k">private</span> <span class="nx">string</span> <span class="nx">_toBool</span><span class="p">(</span><span class="nv">$value</span><span class="p">);</span>
+<span class="p">}</span>
+</pre></div></div></div>
+</div>
+<div class="sect3">
+<h4 id="_methods_5">Methods</h4>
+<div class="tableblock table table-bordered table-striped">
+<table rules="rows"
+width="100%"
+frame="border"
+cellspacing="0" cellpadding="4">
+<caption class="title">Table 6. Net_Growl_Gntp Methods</caption>
+<col width="41%" />
+<col width="58%" />
+<thead>
+<tr>
+<th align="left" valign="top">Name</th>
+<th align="left" valign="top">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left" valign="top"><p class="table"><a href="#C5M1">__construct</a></p></td>
+<td align="left" valign="top"><p class="table">Constructs a new GNTP adapter</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table"><a href="#C5M2">sendRegister</a></p></td>
+<td align="left" valign="top"><p class="table">Sends the REGISTER message type</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table"><a href="#C5M3">sendNotify</a></p></td>
+<td align="left" valign="top"><p class="table">Sends the NOTIFY message type</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="sect4">
+<h5 id="C5M1">Net_Growl_Gntp::__construct</h5>
+<div class="sidebarblock">
+<div class="content">
+<div class="title">Synopsis</div>
+<div class="paragraph"><p>require_once &#8216;Net/Growl.php&#8217;;</p></div>
+<div class="paragraph"><p>object <strong>new Net_Growl_Gntp</strong>( $application, $notifications = array(), $password = ", $options = array() )</p></div>
+</div></div>
+<div class="paragraph"><div class="title">Description</div><p>Constructs a new GNTP adapter</p></div>
+<div class="dlist"><div class="title">Parameter</div><dl>
+<dt class="hdlist1">
+mixed $application
+</dt>
+<dd>
+<p>
+    Application name
+</p>
+</dd>
+<dt class="hdlist1">
+array $notifications
+</dt>
+<dd>
+<p>
+    List of notification types
+</p>
+</dd>
+<dt class="hdlist1">
+string $password
+</dt>
+<dd>
+<p>
+    (optional) Password for Growl
+</p>
+</dd>
+<dt class="hdlist1">
+array $options
+</dt>
+<dd>
+<p>
+    (optional) List of options :
+</p>
+<div class="ulist"><ul>
+<li>
+<p>
+<em>host</em>, <em>port</em>, <em>protocol</em>, <em>timeout</em>
+</p>
+<div class="ulist"><ul>
+<li>
+<p>
+for Growl socket server
+</p>
+</li>
+</ul></div>
+</li>
+<li>
+<p>
+<em>passwordHashAlgorithm</em>, <em>encryptionAlgorithm</em>
+</p>
+<div class="ulist"><ul>
+<li>
+<p>
+to secure communications
+</p>
+</li>
+</ul></div>
+</li>
+<li>
+<p>
+<em>debug</em>
+</p>
+<div class="ulist"><ul>
+<li>
+<p>
+to know what data are sent and received.
+</p>
+</li>
+</ul></div>
+</li>
+<li>
+<p>
+<em>resourceDir</em>
+</p>
+<div class="ulist"><ul>
+<li>
+<p>
+location of default icons; default to false, so use the @data_dir@ of PEAR
+</p>
+</li>
+</ul></div>
+</li>
+<li>
+<p>
+<em>defaultIcon</em>
+</p>
+<div class="ulist"><ul>
+<li>
+<p>
+the default icon filename
+</p>
+</li>
+</ul></div>
+</li>
+</ul></div>
+</dd>
+</dl></div>
+<div class="paragraph"><div class="title">Throws</div><p>no exceptions thrown</p></div>
+<div class="paragraph"><div class="title">Return value</div><p>object - Net_Growl_Gntp</p></div>
+</div>
+<div class="sect4">
+<h5 id="C5M2">Net_Growl_Gntp::sendRegister</h5>
+<div class="sidebarblock">
+<div class="content">
+<div class="title">Synopsis</div>
+<div class="paragraph"><p>require_once &#8216;Net/Growl.php&#8217;;</p></div>
+<div class="paragraph"><p>Net_Growl_Response <strong>Net_Growl_Gntp::sendRegister</strong>( )</p></div>
+</div></div>
+<div class="paragraph"><div class="title">Description</div><p>Sends the REGISTER message type</p></div>
+<div class="dlist"><div class="title">Throws</div><dl>
+<dt class="hdlist1">
+Net_Growl_Exception
+</dt>
+<dd>
+<p>
+    if remote server communication failure
+</p>
+</dd>
+</dl></div>
+<div class="paragraph"><div class="title">Return value</div><p>Net_Growl_Response object</p></div>
+</div>
+<div class="sect4">
+<h5 id="C5M3">Net_Growl_Gntp::sendNotify</h5>
+<div class="sidebarblock">
+<div class="content">
+<div class="title">Synopsis</div>
+<div class="paragraph"><p>require_once &#8216;Net/Growl.php&#8217;;</p></div>
+<div class="paragraph"><p>Net_Growl_Response <strong>Net_Growl_Gntp::sendNotify</strong>( )</p></div>
+</div></div>
+<div class="paragraph"><div class="title">Description</div><p>Sends the NOTIFY message type</p></div>
+<div class="dlist"><div class="title">Throws</div><dl>
+<dt class="hdlist1">
+Net_Growl_Exception
+</dt>
+<dd>
+<p>
+    if remote server communication failure
+</p>
+</dd>
+</dl></div>
+<div class="paragraph"><div class="title">Return value</div><p>Net_Growl_Response object</p></div>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="C6">Net_Growl_GntpMock Class</h3>
+<div class="sect3">
+<h4 id="_synopsis_6">Synopsis</h4>
+<div class="listingblock">
+<div class="content"><div class="highlight"><pre><span class="cp">&lt;?php</span>
+<span class="k">class</span> <span class="nc">Net_Growl_GntpMock</span>
+<span class="p">{</span>
+    <span class="cm">/* properties */</span>
+    <span class="k">protected</span> <span class="nv">$responses</span> <span class="o">=</span> <span class="k">array</span><span class="p">();</span>
+
+    <span class="cm">/* methods */</span>
+    <span class="k">public</span> <span class="nx">object</span> <span class="nx">__construct</span><span class="p">(</span><span class="nx">mixed</span> <span class="nv">$application</span> <span class="p">[,</span> <span class="k">array</span> <span class="nv">$notifications</span> <span class="o">=</span> <span class="k">array</span><span class="p">()</span> <span class="p">[,</span> <span class="nx">string</span> <span class="nv">$password</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span> <span class="p">[,</span> <span class="k">array</span> <span class="nv">$options</span> <span class="o">=</span> <span class="k">array</span><span class="p">()]]]</span> <span class="p">);</span>
+    <span class="k">public</span> <span class="nx">Net_Growl_Response</span> <span class="nx">sendRegister</span><span class="p">();</span>
+    <span class="k">public</span> <span class="nx">Net_Growl_Response</span> <span class="nx">sendNotify</span><span class="p">(</span><span class="nv">$name</span><span class="p">,</span> <span class="nv">$title</span><span class="p">,</span> <span class="nv">$description</span><span class="p">,</span> <span class="nv">$options</span><span class="p">);</span>
+    <span class="k">public</span> <span class="nx">void</span> <span class="nx">addResponse</span><span class="p">(</span><span class="nv">$response</span><span class="p">)</span>
+
+    <span class="k">protected</span> <span class="nx">Net_Growl_Response</span> <span class="nx">sendRequest</span><span class="p">()</span>
+    <span class="k">protected</span> <span class="nx">Net_Growl_Response</span> <span class="nx">createResponseFromString</span><span class="p">(</span><span class="nv">$str</span><span class="p">)</span>
+    <span class="k">protected</span> <span class="nx">Net_Growl_Response</span> <span class="nx">createResponseFromFile</span><span class="p">(</span><span class="nv">$fp</span><span class="p">)</span>
+<span class="p">}</span>
+</pre></div></div></div>
+</div>
+<div class="sect3">
+<h4 id="_methods_6">Methods</h4>
+<div class="tableblock table table-bordered table-striped">
+<table rules="rows"
+width="100%"
+frame="border"
+cellspacing="0" cellpadding="4">
+<caption class="title">Table 7. Net_Growl_GntpMock Methods</caption>
+<col width="41%" />
+<col width="58%" />
+<thead>
+<tr>
+<th align="left" valign="top">Name</th>
+<th align="left" valign="top">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left" valign="top"><p class="table"><a href="#C6M1">__construct</a></p></td>
+<td align="left" valign="top"><p class="table">Constructs a new GNTP Mock adapter</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table"><a href="#C6M2">sendRegister</a></p></td>
+<td align="left" valign="top"><p class="table">Mock sending the REGISTER message type</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table"><a href="#C6M3">sendNotify</a></p></td>
+<td align="left" valign="top"><p class="table">Mock sending the NOTIFY message type</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table"><a href="#C6M4">addResponse</a></p></td>
+<td align="left" valign="top"><p class="table">Adds response to the queue</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="sect4">
+<h5 id="C6M1">Net_Growl_Gntp::__construct</h5>
+<div class="sidebarblock">
+<div class="content">
+<div class="title">Synopsis</div>
+<div class="paragraph"><p>require_once &#8216;Net/Growl.php&#8217;;</p></div>
+<div class="paragraph"><p>object <strong>new Net_Growl_Gntp</strong>( $application, $notifications = array(), $password = ", $options = array() )</p></div>
+</div></div>
+<div class="paragraph"><div class="title">Description</div><p>Constructs a new GNTP adapter</p></div>
+<div class="dlist"><div class="title">Parameter</div><dl>
+<dt class="hdlist1">
+mixed $application
+</dt>
+<dd>
+<p>
+    Application name
+</p>
+</dd>
+<dt class="hdlist1">
+array $notifications
+</dt>
+<dd>
+<p>
+    List of notification types
+</p>
+</dd>
+<dt class="hdlist1">
+string $password
+</dt>
+<dd>
+<p>
+    (optional) Password for Growl
+</p>
+</dd>
+<dt class="hdlist1">
+array $options
+</dt>
+<dd>
+<p>
+    (optional) List of options :
+</p>
+<div class="ulist"><ul>
+<li>
+<p>
+<em>host</em>, <em>port</em>, <em>protocol</em>, <em>timeout</em>
+</p>
+<div class="ulist"><ul>
+<li>
+<p>
+for Growl socket server
+</p>
+</li>
+</ul></div>
+</li>
+<li>
+<p>
+<em>passwordHashAlgorithm</em>, <em>encryptionAlgorithm</em>
+</p>
+<div class="ulist"><ul>
+<li>
+<p>
+to secure communications
+</p>
+</li>
+</ul></div>
+</li>
+<li>
+<p>
+<em>debug</em>
+</p>
+<div class="ulist"><ul>
+<li>
+<p>
+to know what data are sent and received.
+</p>
+</li>
+</ul></div>
+</li>
+</ul></div>
+</dd>
+</dl></div>
+<div class="paragraph"><div class="title">Throws</div><p>no exceptions thrown</p></div>
+<div class="paragraph"><div class="title">Return value</div><p>object - Net_Growl_GntpMock</p></div>
+</div>
+<div class="sect4">
+<h5 id="C6M2">Net_Growl_GntpMock::sendRegister</h5>
+<div class="sidebarblock">
+<div class="content">
+<div class="title">Synopsis</div>
+<div class="paragraph"><p>require_once &#8216;Net/Growl.php&#8217;;</p></div>
+<div class="paragraph"><p>Net_Growl_Response <strong>Net_Growl_GntpMock::sendRegister</strong>( )</p></div>
+</div></div>
+<div class="paragraph"><div class="title">Description</div><p>Mock sending the REGISTER message type</p></div>
+<div class="dlist"><div class="title">Throws</div><dl>
+<dt class="hdlist1">
+Net_Growl_Exception
+</dt>
+<dd>
+<p>
+    if Net_Growl_Response not received
+</p>
+</dd>
+</dl></div>
+<div class="paragraph"><div class="title">Return value</div><p>Net_Growl_Response object</p></div>
+</div>
+<div class="sect4">
+<h5 id="C6M3">Net_Growl_GntpMock::sendNotify</h5>
+<div class="sidebarblock">
+<div class="content">
+<div class="title">Synopsis</div>
+<div class="paragraph"><p>require_once &#8216;Net/Growl.php&#8217;;</p></div>
+<div class="paragraph"><p>Net_Growl_Response <strong>Net_Growl_GntpMock::sendNotify</strong>( )</p></div>
+</div></div>
+<div class="paragraph"><div class="title">Description</div><p>Mock sending the NOTIFY message type</p></div>
+<div class="dlist"><div class="title">Throws</div><dl>
+<dt class="hdlist1">
+Net_Growl_Exception
+</dt>
+<dd>
+<p>
+    if Net_Growl_Response not received
+</p>
+</dd>
+</dl></div>
+<div class="paragraph"><div class="title">Return value</div><p>Net_Growl_Response object</p></div>
+</div>
+<div class="sect4">
+<h5 id="C6M4">Net_Growl_GntpMock::addResponse</h5>
+<div class="sidebarblock">
+<div class="content">
+<div class="title">Synopsis</div>
+<div class="paragraph"><p>require_once &#8216;Net/Growl.php&#8217;;</p></div>
+<div class="paragraph"><p>void <strong>Net_Growl_GntpMock::addResponse</strong>( $response )</p></div>
+</div></div>
+<div class="paragraph"><div class="title">Description</div><p>Adds response expected to the queue</p></div>
+<div class="dlist"><div class="title">Throws</div><dl>
+<dt class="hdlist1">
+Net_Growl_Exception
+</dt>
+<dd>
+<p>
+    if $response is different to file pointer, string or Net_Growl_Exception
+</p>
+</dd>
+</dl></div>
+<div class="paragraph"><div class="title">Return value</div><p>void</p></div>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="C7">Net_Growl_Response Class</h3>
+<div class="sect3">
+<h4 id="_synopsis_7">Synopsis</h4>
+<div class="listingblock">
+<div class="content"><div class="highlight"><pre><span class="cp">&lt;?php</span>
+<span class="k">class</span> <span class="nc">Net_Growl_Response</span>
+<span class="p">{</span>
+    <span class="cm">/* properties */</span>
+    <span class="k">protected</span> <span class="nx">string</span> <span class="nv">$version</span><span class="p">;</span>
+    <span class="k">protected</span> <span class="nx">string</span> <span class="nv">$code</span><span class="p">;</span>
+    <span class="k">protected</span> <span class="nx">string</span> <span class="nv">$action</span><span class="p">;</span>
+    <span class="k">protected</span> <span class="nx">integer</span> <span class="nv">$errorCode</span><span class="p">;</span>
+    <span class="k">protected</span> <span class="nx">string</span> <span class="nv">$errorDescription</span><span class="p">;</span>
+    <span class="k">protected</span> <span class="nx">string</span> <span class="nv">$machineName</span><span class="p">;</span>
+    <span class="k">protected</span> <span class="nx">string</span> <span class="nv">$softwareName</span><span class="p">;</span>
+    <span class="k">protected</span> <span class="nx">string</span> <span class="nv">$softwareVersion</span><span class="p">;</span>
+    <span class="k">protected</span> <span class="nx">string</span> <span class="nv">$platformName</span><span class="p">;</span>
+    <span class="k">protected</span> <span class="nx">string</span> <span class="nv">$platformVersion</span><span class="p">;</span>
+    <span class="k">protected</span> <span class="nx">string</span> <span class="nv">$body</span><span class="p">;</span>
+
+    <span class="cm">/* methods */</span>
+    <span class="k">public</span> <span class="nx">object</span> <span class="nx">__construct</span><span class="p">(</span><span class="nx">string</span> <span class="nv">$statusLine</span> <span class="p">);</span>
+    <span class="k">public</span> <span class="nx">void</span> <span class="nx">appendBody</span><span class="p">(</span><span class="nx">string</span> <span class="nv">$bodyChunk</span> <span class="p">);</span>
+    <span class="k">public</span> <span class="nx">string</span> <span class="nx">getVersion</span><span class="p">();</span>
+    <span class="k">public</span> <span class="nx">string</span> <span class="nx">getStatus</span><span class="p">();</span>
+    <span class="k">public</span> <span class="nx">string</span> <span class="nx">getResponseAction</span><span class="p">();</span>
+    <span class="k">public</span> <span class="nx">integer</span> <span class="nx">getErrorCode</span><span class="p">();</span>
+    <span class="k">public</span> <span class="nx">string</span> <span class="nx">getErrorDescription</span><span class="p">();</span>
+    <span class="k">public</span> <span class="nx">string</span> <span class="nx">getOriginMachineName</span><span class="p">();</span>
+    <span class="k">public</span> <span class="nx">string</span> <span class="nx">getOriginSoftwareName</span><span class="p">();</span>
+    <span class="k">public</span> <span class="nx">string</span> <span class="nx">getOriginSoftwareVersion</span><span class="p">();</span>
+    <span class="k">public</span> <span class="nx">string</span> <span class="nx">getOriginPlatformName</span><span class="p">();</span>
+    <span class="k">public</span> <span class="nx">string</span> <span class="nx">getOriginPlatformVersion</span><span class="p">();</span>
+    <span class="k">public</span> <span class="nx">string</span> <span class="nx">__toString</span><span class="p">();</span>
+
+<span class="p">}</span>
+</pre></div></div></div>
+</div>
+<div class="sect3">
+<h4 id="_methods_7">Methods</h4>
+<div class="tableblock table table-bordered table-striped">
+<table rules="rows"
+width="100%"
+frame="border"
+cellspacing="0" cellpadding="4">
+<caption class="title">Table 8. Net_Growl_Response Methods</caption>
+<col width="41%" />
+<col width="58%" />
+<thead>
+<tr>
+<th align="left" valign="top">Name</th>
+<th align="left" valign="top">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left" valign="top"><p class="table"><a href="#C7M1">__construct</a></p></td>
+<td align="left" valign="top"><p class="table">Constructs a new GNTP specialized response</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table"><a href="#C7M2">appendBody</a></p></td>
+<td align="left" valign="top"><p class="table">Append a string to the response body</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table"><a href="#C7M3">getVersion</a></p></td>
+<td align="left" valign="top"><p class="table">Returns GNTP protocol version</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table"><a href="#C7M4">getStatus</a></p></td>
+<td align="left" valign="top"><p class="table">Returns the status code</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table"><a href="#C7M5">getResponseAction</a></p></td>
+<td align="left" valign="top"><p class="table">Returns the request action</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table"><a href="#C7M6">getErrorCode</a></p></td>
+<td align="left" valign="top"><p class="table">Returns the error code</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table"><a href="#C7M7">getErrorDescription</a></p></td>
+<td align="left" valign="top"><p class="table">Returns the error description</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table"><a href="#C7M8">getOriginMachineName</a></p></td>
+<td align="left" valign="top"><p class="table">Returns the machine name/host name of the sending computer</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table"><a href="#C7M9">getOriginSoftwareName</a></p></td>
+<td align="left" valign="top"><p class="table">Returns the identity of the sending framework</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table"><a href="#C7M10">getOriginSoftwareVersion</a></p></td>
+<td align="left" valign="top"><p class="table">Returns the version of the sending framework</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table"><a href="#C7M11">getOriginPlatformName</a></p></td>
+<td align="left" valign="top"><p class="table">Returns the identify of the sending computer OS/platform</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table"><a href="#C7M12">getOriginPlatformVersion</a></p></td>
+<td align="left" valign="top"><p class="table">Returns the version of the sending computer OS/platform</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table"><a href="#C7M13">__toString</a></p></td>
+<td align="left" valign="top"><p class="table">Returns the String representation of the Growl response</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="sect4">
+<h5 id="C7M1">Net_Growl_Response::__construct</h5>
+<div class="sidebarblock">
+<div class="content">
+<div class="title">Synopsis</div>
+<div class="paragraph"><p>require_once &#8216;Net/Growl.php&#8217;;</p></div>
+<div class="paragraph"><p>object <strong>new Net_Growl_Response</strong>( $statusLine )</p></div>
+</div></div>
+<div class="paragraph"><div class="title">Description</div><p>Constructs a specialized response to a GNTP request</p></div>
+<div class="dlist"><div class="title">Parameter</div><dl>
+<dt class="hdlist1">
+mixed $statusLine
+</dt>
+<dd>
+<p>
+    Response status line (e.g. "GNTP/1.0 -OK NONE")
+</p>
+</dd>
+</dl></div>
+<div class="paragraph"><div class="title">Throws</div><p>no exceptions thrown</p></div>
+<div class="paragraph"><div class="title">Return value</div><p>object - Net_Growl_Response</p></div>
+</div>
+<div class="sect4">
+<h5 id="C7M2">Net_Growl_Response::appendBody</h5>
+<div class="sidebarblock">
+<div class="content">
+<div class="title">Synopsis</div>
+<div class="paragraph"><p>require_once &#8216;Net/Growl.php&#8217;;</p></div>
+<div class="paragraph"><p>void <strong>Net_Growl_Response::appendBody</strong>( )</p></div>
+</div></div>
+<div class="paragraph"><div class="title">Description</div><p>Append a string to the response body excluding
+the protocol identifier, version, message type, and encryption algorithm id</p></div>
+<div class="paragraph"><div class="title">Throws</div><p>no exceptions thrown</p></div>
+<div class="paragraph"><div class="title">Return value</div><p>void</p></div>
+</div>
+<div class="sect4">
+<h5 id="C7M3">Net_Growl_Response::getVersion</h5>
+<div class="sidebarblock">
+<div class="content">
+<div class="title">Synopsis</div>
+<div class="paragraph"><p>require_once &#8216;Net/Growl.php&#8217;;</p></div>
+<div class="paragraph"><p>string <strong>Net_Growl_Response::getVersion</strong>( )</p></div>
+</div></div>
+<div class="paragraph"><div class="title">Description</div><p>Returns GNTP protocol version (e.g. 1.0, 1.1)</p></div>
+<div class="paragraph"><div class="title">Throws</div><p>no exceptions thrown</p></div>
+<div class="paragraph"><div class="title">Return value</div><p>string</p></div>
+</div>
+<div class="sect4">
+<h5 id="C7M4">Net_Growl_Response::getStatus</h5>
+<div class="sidebarblock">
+<div class="content">
+<div class="title">Synopsis</div>
+<div class="paragraph"><p>require_once &#8216;Net/Growl.php&#8217;;</p></div>
+<div class="paragraph"><p>string <strong>Net_Growl_Response::getStatus</strong>( )</p></div>
+</div></div>
+<div class="paragraph"><div class="title">Description</div><p>Returns the status code (OK | ERROR)</p></div>
+<div class="paragraph"><div class="title">Throws</div><p>no exceptions thrown</p></div>
+<div class="paragraph"><div class="title">Return value</div><p>string</p></div>
+</div>
+<div class="sect4">
+<h5 id="C7M5">Net_Growl_Response::getResponseAction</h5>
+<div class="sidebarblock">
+<div class="content">
+<div class="title">Synopsis</div>
+<div class="paragraph"><p>require_once &#8216;Net/Growl.php&#8217;;</p></div>
+<div class="paragraph"><p>string <strong>Net_Growl_Response::getResponseAction</strong>( )</p></div>
+</div></div>
+<div class="paragraph"><div class="title">Description</div><p>Returns the request action (REGITER | NOTIFY)</p></div>
+<div class="paragraph"><div class="title">Throws</div><p>no exceptions thrown</p></div>
+<div class="paragraph"><div class="title">Return value</div><p>string</p></div>
+</div>
+<div class="sect4">
+<h5 id="C7M6">Net_Growl_Response::getErrorCode</h5>
+<div class="sidebarblock">
+<div class="content">
+<div class="title">Synopsis</div>
+<div class="paragraph"><p>require_once &#8216;Net/Growl.php&#8217;;</p></div>
+<div class="paragraph"><p>int <strong>Net_Growl_Response::getErrorCode</strong>( )</p></div>
+</div></div>
+<div class="paragraph"><div class="title">Description</div><p>Returns the error code</p></div>
+<div class="paragraph"><div class="title">Throws</div><p>no exceptions thrown</p></div>
+<div class="paragraph"><div class="title">Return value</div><p>integer</p></div>
+</div>
+<div class="sect4">
+<h5 id="C7M7">Net_Growl_Response::getErrorDescription</h5>
+<div class="sidebarblock">
+<div class="content">
+<div class="title">Synopsis</div>
+<div class="paragraph"><p>require_once &#8216;Net/Growl.php&#8217;;</p></div>
+<div class="paragraph"><p>string <strong>Net_Growl_Response::getErrorDescription</strong>( )</p></div>
+</div></div>
+<div class="paragraph"><div class="title">Description</div><p>Returns the error description</p></div>
+<div class="paragraph"><div class="title">Throws</div><p>no exceptions thrown</p></div>
+<div class="paragraph"><div class="title">Return value</div><p>string</p></div>
+</div>
+<div class="sect4">
+<h5 id="C7M8">Net_Growl_Response::getOriginMachineName</h5>
+<div class="sidebarblock">
+<div class="content">
+<div class="title">Synopsis</div>
+<div class="paragraph"><p>require_once &#8216;Net/Growl.php&#8217;;</p></div>
+<div class="paragraph"><p>string <strong>Net_Growl_Response::getOriginMachineName</strong>( )</p></div>
+</div></div>
+<div class="paragraph"><div class="title">Description</div><p>Returns the machine name/host name of the sending computer</p></div>
+<div class="paragraph"><div class="title">Throws</div><p>no exceptions thrown</p></div>
+<div class="paragraph"><div class="title">Return value</div><p>string</p></div>
+</div>
+<div class="sect4">
+<h5 id="C7M9">Net_Growl_Response::getOriginSoftwareName</h5>
+<div class="sidebarblock">
+<div class="content">
+<div class="title">Synopsis</div>
+<div class="paragraph"><p>require_once &#8216;Net/Growl.php&#8217;;</p></div>
+<div class="paragraph"><p>string <strong>Net_Growl_Response::getOriginSoftwareName</strong>( )</p></div>
+</div></div>
+<div class="paragraph"><div class="title">Description</div><p>Returns the identity of the sending framework</p></div>
+<div class="ulist"><ul>
+<li>
+<p>
+Example1: Growl/Win
+</p>
+</li>
+<li>
+<p>
+Example2: GrowlAIRConnector
+</p>
+</li>
+</ul></div>
+<div class="paragraph"><div class="title">Throws</div><p>no exceptions thrown</p></div>
+<div class="paragraph"><div class="title">Return value</div><p>string</p></div>
+</div>
+<div class="sect4">
+<h5 id="C7M10">Net_Growl_Response::getOriginSoftwareVersion</h5>
+<div class="sidebarblock">
+<div class="content">
+<div class="title">Synopsis</div>
+<div class="paragraph"><p>require_once &#8216;Net/Growl.php&#8217;;</p></div>
+<div class="paragraph"><p>string <strong>Net_Growl_Response::getOriginSoftwareVersion</strong>( )</p></div>
+</div></div>
+<div class="paragraph"><div class="title">Description</div><p>Returns the version of the sending framework</p></div>
+<div class="ulist"><ul>
+<li>
+<p>
+Example1: 2.0.0.28
+</p>
+</li>
+<li>
+<p>
+Example2: 1.2
+</p>
+</li>
+</ul></div>
+<div class="paragraph"><div class="title">Throws</div><p>no exceptions thrown</p></div>
+<div class="paragraph"><div class="title">Return value</div><p>string</p></div>
+</div>
+<div class="sect4">
+<h5 id="C7M11">Net_Growl_Response::getOriginPlatformName</h5>
+<div class="sidebarblock">
+<div class="content">
+<div class="title">Synopsis</div>
+<div class="paragraph"><p>require_once &#8216;Net/Growl.php&#8217;;</p></div>
+<div class="paragraph"><p>string <strong>Net_Growl_Response::getOriginPlatformName</strong>( )</p></div>
+</div></div>
+<div class="paragraph"><div class="title">Description</div><p>Returns the identify of the sending computer OS/platform</p></div>
+<div class="ulist"><ul>
+<li>
+<p>
+Example1: Microsoft Windows NT 5.1.2600 Service Pack 3
+</p>
+</li>
+<li>
+<p>
+Example2: Mac OS X
+</p>
+</li>
+</ul></div>
+<div class="paragraph"><div class="title">Throws</div><p>no exceptions thrown</p></div>
+<div class="paragraph"><div class="title">Return value</div><p>string</p></div>
+</div>
+<div class="sect4">
+<h5 id="C7M12">Net_Growl_Response::getOriginPlatformVersion</h5>
+<div class="sidebarblock">
+<div class="content">
+<div class="title">Synopsis</div>
+<div class="paragraph"><p>require_once &#8216;Net/Growl.php&#8217;;</p></div>
+<div class="paragraph"><p>string <strong>Net_Growl_Response::getOriginPlatformVersion</strong>( )</p></div>
+</div></div>
+<div class="paragraph"><div class="title">Description</div><p>Returns the version of the sending computer OS/platform</p></div>
+<div class="ulist"><ul>
+<li>
+<p>
+Example1: 5.1.2600.196608
+</p>
+</li>
+<li>
+<p>
+Example2: 10.6
+</p>
+</li>
+</ul></div>
+<div class="paragraph"><div class="title">Throws</div><p>no exceptions thrown</p></div>
+<div class="paragraph"><div class="title">Return value</div><p>string</p></div>
+</div>
+<div class="sect4">
+<h5 id="C7M13">Net_Growl_Response::__toString</h5>
+<div class="sidebarblock">
+<div class="content">
+<div class="title">Synopsis</div>
+<div class="paragraph"><p>require_once &#8216;Net/Growl.php&#8217;;</p></div>
+<div class="paragraph"><p>string <strong>Net_Growl_Response::__toString</strong>( )</p></div>
+</div></div>
+<div class="paragraph"><div class="title">Description</div><p>Returns the String representation of the Growl response</p></div>
+<div class="ulist"><ul>
+<li>
+<p>
+Example1: Response REGISTER OK (Growl/Win 2.0.0.28)
+</p>
+</li>
+<li>
+<p>
+Example2: Response ERROR 300 No notifications registered (Growl/Win 2.0.0.28)
+</p>
+</li>
+</ul></div>
+<div class="paragraph"><div class="title">Throws</div><p>no exceptions thrown</p></div>
+<div class="paragraph"><div class="title">Return value</div><p>string</p></div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div id="footnotes"><hr /></div>
+<div id="footer">
+<div id="footer-text">
+Version 2.7.0<br />
+Last updated 2013-01-22 17:37:25 Paris, Madrid
+</div>
+</div>
+</body>
+</html>

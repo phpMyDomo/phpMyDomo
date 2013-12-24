@@ -1,0 +1,10 @@
+GNTP/1.0 -ERROR NONE 
+Error-Code: 300
+Error-Description: No notifications registered
+Origin-Machine-Name: OURAGAN
+Origin-Software-Name: Growl/Win
+Origin-Software-Version: 2.0.0.28
+Origin-Platform-Name: Microsoft Windows NT 5.1.2600 Service Pack 3
+Origin-Platform-Version: 5.1.2600.196608
+X-Message-Daemon: Growl/Win
+X-Timestamp: 09/05/2010 13:13:49

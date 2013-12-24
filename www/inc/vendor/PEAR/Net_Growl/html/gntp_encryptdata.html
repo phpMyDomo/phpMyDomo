@@ -1,0 +1,260 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN"
+    "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+<head>
+<meta http-equiv="Content-Type" content="application/xhtml+xml; charset=UTF-8" />
+<meta name="generator" content="AsciiDoc 8.6.8" />
+<meta name="description" content="How to encrypt your data on a basic HTTP channel" />
+<meta name="keywords" content="PEAR, Network, Notification, Growl" />
+<title>Secure your communication</title>
+<link rel="stylesheet" href="styles/flask.css" type="text/css" />
+<link rel="stylesheet" href="styles/pygments.css" type="text/css">
+
+
+<link rel="stylesheet" href="styles/toc2.css" type="text/css" />
+<script type="text/javascript" src="js/asciidoc.js"></script>
+<script type="text/javascript" src="js/flask.js"></script>
+<script type="text/javascript">
+/*<![CDATA[*/
+asciidoc.install(2);
+/*]]>*/
+</script>
+</head>
+<body class="article">
+<div id="header">
+<h1>Secure your communication</h1>
+<span id="author">Laurent Laville</span><br />
+<span id="revnumber">version 2.7.0,</span>
+<span id="revdate">2013-01-29</span>
+<div id="toc">
+  <div id="toctitle">Table of Contents</div>
+  <noscript><p><b>JavaScript must be enabled in your browser to display the table of contents.</b></p></noscript>
+</div>
+</div>
+<div id="content">
+<div id="preamble">
+<div class="sectionbody">
+<div class="admonitionblock">
+<table><tr>
+<td class="icon">
+<img src="./images/icons/warning.png" alt="Warning" />
+</td>
+<td class="content">This chapter is only for reader that use the GNTP adapter. Even if UDP is
+<a href="http://growl.info/documentation/developer/protocol.php">binary format protocol</a>,
+it shouldn&#8217;t be considered as secure.</td>
+</tr></table>
+</div>
+<div class="paragraph"><p>GNTP is a MIME like format, contents are sent as readable plain text.
+You should think to use either :</p></div>
+<div class="ulist"><ul>
+<li>
+<p>
+a HTTPS secure channel
+</p>
+</li>
+<li>
+<p>
+encrypt your data on a basic HTTP channel
+</p>
+</li>
+</ul></div>
+<div class="paragraph"><p>We will see now, how to encrypt your data and what formats are supported.</p></div>
+<div class="paragraph"><p>The authorization of messages is accomplished by passing key information that proves
+that the sending application knows a shared secret with the notification system,
+namely a password. Users that want to authorize applications must share with them
+a password that will be used for both authorization and encryption.</p></div>
+<div class="admonitionblock">
+<table><tr>
+<td class="icon">
+<img src="./images/icons/note.png" alt="Note" />
+</td>
+<td class="content">By default, authorization is not required for requests orginating on the local machine.</td>
+</tr></table>
+</div>
+<div class="tableblock table table-bordered table-striped" id="HASHALGO">
+<table rules="rows"
+width="100%"
+frame="border"
+cellspacing="0" cellpadding="4">
+<caption class="title">Table 1. The supported hashing algorithms</caption>
+<col width="33%" />
+<col width="66%" />
+<thead>
+<tr>
+<th align="left" valign="top">Hash</th>
+<th align="left" valign="top">Features</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left" valign="top"><p class="table"><strong>MD5</strong></p></td>
+<td align="left" valign="top"><p class="table">128-bit, 16 byte, 32 character length when hex encoded</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table"><strong>SHA1</strong></p></td>
+<td align="left" valign="top"><p class="table">160-bit, 20 byte, 40 character length when hex encoded</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table"><strong>SHA256</strong></p></td>
+<td align="left" valign="top"><p class="table">256-bit, 32 byte, 64 character length when hex encoded</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table"><strong>SHA512</strong></p></td>
+<td align="left" valign="top"><p class="table">512-bit, 64 byte, 128 character length when hex encoded</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="tableblock table table-bordered table-striped" id="CRYPTALGO">
+<table rules="rows"
+width="100%"
+frame="border"
+cellspacing="0" cellpadding="4">
+<caption class="title">Table 2. The supported encryption algorithms</caption>
+<col width="33%" />
+<col width="66%" />
+<thead>
+<tr>
+<th align="left" valign="top">Hash</th>
+<th align="left" valign="top">Features</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left" valign="top"><p class="table"><strong>NONE</strong></p></td>
+<td align="left" valign="top"><p class="table">No encryption; messages are sent in plain text</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table"><strong>AES</strong></p></td>
+<td align="left" valign="top"><p class="table">key length: 24 bytes (192 bit), block size: 16 byte (128 bit), iv size: 16 byte (128 bit)</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table"><strong>DES</strong></p></td>
+<td align="left" valign="top"><p class="table">key length: 8 bytes (64 bit), block size: 8 byte (64 bit), iv size: 8 byte (64 bit)</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table"><strong>3DES</strong></p></td>
+<td align="left" valign="top"><p class="table">key length: 24 bytes (192 bit), block size: 8 byte (64 bit), iv size: 8 byte (64 bit)</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="admonitionblock">
+<table><tr>
+<td class="icon">
+<img src="./images/icons/note.png" alt="Note" />
+</td>
+<td class="content">All encryption algorithms should use a block mode of CBC (Cipher Block Chaining) and PKCS5 (PKCS7) padding.</td>
+</tr></table>
+</div>
+<div class="admonitionblock">
+<table><tr>
+<td class="icon">
+<img src="./images/icons/important.png" alt="Important" />
+</td>
+<td class="content">It is important to keep in mind that some encryption algorithms
+require keys that are longer than can be generated by some hashing algorithms.
+As such, not all hash/encryption combinations are valid
+(ex: MD5 hash produces a 16 byte result, but AES encryption requires a 24-byte key).</td>
+</tr></table>
+</div>
+<div class="tableblock table table-bordered table-striped">
+<table rules="rows"
+width="100%"
+frame="border"
+cellspacing="0" cellpadding="4">
+<caption class="title">Table 3. Hash and Encryption algorithms compatibilities</caption>
+<col width="33%" />
+<col width="66%" />
+<thead>
+<tr>
+<th align="left" valign="top">Encryption</th>
+<th align="left" valign="top">Hash</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left" valign="top"><p class="table">AES</p></td>
+<td align="left" valign="top"><p class="table">SHA256, SHA512</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">DES</p></td>
+<td align="left" valign="top"><p class="table">MD5, SHA1, SHA256, SHA512</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">3DES</p></td>
+<td align="left" valign="top"><p class="table">SHA256, SHA512</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="paragraph"><p>To encrypt your data, its very easy.
+You have just to specify in <strong>options</strong> of <a href="#C1M1">Net_Growl::singleton</a> method :</p></div>
+<div class="ulist"><ul>
+<li>
+<p>
+password hash algorithm, see <a href="#HASHALGO">the supported hashing algorithms</a>.
+</p>
+</li>
+<li>
+<p>
+encryption algorithm, see <a href="#CRYPTALGO">the supported encryption algorithms</a>.
+</p>
+</li>
+</ul></div>
+<div class="exampleblock">
+<div class="title">Example 1. encrypted messages with AES/SHA256</div>
+<div class="content">
+<div class="listingblock">
+<div class="content"><div class="highlight"><pre><span class="cp">&lt;?php</span>
+<span class="k">require_once</span> <span class="s1">&#39;Net/Growl/Autoload.php&#39;</span><span class="p">;</span>
+
+<span class="nv">$notifications</span> <span class="o">=</span> <span class="k">array</span><span class="p">(</span>
+    <span class="s1">&#39;GROWL_NOTIFY_PHPERROR&#39;</span>
+<span class="p">);</span>
+<span class="nv">$appName</span>  <span class="o">=</span> <span class="s1">&#39;PHP App Example using GNTP/encrypt AES&#39;</span><span class="p">;</span>
+<span class="nv">$password</span> <span class="o">=</span> <span class="s1">&#39;mamasam&#39;</span><span class="p">;</span>
+
+<span class="nv">$app</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Net_Growl_Application</span><span class="p">(</span>
+    <span class="nv">$appName</span><span class="p">,</span>
+    <span class="nv">$notifications</span><span class="p">,</span>
+    <span class="nv">$password</span>
+<span class="p">);</span>
+<span class="nv">$options</span> <span class="o">=</span> <span class="k">array</span><span class="p">(</span>
+    <span class="s1">&#39;protocol&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;gntp&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;timeout&#39;</span>  <span class="o">=&gt;</span> <span class="mi">10</span><span class="p">,</span>
+    <span class="s1">&#39;encryptionAlgorithm&#39;</span>   <span class="o">=&gt;</span> <span class="s1">&#39;AES&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;passwordHashAlgorithm&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;SHA256&#39;</span><span class="p">,</span>
+<span class="p">);</span>
+
+<span class="k">try</span> <span class="p">{</span>
+    <span class="nv">$growl</span> <span class="o">=</span> <span class="nx">Net_Growl</span><span class="o">::</span><span class="na">singleton</span><span class="p">(</span><span class="nv">$app</span><span class="p">,</span> <span class="k">null</span><span class="p">,</span> <span class="k">null</span><span class="p">,</span> <span class="nv">$options</span><span class="p">);</span>
+    <span class="nv">$growl</span><span class="o">-&gt;</span><span class="na">register</span><span class="p">();</span>
+
+    <span class="nv">$title</span>       <span class="o">=</span> <span class="s1">&#39;Welcome in PHP/GNTP world&#39;</span><span class="p">;</span>
+    <span class="nv">$description</span> <span class="o">=</span> <span class="s2">&quot;New GNTP protocol support 3 encryption algorithms ! </span><span class="se">\n</span><span class="s2">&quot;</span>
+                 <span class="o">.</span> <span class="s2">&quot;DES, 3DES, AES with 4 hash algorithm </span><span class="se">\n</span><span class="s2">&quot;</span>
+                 <span class="o">.</span> <span class="s2">&quot;MD5, SHA1, SHA256, SHA512.&quot;</span><span class="p">;</span>
+    <span class="nv">$options</span>     <span class="o">=</span> <span class="k">array</span><span class="p">(</span>
+        <span class="s1">&#39;sticky&#39;</span> <span class="o">=&gt;</span> <span class="k">true</span><span class="p">,</span>
+    <span class="p">);</span>
+    <span class="nv">$growl</span><span class="o">-&gt;</span><span class="na">publish</span><span class="p">(</span><span class="nv">$name</span><span class="p">,</span> <span class="nv">$title</span><span class="p">,</span> <span class="nv">$description</span><span class="p">,</span> <span class="nv">$options</span><span class="p">);</span>
+
+<span class="p">}</span> <span class="k">catch</span> <span class="p">(</span><span class="nx">Net_Growl_Exception</span> <span class="nv">$e</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">echo</span> <span class="s1">&#39;Growl exception: &#39;</span> <span class="o">.</span> <span class="nv">$e</span><span class="o">-&gt;</span><span class="na">getMessage</span><span class="p">()</span> <span class="o">.</span> <span class="nx">PHP_EOL</span><span class="p">;</span>
+<span class="p">}</span>
+<span class="cp">?&gt;</span><span class="x"></span>
+</pre></div></div></div>
+</div></div>
+</div>
+</div>
+</div>
+<div id="footnotes"><hr /></div>
+<div id="footer">
+<div id="footer-text">
+Version 2.7.0<br />
+Last updated 2013-01-22 15:08:05 Paris, Madrid
+</div>
+</div>
+</body>
+</html>
