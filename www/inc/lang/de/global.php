@@ -5,6 +5,7 @@ $lang['locale']="de_DE.utf8";
 // menu head ###################################################
 $lang['menu_head']['home']		="Home";
 $lang['menu_head']['cameras']	="Kameras";
+$lang['menu_head']['photos']	="Photos"; // to translate
 $lang['menu_head']['commands']	="Befehle";
 $lang['menu_head']['sensors']	="Fühler";
 $lang['menu_head']['devices']	="Geräte";
