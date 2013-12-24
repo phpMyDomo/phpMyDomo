@@ -1,8 +1,10 @@
 # phpMyDomo ChangeLog
 
-## Version : 0.141 - Dec 23, 2013
+## Version : 0.141 - Dec 24, 2013
 - new : Add (unmerged) actions Email, XBMC, Growl
-- new : OJN (Nabaztag) Action
+- new : Action Nabaztag (using OJN)
+- new : Action Prowl (IOS devices)
+- new : Action NMA (Android devices)
 
 ## Version : 0.140 - Dec 23, 2013
 - new: Introduces Actions (notifications)
