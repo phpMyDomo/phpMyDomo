@@ -30,6 +30,9 @@ class PMD_Kernel{
 	//objects
 	var $o_api;
 	var $o_page;
+	
+	//latest cache file
+	var $cache_file;
 
 	//----------------------------------------------------------------------------------
 	function __construct(){
@@ -143,6 +146,20 @@ class PMD_Kernel{
 		}
 		$path=str_replace('PMD_','&copy;',$path);
 		return $path;
+	}
+
+	//-----------------------------------------------------------------------------------------------------------------------
+	function CacheRead($file,$time_out=3600){
+		$this->cache_file=$file;
+		if(file_exists($file) and filemtime($file) > (time() - $time_out ) ){
+			return file_get_contents($file);
+		}
+	}
+	//-----------------------------------------------------------------------------------------------------------------------
+	function CacheWrite($content,$file=''){
+		$file or $file=$this->cache_file;
+		file_put_contents($file,$content);
+		chmod($file,0777);
 	}
 
 
