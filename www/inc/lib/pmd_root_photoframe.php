@@ -83,7 +83,7 @@ class PMD_Root_PhotoFrame extends PMD_Root{
 				$this->vars['path'].='/';
 			}
 			if(!file_exists($this->vars['path'])){
-				$this->o_kernel->PageError("500",'Cant find the current albums path ($frame["path"]) : '.$this->vars['path']);
+				$this->o_kernel->PageError("500",'Cant find the current albums path ($photo["path"]) : '.$this->vars['path']);
 			}
 		}
 	}
