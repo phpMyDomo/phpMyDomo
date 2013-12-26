@@ -4,7 +4,7 @@
 PLEASE READ the /phpMyDomo/doc/howto/photoframe.md for more informations
 
 ## Description  ----------------------------------------------------------------------------------
-List photos located in a directory of albums sub-directories.
+Lists photos located in a directory of albums sub-directories.
 
 Structure:
 /path/to/Albums
@@ -25,7 +25,7 @@ The album directory path ($photo['path']) must be WITHIN the www folder!
 */
 
 // ##############################################################################
-// Preferences  ###############################################################
+// Player Preferences  ##########################################################
 // ##############################################################################
 
 $photo['prefs']['speed']				=5;		//time in seconds
@@ -41,7 +41,9 @@ $photo['prefs']['show_slide_nav']		=true;	// true | false
 $photo['prefs']['show_progress_bar']	=false;	// true | false
 $photo['prefs']['show_control_bar']		=true;	// true | false
 $photo['prefs']['show_play']			=true;	// true | false
+$photo['prefs']['show_album']			=false;	// true | false
 $photo['prefs']['show_caption']			=true;	// true | false
+$photo['prefs']['show_date']			=true;	// true | false
 $photo['prefs']['show_counter']			=true;	// true | false
 $photo['prefs']['show_bullets']			=true;	// true | false
 $photo['prefs']['show_albums']			=false;	// true | false

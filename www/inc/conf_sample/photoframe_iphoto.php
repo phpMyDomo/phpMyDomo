@@ -7,12 +7,12 @@ PLEASE READ the /phpMyDomo/doc/howto/photoframe.md for more informations
 Lists photos from an iPhoto database.
 
 ## Requirements  ----------------------------------------------------------------------------------
-The album directory path ($photo['path']) must be WITHIN the www folder!  
+The iphoto main directory path ($photo['path']) must be WITHIN the www folder!  
 
 */
 
 // ##############################################################################
-// Preferences  ###############################################################
+// Player Preferences  ##########################################################
 // ##############################################################################
 
 $photo['prefs']['speed']				=5;		//time in seconds
@@ -28,8 +28,9 @@ $photo['prefs']['show_slide_nav']		=true;	// true | false
 $photo['prefs']['show_progress_bar']	=false;	// true | false
 $photo['prefs']['show_control_bar']		=true;	// true | false
 $photo['prefs']['show_play']			=true;	// true | false
-$photo['prefs']['show_album']			=true;	// true | false
+$photo['prefs']['show_album']			=false;	// true | false
 $photo['prefs']['show_caption']			=true;	// true | false
+$photo['prefs']['show_date']			=true;	// true | false
 $photo['prefs']['show_counter']			=true;	// true | false
 $photo['prefs']['show_bullets']			=false;	// true | false
 $photo['prefs']['show_albums']			=false;	// true | false
@@ -42,13 +43,16 @@ $photo['prefs']['show_thumb']			=true;	// true | false
 // ##############################################################################
 
 //path to the iPhoto Root folder, ie "iPhoto Library":
-$photo['path']		='/path/to/pmd/www/inc/conf/iPhoto Library';
+$photo['path']			='/path/to/pmd/www/inc/conf/iPhoto Library';
 
-/*
-	Tips: If you have enabled the "FollowSymLinks" Options in the Apache virtual host configuration, you might be able to make a symbolic link to an external directory, ie:  
+/*	Tips: If you have enabled the "FollowSymLinks" Option in the Apache virtual host configuration, you might be able to make a symbolic link to an external directory, ie:  
 	ln -s /mnt/photos /path_to_pmd/www/iphoto
 	and thus use $photo['path']="/path_to_pmd/www/iphoto";
 */
+
+// Cache Duration (in Hours) ---------------------------------------------------------------------------------
+// As the iPhoto database can be pretty big (so very slow to parse), its content will be cached for this time.
+$photo['cache_duration']=48;	//hours
 
 
 ?>
