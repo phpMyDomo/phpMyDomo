@@ -54,12 +54,15 @@ class PMD_PhotoFrame extends PMD_Root_PhotoFrame{
 			$first_image='';
 			foreach(glob($path."/*.{jpg,jpeg,JPG,JPEG}",GLOB_BRACE) as $img_path){
 				$count or $first_image=$this->PathToUrl($img_path);
+				$count or $first_time	=filectime($img_path);
 				$count++;
 			}
 			
 			$out[$id]['title']	=ucwords(str_replace('_',' ',$dir));
 			$out[$id]['image']	=$first_image;
 			$out[$id]['thumb']	=$out[$id]['image'];
+			$out[$id]['time']	=$first_time;
+			$out[$id]['count']	=$count;
 		}
 		if(count($out)){
 			asort($out);
@@ -80,8 +83,9 @@ class PMD_PhotoFrame extends PMD_Root_PhotoFrame{
 			foreach(glob($dir_path."*.{jpg,jpeg,JPG,JPEG}",GLOB_BRACE) as $path){
 				$file	= basename($path);
 				$info 	= pathinfo($file);
-				$out[$i]['image']=$this->PathToUrl($path);
-				$out[$i]['title']=ucwords(str_replace('_',' ',basename($file,'.'.$info['extension'])));
+				$out[$i]['image']	=$this->PathToUrl($path);
+				$out[$i]['title']	=ucwords(str_replace('_',' ',basename($file,'.'.$info['extension'])));
+				$out[$i]['time']	=filectime($path);
 				$i++;
 			}
 
