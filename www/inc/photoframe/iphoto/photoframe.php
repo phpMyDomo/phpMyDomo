@@ -43,6 +43,9 @@ class PMD_PhotoFrame extends PMD_Root_PhotoFrame{
 		//$this->o_iphoto=new IphotoParser();
 		$this->file_cache	=$this->conf['paths']['caches'].$this->file_cache;
 		$this->file_xml		=$this->vars['path'].$this->file_xml;
+		if($this->vars['cache_duration']>0){
+			$this->cache_duration=$this->vars['cache_duration'] * 3600;
+		}
 	}
 
 
