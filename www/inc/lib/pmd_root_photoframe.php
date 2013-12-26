@@ -40,14 +40,38 @@ class PMD_Root_PhotoFrame extends PMD_Root{
 		if(file_exists($my_conf)){
 			require_once($my_conf);
 			$this->vars=$photo;
-
-			$this->vars['prefs']['speed']				*=1000; //milliseconds
-			$this->vars['prefs']['transition_speed']	*=1000; //milliseconds
-			
+			$this->SetPreferences();			
 		}
 		else{
 			$this->o_kernel->PageError(500,"Cant find configuration file at: $my_conf");
 		}
+	}
+
+	//----------------------------------------------------------------------------------
+	function SetPreferences(){
+		isset($this->vars['prefs']['speed'])				or $this->vars['prefs']['speed']				=5;		//time in seconds
+		isset($this->vars['prefs']['transition'])			or $this->vars['prefs']['transition']			=3;		// 0=None, 1=Fade, 2=Slide Top, 3=Slide Right, 4=Slide Bottom, 5=Slide Left, 6=Carousel Right, 7=Carousel Left
+		isset($this->vars['prefs']['transition_speed'])		or $this->vars['prefs']['transition_speed']		=0.8;	//time in seconds
+		isset($this->vars['prefs']['random'])				or $this->vars['prefs']['random']				=true;	// true | false
+		isset($this->vars['prefs']['performance'])			or $this->vars['prefs']['performance']			=1;	// 0=Normal, 1=Hybrid speed/quality, 2=Optimizes image quality, 3=Optimizes transition speed
+
+		isset($this->vars['prefs']['show_thumb_nav'])		or $this->vars['prefs']['show_thumb_nav']		=true;	// true | false
+		isset($this->vars['prefs']['show_slide_nav'])		or $this->vars['prefs']['show_slide_nav']		=true;	// true | false
+
+		isset($this->vars['prefs']['show_progress_bar'])	or $this->vars['prefs']['show_progress_bar']	=false;	// true | false
+		isset($this->vars['prefs']['show_control_bar'])		or $this->vars['prefs']['show_control_bar']		=true;	// true | false
+		isset($this->vars['prefs']['show_play'])			or $this->vars['prefs']['show_play']			=true;	// true | false
+		isset($this->vars['prefs']['show_album'])			or $this->vars['prefs']['show_date']			=true;	// true | false
+		isset($this->vars['prefs']['show_caption'])			or $this->vars['prefs']['show_caption']			=true;	// true | false
+		isset($this->vars['prefs']['show_date'])			or $this->vars['prefs']['show_date']			=true;	// true | false
+		isset($this->vars['prefs']['show_counter'])			or $this->vars['prefs']['show_counter']			=true;	// true | false
+		isset($this->vars['prefs']['show_bullets'])			or $this->vars['prefs']['show_bullets']			=false;	// true | false
+		isset($this->vars['prefs']['show_albums'])			or $this->vars['prefs']['show_albums']			=false;	// true | false
+		isset($this->vars['prefs']['show_thumb'])			or $this->vars['prefs']['show_thumb']			=true;	// true | false
+
+		$this->vars['prefs']['speed']				*=1000; //milliseconds
+		$this->vars['prefs']['transition_speed']	*=1000; //milliseconds
+
 	}
 
 
