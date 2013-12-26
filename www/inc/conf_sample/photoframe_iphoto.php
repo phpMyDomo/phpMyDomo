@@ -43,7 +43,8 @@ $photo['prefs']['show_thumb']			=true;	// true | false
 // ##############################################################################
 
 //path to the iPhoto Root folder, ie "iPhoto Library":
-$photo['path']			='/path/to/pmd/www/inc/conf/iPhoto Library';
+//$photo['path']			='/path/to/pmd/www/inc/conf/iPhoto Library';
+$photo['path']			=$this->conf['paths']['confs'].'iphoto_lib';
 
 /*	Tips: If you have enabled the "FollowSymLinks" Option in the Apache virtual host configuration, you might be able to make a symbolic link to an external directory, ie:  
 	ln -s /mnt/photos /path_to_pmd/www/iphoto
