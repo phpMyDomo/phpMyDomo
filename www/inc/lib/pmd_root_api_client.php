@@ -146,6 +146,7 @@ class PMD_Root_ApiClient extends PMD_Root{
 				unset($cameras[$uid]);
 			}
 		}
+
 		// get additionnal cameras from conf
 		if(isset($this->conf['cameras_urls'])){
 			$i=0;
@@ -168,6 +169,21 @@ class PMD_Root_ApiClient extends PMD_Root{
 				$cameras[$cam['uid']]=$cam;
 			}
 		}
+		
+		$height=$this->conf['app']['cameras_height'] or $height=200;
+		$width=320;
+		
+		foreach($cameras as $k => $cam){
+			if($cam['x'] and $cam['y']){
+				$cameras[$k]['f_y']	=$height;
+				$cameras[$k]['f_x']	=round($cam['x'] * $height / $cam['y'] );				
+			}
+			else{
+				$cameras[$k]['f_x']=$width;
+				$cameras[$k]['f_y']=$height;
+			}
+		}
+		
 		//$this->Debug('cameras',$cameras);
 		return $cameras;
 	}
