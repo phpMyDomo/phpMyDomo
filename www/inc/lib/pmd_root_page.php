@@ -141,7 +141,7 @@ class PMD_Root_Page extends PMD_Root{
 		$this->SetHeader('js/main.js','js_global');
 		$this->SetHeader('js/skin.js','js');
 
-		$page['title']				=$this->lang['page']['title'];
+		$page['title'] or $page['title']=$this->lang['page']['title'];
 		$page['app_name']			=$this->conf['app']['home_name'];
 		$page['api']				=$this->conf['app']['api'];
 		$page['code']				=$this->conf['app']['page'];
