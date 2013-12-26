@@ -3,15 +3,15 @@
 
 PLEASE READ the /phpMyDomo/doc/howto/actions.md for more informations
 
-## Description  ----------------------------------------------------------------------------------
+## Description  ------------------------------------------------------------------------------------------------
 This action send a command to a Nabaztag using an OJN server
 
-## Requirements  ---------------------------------------------------------------------------------------
-You must have a working OpenJabNab server:
-https://github.com/OpenJabNab/OpenJabNab
+## Requirements  ------------------------------------------------------------------------------------------------
+You must have a working OpenJabNab server:  
+https://github.com/OpenJabNab/OpenJabNab  
 http://openjabnab.fr/ojn_admin/
 
-## Fields  ---------------------------------------------------------------------------------------
+## Fields  -----------------------------------------------------------------------------------------------------
 - 'type'	=> (mandatory) 'nabaztag'
 - 'server' 	=> (required) the server were is installed OJN: ie "myserver.com:81/ojn"
 - 'login' 	=> (required) the OJN login name
@@ -29,13 +29,13 @@ http://openjabnab.fr/ojn_admin/
 - 'custom'	=> (optionnal) replaces "{custom}" in the  text field
 
 
-
-## URLS examples ----------------------------------------------------------------------------
-/action?type=nabaztag&preset=door_ring
-/action?type=nabaztag&preset=ears_0
+## URLS examples --------------------------------------------------------------------------------------------
+/action?type=nabaztag&preset=door_ring  
+/action?type=nabaztag&preset=ears_0  
 /action?type=nabaztag&preset=ears_8
 
 */
+
 
 // ##############################################################################
 // Global Configuration  #######################################################
