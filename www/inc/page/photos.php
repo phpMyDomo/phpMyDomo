@@ -21,9 +21,13 @@ class PMD_Page extends PMD_Root_Page{
 		if(isset($_GET['id'])){
 			$id=$_GET['id'];
 
-			$data['albums']		=$this->PopupFromTitles($o->ListAlbums());
+			$albums				=$o->ListAlbums();
+			$data['albums']		=$this->PopupFromTitles($albums);
 			$data['selected']	=urlencode($id);
 			$data['prefs']		=$o->GetPreferences();
+
+			$cur_album=$albums[$data['selected']];
+			$page['title']		=ucfirst($cur_album['title'])." - ".$this->lang['global']['menu_head']['photos'];
 
 			$photos			=$o->ListPhotos($id);
 
@@ -39,7 +43,7 @@ class PMD_Page extends PMD_Root_Page{
 			$this->SetHeader('js/supersized.3.2.7.js',	'js_global');
 			$this->SetHeader('js/supersized.shutter.js','js_global');
 			$this->SetHeadJavascript("var pmd_dirs_supersized_img='{$this->conf['urls']['static']}/global/img/supersized/';");
-
+			
 			$this->conf['app']['page']='photoframe';
 		}
 		else{
@@ -49,7 +53,7 @@ class PMD_Page extends PMD_Root_Page{
 			}
 			$this->Assign('data',$data);
 		}
-		$this->Display();
+		$this->Display($page);
 	}
 
 	//----------------------------------------------------------------------------------
