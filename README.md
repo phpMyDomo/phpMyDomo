@@ -18,7 +18,9 @@ This is a Work In Progress: Depending on the chosen server API, some features mi
 ## Features
 - Allow to Switch on/off or Dim (experimental) any supported devices or scenes, from the Dashboard page
 - View all sensors at once, or per user defined groups
-- View all cameras on a single page
+- View all your IP Cameras on a single page
+- Display your photo library from a PhotoFrame like page
+- Launch Actions (ie Notifications) triggered by your HomeAutomation software (a simple URL request)
 - Responsive design : Display fine on any Android/IOS tablet, phone and any modern (HTML5) web browser
 - Multiple Skins, build your own easily
 - Multiples languages supported
