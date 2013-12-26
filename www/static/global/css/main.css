@@ -447,11 +447,22 @@ html, body {
 	overflow: hidden;
 	text-align: center;
 	display: inline-block;
-	margin-left: 7px;
-	margin-right: 7px;
+	margin: 0 5px 5px 5px;
+}
+#body_cameras .camera_full{
+	margin: 0;
+}
+#body_cameras .buttons{
+	margin-top: 10px;
 }
 #body_cameras .camera .panel-heading{
 	margin-bottom: 0;
+	padding: 3px 5px;
+	font-size: 13px;
+}
+#body_cameras .camera .panel-heading I{
+	opacity: 0.5;
+	margin-right: 3px;
 }
 #body_cameras .camera .panel-body-full{
 	padding: 2px;
