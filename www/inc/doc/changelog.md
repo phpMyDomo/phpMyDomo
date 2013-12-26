@@ -1,5 +1,9 @@
 # phpMyDomo ChangeLog
 
+## Version : 0.142 - Dec XX, 2013
+- new : PhotoFrame display you photo library (Direcories based or from iPhoto)
+- fix : Remove (online) Google Font dependencies
+
 ## Version : 0.141 - Dec 24, 2013
 - new : Add (unmerged) actions Email, XBMC, Growl
 - new : Action Nabaztag (using OJN)
