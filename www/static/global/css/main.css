@@ -581,6 +581,13 @@ html, body {
 	white-space: nowrap;
 	font-size: 13px;
 }
+#body_photos .panel_album .panel-heading .badge{
+	font-size: 9.5px;
+	margin-left: 5px;
+	margin-top: 2px;
+	opacity: 0.6;
+	float: right;
+}
 #body_photos .panel_selected{
 	border-color: #00F;
 }
@@ -633,7 +640,29 @@ html, body {
 	opacity: 0.8 !important;
 }
 
+
+
+#body_photoframe #albumName {
+	overflow: hidden;
+	float: left;
+	color: #AAF;
+	font: 400 14px "Helvetica Neue", Helvetica, Arial, sans-serif;
+	text-shadow: #000 1px 1px 2px;
+	margin: 0 0 0 10px;
+	line-height: 42px;
+}
+
+#body_photoframe .photoDate{
+	color: #777;
+}
 				
+#body_photoframe ul#slide-list{
+	float: right;
+	position: relative;
+	left: 0px;
+	margin-right: 20px;
+}
+
 #body_photoframe ul#selectAlbum{ 
 	padding:8px 0; 
 	float:right; 
@@ -642,7 +671,8 @@ html, body {
 #body_photoframe ul#selectAlbum SELECT{
 	background-color: #000;
 	color: #AAA;
-	font-size: 16px;
+	font-size: 15px;
+	width: 160px;
 }
 #body_photoframe #pmd_goback{
 	width: 70%;

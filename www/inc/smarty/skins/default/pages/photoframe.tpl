@@ -13,7 +13,9 @@
 					slide_links				:	'blank',	// Individual links for each slide (Options: false, 'num', 'name', 'blank')
 					slides 					:  	[			// Slideshow Images
 {foreach from=$data.photos item=i name=loop}
-{	image: "{$i.image}", title : "{$i.title}" , thumb : "{$i.thumb|default:$i.image}", url : "{$i.image}"	}
+{$my_title=$i.title}
+{if $data.prefs.show_date}{$my_title=$my_title|cat:" <span class='photoDate'> - {$i.time|date_format}</span>"}{/if}
+{	image: "{$i.image}", title : "{$my_title}" , thumb : "{$i.thumb|default:$i.image}", url : "{$i.image}"	}
 {if !$smarty.foreach.loop.last},{/if}
 {/foreach}
 												]
@@ -32,7 +34,7 @@
 
 
 <div id='div_photos'>
-	<a id="pmd_goback" href='?selected={$data.selected}' title="Albums"></div></a>
+	<a id="pmd_goback" href='?selected={$data.selected}#a_{$data.selected}' title="Albums"></div></a>
 
 {if $data.prefs.show_thumb_nav}
 	<div id="prevthumb"></div>
@@ -64,6 +66,10 @@
 	{if $data.prefs.show_play}
 			<a id="play-button"><img id="pauseplay" src="{$p.urls.static}/global/img/supersized/pause.png"/></a>
 	{/if}			
+
+	{if $data.prefs.show_album}
+			<div id="albumName">{$data.albums.{$data.selected}|ucfirst} :</div>
+	{/if}
 		
 	{if $data.prefs.show_counter}
 			<div id="slidecounter"><span class="slidenumber"></span> / <span class="totalslides"></span></div>
@@ -77,10 +83,6 @@
 			<a id="tray-button"><img id="tray-arrow" src="{$p.urls.static}/global/img/supersized/button-tray-up.png"/></a>
 	{/if}
 
-	{if $data.prefs.show_bullets}			
-			<ul id="slide-list"></ul>
-	{/if}
-
 	{if $data.prefs.show_albums}
 			<ul id="selectAlbum">
 				<select name='album' class="jsSelect">
@@ -88,6 +90,11 @@
 				</select>
 			</ul>
 	{/if}
+
+	{if $data.prefs.show_bullets}			
+			<ul id="slide-list"></ul>
+	{/if}
+
 			
 		</div>
 	</div>
