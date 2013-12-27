@@ -189,7 +189,7 @@ class PMD_Root_ApiClient extends PMD_Root{
 	}
 
 	//----------------------------------------------------------------------------------
-	private function _FilterDevices($class='', $type='',$sort_field=''){
+	private function _FilterDevices($class='', $type='',$sort_cols=''){
 		$devices=$this->devices;
 		if($class){
 			$devices=$this->_ListDevicesIn($devices, $class, 'class');
@@ -197,8 +197,8 @@ class PMD_Root_ApiClient extends PMD_Root{
 		if($type){
 			$devices=$this->_ListDevicesIn($devices, $type, 'type');
 		}
-		if($sort_field){
-			$devices=$this->_array_orderby($devices,$sort_field,SORT_ASC,'name','SORT_ASC');
+		if($sort_cols){
+			$devices=$this->_array_msort($devices, $sort_cols); //cols = array('name' => SORT_ASC, 'type' => SORT_ASC  )
 		}
 		return $devices;
 	}
@@ -522,23 +522,30 @@ class PMD_Root_ApiClient extends PMD_Root{
 
 
 	//---------------------------------------------------------------
-	//http://php.net/manual/en/function.array-multisort.php#100534
-	// ie _array_orderby($data, 'volume', SORT_DESC, 'edition', SORT_ASC);
-	private function _array_orderby(){
-		$args = func_get_args();
-		$data = array_shift($args);
-		foreach ($args as $n => $field) {
-			if (is_string($field)) {
-				$tmp = array();
-				foreach ($data as $key => $row)
-					$tmp[$key] = $row[$field];
-				$args[$n] = $tmp;
-				}
+	//http://php.net/manual/en/function.array-multisort.php#91638
+	private function _array_msort($array, $cols){
+		$colarr = array();
+		foreach ($cols as $col => $order) {
+			$colarr[$col] = array();
+			foreach ($array as $k => $row) { $colarr[$col]['_'.$k] = strtolower($row[$col]); }
 		}
-		$args[] = &$data;
-		call_user_func_array('array_multisort', $args);
-		return array_pop($args);
+		$eval = 'array_multisort(';
+		foreach ($cols as $col => $order) {
+			$eval .= '$colarr[\''.$col.'\'],'.$order.',';
+		}
+		$eval = substr($eval,0,-1).');';
+		eval($eval);
+		$ret = array();
+		foreach ($colarr as $col => $arr) {
+			foreach ($arr as $k => $v) {
+				$k = substr($k,1);
+				if (!isset($ret[$k])) $ret[$k] = $array[$k];
+				$ret[$k][$col] = $array[$k][$col];
+			}
+		}
+		return $ret;
 	}
+
 
 
 } 
