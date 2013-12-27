@@ -98,6 +98,18 @@ class PMD_Root_ApiClient extends PMD_Root{
 	function ApiLoad(){
 		$this->ApiListDevices();
 		$this->ApiListInfos();
+
+		$this->FormatDevices();
+
+	}
+
+	//----------------------------------------------------------------------------------
+	function FormatDevices(){
+		foreach($this->devices as $k => $row){
+			$this->devices[$k]['unit'] or $this->devices[$k]['unit']=$this->conf['units'][$row['type']];
+			$this->devices[$k]['lang_class']	=$this->lang['global']['classes'][$row['class']];
+			$this->devices[$k]['lang_type']		=$this->lang['global']['types'][$row['type']];
+		}
 	}
 
 
@@ -295,11 +307,11 @@ class PMD_Root_ApiClient extends PMD_Root{
 	}
 
 	//----------------------------------------------------------------------------------
-	function FormatResults($rows,$type='',$sorted=1){
+	function FormatRawResults($rows,$type='',$sorted=1){
 		$out=array();
 		$i=0;
 		foreach($rows as $row){
-			$formated=$this->FormatRow($row,$type);
+			$formated=$this->AutoRow($row,$type);
 
 			$name=$formated['name'];
 			$name=strtolower($name)."_$i";
@@ -315,7 +327,7 @@ class PMD_Root_ApiClient extends PMD_Root{
 	}
 
 	//----------------------------------------------------------------------------------
-	function FormatRow($row,$type=''){
+	function AutoRow($row,$type=''){
 		$out=array();
 		foreach($this->vars['fields'] as $k => $field){
 			if(isset($row[$field])){
@@ -343,7 +355,7 @@ class PMD_Root_ApiClient extends PMD_Root{
 			$r= $this->api_response;
 		}
 		if($formated){
-			$r=$this->FormatResults($r);
+			$r=$this->FormatRawResults($r);
 		}
 		return $r;
 	}
