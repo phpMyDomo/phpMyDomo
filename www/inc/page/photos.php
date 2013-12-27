@@ -18,6 +18,7 @@ class PMD_Page extends PMD_Root_Page{
 		}
 
 		$data=array();
+		//photoframe mode -------------------------------
 		if(isset($_GET['id'])){
 			$id=$_GET['id'];
 
@@ -46,14 +47,29 @@ class PMD_Page extends PMD_Root_Page{
 			
 			$this->conf['app']['page']='photoframe';
 		}
+		//album mode -------------------------------
 		else{
-			$data['albums']=$o->ListAlbums();
+			$albums=$o->ListAlbums();
+			$data=$this->_paginate($albums);
 			if(isset($_GET['selected'])){
 				$data['selected']=$_GET['selected'];
 			}
 			$this->Assign('data',$data);
 		}
 		$this->Display($page);
+	}
+
+	//----------------------------------------------------------------------------------
+	private function _paginate($array,$max=50) {
+		$p=1; 
+		if(isset($_GET['p'])){
+			$p=intval($_GET['p']);
+		}
+		$x=($p - 1)*$max;
+		$out['rows']			=array_slice($array,$x,$max,true);
+		$out['current_page']	=$p;
+		$out['pages']			=ceil(count($array) / $max);
+		return $out;
 	}
 
 	//----------------------------------------------------------------------------------

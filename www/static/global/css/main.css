@@ -591,6 +591,7 @@ html, body {
 	text-align: center;
 	white-space: nowrap;
 	font-size: 13px;
+	padding: 6px 8px;
 }
 #body_photos .panel_album .panel-heading .badge{
 	font-size: 9.5px;
@@ -617,6 +618,20 @@ html, body {
 #body_photos .panel_album IMG{
 	height: 100%;
 	border: 1px solid #ccc;
+}
+
+#body_photos .pagination LI A{
+	font-size: 24px;
+	min-width: 50px;
+	display: inline-block;
+}
+#body_photos .pagination LI.active A{
+	background-color: #ddf;
+	color: #333;
+}
+#body_photos .pagination .navpage I{
+	font-size: 34px;
+	opacity: 0.8;
 }
 /* @end */
 
