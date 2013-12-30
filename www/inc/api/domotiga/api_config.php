@@ -96,8 +96,8 @@ $api['states']['security']['door']['Open']		='on';
 // fields from the 'result' rows
 $api['fields']['name']				="name";
 $api['fields']['address']			="device_id";
-$api['fields']['raw_value1']		="value1";
-$api['fields']['raw_value2']		="value2";
+//$api['fields']['raw_value1']		="value1";
+//$api['fields']['raw_value2']		="value2";
 $api['fields']['battery_status']	="batterystatus";
 //$api['fields']['battery_level']	="?";
 //$api['fields']['signal_level']	="?";

@@ -24,7 +24,7 @@
 #########################################################################################
 Domotiga API ############################################################################
 #########################################################################################
-Tested on v1.0.012
+Tested on v1.0.013
 */
 
 class PMD_ApiClient extends PMD_Root_ApiClient{
@@ -44,11 +44,13 @@ class PMD_ApiClient extends PMD_Root_ApiClient{
 
 	//----------------------------------------------------------------------------------
 	function ApiListDevices(){
+
 		if($this->ApiFetch('list','device_enabled')){
 			$devices = $this->GetResult();
 			$i=0;
 			foreach($devices as $d){
 				$raw=$d['raw'];
+				$d['raw_value1']=$raw['values'][0]['value'];
 				if($raw['switchable']=='1'){
 					$d['class']	="command";
 					$d['type']	="switch";
