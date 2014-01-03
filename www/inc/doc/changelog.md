@@ -1,10 +1,12 @@
 # phpMyDomo ChangeLog
 
-## Version : 0.142 - Dec XX, 2013
-- new : PhotoFrame display you photo library (Direcories based or from iPhoto)
+## Version : 0.142 - Jan 03, 2014
+- new : PhotoFrame display your photo library (Directory based or from iPhoto)
 - fix : Remove (online) Google Font dependencies
 - new : Cameras FullScreen Mode
 - fix : Cameras list scaled
+- fix : Domotiga v1.0.013 compatibility
+- fix : device sorted according to the user language
 
 ## Version : 0.141 - Dec 24, 2013
 - new : Add (unmerged) actions Email, XBMC, Growl
