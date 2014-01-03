@@ -5,8 +5,8 @@
 - fix : Remove (online) Google Font dependencies
 - new : Cameras FullScreen Mode
 - fix : Cameras list scaled
-- fix : Domotiga v1.0.013 compatibility
-- fix : device sorted according to the user language
+- fix : Domotiga v1.0.013 compatibility (breaks v1.0.012 compatibility)
+- fix : Devices sorted according to the user language
 
 ## Version : 0.141 - Dec 24, 2013
 - new : Add (unmerged) actions Email, XBMC, Growl
