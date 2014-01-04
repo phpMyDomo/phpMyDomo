@@ -46,7 +46,7 @@ $api['actions']['set']['dim_level']		=array(
 											'method'	=>'device.set',
 											'params'	=>array(
 													'device_id'	=>'{address}',
-													'value'		=>'Dim <{state}>'
+													'value'		=>'Dim {state}'
 												)
 											);
 
