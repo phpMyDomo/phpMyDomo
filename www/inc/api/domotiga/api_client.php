@@ -110,7 +110,7 @@ class PMD_ApiClient extends PMD_Root_ApiClient{
 				if($d['type']=='temp' and $raw['values'][1]['units']=='%'){
 					$d2=$d;
 					$d2['type']	='hygro';
-					$d2['value']=$d['values'][1]['value'];
+					$d2['value']=$raw['values'][1]['value'];
 					$this->RegisterDevice($d2,'hum');	
 				}
 			}
