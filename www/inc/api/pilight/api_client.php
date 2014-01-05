@@ -25,7 +25,7 @@
 Pilight API #############################################################################
 #########################################################################################
 
-Draft Pilight API (absolutely not tested,  certainly needs some fixes)
+Draft pilight API (absolutely not tested,  certainly needs some fixes)
 
 */
 
