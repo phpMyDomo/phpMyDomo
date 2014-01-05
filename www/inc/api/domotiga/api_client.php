@@ -64,7 +64,7 @@ class PMD_ApiClient extends PMD_Root_ApiClient{
 						$d['value']='100';
 					}
 					else{
-						$d['value'] = intval(preg_replace('#[^\d]+#',' ',$raw['value'][0]['value']));
+						$d['value'] = intval(preg_replace('#[^\d]+#',' ',$raw['values'][0]['value']));
 					}
 				}
 				if(!$d['class']){
