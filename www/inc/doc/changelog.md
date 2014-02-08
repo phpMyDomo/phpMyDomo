@@ -1,6 +1,6 @@
 # phpMyDomo ChangeLog
 
-## Version : 0.143 - Feb xx, 2014
+## Version : 0.143 - Feb 08, 2014
 - new : PhotoFrame ScreenSaver mode : automatically switch to photoframe when idle
 - new : Links Block : Custom links to various website
 - new : Hide browser address bar on mobiles
