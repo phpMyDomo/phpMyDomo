@@ -286,6 +286,21 @@ html, body {
 	font-weight: normal;
 	color: #333;
 }
+#block_links TABLE{
+	margin: 4px 0;
+}
+#block_links TD{
+	padding-left: 10px;
+	padding-right: 10px;
+	border: 0;
+}
+#block_links TD A{
+	width: 100%;
+	text-align: left;
+}
+#block_links TD I{
+	margin-right: 3px;
+}
 
 /* @end */
 /* @end */

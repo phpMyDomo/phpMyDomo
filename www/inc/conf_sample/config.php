@@ -166,6 +166,30 @@ Example 2: (working with openHab demo API)
 */
 
 
+// ##############################################################################
+// Links Block #######################################################################
+// ##############################################################################
+/*
+The Links Block allow you to create a block , with custom links to various websites
+
+Example: 
+
+$conf['blocks']['links'][]=array(
+	'url'	=>'http://www.phpmydomo.com',	// (required) url to link to
+	'name'	=>'PMD WebSite',				// (required) button name 
+	'blank'	=>'1',							// 0 (default) | 1 : launch in a new window or not 
+	'icon'	=>'external-link',				// icon name (default to 'bookmark' if not set)  refer to http://fontawesome.io/icons/ 
+);
+
+$conf['blocks']['links'][]=array(
+	'url'	=>'https://github.com/phpMyDomo/phpMyDomo/issues',	// (required) url to link to
+	'name'	=>'PMD issues',					// (required) button name 
+	'blank'	=>'1',							// 0 (default) | 1 : launch in a new window or not 
+	'icon'	=>'github',						// icon name (default to 'bookmark' if not set)  refer to http://fontawesome.io/icons/ 
+);
+
+*/
+
 
 // ##############################################################################
 // Cameras (if not already defined in the server devices) #######################

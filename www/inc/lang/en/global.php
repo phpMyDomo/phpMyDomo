@@ -18,8 +18,9 @@ $lang['classes']['camera']	="camera";
 $lang['classes']['security']="security";
 
 // blocks ###################################################
-$lang['blocks_titles']['weather']="Weather";
-$lang['blocks_titles']['sensors']="Sensors";
+$lang['blocks_titles']['weather']	="Weather";
+$lang['blocks_titles']['sensors']	="Sensors";
+$lang['blocks_titles']['links']		="Links";
 
 // types blocks ###################################################
 $lang['types']['scene']		="Scene";

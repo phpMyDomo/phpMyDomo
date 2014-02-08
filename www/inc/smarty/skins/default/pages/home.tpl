@@ -38,8 +38,9 @@
 {* ##################################################################################### *}
 {capture assign=page_right}
 
-{include file="{$p.template}/inc_block.tpl" type='weather' devices=$data.devices icon='fa fa-cloud'}
-{include file="{$p.template}/inc_block.tpl" type='sensors' devices=$data.devices icon='fa fa-info-circle'}
+{include file="{$p.template}/inc_block.tpl" type='weather'	devices=$data.devices icon='fa fa-cloud'}
+{include file="{$p.template}/inc_block.tpl" type='sensors'	devices=$data.devices icon='fa fa-info-circle'}
+{include file="{$p.template}/inc_block.tpl" type='links'	devices=$data.devices icon='fa fa-bookmark'}
 
 
 {* Calendar Block -------------------------------------------------- *}
