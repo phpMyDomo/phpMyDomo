@@ -231,6 +231,7 @@ html, body {
 .home_panel .sensor B{
 	color: #666;
 	margin-right: 2px;
+	margin-left: 4px;
 }
 .home_panel .sensor IMG{
 	height: 16px;

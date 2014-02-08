@@ -31,5 +31,11 @@
 
 {function name=makeSensorHome row=''}
 	{if $row.value}{$row.value=$row.value|number_format}{/if}
-	<span class='sensor'><img src='{$p.urls.static}/global/img/icon48_type_{$row.img_type}.png'> <b>{$row.value|default:$row.state}</b>{$p.units.{$row.type}}</span>
+	{$my_name=''}
+	{if $c.app.groups_sensors_names==1}
+		{$my_name=$row.name}
+	{elseif $c.app.groups_sensors_names}
+		{$my_name=$row.name|truncate:{$c.app.groups_sensors_names}}
+	{/if}
+	<span class='sensor'><img src='{$p.urls.static}/global/img/icon48_type_{$row.img_type}.png'> {$my_name} <b>{$row.value|default:$row.state}</b>{$row.unit|default:$p.units.{$row.type}}</span>
 {/function}
