@@ -1,5 +1,14 @@
 # phpMyDomo ChangeLog
 
+## Version : 0.143 - Feb xx, 2014
+- new : PhotoFrame ScreenSaver mode : automatically switch to photoframe when idle
+- new : Links Block : Custom links to various website
+- new : Hide browser address bar on mobiles
+- new : Show/hide sensors names in groups titles
+- new : UK language (same as EN language, but using the 24h format)
+- fix : Show missing sensors units in groups titles
+- fix : Fix Domotiga DIM commands
+
 ## Version : 0.142 - Jan 03, 2014
 - new : PhotoFrame display your photo library (Directory based or from iPhoto)
 - fix : Remove (online) Google Font dependencies
