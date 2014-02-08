@@ -87,6 +87,9 @@ html, body {
 #lay_header .navbar-brand{
 	opacity: 0.4;
 }
+#lay_header A{
+	white-space: nowrap;
+}
 #lay_header .menu_admin A{
 	padding: 9px;
 }
