@@ -1,11 +1,12 @@
+/* var ajax_url='/ajax'; */
+var refresh_time=12;
+
 jQuery( document ).ready(function() {
     console.log( "JS Ready!" );
     
-    /* var ajax_url='/ajax'; */
-	var refresh_time=12;
 
     /* Reload page -------------------------------------- */
-	var reload_time=$('#jsReload').attr('data-time');
+	var reload_time	=$('#jsReload').attr('data-time');
 	SetReload(reload_time);
     
     /* Button Switch -------------------------------------- */
@@ -83,7 +84,7 @@ jQuery( document ).ready(function() {
 					}
 				})
 			.on('slide', $.throttle( 250, function (ev) {
-					SetReload(120);
+					SetReload(reload_time);
 					value = Math.round(ev.value);
             		if(value != last_value){
 	            		last_value= value;
@@ -129,10 +130,23 @@ jQuery( document ).ready(function() {
 /* SetReload -------------------------------------- */
 function SetReload(time){
 	if(time > 0){
-		setTimeout("ReloadPage()", time * 1000);
+		if(time == refresh_time){
+			setTimeout("ReloadPage(0)", time * 1000);		
+		}
+		else{
+			setTimeout("ReloadPage(1)", time * 1000);		
+		}
 	}
 }
 /* ReloadPage -------------------------------------- */
-function ReloadPage() {
-   location.reload();
+function ReloadPage(jump) {
+	var reload_album=$('#jsReload').attr('data-pf_album');
+	var reload_url	=$('#jsReload').attr('data-pf_url');
+	if(jump == 1 && reload_album){
+		var url=reload_url+reload_album;
+		window.location.href=url;
+	}
+	else{
+		location.reload();
+	}
 };

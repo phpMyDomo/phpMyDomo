@@ -27,6 +27,12 @@ $conf['app']['photoframe']		="directory";
 //Locale: uncomment to override the locale defined in the language file
 //$conf['app']['locale']		="en_US.utf8"; 
 
+// The home page automatically reload after xx seconds, to refresh the buttons or sensor states.
+$conf['app']['reload_time']			="120"; // time in seconds
+
+//When a "photoframe_ss_album" is set, instead of refreshing the home windows, PMD automatically jump to this selected album (like a screen saver)
+//$conf['app']['photoframe_ss_album']	="12821";	// album id to launch in ScreenSaver mode 
+
 
 
 //	Urls  #####################################################################

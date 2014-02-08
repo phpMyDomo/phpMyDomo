@@ -1,8 +1,7 @@
 {include file="global/inc_functions.tpl" inline}
 {* ##################################################################################### *}
 {capture assign=page_content}
-<meta name='jsvar' id="jsReload" data-time='120' />
-
+<meta name='jsvar' id="jsReload" data-time='{$c.app.reload_time}'  data-pf_album='{$c.app.photoframe_ss_album}' data-pf_url="{$p.urls.photoframe_album}" />
 
 	{foreach from=$p.groups key=gid item=group}	
 		<div class="panel panel-default home_groups home_panel">
