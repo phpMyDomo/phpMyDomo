@@ -53,17 +53,14 @@ You will certainly LOVE it!
 ## Roadmap ###############################################################################
 - finalize dimmers
 - finalize/add new API clients
-- actions triggered by http Get requests : ie email, growl notifications, XBMC notifications, xPl message....
 - better design (CSS, icons, etc...)
 - move blocks / group config to a GUI, using a light file based database (listing devices groups, blocks, customs icons)
 - better skins (with skin configs to override simple design choices, ie buttons sizes)
 - user defined pages + smarty templates
-- PhotoFrame like page
 - Integrate xPl, as an api-client, to be able to send xPl messages
 - DLNA/upnp controller
 - Asterisk Call logs displays, and basic redial
 - HTML5 sensor Graphs , using highcharts (www.highcharts.com)
-- external links
 - multiple API client support in a single phpDomo instance (if any interest)
 - ....
 
