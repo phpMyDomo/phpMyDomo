@@ -4,6 +4,10 @@ var refresh_time=12;
 jQuery( document ).ready(function() {
     console.log( "JS Ready!" );
     
+    /* Hide browser address bar */
+	/Mobile/.test(navigator.userAgent) && !location.hash && setTimeout(function () {
+    	if (!pageYOffset) window.scrollTo(0, 1);
+	}, 500);
 
     /* Reload page -------------------------------------- */
 	var reload_time	=$('#jsReload').attr('data-time');
