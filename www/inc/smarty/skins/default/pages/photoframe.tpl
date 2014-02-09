@@ -34,7 +34,7 @@
 
 
 <div id='div_photos'>
-	<a id="pmd_goback" href='?selected={$data.selected}#a_{$data.selected}' title="Albums"></div></a>
+	<a id="pmd_goback" href='{$p.url_back}' title="Albums"></div></a>
 
 {if $data.prefs.show_thumb_nav}
 	<div id="prevthumb"></div>

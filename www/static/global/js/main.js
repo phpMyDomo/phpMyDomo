@@ -147,7 +147,7 @@ function ReloadPage(jump) {
 	var reload_album=$('#jsReload').attr('data-pf_album');
 	var reload_url	=$('#jsReload').attr('data-pf_url');
 	if(jump == 1 && reload_album){
-		var url=reload_url+reload_album;
+		var url=reload_url+reload_album+'&back=1';
 		window.location.href=url;
 	}
 	else{

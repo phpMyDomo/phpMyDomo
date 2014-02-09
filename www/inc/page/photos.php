@@ -29,6 +29,13 @@ class PMD_Page extends PMD_Root_Page{
 
 			$cur_album=$albums[$data['selected']];
 			$page['title']		=ucfirst($cur_album['title'])." - ".$this->lang['global']['menu_head']['photos'];
+						
+			if(isset($_GET['back'])){
+				$page['url_back']=$this->conf['urls']['www'];
+			}
+			else{
+				$page['url_back']="?selected={$data['selected']}#a_{$data['selected']}";
+			}
 
 			$photos			=$o->ListPhotos($id);
 
