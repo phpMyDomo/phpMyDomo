@@ -41,5 +41,5 @@
 	{elseif $c.app.groups_sensors_names}
 		{$my_name=$row.name|truncate:{$c.app.groups_sensors_names}}
 	{/if}
-	<span class='sensor'><img src='{$p.urls.static}/global/img/icon48_type_{$row.img_type}.png'> {$my_name} <b>{$row.value|default:$row.state}</b>{$row.unit|default:$p.units.{$row.type}}</span>
+	<span class='sensor'><img src='{$p.urls.static}/global/img/icon48_type_{$row.img_type}.png'> {$my_name} <b>{$row.state|ucwords|default:$row.value}</b>{$row.unit|default:$p.units.{$row.type}}</span>
 {/function}
