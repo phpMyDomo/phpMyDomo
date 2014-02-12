@@ -167,15 +167,16 @@ jQuery( document ).ready(function() {
 });
 
 /* FUNCTIONS ################################################################################### */
-
+var global_timeout;
 /* SetReload -------------------------------------- */
 function SetReload(time){
+	clearTimeout(global_timeout);
 	if(time > 0){
 		if(time == refresh_time || time == refresh_time_blinds){
-			setTimeout("ReloadPage(0)", time * 1000);		
+			global_timeout=setTimeout("ReloadPage(0)", time * 1000);		
 		}
 		else{
-			setTimeout("ReloadPage(1)", time * 1000);		
+			global_timeout=setTimeout("ReloadPage(1)", time * 1000);		
 		}
 	}
 }
