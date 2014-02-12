@@ -57,6 +57,11 @@ $api['actions']['list']['device']		=array(
 	'method'		=>'get',
 	'content'		=>'',
 );
+$api['actions']['list']['info']		=array(
+	'url'			=>'/rest/items/Date?type=json',
+	'method'		=>'get',
+	'content'		=>'',
+);
 
 //$api['actions']['list']['scene']		='/';
 //$api['actions']['list']['camera']		='/';

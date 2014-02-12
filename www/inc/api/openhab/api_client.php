@@ -31,9 +31,14 @@ class PMD_ApiClient extends PMD_Root_ApiClient{
 
 	//----------------------------------------------------------------------------------
 	function ApiListInfos(){
-		//$this->Debug('Infos',$this->infos);
+		//if($this->ApiFetch('list','info')){
+			//$info = $this->api_response;
+			//$this->infos['server_time']		=strtotime($info['state']);
+			//$this->infos['sunset_time']		=strtotime(date('m/d/Y ').$info['Sunset']);
+			//$this->infos['sunrise_time']	=strtotime(date('m/d/Y ').$info['Sunrise']);
+		//}
+		//$this->Debug('Info',$this->infos);
 	}
-
 
 	//----------------------------------------------------------------------------------
 	function ApiListDevices(){
@@ -43,12 +48,18 @@ class PMD_ApiClient extends PMD_Root_ApiClient{
 			foreach($devices as $d){
 				$raw=$d['raw'];
 				$d['address']=$raw['name'];
+				$d=$this->_makePrettyName($d);
+				
 				if($d['address']=='Temperature' or $d['address']=='Status' or $d['address']=='Weather' or $d['address']=='Weather_Chart'){
 					//skipped
 				}
 				elseif($d['address']=='Shutter_all'){
 					$d['class']	="scene";
 					$d['type']	="group";					
+				}
+				elseif($raw['type']=='DateTimeItem'){
+					$this->infos['server_time']		=strtotime($raw['state']);
+					continue;
 				}
 				elseif($raw['type']=='SwitchItem'){
 					$d['class']	="command";
@@ -82,8 +93,10 @@ class PMD_ApiClient extends PMD_Root_ApiClient{
 				elseif($raw['type']=='GroupItem'){
 					$d['class']	="scene";
 					$d['type']	="group";
+					$d=$this->_makePrettyName($d,1);
 				}
-
+				
+				$d['name']=str_replace('_',' ',$d['name']);
 				$this->RegisterDevice($d);					
 				
 			}
@@ -99,6 +112,21 @@ class PMD_ApiClient extends PMD_Root_ApiClient{
 	}
 
 	//----------------------------------------------------------------------------------
+
+	function _makePrettyName($d,$group_mode=0){
+		if($group_mode){
+			list($place,$name)=explode('_',$d['raw']['name']);
+			$name=str_replace('_',' ',$name);
+			$name and $d['name']=$name;
+		}
+		else{
+			list($type,$place,$name,$name2)=explode('_',$d['raw']['name']);
+			$name=str_replace('_',' ',$name.$name2);
+			$name and $d['name']=$name." / ".$type;
+		}
+		return $d;
+	}
+
 
 } 
 ?>
