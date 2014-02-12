@@ -1,6 +1,6 @@
 /* var ajax_url='/ajax'; */
 var refresh_time		=12;
-var refresh_time_blinds	=20;
+var refresh_time_blinds	=25;
 
 jQuery( document ).ready(function() {
     console.log( "JS Ready!" );
