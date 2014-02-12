@@ -202,6 +202,12 @@ class PMD_ApiClient extends PMD_Root_ApiClient{
 					$d['type']	='blinds';
 					$d['value']	=$raw['LevelInt'];
 				}
+				elseif($raw['SwitchType']=='Blinds Inverted'){
+					$d['class']		='command';
+					$d['type']		='blinds';
+					$d['value']		=$raw['LevelInt'];
+					$d['invert_set']=true;
+				}
 				$this->RegisterDevice($d);
 			}
 			//$this->Debug('Devices',$this->devices);

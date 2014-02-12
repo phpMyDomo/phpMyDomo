@@ -7,11 +7,12 @@ class PMD_Page extends PMD_Root_Page{
 		isset($_GET['v'])	and $val		=$_GET['v'];
 		isset($_GET['c'])	and $command	=$_GET['c'];
 		isset($_GET['t'])	and $type		=$_GET['t'];
+		isset($_GET['i'])	and $invert		=$_GET['i'];
 		
 		if($address and strlen($val)){
 			isset($command)		or $command="set";
 			isset($type)		or $type="device";
-			$out=$this->o_api->ApiFetch($command, $type, $address , $val);
+			$out=$this->o_api->ApiFetch($command, $type, $address , $val, $invert);
 
 			//toDO json answer
 			

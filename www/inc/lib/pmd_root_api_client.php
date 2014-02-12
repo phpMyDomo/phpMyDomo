@@ -51,6 +51,7 @@ class PMD_Root_ApiClient extends PMD_Root{
 						-For Cameras 	: cam_ip
 						-For Security 	: door | window
 	url				=> url of the video stream (for cam_ip only)
+	invert_set		=> undef | true: invert sthe set command (use on for OFF and off for ON)
 	raw (array)		=> original json from remote server
 	battery_level 	=> (optionnal int 0/100) Battery level for sensor
 	signal_level 	=> (optionnal int 0/100) Signal level for RF sensor
@@ -362,7 +363,17 @@ class PMD_Root_ApiClient extends PMD_Root{
 	
 
 	//----------------------------------------------------------------------------------
-	function ApiFetch($command, $type='', $address='',$state=''){
+	function ApiFetch($command, $type='', $address='',$state='',$invert_set=false){
+		//invert state?
+		if($invert_set and ($type=='switch' or $type=='blinds')){
+			if($state=='off'){
+				$state='on';
+			}
+			elseif($state=='on'){
+				$state='off';				
+			}
+		}
+
 		//states presets
 		if(isset($this->vars['set'][$type][$state])){
 			$state=$this->vars['set'][$type][$state];

@@ -20,9 +20,10 @@ class PMD_Page extends PMD_Root_Page{
 		isset($_GET['a'])	and $address	=$_GET['a'];
 		isset($_GET['v'])	and $val		=$_GET['v'];
 		isset($_GET['t'])	and $type		=$_GET['t'];
+		isset($_GET['i'])	and $invert		=$_GET['i'];
 		if($address and strlen($val)){
 			$type or $type='switch'; // or scene
-			if($this->o_api->ApiFetch('set', $type, $address , $val)){
+			if($this->o_api->ApiFetch('set', $type, $address , $val,$invert)){
 				$this->_jsonOk();
 				exit;
 			}
