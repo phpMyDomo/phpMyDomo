@@ -15,7 +15,7 @@ jQuery( document ).ready(function() {
 	SetReload(reload_time);
     
 
-    /* Button Blinds (Pause) -------------------------------------- */
+    /* Button Blinds & Shutter -------------------------------------- */
     $('.jsButBlinds').click(function(e){
     	e.preventDefault();
     	var but		=$(this);
