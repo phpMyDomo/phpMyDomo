@@ -1,5 +1,6 @@
 /* var ajax_url='/ajax'; */
-var refresh_time=12;
+var refresh_time		=12;
+var refresh_time_blinds	=20;
 
 jQuery( document ).ready(function() {
     console.log( "JS Ready!" );
@@ -13,6 +14,36 @@ jQuery( document ).ready(function() {
 	var reload_time	=$('#jsReload').attr('data-time');
 	SetReload(reload_time);
     
+
+    /* Button Blinds (Pause) -------------------------------------- */
+    $('.jsButBlinds').click(function(e){
+    	e.preventDefault();
+    	var but		=$(this);
+    	var address	=but.attr('data-address');
+    	var target	=but.attr('data-target');
+    	var invert	=but.attr('data-invert');
+    	but.removeClass('active').addClass('active');
+    	
+    	var my_refresh_time = refresh_time_blinds;
+    	    	
+    	$.getJSON( ajax_url, { mode: "set", a: address, v: target, t: 'blinds', i: invert } )
+  			.done(function( json ) {
+			    but.removeClass('active');
+  				if(json.status=='ok'){
+					SetReload(my_refresh_time);
+  					console.log('OK');
+  				}
+  				else{
+  					console.log('ERROR');
+  				}
+			})
+			.fail(function( jqxhr, textStatus, error ) {
+			    but.removeClass('active');
+				var err = textStatus + ", " + error;
+				console.log( "Switch Request Failed: " + err );
+			});    	
+    });
+
     /* Button Switch -------------------------------------- */
     $('.jsButSwitch').click(function(e){
     	e.preventDefault();
@@ -27,19 +58,25 @@ jQuery( document ).ready(function() {
     	var type	=but.attr('data-type');
     	var address	=but.attr('data-address');
     	var state	=but.attr('data-state');
+    	var invert	=but.attr('data-invert');
     	var onclass	=but.attr('data-onclass');
     	but.removeClass('active').addClass('active');
+    	
+    	var my_refresh_time = refresh_time;
+    	if(type =='blinds'){
+    		my_refresh_time = refresh_time_blinds;
+    	}
     	
     	var target	='on';
     	if(state=='on'){
     		target='off'
     	}
     	
-    	$.getJSON( ajax_url, { mode: "set", a: address, v: target, t: type } )
+    	$.getJSON( ajax_url, { mode: "set", a: address, v: target, t: type, i: invert } )
   			.done(function( json ) {
 			    but.removeClass('active');
   				if(json.status=='ok'){
-					SetReload(refresh_time);
+					SetReload(my_refresh_time);
   					console.log('OK');
 					but.removeClass(onclass);
 					but.attr('data-state',target);
@@ -134,7 +171,7 @@ jQuery( document ).ready(function() {
 /* SetReload -------------------------------------- */
 function SetReload(time){
 	if(time > 0){
-		if(time == refresh_time){
+		if(time == refresh_time || time == refresh_time_blinds){
 			setTimeout("ReloadPage(0)", time * 1000);		
 		}
 		else{

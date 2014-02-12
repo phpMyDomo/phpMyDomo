@@ -4,15 +4,19 @@
 {function name=makeButton row='' style='default'}
 	{$c=''}
 	{if $row.state == 'on'}{$c=' btn-success'}{/if}
-	{$command='switch'}
+	{$command=$row.type}
 	{if $row.type=='group' || $row.type=='scene'}{$command='scene'}{/if}
 	{if $row.type=='dimmer' or $row.type=='shutter'}{$command='dimmer'}{/if}
 
 <div class="btn-group jsButGroup button_group">
-	<a href='#' name='but_{$row.uid}' data-address='{$row.address}' data-type='{$command}' data-state='{$row.state}' data-onclass='btn-success' class='btn btn-{$style} btn-lg jsButSwitch button_big{$c}'><span class='but_img'><img src='{$p.urls.static}/global/img/icon48_type_{$row.img_type}.png' data-on="{$p.urls.static}/global/img/icon48_type_{$row.type}_on.png" data-off="{$p.urls.static}/global/img/icon48_type_{$row.type}_off.png"></span>{$row.name}</a>
+	<a href='#' name='but_{$row.uid}' data-address='{$row.address}' data-type='{$command}' data-state='{$row.state}' data-invert='{$row.invert_set}' data-onclass='btn-success' class='btn btn-{$style} btn-lg jsButSwitch button_big{$c}'><span class='but_img'><img src='{$p.urls.static}/global/img/icon48_type_{$row.img_type}.png' data-on="{$p.urls.static}/global/img/icon48_type_{$row.type}_on.png" data-off="{$p.urls.static}/global/img/icon48_type_{$row.type}_off.png"></span>{$row.name}</a>
 
 {if $row.type=='dimmer'}
 	<a href='#' name='but_{$row.uid}' data-address='{$row.address}' data-type='dimmer' data-value='{$row.value}'  title="{$row.name}" class='btn btn-lg btn-default jsButDimmer jsPopover button_dim'>{$row.value}</a>
+{/if}
+{if $row.type=='blinds'}
+	<a href='#' name='but_{$row.uid}' data-address='{$row.address}' data-type='blinds' data-target='off' data-invert='{$row.invert_set}' title="" class='btn btn-lg btn-default jsButBlinds button_blinds'><i class="fa fa-chevron-up"></i><u>.</u></a>
+	<a href='#' name='but_{$row.uid}' data-address='{$row.address}' data-type='blinds' data-target='on' data-invert='{$row.invert_set}' title="" class='btn btn-lg btn-default jsButBlinds button_blinds'><i class="fa fa-chevron-down"></i><u>.</u></a>
 {/if}
 
 </div>

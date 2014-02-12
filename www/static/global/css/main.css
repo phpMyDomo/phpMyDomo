@@ -197,6 +197,19 @@ html, body {
 	min-width: 52px;
 	color: #CCC;
 }
+
+.button_blinds{
+	padding: 13px 10px 12px 12px;
+	min-width: 50px;
+	color: #CCC;
+}
+.button_blinds U{
+	opacity: 0;
+}
+.button_blinds I{
+	opacity: 1.0;
+}
+
 .button_big .but_img{
 	display: inline-block;
 	padding: 2px;
