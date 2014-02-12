@@ -197,6 +197,10 @@ class PMD_ApiClient extends PMD_Root_ApiClient{
 					$d['type']	='dimmer';
 					$d['value']	=$raw['LevelInt'];
 				}
+				elseif($raw['SwitchType']=='Contact'){
+					$d['class']	='sensor';
+					$d['type']	='bool';
+				}
 				elseif($raw['SwitchType']=='Blinds'){
 					$d['class']	='command';
 					$d['type']	='blinds';

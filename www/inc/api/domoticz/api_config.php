@@ -72,8 +72,11 @@ $api['states']['scene']['group']['Off']			='off';
 $api['states']['scene']['group']['On']			='on';		
 $api['states']['scene']['group']['Mixed']		='mixed';		
 
-$api['states']['sensor']['pir']['Off']		='off';		
-$api['states']['sensor']['pir']['On']		='on';		
+$api['states']['sensor']['pir']['Off']			='off';		
+$api['states']['sensor']['pir']['On']			='on';		
+
+$api['states']['sensor']['bool']['Open']		='off';		
+$api['states']['sensor']['bool']['Closed']		='on';		
 
 
 //json definition (auto formatted if defined) -------------------------------
