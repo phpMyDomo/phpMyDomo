@@ -48,18 +48,24 @@
 	<div class="panel-heading"><i class="fa fa-calendar"></i> {{$data.infos.server_time|default:{$smarty.now}}|date_format:{$lg.dates.day}|ucwords}</div>
 	<div class="panel-body-full">
 	<table cellspacing=0 cellpadding=0>
+{if $data.infos.server_time}
 		<tr>
 			<td class='td_name'>{$lg.infos.now}</td>
 			<td class='td_value'>{$data.infos.server_time|date_format:{$lg.dates.time}}</td>
-		</tr>	
+		</tr>
+{/if}
+{if $data.infos.sunrise_time}
 		<tr>
 			<td class='td_name'>{$lg.infos.sunrise}</td>
 			<td class='td_value'>{$data.infos.sunrise_time|date_format:{$lg.dates.time}}</td>
 		</tr>	
+{/if}
+{if $data.infos.sunset_time}
 		<tr>
 			<td class='td_name'>{$lg.infos.sunset}</td>
 			<td class='td_value'>{$data.infos.sunset_time|date_format:{$lg.dates.time}}</td>
 		</tr>	
+{/if}
 	</table>
 	</div>
 </div>
