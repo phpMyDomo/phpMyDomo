@@ -16,6 +16,11 @@ $api['dir_admin']	='/openhab.app';
 $api['set']['switch']['on']			='ON';
 $api['set']['switch']['off']		='OFF';
 
+$api['set']['shutter']['on']		='100';
+$api['set']['shutter']['off']		='0';
+$api['set']['blinds']['on']			='100';
+$api['set']['blinds']['off']		='0';
+
 $api['set']['scene']['on']			='ON';
 $api['set']['scene']['off']			='OFF';
 
@@ -38,6 +43,8 @@ $api['actions']['set']['dimmer'] 	=$api['actions']['set']['switch'];
 $api['actions']['set']['dim_level'] =$api['actions']['set']['switch'];
 $api['actions']['set']['group'] 	=$api['actions']['set']['switch'];
 $api['actions']['set']['scene'] 	=$api['actions']['set']['switch'];
+$api['actions']['set']['shutter'] 	=$api['actions']['set']['switch'];
+$api['actions']['set']['blinds'] 	=$api['actions']['set']['switch'];
 
 
 //#############################################################################
@@ -62,6 +69,10 @@ $api['actions']['list']['device']		=array(
 $api['states']['command']['switch']['OFF']		='off';		
 $api['states']['command']['switch']['ON']		='on';		
 $api['states']['command']['switch']['Undefined']='';		
+
+$api['states']['command']['shutter']['0']		='off';		
+$api['states']['command']['shutter']['100']		='on';		
+
 
 $api['states']['sensor']['bool']['OFF']		='off';		
 $api['states']['sensor']['bool']['ON']		='on';		
