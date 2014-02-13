@@ -6,13 +6,12 @@ ini_set('display_errors','On');
 $conf=array();
 $conf['app']['version']		="0.143";
 $conf['app']['name']		="phpMyDomo";
-if ($_SERVER["HTTPS"] === "on")
-        {
-        $conf['app']['protocol']  =  "https://";
-        }
-        else {
-        $conf['app']['protocol']  =  "http://";
-        }
+if ($_SERVER["HTTPS"] === "on"){
+	$conf['app']['protocol']  =  "https://";
+}
+else {
+	$conf['app']['protocol']  =  "http://";
+}
 
 //$conf['app']['protocol']	=(strtolower(substr($_SERVER["SERVER_PROTOCOL"],0,5))=='https') ? 'https://':'http://';
 
