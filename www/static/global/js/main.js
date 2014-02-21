@@ -103,9 +103,9 @@ jQuery( document ).ready(function() {
     /* Button Dimmer (to finish) -------------------------------------- */
    $('.jsButDimmer').each(function(){
     	var but			=$(this);
-    	var popover_id	='#jsPopover_'+ but.attr('data-address');
-    	var slider_id	='#jsSlider_'+ but.attr('data-address');
-    	var address	=but.attr('data-address');
+    	var address		=but.attr('data-address');
+    	var popover_id	='#jsPopover_'+ but.attr('data-js_address');
+    	var slider_id	='#jsSlider_'+ but.attr('data-js_address');
     	
     	but.popover({
 			html: true,

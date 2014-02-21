@@ -57,6 +57,7 @@ class PMD_Root_ApiClient extends PMD_Root{
 	signal_level 	=> (optionnal int 0/100) Signal level for RF sensor
 	raw_value1		=> (optionnal) raw main value of the device : used to autobuild 'state', if not specified in the RegisterDevice method
 	unit			=> (optionnal) unit of the value, if  it cant be guessed by the type (ie current) ... to improve
+	js_address		=> address formatted to be useable as a CSS id 
 */
 
 	// various info from remote server
@@ -234,6 +235,10 @@ class PMD_Root_ApiClient extends PMD_Root{
 		$row['type']	or $row['type']		='undef';
 		$row['uid'] 	or $row['uid']		=$this->MakeUniqueId($row,$suffix);
 
+		//address for JS
+		$row['js_address']=preg_replace('#[^a-z0-9_-]+#i','_',$row['address']);
+		
+		//make state and value
 		$row=$this->FormatState($row);
 		$row=$this->FormatValue($row);
 		
@@ -242,6 +247,7 @@ class PMD_Root_ApiClient extends PMD_Root{
 			$row['img_type'] .='_'.$row['state'];
 		}
 
+		//save
 		$this->devices[$row['uid']]			=$row;
 	}
 
@@ -266,7 +272,7 @@ class PMD_Root_ApiClient extends PMD_Root{
 	}
 	//----------------------------------------------------------------------------------
 	function FormatValue($row,$raw_field=''){
-		//format State
+		//format value
 		if($raw_field){
 			$val=$row['raw'][$raw_field];
 		}
