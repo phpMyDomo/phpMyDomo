@@ -51,11 +51,11 @@ and make sure that Apache modRewrite is enabled : `a2enmod rewrite`
 
 
 ### 4) Setup the virtual host for Apache 
-If you use the default apache web directory at /var/www/ , make sure that this directory has the __AllowOverride All__ and __Options Indexes__ set, ie:
+If you use the default apache web directory at /var/www/ , make sure that this directory has the __AllowOverride All__ and __Options Indexes FollowSymLinks__ set, ie:
 
 ```
 <Directory /var/www/>	
-	Options Indexes
+	Options Indexes FollowSymLinks
 	AllowOverride All
 	(other directives)
 </Directory>
