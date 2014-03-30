@@ -111,6 +111,8 @@ class PMD_Root_ApiClient extends PMD_Root{
 			$this->devices[$k]['unit'] or $this->devices[$k]['unit']=$this->conf['units'][$row['type']];
 			$this->devices[$k]['lang_class']	=$this->lang['global']['classes'][$row['class']];
 			$this->devices[$k]['lang_type']		=$this->lang['global']['types'][$row['type']];
+			//address for JS
+			$this->devices[$k]['js_address']=preg_replace('#[^a-z0-9_-]+#i','_',$this->devices[$k]['address']);
 		}
 	}
 
@@ -235,9 +237,6 @@ class PMD_Root_ApiClient extends PMD_Root{
 		$row['type']	or $row['type']		='undef';
 		$row['uid'] 	or $row['uid']		=$this->MakeUniqueId($row,$suffix);
 
-		//address for JS
-		$row['js_address']=preg_replace('#[^a-z0-9_-]+#i','_',$row['address']);
-		
 		//make state and value
 		$row=$this->FormatState($row);
 		$row=$this->FormatValue($row);
