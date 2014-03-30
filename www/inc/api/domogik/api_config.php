@@ -13,8 +13,9 @@ $api['dir_admin']	='/admin/';
 
 // Set Commands Values -------------------------------------------------------
 // Values used when Sending a command
-$api['set']['switch']['on']			='on';
-$api['set']['switch']['off']		='off';
+$api['set']['switch']['on']             ='on';
+$api['set']['switch']['off']            ='off';
+
 
 //$api['set']['scene']['on']		='On';
 //$api['set']['scene']['off']		='Off';
@@ -22,10 +23,10 @@ $api['set']['switch']['off']		='off';
 //$api['set']['group']['on']		='On';
 //$api['set']['group']['off']		='Off';
 
-//$api['set']['dimmer']['on']		='On';
-//$api['set']['dimmer']['off']		='Off';
-//$api['set']['dimmer']['min']		=0;
-//$api['set']['dimmer']['max']		=100;
+$api['set']['dimmer']['on']             ='on';
+$api['set']['dimmer']['off']            ='off';
+$api['set']['dimmer']['min']            =0;
+$api['set']['dimmer']['max']            =100;
 
 // Actions -------------------------------------------------------------------
 $api['actions']['set']['switch']		='/command/{address}/{state}';
@@ -42,6 +43,10 @@ $api['actions']['set']['switch']		='/command/{address}/{state}';
 // List actions URLS -------------------------------------
 $api['actions']['list']['device']		='/base/device/list';
 $api['actions']['list']['stats']		='/stats/*/*/latest';
+$api['actions']['set']['switch']                ='/command/{address}/{state}';
+$api['actions']['set']['dimmer']                ='/command/{address}/{state}';
+$api['actions']['set']['dim_level']             ='/command/{address}/dim/{state}';
+
 //$api['actions']['list']['scene']		='/';
 //$api['actions']['list']['camera']		='/';
 //$api['actions']['list']['info']		='/';
