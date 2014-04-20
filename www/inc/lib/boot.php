@@ -6,7 +6,7 @@ ini_set('display_errors','On');
 $conf=array();
 $conf['app']['version']		="0.143";
 $conf['app']['name']		="phpMyDomo";
-$conf['app']['protocol']	=(strtolower(substr($_SERVER["SERVER_PROTOCOL"],0,5))=='https') ? 'https://':'http://';
+$conf['app']['protocol']	=($_SERVER["HTTPS"]=='on') ? 'https://':'http://';
 
 // menus ------------------------------------------------------------------------------------
 $conf['menu_urls']['home']		='home';	
