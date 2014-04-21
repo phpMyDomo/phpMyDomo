@@ -3,16 +3,18 @@
 // REQUIRED #################################################################
 //#############################################################################
 
-$api['method']='json_get'; //api method : json_get | json_rpc2
-
+$api['method']		='json_get'; //api method : json_get | json_rpc2
+$api['use_config']	=true; // use an api_domogik config from the inc/conf/ directory
 //api URL -------------------------------------------------------------------
 $api['urls']['api']	=$this->conf['urls']['host'].':40405';
 $api['urls']['www']	=$this->conf['urls']['host'].':40404';
 $api['dir_admin']	='/admin/';
 
 //api Direct database access - user needs only select privilege --------------
-$api['dbuser'] = 'domoread';
-$api['dbpassword'] = '';
+$api['dbhost'] 	= '10.1.100.152';
+$api['dbport'] 	= '3306';
+$api['dbuser'] 	= 'domogik';
+$api['dbpassword'] = 'domopass';
 $api['dbdatabase'] = 'domogik';
 
 // Set Commands Values -------------------------------------------------------
