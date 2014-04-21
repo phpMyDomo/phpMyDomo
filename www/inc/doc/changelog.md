@@ -8,6 +8,7 @@
 - new: OpenHab shows Server's Time
 - new: Sensors now show states
 - new: SunSet & Sunrise for servers missing it (using a new [app][location] config. parameter )
+- new: Actions Debounce : prevents identicals actions to be triggered before the debounce period
 - fix: Better HTTPS detection (Thanks to JobPilot, cblomart)
 - fix: Domoticz Set Blinds
 - fix: OpenHab smartest Names
