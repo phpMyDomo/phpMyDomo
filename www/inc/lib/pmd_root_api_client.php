@@ -75,6 +75,10 @@ class PMD_Root_ApiClient extends PMD_Root{
 		$my_api		=$this->conf['app']['api'];
 		require($this->conf['paths']['api'].'api_config.php');
 
+		if($api['use_config']){
+			require($this->conf['paths']['confs']."api_{$my_api}.php");
+		}
+
 		//override from global config
 		if(isset($this->conf['urls']["server_$my_api"])){
 			$api['urls']['api']=$this->conf['urls']["server_$my_api"];
