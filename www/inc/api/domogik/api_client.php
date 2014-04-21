@@ -31,7 +31,6 @@ WorkInProgress: Missing values and states for each devices. Domogiz 0.4 should b
 
 class PMD_ApiClient extends PMD_Root_ApiClient{
 
-
 	//----------------------------------------------------------------------------------
 	function ApiListInfos(){
 
@@ -248,36 +247,38 @@ class PMD_ApiClient extends PMD_Root_ApiClient{
 				}
 
 				// fetch current value of the device
-				if (!isset($this->conf['api']['dbdatabase']) and $this->ApiFetch('list','stats', $d['raw']['device_id'] , $d['raw']['device_feature_model']['stat_key'])){
+				if (!isset($this->vars['db']['database'])){
+					if($this->ApiFetch('list','stats', $d['raw']['device_id'] , $d['raw']['device_feature_model']['stat_key'])){
 
-					$stats=$this->api_response['stats'];
-					//if ($raw['device_id']=="45") $this->Debug('Stats',$stats);
+						$stats=$this->api_response['stats'];
+						//if ($raw['device_id']=="45") $this->Debug('Stats',$stats);
 					
-					// case of boolean
-					if ($d['raw']['device_feature_model']['value_type']=="binary" or $d['raw']['device_feature_model']['value_type']=="boolean") {
+						// case of boolean
+						if ($d['raw']['device_feature_model']['value_type']=="binary" or $d['raw']['device_feature_model']['value_type']=="boolean") {
 						
-						//compare with comparison json string
-						$stat_values=json_decode(html_entity_decode($d['raw']['device_feature_model']['parameters']), true);
-						$value = strtolower($stats[0]['value']);
+							//compare with comparison json string
+							$stat_values=json_decode(html_entity_decode($d['raw']['device_feature_model']['parameters']), true);
+							$value = strtolower($stats[0]['value']);
 						
-						if ($value == strtolower($stat_values['value1']) || $value == 'preset_dim') {
-							$d['state'] = 'on';
-						} elseif ($value == strtolower($stat_values['value0']))
-							$d['state'] = 'off';
-							
-					} elseif ($d['raw']['device_feature_model']['value_type']=="number") {
-					
-						$d['value'] = (float) $stats[0]['value'];
+							if ($value == strtolower($stat_values['value1']) || $value == 'preset_dim') {
+								$d['state'] = 'on';
+							} 
+							elseif ($value == strtolower($stat_values['value0']))
+								$d['state'] = 'off';
+							} 
+							elseif ($d['raw']['device_feature_model']['value_type']=="number") {
+								$d['value'] = (float) $stats[0]['value'];
+							}
+						} 
+					elseif($this->debug){
+						$this->o_kernel->PageError('500',"Failed to contact server at {$this->api_url} ");
 					}
-
-				} elseif($this->debug)
-					$this->o_kernel->PageError('500',"Failed to contact server at {$this->api_url} ");
-				
+				}
 				// register the full device
 				$this->RegisterDevice($d);
 			}
 			
-			if (isset($this->conf['api']['dbdatabase']))
+			if (isset($this->vars['db']['database']))
 				$this->_FetchValues();
 			
 			// additional device to measure query time
@@ -310,9 +311,9 @@ class PMD_ApiClient extends PMD_Root_ApiClient{
 		}
 		
 		// fetch data in db in one go
-		$mysqli = new mysqli("localhost", "domoread", "", "domogik");
+		$mysqli = @new mysqli($this->vars['db']['host'], $this->vars['db']['user'], $this->vars['db']['password'], $this->vars['db']['database'],$this->vars['db']['port']);
 		if ($mysqli->connect_errno) {
-			$this->o_kernel->PageError('500', "Failed to connect to database : {$mysqli->connect_error} at {$this->api_url} ");
+			$this->o_kernel->PageError('500', "Failed to connect to database : {$mysqli->connect_error} at {$this->vars['db']['host']}:{$this->vars['db']['port']} ");
 		}
 		$res = $mysqli->query($query);
 		
