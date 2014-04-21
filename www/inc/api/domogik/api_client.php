@@ -33,10 +33,6 @@ class PMD_ApiClient extends PMD_Root_ApiClient{
 
 	//----------------------------------------------------------------------------------
 	function ApiListInfos(){
-
-	// todo: use wget -qO- http://www.gaisma.com/en/location/antibes.html | grep 'class="sunshine"' to get astronomy
-		
-		$this->infos['server_time'] = time();
 	}
 
 
