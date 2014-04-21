@@ -66,6 +66,11 @@
 			<td class='td_value'>{$data.infos.sunset_time|date_format:{$lg.dates.time}}</td>
 		</tr>	
 {/if}
+{if $c.debug.show}
+			<td class='td_name'>Parsed Location</td>
+			<td class='td_value'>{$data.infos.google_city}, {$data.infos.google_country}</td>
+{/if}
+
 	</table>
 	</div>
 </div>
