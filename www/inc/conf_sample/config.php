@@ -27,6 +27,11 @@ $conf['app']['photoframe']		="directory";
 //Locale: uncomment to override the locale defined in the language file
 //$conf['app']['locale']		="en_US.utf8"; 
 
+// If your server doesnt generate sunrise and sunset times, uncomment and enter your location here in the format : "City, Country"
+// PMD will automatically Query Google, to get your location, and calculate Sunset and Sunrise from the latitude and longitude returned by Google
+//$conf['app']['location']	="Paris, France";
+
+
 // The home page automatically reload after xx seconds, to refresh the buttons or sensor states.
 $conf['app']['reload_time']			="120"; // time in seconds
 

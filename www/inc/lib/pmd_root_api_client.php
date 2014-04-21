@@ -101,12 +101,54 @@ class PMD_Root_ApiClient extends PMD_Root{
 	}
 
 	//----------------------------------------------------------------------------------
+	private function _SetDefaultTimesInfos(){
+
+		if($this->conf['app']['location']){
+			//cache results
+			$cache_duration	=3600*24*30*365;
+			$cache_file=$this->conf['paths']['caches'].'google_location';		
+			if(!file_exists($cache_file) or filemtime($cache_file) < ( time() - $cache_duration) ){
+				if($html=@file_get_contents('http://maps.google.com/maps/api/geocode/json?sensor=false&address='.urlencode($this->conf['app']['location']))){
+					$json=json_decode($html,true);
+					if($json['status']=='OK'){
+						file_put_contents($cache_file,$html);
+					}
+					else{
+						$html='';
+					}					
+				}
+			}
+			else{
+				$html=@file_get_contents($cache_file);
+			}
+			
+			if($html){
+				$json=json_decode($html,true);
+				$lng=$json['results'][0]['geometry']['location']['lng'];
+				$lat=$json['results'][0]['geometry']['location']['lat'];
+				//get sunset and sunrise time
+				$this->infos['sunrise_time']	or $this->infos['sunrise_time']	=date_sunrise ( time(), SUNFUNCS_RET_TIMESTAMP, $lat, $lng);
+				$this->infos['sunset_time']		or $this->infos['sunset_time']	=date_sunset ( time(), SUNFUNCS_RET_TIMESTAMP, $lat, $lng);
+
+				//get Google guessed location
+				$places=$json['results'][0]['address_components'];
+				if(is_array($places)){
+					foreach($places as $c){
+						if(in_array('locality',$c['types'])){$this->infos['google_city']=$c['long_name'];}
+						if(in_array('country',$c['types'])){$this->infos['google_country']=$c['long_name'];}
+					}
+				}
+			}
+		}
+		$this->infos['server_time']		or $this->infos['server_time'] =time();		
+	}
+
+	//----------------------------------------------------------------------------------
 	function ApiLoad(){
 		$this->ApiListDevices();
 		$this->ApiListInfos();
-
+		$this->_SetDefaultTimesInfos();
 		$this->FormatDevices();
-
 	}
 
 	//----------------------------------------------------------------------------------
@@ -124,6 +166,10 @@ class PMD_Root_ApiClient extends PMD_Root{
 	//----------------------------------------------------------------------------------
 	function ApiListDevices(){
 		echo "Extend this method to List all devices from remote api call";
+		//$this->infos['sunset_time']		=time();
+		//$this->infos['sunrise_time']	=time();
+		//$this->infos['server_time']		=time();
+		
 		exit;
 	}
 	//----------------------------------------------------------------------------------
