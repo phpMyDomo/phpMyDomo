@@ -29,6 +29,8 @@
 			<div class="panel-heading h3"><i class='fa fa-thumbs-up'></i> Congratulation!</div>
 			<div class="panel-body">
 				<p class="mess mess_success">{$data.text|default:"Update sucessfully completed !"}</p>
+				<p class="mess">Some new parameters might have been added to the <i>inc/conf_sample/config.php</i> file.<br>
+				 Please compare this file with your current <i>inc/conf/config.php</i> file to start using these new parameters.</p>
 				<div class="centered">
 					<a href='{$p.urls.www}/' class="btn btn-lg btn-success"><i class='fa fa-reply'></i> Return to the home page</a>
 				</div>
