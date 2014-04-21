@@ -30,7 +30,7 @@ _Change "USERNAME" to your real username (ie "pi", "johndoe", etc..)_
 
 ### 2) Apache + php5 + php5-curl + ModRewrite must be installed
 
-Make sure that you have a working Apache + php5 + php5-curl + ModRewrite installed and enabled. If not, you can automatically install these by doing (on Debian):
+Make sure that you have a working Apache + php5 + php5-curl + ModRewrite installed and enabled (Pn uBuntu you might also need "php5-json"). If not, you can automatically install these by doing (on Debian):
 
 ```sh
 cd /home/USERNAME/phpMyDomo-phpMyDomo-XXXX/www/inc/bin/
