@@ -3,14 +3,15 @@
 ## Version : 0.144 - April ??, 2014
 - new : Better Domogik 0.3 support, (Thanks to Thefrip)
 - new: Photoframe click back to home when launched in ScreenSaver Mode
-- fix: Better HTTPS detection (Thanks to JobPilot, cblomart)
 - new: Domoticz Blinds Inverted, Contacts
-- fix: Domoticz Set Blinds
 - new: Blinds & Shutter Buttons
-- fix: OpenHab smartest Names
 - new: OpenHab shows Server's Time
-- fix: Hide Calendar information, if not set
 - new: Sensors now show states
+- new: SunSet & Sunrise for servers missing it (using a new [app][location] config. parameter )
+- fix: Better HTTPS detection (Thanks to JobPilot, cblomart)
+- fix: Domoticz Set Blinds
+- fix: OpenHab smartest Names
+- fix: Hide Calendar information, if not set
 - fix: Dimmer commands in Domogik
 - fix: Apache Setup Documentation
 
