@@ -19,7 +19,7 @@ class PMD_Page extends PMD_Root_Page{
 				if(file_exists($my_file)){
 					require_once($my_file);
 					$object= new PMD_action($this->o_kernel,$my_action);
-					$object->Run();
+					$object->RunAction();
 				}
 				else{
 					$error	=404;

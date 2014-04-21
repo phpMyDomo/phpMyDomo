@@ -37,6 +37,7 @@ A Growl client must be installed on each notified workstation:
 // ##############################################################################
 // Global Configuration  #######################################################
 // ##############################################################################
+//$action['globals']['debounce']	='3';	//minimum seconds to wait between identical action calls
 
 $action['globals']['hosts']		="192.168.0.1,192.168.0.2"; //put your host(s) here
 $action['globals']['protocol']	="gntp";		// 'gntp' | 'udp' | 'both'

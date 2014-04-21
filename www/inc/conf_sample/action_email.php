@@ -32,6 +32,7 @@ If you receive the mail, it will work, else you have to insatll a mail server, i
 // ##############################################################################
 // Global Configuration  #######################################################
 // ##############################################################################
+//$action['globals']['debounce']	='3';	//minimum seconds to wait between identical action calls
 
 $action['globals']['from']		="phpMyDomo <phpmydomo@server.local>"; // use a working email, ie yours
 $action['globals']['to']		="myemail@server.com";

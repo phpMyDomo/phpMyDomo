@@ -41,6 +41,9 @@ $conf['app']['reload_time']			="120"; // time in seconds
 // Show or hide sensors names in home groups: 0=hide, 1=show , x= show and truncate after x characters
 $conf['app']['groups_sensors_names']	="1";
 
+// When using actions, this is the default debounce period (in seconds) : It prevents the same action to be triggered multiple times, if the same action is called within this period.
+$conf['app']['actions_debounce']	="3";
+
 
 //	Urls  #####################################################################
 // Change these, if your domotic server is NOT on the same server than phpMyDomo, or if you are not using default server ports.

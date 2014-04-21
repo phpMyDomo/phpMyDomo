@@ -40,6 +40,7 @@ http://openjabnab.fr/ojn_admin/
 // ##############################################################################
 // Global Configuration  #######################################################
 // ##############################################################################
+//$action['globals']['debounce']	='3';	//minimum seconds to wait between identical action calls
 
 //$action['globals']['url']	="";
 $action['globals']['server']	='10.1.10.1';

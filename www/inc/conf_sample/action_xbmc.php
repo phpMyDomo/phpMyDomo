@@ -34,6 +34,7 @@ none!
 // ##############################################################################
 // Global Configuration  #######################################################
 // ##############################################################################
+//$action['globals']['debounce']	='3';	//minimum seconds to wait between identical action calls
 
 $action['globals']['server']	="192.168.1.2:8080"; // change to your xbmc Host:port
 $action['globals']['mode']		="notify";	// 'notify' | 'pause'

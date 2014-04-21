@@ -20,6 +20,7 @@ Your command must be allowed to run under the web server user: ie on debian, the
 // ##############################################################################
 // Global Configuration  #######################################################
 // ##############################################################################
+//$action['globals']['debounce']	='3';	//minimum seconds to wait between identical action calls
 
 //$action['globals']['command']	="";
 

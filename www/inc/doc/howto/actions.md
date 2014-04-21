@@ -73,6 +73,11 @@ If you may want to override some preset or global fields, you just add them to t
 `http://pmd_host_or_ip/action?type=email&preset=ring_door&to=alternate@email.com`
 
 
+### Debounce: ######################
+The Debounce time (in seconds) is the minimun time that must elapse between identical actions requests. Ie: if you trigger an action from a PIR sensor (which might send multiple pulses in a short time period ), it could trigger the same action multiple time. To avoid getting multiple notifications for the same trigger, you should set the debounce time to a few seconds.
+
+The debounce time can be set globally, at the application level (from the $conf['app']['actions_debounce'] parameter, in the inc/conf/config.php file), or in each actions at global, preset, or url levels.
+
 
 ## Usage #################################################################################
 
