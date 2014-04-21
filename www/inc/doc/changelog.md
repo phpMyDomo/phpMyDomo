@@ -1,5 +1,19 @@
 # phpMyDomo ChangeLog
 
+## Version : 0.144 - April ??, 2014
+- new : Better Domogik 0.3 support, (Thanks to Thefrip)
+- new: Photoframe click back to home when launched in ScreenSaver Mode
+- fix: Better HTTPS detection (Thanks to JobPilot, cblomart)
+- new: Domoticz Blinds Inverted, Contacts
+- fix: Domoticz Set Blinds
+- new: Blinds & Shutter Buttons
+- fix: OpenHab smartest Names
+- new: OpenHab shows Server's Time
+- fix: Hide Calendar information, if not set
+- new: Sensors now show states
+- fix: Dimmer commands in Domogik
+- fix: Apache Setup Documentation
+
 ## Version : 0.143 - Feb 08, 2014
 - new : PhotoFrame ScreenSaver mode : automatically switch to photoframe when idle
 - new : Links Block : Custom links to various website
