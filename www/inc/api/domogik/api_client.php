@@ -281,15 +281,17 @@ class PMD_ApiClient extends PMD_Root_ApiClient{
 			if (isset($this->vars['db']['database']))
 				$this->_FetchValues();
 			
+			if($this->debug){
 			// additional device to measure query time
-			$time_end = microtime(true);
-			$time = $time_end - $time_start;
-			$tdev['name'] = 'Tx time';
-			$tdev['class'] = 'sensor';
-			$tdev['type'] = 'temp';
-			$tdev['value'] = (float) $time;
-			$this->RegisterDevice($tdev);
-
+				$time_end = microtime(true);
+				$time = $time_end - $time_start;
+				$tdev['name'] = 'Mysql Query time';
+				$tdev['class'] = 'sensor';
+				$tdev['type'] = 'level';
+				$tdev['unit'] = 's';
+				$tdev['value'] = (float) $time;
+				$this->RegisterDevice($tdev);
+			}
 			//$this->Debug('Devices',$this->devices);
 			//$this->Debug('JSON',$this->api_response);
 		}
