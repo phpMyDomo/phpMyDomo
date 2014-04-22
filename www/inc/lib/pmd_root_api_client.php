@@ -159,6 +159,11 @@ class PMD_Root_ApiClient extends PMD_Root{
 			$this->devices[$k]['lang_type']		=$this->lang['global']['types'][$row['type']];
 			//address for JS
 			$this->devices[$k]['js_address']=preg_replace('#[^a-z0-9_-]+#i','_',$this->devices[$k]['address']);
+			
+			$icons=$this->_MakeIcons($row);
+			$this->devices[$k]['img_url']		=$icons['img'];
+			$this->devices[$k]['img_on_url']	=$icons['img_on'];
+			$this->devices[$k]['img_off_url']	=$icons['img_off'];
 		}
 	}
 
@@ -299,6 +304,8 @@ class PMD_Root_ApiClient extends PMD_Root{
 		//save
 		$this->devices[$row['uid']]			=$row;
 	}
+
+
 
 	//----------------------------------------------------------------------------------
 	function FormatState($row,$raw_field=''){
@@ -597,6 +604,29 @@ class PMD_Root_ApiClient extends PMD_Root{
 		return $out;
 	}
 
+	//----------------------------------------------------------------------------------
+	function _MakeIcons($row){
+		if($img=$this->conf['devices_icons'][$row['uid']]['devices']){
+			$img="/global/img/devices/icon48_".$img;
+		}
+		elseif($img=$this->conf['devices_icons'][$row['uid']]['types']){
+			$img="/custom/img/types/icon48_".$img;
+		}
+		elseif($img=$this->conf['devices_icons'][$row['uid']]['custom']){
+			$img="/custom/img/devices/icon48_".$img;
+		}
+		else{
+			$img="/global/img/types/icon48_".$row['type'];			
+		}
+		$out['img_on']	=$img."_on.png";
+		$out['img_off'] =$img."_off.png";
+		
+		if(strlen($row['state'])){
+			$img .='_'.$row['state'];
+		}
+		$out['img'] =$img.".png";
+		return $out;
+	}
 
 
 	//---------------------------------------------------------------

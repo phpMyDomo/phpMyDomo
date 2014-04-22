@@ -141,6 +141,24 @@ Example 2: (working with openHab demo API)
 
 */
 
+// ##############################################################################
+// Devices Icons ################################################################
+// ##############################################################################
+/*
+Define a different icons per devices: Normally icons are defined, depending on the device type (from /static/global/img/types/), but you can choose to override them, with your own device icon, for each device
+
+Example:
+$conf['devices_icons']['DEVICE_ID']['LOCATION']	="ICON_NAME";
+
+Definitions:
+	- DEVICE_ID: Unique Id of the Device (tips: grab it from the phpMyDomo Devices page)
+	- LOCATION: Location of the Icon ; devices|types|custom 
+		- "devices" : Icon is choosen from the /static/global/img/devices/ folder
+		- "types" 	: Icon is choosen from the /static/global/img/types/ folder
+		- "custom" : Icon is choosen from the /static/custom/devices/ folder. This is the RIGHT place to add your OWN custom icons
+	-ICON_NAME : the name of the icon files , ie "alarm1" whill select : "icon48_alarm1_on.png" or "icon48_alarm1_off.png" depending on the device's state
+*/
+//$conf['devices_icons']['scene_group_gf_living']['devices']	="switch1";
 
 
 // ##############################################################################

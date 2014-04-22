@@ -9,7 +9,7 @@
 	{if $row.type=='blinds' or $row.type=='shutter'}{$command='blinds'}{/if}
 
 <div class="btn-group jsButGroup button_group">
-	<a href='#' name='but_{$row.uid}' data-address='{$row.address}' data-type='{$command}' data-state='{$row.state}' data-invert='{$row.invert_set}' data-onclass='btn-success' class='btn btn-{$style} btn-lg jsButSwitch button_big{$c}'><span class='but_img'><img src='{$p.urls.static}/global/img/icon48_type_{$row.img_type}.png' data-on="{$p.urls.static}/global/img/icon48_type_{$row.type}_on.png" data-off="{$p.urls.static}/global/img/icon48_type_{$row.type}_off.png"></span>{$row.name}</a>
+	<a href='#' name='but_{$row.uid}' data-address='{$row.address}' data-type='{$command}' data-state='{$row.state}' data-invert='{$row.invert_set}' data-onclass='btn-success' class='btn btn-{$style} btn-lg jsButSwitch button_big{$c}'><span class='but_img'><img src='{$p.urls.static}{$row.img_url}' data-on="{$p.urls.static}{$row.img_on_url}" data-off="{$p.urls.static}{$row.img_off_url}"></span>{$row.name}</a>
 
 {if $row.type=='dimmer'}
 	<a href='#' name='but_{$row.uid}' data-address='{$row.address}' data-js_address='{$row.js_address}' data-type='dimmer' data-value='{$row.value}'  title="{$row.name}" class='btn btn-lg btn-default jsButDimmer jsPopover button_dim'>{$row.value}</a>
@@ -41,5 +41,5 @@
 	{elseif $c.app.groups_sensors_names}
 		{$my_name=$row.name|truncate:{$c.app.groups_sensors_names}}
 	{/if}
-	<span class='sensor'><img src='{$p.urls.static}/global/img/icon48_type_{$row.img_type}.png'> {$my_name} <b>{$row.state|ucwords|default:$row.value}</b>{$row.unit|default:$p.units.{$row.type}}</span>
+	<span class='sensor'><img src='{$p.urls.static}{$row.img_url}'> {$my_name} <b>{$row.state|ucwords|default:$row.value}</b>{$row.unit|default:$p.units.{$row.type}}</span>
 {/function}
