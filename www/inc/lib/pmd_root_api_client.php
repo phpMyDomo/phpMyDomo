@@ -610,7 +610,7 @@ class PMD_Root_ApiClient extends PMD_Root{
 			$img="/global/img/devices/icon48_".$img;
 		}
 		elseif($img=$this->conf['devices_icons'][$row['uid']]['types']){
-			$img="/custom/img/types/icon48_".$img;
+			$img="/global/img/types/icon48_".$img;
 		}
 		elseif($img=$this->conf['devices_icons'][$row['uid']]['custom']){
 			$img="/custom/img/devices/icon48_".$img;
