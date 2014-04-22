@@ -206,7 +206,8 @@ class PMD_ApiClient extends PMD_Root_ApiClient{
 					$d['class']	='command';
 					$d['type']	='switch';
 				}
-
+				
+				// this is certainly NOT wanted: PLEASE DELETE/UPDATE THIS ASAP
 				elseif($device_usage_id=='appliance'){
 					$d['class']	='command';
 					$d['type']	='alarm';
