@@ -1,14 +1,15 @@
 # phpMyDomo ChangeLog
 
 ## Version : 0.144 - April ??, 2014
-- new : Better Domogik 0.3 support, (Thanks to Thefrip)
+- new: Custom devices icons
+- new: Better Domogik 0.3 support, (Thanks to Thefrip)
+- new: SunSet & Sunrise for servers missing it (using a new [app][location] config. parameter )
+- new: Actions Debounce : prevents identicals actions to be triggered before the debounce period
 - new: Photoframe click back to home when launched in ScreenSaver Mode
 - new: Domoticz Blinds Inverted, Contacts
 - new: Blinds & Shutter Buttons
 - new: OpenHab shows Server's Time
 - new: Sensors now show states
-- new: SunSet & Sunrise for servers missing it (using a new [app][location] config. parameter )
-- new: Actions Debounce : prevents identicals actions to be triggered before the debounce period
 - fix: Better HTTPS detection (Thanks to JobPilot, cblomart)
 - fix: Domoticz Set Blinds
 - fix: OpenHab smartest Names
