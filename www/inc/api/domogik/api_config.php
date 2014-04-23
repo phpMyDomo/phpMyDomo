@@ -74,4 +74,37 @@ $api['json']['result']="feature";	//field with the list of devices
 $api['json_status']['ok']	='OK';
 $api['json_status']['err']	='ERROR';
 
+//#############################################################################
+// Devices Definitions ########################################################
+//#############################################################################
+
+
+$api['sensors_devices_types_ids']=array(
+			'online_service.weather'=>'temp',
+			'rfxcom.th'				=>'temp',
+			'rfxcom.rain'			=>'rain',
+			'online_service.weather'=>'temp',
+			'rfxcom.humidity'		=>'hygro',
+			'rfxcom.uv'				=>'uv',
+			'rfxcom.rfxmeter'		=>'consum',
+			'rfxcom.elec1'			=>'consum',
+			'rfxcom.elec2'			=>'consum',
+			'rfxcom.rfxsensor'		=>'temp',
+		);
+$api['switches_devices_types_ids']=array(
+	'rfxcom.curtain1_harrison',
+	'rfxcom.lighting1_arc_switch',
+	'rfxcom.lighting1_chacon_switch',
+	'rfxcom.lighting1_elro_switch',
+	'rfxcom.lighting1_impuls_switch',
+	'rfxcom.lighting1_waveman_switch'
+);
+$api['dimmers_devices_types_ids']=array(
+	'rfxcom.lighting2_ac_dimmer',
+	'rfxcom.lighting1_x10_dimmer',
+	'rfxcom.lighting2_homeeasy_eu_dimmer',
+	'rfxcom.lighting3_koppla_dimmer'
+);
+
+
 ?>
