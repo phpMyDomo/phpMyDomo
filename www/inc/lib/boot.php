@@ -4,7 +4,7 @@ ini_set('display_errors','On');
 
 // base ------------------------------------------------------------------------------------
 $conf=array();
-$conf['app']['version']		="0.143";
+$conf['app']['version']		="0.144";
 $conf['app']['name']		="phpMyDomo";
 if ($_SERVER["HTTPS"] === "on"){
 	$conf['app']['protocol']  =  "https://";

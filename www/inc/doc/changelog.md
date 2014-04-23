@@ -1,8 +1,8 @@
 # phpMyDomo ChangeLog
 
-## Version : 0.144 - April ??, 2014
+## Version : 0.144 - April 23, 2014
 - new: Custom devices icons
-- new: Better Domogik 0.3 support, (Thanks to Thefrip)
+- new: Better Domogik 0.3 support (Thanks to Thefrip), ... Work In Progess!
 - new: SunSet & Sunrise for servers missing it (using a new [app][location] config. parameter )
 - new: Actions Debounce : prevents identicals actions to be triggered before the debounce period
 - new: Photoframe click back to home when launched in ScreenSaver Mode
