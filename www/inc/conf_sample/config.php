@@ -165,7 +165,7 @@ Definitions:
 // Blocks #######################################################################
 // ##############################################################################
 /*
-Blocks are shown in the right column of the HomePage.
+Blocks are shown in the right column of the Home Page.
 They are 2 user defined blocks : "weather" and "sensors".
 Example 1:
 	$conf['blocks']['weather'][]="DEVICE_ID_4";
