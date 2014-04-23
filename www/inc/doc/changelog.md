@@ -1,5 +1,8 @@
 # phpMyDomo ChangeLog
 
+## Version : 0.145 - ??? , 2014
+
+
 ## Version : 0.144 - April 23, 2014
 - new: Custom devices icons
 - new: Better Domogik 0.3 support (Thanks to Thefrip), ... Work In Progess!
