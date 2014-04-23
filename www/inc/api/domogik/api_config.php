@@ -10,12 +10,6 @@ $api['urls']['api']	=$this->conf['urls']['host'].':40405';
 $api['urls']['www']	=$this->conf['urls']['host'].':40404';
 $api['dir_admin']	='/admin/';
 
-//api Direct database access - user needs only select privilege --------------
-$api['dbhost'] 	= '10.1.100.152';
-$api['dbport'] 	= '3306';
-$api['dbuser'] 	= 'domogik';
-$api['dbpassword'] = 'domopass';
-$api['dbdatabase'] = 'domogik';
 
 // Set Commands Values -------------------------------------------------------
 // Values used when Sending a command
