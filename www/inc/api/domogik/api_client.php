@@ -53,8 +53,7 @@ class PMD_ApiClient extends PMD_Root_ApiClient{
 			$sensors_devices_types_ids	=$this->vars['sensors_devices_types_ids'];
 			$switches_devices_types_ids	=$this->vars['switches_devices_types_ids'];
 			$dimmers_devices_types_ids	=$this->vars['dimmers_devices_types_ids'];
-		
-			
+
 			foreach($devices as $d){
 				$raw=$d['raw'];
 				$tech = explode(".", $raw['device_feature_model_id']);
@@ -214,7 +213,7 @@ class PMD_ApiClient extends PMD_Root_ApiClient{
 							} 
 						}
 						elseif ($d['raw']['device_feature_model']['value_type']=="number") {
-								$d['value'] = (int) $stats[0]['value'];
+								$d['value'] = (float) $stats[0]['value'];
 						}
 // end_tomove1 +++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
@@ -237,11 +236,10 @@ class PMD_ApiClient extends PMD_Root_ApiClient{
 			// additional device to measure query time
 				$time_end = microtime(true);
 				$time = $time_end - $time_start;
-				$tdev['name'] = 'Mysql Query time';
+				$tdev['name'] = 'Values Fetching Time';
 				$tdev['class'] = 'sensor';
-				$tdev['type'] = 'level';
 				$tdev['unit'] = 's';
-				$tdev['value'] = (float) $time;
+				$tdev['value'] = round( $time,3);
 				$this->RegisterDevice($tdev);
 			}
 			//$this->Debug('Devices',$this->devices);
@@ -305,16 +303,14 @@ class PMD_ApiClient extends PMD_Root_ApiClient{
 				} 
 				// case of numeric value
 				elseif ($d['raw']['device_feature_model']['value_type']=="number") {
-				
-					/* 
-					WHY ????
-					// take into account only if value not older than thirty minutes
-					if ((time() - $row['timestamp'])/60 < 30){
-						$d['value'] = (float) $row['value_num']; // float really ???????
+
+					// use_sensor_value only if value not older than {$this->vars['sensors_timeout']} minutes
+					$use_sensor_value=1;
+					if($d['class'] == 'sensor' and $this->vars['sensors_timeout'] > 0 and (time() - $row['timestamp'])/60 > $this->vars['sensors_timeout'] ){
+							$use_sensor_value=0;
 					}
-					*/
-					$d['value'] = (int) $row['value_num'];
-					//$this->Debug('Row',time() . " " . $row['timestamp'] . " " . $row['date'] . " " . (time() - $row['timestamp'])/60);
+					$use_sensor_value and $d['value'] = (float) $row['value_num'];
+					
 				}
 
 				// address specific case of dimmers
@@ -324,7 +320,7 @@ class PMD_ApiClient extends PMD_Root_ApiClient{
 					
 					if ($row = $dres->fetch_assoc()) {
 					
-						$level = (int) $row['value_num'];
+						$level = (int) $row['value_num']; //dim level is always an int ?
 
 						// for unknown level domogik may return 255 !!!
 						if ($level >= 0 && $level <= 100) {
@@ -334,8 +330,10 @@ class PMD_ApiClient extends PMD_Root_ApiClient{
 
 						// a 0 level indicates a device which is actually off
 						if ($level == 0) {
+							$d['value'] = 0;
 							$d['state'] = 'off';
 						}
+	
 						// min and max could change depnding on the dimmer model (grrrrrr)...
 						//strlen($model['valueMin']) and $this->vars['set']['dimmer']['min']=(int) $model['valueMin'];
 						//strlen($model['valueMax']) and $this->vars['set']['dimmer']['max']=(int) $model['valueMax'];

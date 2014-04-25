@@ -29,4 +29,9 @@ $api['db']['password'] = 'domopass';
 // the domogik database, default to : domogik
 $api['db']['database'] = 'domogik';
 
+//Domogik Settings -----------------------------------------------------------------
+// retrict sensors value to only show values if they where updated before x minutes.
+// in some case, when a plugin crashes, sensor values are no longer updated. Setting this to ie 60, would show nothing in affected sensors, intead of showing a too old value.
+$api['sensors_timeout']=0;
+
 ?>
