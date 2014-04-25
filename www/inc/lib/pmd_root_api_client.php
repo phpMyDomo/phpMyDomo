@@ -260,6 +260,17 @@ class PMD_Root_ApiClient extends PMD_Root{
 	}
 
 	//----------------------------------------------------------------------------------
+	function GetDeviceByAddress($address){
+		foreach($this->devices as $d){
+			if($d['address']==$address){
+				return $d;
+			}
+		}
+	}
+
+
+
+	//----------------------------------------------------------------------------------
 	private function _FilterDevices($class='', $type='',$sort_cols=''){
 		$devices=$this->devices;
 		if($class){
@@ -337,14 +348,12 @@ class PMD_Root_ApiClient extends PMD_Root{
 		}
 		//scale Value
 		if($row['type']=='dimmer'){
+			$row['raw_dim_value']=$row['value']; //used only for debug
 			$value=$row['value'];
 			
-			$min=0;
-			$max=100;
-			if(isset($this->vars['set']['dimmer']['min']) ){$min=$this->vars['set']['dimmer']['min'];}
-			if(isset($this->vars['set']['dimmer']['max']) ){$max=$this->vars['set']['dimmer']['max'];}
-			
-			
+			$min=$this->_getDimmerMinMax($row,'min');
+			$max=$this->_getDimmerMinMax($row,'max');
+
 			//scale the value from 0 to 100
 			if($max !=100 or $min != 0){
 				$value=round( ($row['value'] - $min) / ($max - $min) * 100);
@@ -368,6 +377,8 @@ class PMD_Root_ApiClient extends PMD_Root{
 
 		return $row;
 	}
+
+	
 
 	//----------------------------------------------------------------------------------
 	function FormatRawResults($rows,$type='',$sorted=1){
@@ -422,7 +433,26 @@ class PMD_Root_ApiClient extends PMD_Root{
 		}
 		return $r;
 	}
-	
+
+	//----------------------------------------------------------------------------------
+	private function _getDimmerMinMax($d,$mode='min'){
+		//set min and max, first from device (d) or from global or = 0 and 100
+		if( isset($d['dim_'.$mode])){
+			$out=$d['dim_'.$mode];
+		}
+		elseif(isset($this->vars['set']['dimmer'][$mode])){
+			$out=$this->vars['set']['dimmer'][$mode];
+		}
+		else{
+			if($mode=='min'){
+				$out=0;
+			}
+			elseif($mode=='max'){
+				$out=100;
+			}
+		}
+		return $out;
+	}
 
 	//----------------------------------------------------------------------------------
 	function ApiFetch($command, $type='', $address='',$state='',$invert_set=false){
@@ -440,13 +470,16 @@ class PMD_Root_ApiClient extends PMD_Root{
 		if(isset($this->vars['set'][$type][$state])){
 			$state=$this->vars['set'][$type][$state];
 		}
+
 		//dim scale
 		if($command=='set' and $type=='dim_level'){
-			$min=0;
-			$max=100;
-			if(isset($this->vars['set']['dimmer']['min'])){$min=$this->vars['set']['dimmer']['min'];}
-			if(isset($this->vars['set']['dimmer']['max'])){$max=$this->vars['set']['dimmer']['max'];}
+
+			$d=$this->GetDeviceByAddress($address);
+			$min=$this->_getDimmerMinMax($d,'min');
+			$max=$this->_getDimmerMinMax($d,'max');
+
 			$state=round( ($state/100 * ($max - $min))  + $min );
+			if($state > $max){$state=$max;}
 		}
 		
 		$cache_duration	=3600*2;
