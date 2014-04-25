@@ -25,10 +25,8 @@ $api['set']['switch']['off']		='off';
 $api['set']['dimmer']['on']			='on';
 $api['set']['dimmer']['off']		='off';
 $api['set']['dimmer']['min']		=0;
-$api['set']['dimmer']['max']		=99;
+$api['set']['dimmer']['max']		=100;
 
-$api['set']['alarm']['on']			='arm';
-$api['set']['alarm']['off']			='disarm';
 
 // Actions -------------------------------------------------------------------
 $api['actions']['set']['switch']		='/command/{address}/{state}';
@@ -36,8 +34,6 @@ $api['actions']['set']['dimmer']		='/command/{address}/{state}';
 $api['actions']['set']['dim_level']		='/command/{address}/dim/{state}';
 //$api['actions']['set']['scene']		='/command/{address}/{state}';
 //$api['actions']['set']['group']		='/command/{address}/{state}';
-
-$api['actions']['set']['alarm']		='/command/{address}/{state}';
 
 
 //#############################################################################
