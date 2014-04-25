@@ -1,6 +1,6 @@
 # Setup Lighttpd for phpMyDomo
 
-_For experts only: Using Apache webserver is the prefered way to install phpMyDomo, but if you are an expert and prefer to use Nginx instead of Apache You might try the following method._
+_For experts only: Using Apache webserver is the prefered way to install phpMyDomo, but if you are an expert and prefer to use Lighttpd instead of Apache You might try the following method._
 
 
 ## Install Required packages ############################################
