@@ -6,7 +6,9 @@ ini_set('display_errors','On');
 $conf=array();
 $conf['app']['version']		="0.144";
 $conf['app']['name']		="phpMyDomo";
-if ($_SERVER["HTTPS"] === "on"){
+
+//detect https
+if ( isset( $_SERVER["HTTPS"] ) and strtolower($_SERVER["HTTPS"]) == "on"){
 	$conf['app']['protocol']  =  "https://";
 }
 else {
