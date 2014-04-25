@@ -36,6 +36,9 @@ WorkInProgress: Missing values and states for each devices. (Domogiz 0.4 should 
 
 class PMD_ApiClient extends PMD_Root_ApiClient{
 
+	private $osql; //mysql object 
+	private $force_mode=''; //set to 'api' or 'sql' to force this mode
+
 	//----------------------------------------------------------------------------------
 	function ApiListInfos(){
 	}
@@ -45,6 +48,17 @@ class PMD_ApiClient extends PMD_Root_ApiClient{
 	function ApiListDevices(){
 
 		$time_start = microtime(true);
+
+		// prefer to use sql (faster) is set, else fallback to api (slower)
+		if($this->force_mode){
+			$mode=$this->force_mode;
+		}
+		elseif($this->vars['db']['database']){
+			$mode='sql';
+		}
+		else{
+			$mode='api';
+		}
 
 		if($this->ApiFetch('list','device')){
 			$devices = $this->GetResult();
@@ -182,42 +196,18 @@ class PMD_ApiClient extends PMD_Root_ApiClient{
 					
 				}
 
-				//commands must have a default STATE
+				//commands must have a default STATE, else there is no button icon !
 				if ($d['class'] == 'command' ) {
 					strlen($d['state']) or $d['state']='off';
 				}
-
+				
 				// fetch current value of the device
-				if(!isset($this->vars['db']['database'])){
+				if($mode=='api'){
 					if($this->ApiFetch('list','stats', $d['raw']['device_id'] , $d['raw']['device_feature_model']['stat_key'])){
-
 						$stats=$this->api_response['stats'];
+						
 						//if ($raw['device_id']=="45") $this->Debug('Stats',$stats);
-					
-
-//start_tomove1 ; move this to a method ++++++++++++++++++++++++++++
-//$d=$this->_ParseValues($d, $stats[0],'api');
-					
-						// case of boolean
-						if ($d['raw']['device_feature_model']['value_type']=="binary" or $d['raw']['device_feature_model']['value_type']=="boolean") {
-						
-							//compare with comparison json string
-							$model=json_decode(html_entity_decode($d['raw']['device_feature_model']['parameters']), true);
-							$value = strtolower($stats[0]['value']);
-						
-							if ($value == strtolower($model['value1']) || $value == 'preset_dim') {
-								$d['state'] = 'on';
-							} 
-							elseif ($value == strtolower($model['value0'])){
-								$d['state'] = 'off';
-							} 
-						}
-						elseif ($d['raw']['device_feature_model']['value_type']=="number") {
-								$d['value'] = (float) $stats[0]['value'];
-						}
-// end_tomove1 +++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-
-
+						$d=$this->_ParseValues($d, $stats[0],'api');
 					}
 					elseif($this->debug){
 						$this->o_kernel->PageError('500',"Failed to contact server at {$this->api_url} ");
@@ -227,16 +217,15 @@ class PMD_ApiClient extends PMD_Root_ApiClient{
 				$this->RegisterDevice($d);
 			}
 
-			if(isset($this->vars['db']['database'])){
-				$this->_FetchValues();
+			if($mode=="sql"){
+				$this->_FetchValuesFromDb();
 			}
 
-			
 			if($this->debug){
 			// additional device to measure query time
 				$time_end = microtime(true);
 				$time = $time_end - $time_start;
-				$tdev['name'] = 'Values Fetching Time';
+				$tdev['name'] = 'Values Fetching Time ('.strtoupper($mode).')';
 				$tdev['class'] = 'sensor';
 				$tdev['unit'] = 's';
 				$tdev['value'] = round( $time,3);
@@ -254,97 +243,32 @@ class PMD_ApiClient extends PMD_Root_ApiClient{
 
 	//----------------------------------------------------------------------------------
 	// grab all devices values
-	private function _FetchValues(){
+	private function _FetchValuesFromDb(){
 		
 		// build multiple query
 		$query = "";
 		foreach($this->devices as $uid => $d){
 			if ($query != "") $query .= " union all ";
-			$query .= "(SELECT * FROM core_device_stats WHERE device_id = '" . $d['raw']['device_id'] . "' AND skey = '" . $d['raw']['device_feature_model']['stat_key'] . "' ORDER BY date DESC LIMIT 1)";
+			$query .= "(SELECT * FROM core_device_stats WHERE device_id = '" . $d['raw']['device_id'] . "' AND skey = '" . $d['raw']['device_feature_model']['stat_key'] . "' ORDER BY date DESC LIMIT 1)\n";
 		}
+
 		
 		// fetch data in db in one go
-		$mysqli = @new mysqli($this->vars['db']['host'], $this->vars['db']['user'], $this->vars['db']['password'], $this->vars['db']['database'],$this->vars['db']['port']);
-		if ($mysqli->connect_errno) {
-			$this->o_kernel->PageError('500', "Failed to connect to database : {$mysqli->connect_error} at {$this->vars['db']['host']}:{$this->vars['db']['port']} ");
+		$this->osql = @new mysqli($this->vars['db']['host'], $this->vars['db']['user'], $this->vars['db']['password'], $this->vars['db']['database'],$this->vars['db']['port']);
+		if ($this->osql->connect_errno) {
+			$this->o_kernel->PageError('500', "Failed to connect to database : {$this->osql->connect_error} at {$this->vars['db']['host']}:{$this->vars['db']['port']} ");
 		}
-		$res = $mysqli->query($query);
+		$res = $this->osql->query($query);
 		
 		// loop to read the results (assuming that both $this->devices and $rows are in the same order
 		// due to way data have been fetched in the db)
 		$row = $res->fetch_assoc();
 		foreach($this->devices as $uid => $d){
-		
-			//if ($d[raw]['device_id']=="45") $this->Debug('Row',$row);
-		
+
 			// check that result corresponds to current device (may happen that no result has been returned for a given device)
 			if ($row['device_id'] == $d['raw']['device_id']) {
-
 				
-				
-//start_tomove2 ; mode this to a method ++++++++++++++++++++++++++++
-//$d=$this->_ParseValues($d, $row,'sql');
-
-				$model=json_decode(html_entity_decode($d['raw']['device_feature_model']['parameters']), true);
-			
-				// case of boolean
-				if ($d['raw']['device_feature_model']['value_type']=="binary" or $d['raw']['device_feature_model']['value_type']=="boolean") {
-					
-					//compare with comparison json string
-					$value = strtolower($row['value_str']);
-					
-					if ($value == strtolower($model['value1']) || $value == 'preset_dim') {
-						$d['state'] = 'on';
-					} 
-					elseif ($value == strtolower($model['value0'])){
-						$d['state'] = 'off';
-					}
-				
-				} 
-				// case of numeric value
-				elseif ($d['raw']['device_feature_model']['value_type']=="number") {
-
-					// use_sensor_value only if value not older than {$this->vars['sensors_timeout']} minutes
-					$use_sensor_value=1;
-					if($d['class'] == 'sensor' and $this->vars['sensors_timeout'] > 0 and (time() - $row['timestamp'])/60 > $this->vars['sensors_timeout'] ){
-							$use_sensor_value=0;
-					}
-					$use_sensor_value and $d['value'] = (float) $row['value_num'];
-					
-				}
-
-				// address specific case of dimmers
-				if ($d['type'] == 'dimmer') {
-				
-					$dres = $mysqli->query("SELECT * FROM core_device_stats WHERE device_id = '" . $d['raw']['device_id'] . "' AND skey = 'level' ORDER BY date DESC LIMIT 1");
-					
-					if ($row = $dres->fetch_assoc()) {
-					
-						$level = (int) $row['value_num']; //dim level is always an int ?
-
-						// for unknown level domogik may return 255 !!!
-						if ($level >= 0 && $level <= 100) {
-							$d['value'] = $level;
-							$d['state'] = 'on';
-						}
-
-						// a 0 level indicates a device which is actually off
-						if ($level == 0) {
-							$d['value'] = 0;
-							$d['state'] = 'off';
-						}
-	
-						// min and max could change depnding on the dimmer model (grrrrrr)...
-						//strlen($model['valueMin']) and $this->vars['set']['dimmer']['min']=(int) $model['valueMin'];
-						//strlen($model['valueMax']) and $this->vars['set']['dimmer']['max']=(int) $model['valueMax'];
-					}
-				}
-				//for debug
-				//$d['raw_sql']=$row;
-// end_tomove2 +++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-
-
-				
+				$d=$this->_ParseValues($d, $row,'sql');
 				$this->RegisterDevice($d);
 				
 				// read next row of result
@@ -353,7 +277,6 @@ class PMD_ApiClient extends PMD_Root_ApiClient{
 		}
 	}
 
-/*
 	//----------------------------------------------------------------------------------
 	private function _ParseValues($d,$row,$mode='api'){
 		if($mode=='api'){
@@ -365,15 +288,71 @@ class PMD_ApiClient extends PMD_Root_ApiClient{
 			$value_str=strtolower($row['value_str']);
 		}
 		else{
-			$this->Debug("Unknown mode");
+			$this->Debug("FATAL ERROR","Unknown _ParseValues 'mode' ");
 			return $d;
 		}
-		// parse values and scale min/max
+
+		$model=json_decode(html_entity_decode($d['raw']['device_feature_model']['parameters']), true);
+
+		// case of boolean
+		if ($d['raw']['device_feature_model']['value_type']=="binary" or $d['raw']['device_feature_model']['value_type']=="boolean") {
+						
+			if ($value_str == strtolower($model['value1']) || $value_str == 'preset_dim') {
+				$d['state'] = 'on';
+			} 
+			elseif ($value_str == strtolower($model['value0'])){
+				$d['state'] = 'off';
+			}
+		
+		} 
+		// case of numeric value
+		elseif ($d['raw']['device_feature_model']['value_type']=="number") {
+
+			// use_sensor_value only if value not older than {$this->vars['sensors_timeout']} minutes
+			$use_sensor_value=1;
+			if($mode == 'sql' and $d['class'] == 'sensor' and $this->vars['sensors_timeout'] > 0 and (time() - $row['timestamp'])/60 > $this->vars['sensors_timeout'] ){
+					$use_sensor_value=0;
+			}
+			$use_sensor_value and $d['value'] = (float) $row['value_num'];
+			
+		}
+
+		// address specific case of dimmers
+		if ($d['type'] == 'dimmer') {
+			if($mode=='api'){
+				$level = (int) $row['value']; //dim level is always an int ?
+			}
+			elseif($mode=='sql'){
+				$dres = $this->osql->query("SELECT * FROM core_device_stats WHERE device_id = '" . $d['raw']['device_id'] . "' AND skey = 'level' ORDER BY date DESC LIMIT 1");
+				$row_dim = $dres->fetch_assoc();
+				$level = (int) $row_dim['value_num']; //dim level is always an int ?
+			}
+
+			// for unknown level domogik may return 255 !!!
+			if ($level > 0 && $level <= 100) { // always 100 ??????
+				$d['value'] = $level;
+				$d['state'] = 'on';
+			}
+
+			// a 0 level indicates a device which is actually off
+			if ($level == 0) {
+				$d['value'] = 0;
+				$d['state'] = 'off';
+			}
+
+			// min and max could change depnding on the dimmer model (grrrrrr)...
+			//strlen($model['valueMin']) and $this->vars['set']['dimmer']['min']=(int) $model['valueMin'];
+			//strlen($model['valueMax']) and $this->vars['set']['dimmer']['max']=(int) $model['valueMax'];
+
+		}
+		//for debug
+		//$d['raw_sql']=$row;
 		
 		
 		return $d;
 	}
 
+/*
 
 	//----------------------------------------------------------------------------------
 	function ApiFetch($command, $type='', $address='',$state='',$invert_set=false){
