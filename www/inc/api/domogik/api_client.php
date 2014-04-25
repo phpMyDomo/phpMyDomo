@@ -340,55 +340,16 @@ class PMD_ApiClient extends PMD_Root_ApiClient{
 				$d['state'] = 'off';
 			}
 
+			//TODO : VERIFY IF THIS IS NEEDED
 			// min and max could change depnding on the dimmer model (grrrrrr)...
-			//strlen($model['valueMin']) and $this->vars['set']['dimmer']['min']=(int) $model['valueMin'];
-			//strlen($model['valueMax']) and $this->vars['set']['dimmer']['max']=(int) $model['valueMax'];
-
+			strlen($model['valueMin']) and $d['dim_min']=(int) $model['valueMin'];
+			strlen($model['valueMax']) and $d['dim_max']=(int) $model['valueMax'];
 		}
 		//for debug
 		//$d['raw_sql']=$row;
 		
-		
 		return $d;
 	}
-
-/*
-
-	//----------------------------------------------------------------------------------
-	function ApiFetch($command, $type='', $address='',$state='',$invert_set=false){
-		if($command=='set'){			
-			if($d=$this->_GetDeviceByAddress($address)){
-				$model=json_decode(html_entity_decode($d['raw']['device_feature_model']['parameters']), true);
-
-				//assign corrects states depending on the device_feature_model ??? : grrrrrrrrr !
-				if($type=="switch"){
-					// si c'est pas toujour on ou off, il faut le gerer
-					//if($d['raw']['value_type']=='binary'){
-					//	$my_states['off']	=$model['value0'];
-					//	$my_states['on']	=$model['value1'];
-					//}
-					//strlen($my_states[$state]) and $state=$my_states[$state];
-				}
-				
-				// min and max could change depending on the dimmer model (grrrrrr)...
-				elseif($type=="dim_level"){
-						strlen($model['valueMin']) and $this->vars['set']['dimmer']['min']=(int) $model['valueMin'];
-						strlen($model['valueMax']) and $this->vars['set']['dimmer']['max']=(int) $model['valueMax'];
-				}
-			}
-		}
-		return parent::ApiFetch($command, $type, $address,$state,$invert_set);
-	}
-
-	//----------------------------------------------------------------------------------
-	private function _GetDeviceByAddress($address){
-		foreach($this->devices as $d){
-			if($d['address']==$address){
-				return $d;
-			}
-		}
-	}
-*/
 
 } 
 ?>
