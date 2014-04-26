@@ -1,7 +1,9 @@
 # phpMyDomo ChangeLog
 
-## Version : 0.145 - ??? , 2014
-
+## Version : (NOT RELEASED)
+- new: Lighttpd install (thanks to cblomart)
+- fix: No php warning on some servers without HTTPS
+- dev: Domogik API cleanup
 
 ## Version : 0.144 - April 23, 2014
 - new: Custom devices icons
