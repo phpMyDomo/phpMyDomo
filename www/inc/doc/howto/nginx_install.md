@@ -1,6 +1,6 @@
 # Setup Nginx for phpMyDomo
 
-_For experts only: Using Apache webserver is the prefered way to install phpMyDomo, but if you are an expert and prefer to use Nginx instead of Apache You might try the following method._
+_For experts only: Using the Apache webserver is the recommended way to install phpMyDomo, but if you prefer to use Nginx instead of Apache, you might try the following **unsupported** method._
 
 
 ## Install Required packages ############################################
@@ -16,7 +16,8 @@ apt-get install nginx php5-fpm php5 php5-curl
 ```
 nano /etc/php5/fpm/php.ini
 ```
-And change _cgi.fix_pathinfo=0_ to __cgi.fix_pathinfo=1__
+And change *cgi.fix_pathinfo=0* to **cgi.fix_pathinfo=1**
+
 Then restart php:
 ```
 service php5-fpm restart

@@ -48,7 +48,7 @@ install from git : `git clone https://github.com/phpMyDomo/phpMyDomo.git`
 ## Update
 *You can browse the [ChangeLog](www/inc/doc/changelog.md), no see what's new.*
 
-The are 2 method to update PMD: either from git (fastest) or manually.
+The are 2 methods to update PMD: Either from git (fastest) or manually.
 - Update from git : `git pull` (in the root phpMydomo directory). Then go to `http://[your_web_server]/utils/update` from your web browser, to finish the procedure.
 
 - Manually : you will see a link in the footer of each PMD page, indicating if there is an update available.
@@ -75,7 +75,7 @@ __So Please, fork this Repo, and make Pull-Requests to the Develop branch ;-)__
 
 
 ## Support
-The software is provided as is, and need a minimum computer expertise to be installed and configured. I won't provide any support by email , phone, tickets, etc...  but if you're offering money, I might change my mind... ;-)
+The software is provided as is, and needs a minimum computer expertise to be installed and configured. I won't provide any support by email , phone, tickets, etc...  but if you're offering money, I might change my mind... ;-)
 
 If something doesn't works, look at the code. If the code is missing, well, code it and make a pull request. If you're not a coder yourself, I (or any other developers)  might implement missing devices only if we own the device. We can't blindly support a gear that we can't test ourself.
 
