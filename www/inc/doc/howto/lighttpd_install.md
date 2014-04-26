@@ -4,7 +4,7 @@ _For experts only: Using the Apache webserver is the recommended way to install 
 
 
 ## Install Required packages ############################################
-as root:
+As root:
 
 ```
 apt-get update
@@ -29,7 +29,7 @@ nano /etc/lighttpd/lighttpd.conf
 ```
 
 ### Enable necessary modules ##################################
-make sure the following modules are enabled (begin of the file). 
+Make sure the following modules are enabled (begin of the file). 
 Disabled modules should be commented out. Other modules will be present.
 'rewrite' and 'fastcgi' are required for phpMyDomo.
 ```
@@ -71,7 +71,7 @@ $HTTP["host"] =~ "domo\..*" {
 ```
 
 ### Start lighttpd ############################################
-start lighttpd
+Start Lighttpd:
 ```
 service lighttpd start
 ```

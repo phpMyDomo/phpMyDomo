@@ -4,7 +4,7 @@ _For experts only: Using the Apache webserver is the recommended way to install 
 
 
 ## Install Required packages ############################################
-as root:
+As root:
 
 ```
 apt-get update
@@ -29,7 +29,7 @@ service php5-fpm restart
 nano /etc/nginx/sites-available/phpMyDomo
 ```
 
-add something like this (change according to your own needs)
+Add something like this (change according to your own needs)
 ```
 # You should look at the following URL's in order to grasp a solid understanding
 # of Nginx configuration files in order to fully unleash the power of Nginx.
@@ -82,7 +82,7 @@ server {
 
 ```
 
-Enable it and restart nginx:
+Enable it and restart Nginx:
 ```
 ln -s /etc/nginx/sites-available/phpMyDomo /etc/nginx/sites-enabled/phpMyDomo
 service nginx stop
