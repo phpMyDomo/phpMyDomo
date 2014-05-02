@@ -31,7 +31,7 @@ $api['set']['dimmer']['max']		=100;
 // Actions -------------------------------------------------------------------
 $api['actions']['set']['switch']		='/command/{address}/{state}';
 $api['actions']['set']['dimmer']		='/command/{address}/{state}';
-$api['actions']['set']['dim_level']		='/command/{address}/dim/{state}';
+$api['actions']['set']['dim_level']		='/command/{address}/preset_dim/{state}';
 //$api['actions']['set']['scene']		='/command/{address}/{state}';
 //$api['actions']['set']['group']		='/command/{address}/{state}';
 

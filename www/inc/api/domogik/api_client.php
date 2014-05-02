@@ -206,7 +206,6 @@ class PMD_ApiClient extends PMD_Root_ApiClient{
 					if($this->ApiFetch('list','stats', $d['raw']['device_id'] , $d['raw']['device_feature_model']['stat_key'])){
 						$stats=$this->api_response['stats'];
 						
-						//if ($raw['device_id']=="45") $this->Debug('Stats',$stats);
 						$d=$this->_ParseValues($d, $stats[0],'api');
 					}
 					elseif($this->debug){
@@ -329,9 +328,9 @@ class PMD_ApiClient extends PMD_Root_ApiClient{
 			}
 
 			// for unknown level domogik may return 255 !!!
+			// domogik may also return non zero value but the device is actually off (dim level and state are two different concepts for some devices)
 			if ($level > 0 && $level <= 100) { // always 100 ??????
 				$d['value'] = $level;
-				$d['state'] = 'on';
 			}
 
 			// a 0 level indicates a device which is actually off
