@@ -75,6 +75,10 @@ class PMD_Root_ApiClient extends PMD_Root{
 		$my_api		=$this->conf['app']['api'];
 		require($this->conf['paths']['api'].'api_config.php');
 
+		if($api['use_config']){
+			require($this->conf['paths']['confs']."api_{$my_api}.php");
+		}
+
 		//override from global config
 		if(isset($this->conf['urls']["server_$my_api"])){
 			$api['urls']['api']=$this->conf['urls']["server_$my_api"];
@@ -97,12 +101,54 @@ class PMD_Root_ApiClient extends PMD_Root{
 	}
 
 	//----------------------------------------------------------------------------------
+	private function _SetDefaultTimesInfos(){
+
+		if($this->conf['app']['location']){
+			//cache results
+			$cache_duration	=3600*24*30*365;
+			$cache_file=$this->conf['paths']['caches'].'google_location';		
+			if(!file_exists($cache_file) or filemtime($cache_file) < ( time() - $cache_duration) ){
+				if($html=@file_get_contents('http://maps.google.com/maps/api/geocode/json?sensor=false&address='.urlencode($this->conf['app']['location']))){
+					$json=json_decode($html,true);
+					if($json['status']=='OK'){
+						file_put_contents($cache_file,$html);
+					}
+					else{
+						$html='';
+					}					
+				}
+			}
+			else{
+				$html=@file_get_contents($cache_file);
+			}
+			
+			if($html){
+				$json=json_decode($html,true);
+				$lng=$json['results'][0]['geometry']['location']['lng'];
+				$lat=$json['results'][0]['geometry']['location']['lat'];
+				//get sunset and sunrise time
+				$this->infos['sunrise_time']	or $this->infos['sunrise_time']	=date_sunrise ( time(), SUNFUNCS_RET_TIMESTAMP, $lat, $lng);
+				$this->infos['sunset_time']		or $this->infos['sunset_time']	=date_sunset ( time(), SUNFUNCS_RET_TIMESTAMP, $lat, $lng);
+
+				//get Google guessed location
+				$places=$json['results'][0]['address_components'];
+				if(is_array($places)){
+					foreach($places as $c){
+						if(in_array('locality',$c['types'])){$this->infos['google_city']=$c['long_name'];}
+						if(in_array('country',$c['types'])){$this->infos['google_country']=$c['long_name'];}
+					}
+				}
+			}
+		}
+		$this->infos['server_time']		or $this->infos['server_time'] =time();		
+	}
+
+	//----------------------------------------------------------------------------------
 	function ApiLoad(){
 		$this->ApiListDevices();
 		$this->ApiListInfos();
-
+		$this->_SetDefaultTimesInfos();
 		$this->FormatDevices();
-
 	}
 
 	//----------------------------------------------------------------------------------
@@ -113,6 +159,11 @@ class PMD_Root_ApiClient extends PMD_Root{
 			$this->devices[$k]['lang_type']		=$this->lang['global']['types'][$row['type']];
 			//address for JS
 			$this->devices[$k]['js_address']=preg_replace('#[^a-z0-9_-]+#i','_',$this->devices[$k]['address']);
+			
+			$icons=$this->_MakeIcons($row);
+			$this->devices[$k]['img_url']		=$icons['img'];
+			$this->devices[$k]['img_on_url']	=$icons['img_on'];
+			$this->devices[$k]['img_off_url']	=$icons['img_off'];
 		}
 	}
 
@@ -120,6 +171,10 @@ class PMD_Root_ApiClient extends PMD_Root{
 	//----------------------------------------------------------------------------------
 	function ApiListDevices(){
 		echo "Extend this method to List all devices from remote api call";
+		//$this->infos['sunset_time']		=time();
+		//$this->infos['sunrise_time']	=time();
+		//$this->infos['server_time']		=time();
+		
 		exit;
 	}
 	//----------------------------------------------------------------------------------
@@ -205,6 +260,17 @@ class PMD_Root_ApiClient extends PMD_Root{
 	}
 
 	//----------------------------------------------------------------------------------
+	function GetDeviceByAddress($address){
+		foreach($this->devices as $d){
+			if($d['address']==$address){
+				return $d;
+			}
+		}
+	}
+
+
+
+	//----------------------------------------------------------------------------------
 	private function _FilterDevices($class='', $type='',$sort_cols=''){
 		$devices=$this->devices;
 		if($class){
@@ -250,6 +316,8 @@ class PMD_Root_ApiClient extends PMD_Root{
 		$this->devices[$row['uid']]			=$row;
 	}
 
+
+
 	//----------------------------------------------------------------------------------
 	function FormatState($row,$raw_field=''){
 		//format State
@@ -280,14 +348,12 @@ class PMD_Root_ApiClient extends PMD_Root{
 		}
 		//scale Value
 		if($row['type']=='dimmer'){
+			$row['raw_dim_value']=$row['value']; //used only for debug
 			$value=$row['value'];
 			
-			$min=0;
-			$max=100;
-			if(isset($this->vars['set']['dimmer']['min']) ){$min=$this->vars['set']['dimmer']['min'];}
-			if(isset($this->vars['set']['dimmer']['max']) ){$max=$this->vars['set']['dimmer']['max'];}
-			
-			
+			$min=$this->_getDimmerMinMax($row,'min');
+			$max=$this->_getDimmerMinMax($row,'max');
+
 			//scale the value from 0 to 100
 			if($max !=100 or $min != 0){
 				$value=round( ($row['value'] - $min) / ($max - $min) * 100);
@@ -311,6 +377,8 @@ class PMD_Root_ApiClient extends PMD_Root{
 
 		return $row;
 	}
+
+	
 
 	//----------------------------------------------------------------------------------
 	function FormatRawResults($rows,$type='',$sorted=1){
@@ -365,7 +433,26 @@ class PMD_Root_ApiClient extends PMD_Root{
 		}
 		return $r;
 	}
-	
+
+	//----------------------------------------------------------------------------------
+	private function _getDimmerMinMax($d,$mode='min'){
+		//set min and max, first from device (d) or from global or = 0 and 100
+		if( isset($d['dim_'.$mode])){
+			$out=$d['dim_'.$mode];
+		}
+		elseif(isset($this->vars['set']['dimmer'][$mode])){
+			$out=$this->vars['set']['dimmer'][$mode];
+		}
+		else{
+			if($mode=='min'){
+				$out=0;
+			}
+			elseif($mode=='max'){
+				$out=100;
+			}
+		}
+		return $out;
+	}
 
 	//----------------------------------------------------------------------------------
 	function ApiFetch($command, $type='', $address='',$state='',$invert_set=false){
@@ -383,13 +470,16 @@ class PMD_Root_ApiClient extends PMD_Root{
 		if(isset($this->vars['set'][$type][$state])){
 			$state=$this->vars['set'][$type][$state];
 		}
+
 		//dim scale
 		if($command=='set' and $type=='dim_level'){
-			$min=0;
-			$max=100;
-			if(isset($this->vars['set']['dimmer']['min'])){$min=$this->vars['set']['dimmer']['min'];}
-			if(isset($this->vars['set']['dimmer']['max'])){$max=$this->vars['set']['dimmer']['max'];}
+
+			$d=$this->GetDeviceByAddress($address);
+			$min=$this->_getDimmerMinMax($d,'min');
+			$max=$this->_getDimmerMinMax($d,'max');
+
 			$state=round( ($state/100 * ($max - $min))  + $min );
+			if($state > $max){$state=$max;}
 		}
 		
 		$cache_duration	=3600*2;
@@ -547,6 +637,29 @@ class PMD_Root_ApiClient extends PMD_Root{
 		return $out;
 	}
 
+	//----------------------------------------------------------------------------------
+	function _MakeIcons($row){
+		if($img=$this->conf['devices_icons'][$row['uid']]['devices']){
+			$img="/global/img/devices/icon48_".$img;
+		}
+		elseif($img=$this->conf['devices_icons'][$row['uid']]['types']){
+			$img="/global/img/types/icon48_".$img;
+		}
+		elseif($img=$this->conf['devices_icons'][$row['uid']]['custom']){
+			$img="/custom/img/devices/icon48_".$img;
+		}
+		else{
+			$img="/global/img/types/icon48_".$row['type'];			
+		}
+		$out['img_on']	=$img."_on.png";
+		$out['img_off'] =$img."_off.png";
+		
+		if(strlen($row['state'])){
+			$img .='_'.$row['state'];
+		}
+		$out['img'] =$img.".png";
+		return $out;
+	}
 
 
 	//---------------------------------------------------------------

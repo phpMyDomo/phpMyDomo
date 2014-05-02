@@ -50,22 +50,30 @@
 	<table cellspacing=0 cellpadding=0>
 {if $data.infos.server_time}
 		<tr>
+			<td class='td_icon'><img src='{$p.urls.static}/global/img/icon48_time_now.png'></td>
 			<td class='td_name'>{$lg.infos.now}</td>
 			<td class='td_value'>{$data.infos.server_time|date_format:{$lg.dates.time}}</td>
 		</tr>
 {/if}
 {if $data.infos.sunrise_time}
 		<tr>
+			<td class='td_icon'><img src='{$p.urls.static}/global/img/icon48_time_sunrise.png'></td>
 			<td class='td_name'>{$lg.infos.sunrise}</td>
 			<td class='td_value'>{$data.infos.sunrise_time|date_format:{$lg.dates.time}}</td>
 		</tr>	
 {/if}
 {if $data.infos.sunset_time}
 		<tr>
+			<td class='td_icon'><img src='{$p.urls.static}/global/img/icon48_time_sunset.png'></td>
 			<td class='td_name'>{$lg.infos.sunset}</td>
 			<td class='td_value'>{$data.infos.sunset_time|date_format:{$lg.dates.time}}</td>
 		</tr>	
 {/if}
+{if $c.debug.show}
+			<td class='td_name' colspan=2>Location</td>
+			<td class='td_value'>{$data.infos.google_city}, {$data.infos.google_country}</td>
+{/if}
+
 	</table>
 	</div>
 </div>

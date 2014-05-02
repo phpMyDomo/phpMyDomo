@@ -5,7 +5,7 @@
 	{foreach from=$data.rows item=i}
 		{if $i.state}{$my_val="<img src='{$p.urls.static}/global/img/icon48_{$i.state}.png'><div class='mini'>{$i.value}</class>"}{else}{$my_val=$i.value}{/if}
 		<tr class="tr_class_{$i.class} tr_type_{$i.type} tr_state_{$i.state}">
-			<td class="td_img">		<img src='{$p.urls.static}/global/img/icon48_type_{$i.img_type}.png' class='{if $c.debug.show}jsPopover{/if}' title="{$i.name}" data-content="<pre>{print_r($i,true)}</pre>"></td>
+			<td class="td_img">		<img src='{$p.urls.static}{$i.img_url}' class='{if $c.debug.show}jsPopover{/if}' title="{$i.name}" data-content="<pre>{print_r($i,true)}</pre>"></td>
 			<td class="td_name">	{$i.name}</td>
 			<td class="td_value">	<a href='#' title="{$i.value}">{$my_val}</a></td>
 			<td class="td_unit">	{$i.unit|default:$p.units.{$i.type}}</td>

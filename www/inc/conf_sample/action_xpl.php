@@ -33,6 +33,7 @@ http://xplproject.org.uk/wiki/index.php?title=XPL_Specification_Document
 // ##############################################################################
 // Global Configuration  #######################################################
 // ##############################################################################
+//$action['globals']['debounce']	='3';	//minimum seconds to wait between identical action calls
 
 //$action['globals']['url']	="";
 $action['globals']['xtype']		='xpl-trig';

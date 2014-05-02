@@ -56,6 +56,38 @@ class PMD_Root_Action extends PMD_Root{
 	}
 
 	//----------------------------------------------------------------------------------
+	function RunAction(){
+		if($this->action !='undefined'){
+			if(isset($_GET['preset'])){$prefix='_'.$_GET['preset'];}
+			$cache_dir=$this->conf['paths']['caches']."actions/";
+			$cache_file=$cache_dir."{$this->action}{$prefix}_".md5(json_encode($_GET));
+			if(!$debounce=$this->GetParam('debounce')){
+				if($debounce=$this->conf['app']['actions_debounce']){
+					$this->parameters['debounce']="(Main Conf): $debounce";
+				}
+			}
+			if($debounce){
+				if(!file_exists($cache_dir)){
+					mkdir($cache_dir);
+					chmod($cache_dir,0777);
+				}
+				
+				if(!file_exists($cache_file)){
+					touch($cache_file);
+				}
+				elseif( filemtime($cache_file) < ( time() - $debounce) ){
+					touch($cache_file);
+				}
+				else{
+					$this->DisplayJson(false,array('code'=>403, 'message'=>"The Debounce time ($debounce sec) is greater than the elapsed time since the same action",'sent_parameters'=>$_GET));					
+				}
+			}
+		}
+		$this->Run();
+	}
+
+
+	//----------------------------------------------------------------------------------
 	function Run(){
 		echo "Extend this method to run the action";
 	}

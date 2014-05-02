@@ -27,6 +27,7 @@ https://www.prowlapp.com/api_settings.php
 // ##############################################################################
 // Global Configuration  #######################################################
 // ##############################################################################
+//$action['globals']['debounce']	='3';	//minimum seconds to wait between identical action calls
 
 $action['globals']['key']		="your_api_key";
 $action['globals']['title']		="phpMyDomo Notification";

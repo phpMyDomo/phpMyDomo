@@ -27,6 +27,11 @@ $conf['app']['photoframe']		="directory";
 //Locale: uncomment to override the locale defined in the language file
 //$conf['app']['locale']		="en_US.utf8"; 
 
+// If your server doesnt generate sunrise and sunset times, uncomment and enter your location here in the format : "City, Country"
+// PMD will automatically Query Google, to get your location, and calculate Sunset and Sunrise from the latitude and longitude returned by Google
+//$conf['app']['location']	="Paris, France";
+
+
 // The home page automatically reload after xx seconds, to refresh the buttons or sensor states.
 $conf['app']['reload_time']			="120"; // time in seconds
 
@@ -35,6 +40,9 @@ $conf['app']['reload_time']			="120"; // time in seconds
 
 // Show or hide sensors names in home groups: 0=hide, 1=show , x= show and truncate after x characters
 $conf['app']['groups_sensors_names']	="1";
+
+// When using actions, this is the default debounce period (in seconds) : It prevents the same action to be triggered multiple times, if the same action is called within this period.
+$conf['app']['actions_debounce']	="3";
 
 
 //	Urls  #####################################################################
@@ -133,13 +141,31 @@ Example 2: (working with openHab demo API)
 
 */
 
+// ##############################################################################
+// Devices Icons ################################################################
+// ##############################################################################
+/*
+Define a different icons per devices: Normally icons are defined, depending on the device type (from /static/global/img/types/), but you can choose to override them, with your own device icon, for each device
+
+Example:
+$conf['devices_icons']['DEVICE_ID']['LOCATION']	="ICON_NAME";
+
+Definitions:
+	- DEVICE_ID: Unique Id of the Device (tips: grab it from the phpMyDomo Devices page)
+	- LOCATION: Location of the Icon ; devices|types|custom 
+		- "devices" : Icon is choosen from the /static/global/img/devices/ folder
+		- "types" 	: Icon is choosen from the /static/global/img/types/ folder
+		- "custom" : Icon is choosen from the /static/custom/devices/ folder. This is the RIGHT place to add your OWN custom icons
+	-ICON_NAME : the name of the icon files , ie "alarm1" whill select : "icon48_alarm1_on.png" or "icon48_alarm1_off.png" depending on the device's state
+*/
+//$conf['devices_icons']['scene_group_gf_living']['devices']	="switch1";
 
 
 // ##############################################################################
 // Blocks #######################################################################
 // ##############################################################################
 /*
-Blocks are shown in the right column of the HomePage.
+Blocks are shown in the right column of the Home Page.
 They are 2 user defined blocks : "weather" and "sensors".
 Example 1:
 	$conf['blocks']['weather'][]="DEVICE_ID_4";

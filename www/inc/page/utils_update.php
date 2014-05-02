@@ -49,6 +49,7 @@ class PMD_Page extends PMD_Root_Page{
 		$out=array();
 		$file or $file=$this->conf['paths']['docs'].'changelog.md';
 		$lines=file($file);
+				
 		foreach($lines as $line){
 			if(preg_match('/^[#]+[^0-9]*([0-9\.]+)(.*)/',$line,$m)){
 				if($last_version < $m[1]){
@@ -60,7 +61,7 @@ class PMD_Page extends PMD_Root_Page{
 				}
 				continue;
 			}
-			if(preg_match('/^-.*(new|fix|dev)\w*:\w*(.*)/',$line,$m)){
+			if(preg_match('/^-.*(new|fix|dev)\s*:\s*(.*)/',$line,$m)){
 				$out[$version]['lines'][$m[1]][]=$m[2];
 			}
 			
