@@ -1,7 +1,7 @@
 <?php
 /*
 
-PLEASE READ the /phpMyDomo/doc/howto/actions.md for more informations
+PLEASE READ the /phpMyDomo/www/inc/doc/howto/actions.md for more informations
 
 ## Description  ----------------------------------------------------------------------------------
 This action fetch an url.
