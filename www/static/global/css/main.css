@@ -187,19 +187,17 @@ html, body {
 .button_group{
 	margin: 0 10px 10px 0;
 }
-.button_big{
-	line-height: 36px ;
-	padding: 6px 12px 6px 6px;
-	margin: 0;
+.button_group .btn-lg{
+	padding: 12px 11px;
+}
+.button_group .button_big{
+	padding-left: 55px;
 }
 .button_dim{
-	padding: 13px 10px 12px 10px;
 	min-width: 52px;
 	color: #CCC;
 }
-
 .button_blinds{
-	padding: 13px 10px 12px 12px;
 	min-width: 50px;
 	color: #CCC;
 }
@@ -216,9 +214,11 @@ html, body {
 	border: 1px solid #FFF;
 	background: rgba(255,255,255,0.2);
 	vertical-align: bottom;
-	margin-right: 10px;
 	border-color: rgba(0,0,0,0.3) rgba(255,255,255,0.2) rgba(255,255,255,0.2) rgba(0,0,0,0.3);
 	border-radius: 4px;
+	position: absolute;
+	margin-top: -7px;
+	margin-left: -45px;
 }
 .button_big .but_img IMG{
 	height: 30px;	
