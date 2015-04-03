@@ -23,7 +23,7 @@
 
 class PMD_Action extends PMD_Root_Action{
 
-	private $timeout	=3;
+	private $timeout	=1;
 	private $sticky		=false;
 	private $priority	='normal';
 	private $o_growl;

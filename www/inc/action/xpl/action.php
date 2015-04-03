@@ -32,6 +32,8 @@ class PMD_Action extends PMD_Root_Action{
 	private $xpl_listen			='ANY_LOCAL';		// ListenOnAddress from xPL network settings.
 
 	private $xpl_message		='';
+
+	private $timeout;
 	
 
 	//----------------------------------------------------------------------------------
@@ -43,6 +45,7 @@ class PMD_Action extends PMD_Root_Action{
 		$xbody					=$this->GetParam('xbody'			,'str');
 		$xsource				=$this->GetParam('xsource'			,'str');
 		$this->xpl_instance_id	=$xsource;
+		$this->timeout			=$this->GetParam('timeout'			,'int') or $this->timeout=1;
 
 		$custom					=$this->GetParam('custom'			,'raw');
 		$xbody					=trim(str_replace('{custom}',$custom, $xbody));
@@ -90,6 +93,8 @@ class PMD_Action extends PMD_Root_Action{
 				trigger_error('Error binding socket to ListenOnAddress', E_USER_ERROR );
 		  }
 		}
+
+		stream_set_timeout ( $socket, $this->timeout );
 
 		// Send the message ----
 		$this->xpl_message =$xPLType."\n{\nhop=1\nsource=".$xPLSource."\ntarget=".$xPLTarget."\n}\n".$xPLSchema."\n{\n".$xPLBody."\n}\n";

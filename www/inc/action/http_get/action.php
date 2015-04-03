@@ -27,7 +27,7 @@ class PMD_Action extends PMD_Root_Action{
 	function Run(){
 
 		$url			=$this->GetParam('url'		,'raw');
-		$timeout		=$this->GetParam('timeout'	,'int');
+		$timeout		=$this->GetParam('timeout'	,'int') or $timeout=1;;
 		$custom			=$this->GetParam('custom'	,'raw');
 		$url			=str_replace('{custom}',$custom, $url);
 

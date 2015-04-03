@@ -24,7 +24,7 @@
 class PMD_Action extends PMD_Root_Action{
 
 	var $server;
-	var $timeout=2;
+	var $timeout=1;
 	var $mac;
 	var $login;
 	var $pass;

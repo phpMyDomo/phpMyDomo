@@ -1,8 +1,9 @@
 # phpMyDomo ChangeLog
 
 ## Version : (NOT RELEASED)
-- new: Lighttpd install (thanks to cblomart)
+- new: Lighttpd install documentation (thanks to cblomart)
 - fix: No php warning on some servers without HTTPS
+- fix: Minimum HTTP Timeout for faster actions
 - dev: Domogik API cleanup
 
 ## Version : 0.144 - April 23, 2014

@@ -36,11 +36,12 @@ class PMD_Action extends PMD_Root_Action{
 		$time			=$this->GetParam('time'	,		'float');
 		$custom			=$this->GetParam('custom'		,'raw');
 		$message		=str_replace('{custom}',$custom, $message);
+		$timeout		=$this->GetParam('timeout'		,'int') or $timeout=1;
 
 		if($server){
 			$server_url="http://$server/jsonrpc";
 			require_once($this->conf['libs']['jsonrpc_client']);
-			$o_jsonrpc = new Client($server_url);
+			$o_jsonrpc = new Client($server_url,$timeout);
 			//$o_jsonrpc = new Client($server_url,5,true); //debug
 		}
 		else{
