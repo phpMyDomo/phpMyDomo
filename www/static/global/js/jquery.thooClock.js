@@ -411,7 +411,8 @@
                 if(x <= el.alarmCount && x !== 0){
                    $(el).trigger('onAlarm');
                 }
-                setTimeout(function(){startClock(x,y);},1000);
+                var synced_delay= 1000 - ((new Date().getTime()) % 1000);
+                setTimeout(function(){startClock(x,y);},synced_delay);
             }
 
             startClock(x,y);
