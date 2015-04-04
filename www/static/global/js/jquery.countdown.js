@@ -219,9 +219,9 @@
 
         template: function () {
             return this.defaults.text
-                    .replace("%s", this.days)
-                    .replace("%s", this.hours)
-                    .replace("%s", this.minutes)
+                    .replace("%d", this.days)
+                    .replace("%h", this.hours)
+                    .replace("%m", this.minutes)
                     .replace("%s", this.getSecondsText());
         },
 
