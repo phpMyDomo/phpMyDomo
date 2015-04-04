@@ -106,11 +106,35 @@
             if (!this.active && this.ready()) {
                 this.active = true;
                 this.reset();
+                if(this.defaults.sync){
+	                this.syncToSecond();
+                }
+                if(this.defaults.resync >0){
+		            this.autoResync=setInterval($.proxy(this.resync, this), 1000 * this.defaults.resync);
+                }
                 this.autoUpdate = this.defaults.fast ?
                     setInterval($.proxy(this.fastUpdate, this), 100) :
                     setInterval($.proxy(this.update, this), 1000);
             }
         },
+
+		syncToSecond: function () {
+			var wait= 1000 - ((new Date().getTime()) % 1000);
+			var start = new Date().getTime();
+			for (var i = 0; i < 1e7; i++) {
+				if ((new Date().getTime() - start) > wait){
+					break;
+				}
+			}
+		},
+		
+		resync: function () {
+			console.log('resync');
+			clearInterval(this.autoResync);
+			this.stop();
+			this.start();
+		},
+
 
         stop: function () {
             if (this.active) {
@@ -246,6 +270,8 @@
         fast: false,
         end: $.noop,
         text: "%d days, %h hours, %m minutes, %s seconds",
+        sync: false,
+        resync: 0,
         pad: false
     };
 
