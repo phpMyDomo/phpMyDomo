@@ -130,7 +130,6 @@
 		
 		resync: function () {
 			console.log('resync');
-			clearInterval(this.autoResync);
 			this.stop();
 			this.start();
 		},
@@ -140,6 +139,9 @@
             if (this.active) {
                 this.active = false;
                 clearInterval(this.autoUpdate);
+				if(this.defaults.resync >0){
+					clearInterval(this.autoResync);
+				}
             }
         },
 
