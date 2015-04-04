@@ -219,10 +219,19 @@
 
         template: function () {
             return this.defaults.text
-                    .replace("%d", this.days)
-                    .replace("%h", this.hours)
-                    .replace("%m", this.minutes)
-                    .replace("%s", this.getSecondsText());
+                    .replace("%d", this.padNumber(this.days))
+                    .replace("%h", this.padNumber(this.hours))
+                    .replace("%m", this.padNumber(this.minutes))
+                    .replace("%s", this.padNumber(this.getSecondsText()));
+        },
+
+        padNumber: function (n){
+        	if(this.defaults.pad){
+	        	return (n < 10) ? '0' + n : n;
+        	}
+        	else{
+        		return n;
+        	}
         },
 
         getSecondsText: function () {
@@ -236,7 +245,8 @@
         date: null,
         fast: false,
         end: $.noop,
-        text: "%d days, %h hours, %m minutes, %s seconds"
+        text: "%d days, %h hours, %m minutes, %s seconds",
+        pad: false
     };
 
     // Set default settings
