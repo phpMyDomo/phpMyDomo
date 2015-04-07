@@ -4,6 +4,7 @@ $lang['locale']="fr_FR.utf8";
 
 // menu head ###################################################
 $lang['menu_head']['home']		="Accueil";
+$lang['menu_head']['clock']		="Horloge";
 $lang['menu_head']['cameras']	="Caméras";
 $lang['menu_head']['photos']	="Photos";
 $lang['menu_head']['commands']	="Commandes";

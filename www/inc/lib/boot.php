@@ -19,6 +19,7 @@ else {
 
 // menus ------------------------------------------------------------------------------------
 $conf['menu_urls']['home']		='home';	
+$conf['menu_urls']['clock']		='clock';	
 $conf['menu_urls']['cameras']	='cameras';	
 $conf['menu_urls']['photos']	='photos';	
 $conf['menu_urls']['commands']	='commands';	
@@ -26,6 +27,7 @@ $conf['menu_urls']['sensors']	='sensors';
 $conf['menu_urls']['devices']	='devices';	
 
 $conf['menu_icons']['home']		='fa fa-home';
+$conf['menu_icons']['clock']	='fa fa-clock-o';
 $conf['menu_icons']['cameras']	='fa fa-video-camera';
 $conf['menu_icons']['photos']	='fa fa-camera';
 $conf['menu_icons']['commands']	='fa fa-power-off';
@@ -56,6 +58,7 @@ $conf['paths']['vendors']		=$conf['paths']['includes'].'vendor/';
 $conf['libs']['jsonrpc_client']	=$conf['paths']['vendors']."JsonRPC/src/JsonRPC/Client.php";
 $conf['libs']['growl_atoload']	=$conf['paths']['vendors']."PEAR/Net_Growl/Net/Growl/Autoload.php";
 $conf['libs']['smarty']			=$conf['paths']['vendors']."Smarty/libs/Smarty.class.php";
+$conf['paths']['static']		=$conf['paths']['www'].'static/';
 
 
 // require ---------------------------------------------------------------------------------
