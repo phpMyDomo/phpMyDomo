@@ -57,7 +57,7 @@ class PMD_Kernel{
 		//merge local lang
 		$lang=array();
 		include_once($this->conf['paths']['lang'].'global.php');
-		$this->lang['global']=array_merge($this->lang['global'],$lang);
+		$this->lang['global']=$this->ArrayMergeRecursive($this->lang['global'],$lang);
 
 		//api
 		require($this->conf['libs']['root_api_client']);
@@ -96,7 +96,7 @@ class PMD_Kernel{
 	function PageError($code='404', $txt="Not Found"){
 		$p['err_code']	=$code;
 		$p['err_txt']	=$txt;
-		$this->conf['app']['page']='error';
+		$this->conf['app']['page']='error';		
 		if(!is_object($this->o_page)){
 			$this->o_page= new PMD_Root_Page($this);
 		}
@@ -160,6 +160,33 @@ class PMD_Kernel{
 		$file or $file=$this->cache_file;
 		file_put_contents($file,$content);
 		chmod($file,0777);
+	}
+
+	// ------------------------------------------------------------------------------------------------------------------------
+	function ArrayMergeRecursive($array1, $array2){
+		$arrays = func_get_args();
+		$narrays = count($arrays);
+		
+		for ($i = 0; $i < $narrays; $i ++) {
+			if (!is_array($arrays[$i])) {
+				trigger_error('Argument #' . ($i+1) . ' is not an array - trying to merge array with scalar! Returning null!', E_USER_WARNING);
+				return;
+			}
+		}
+		
+		$ret = $arrays[0];
+		
+		for ($i = 1; $i < $narrays; $i ++) {
+			foreach ($arrays[$i] as $key => $value) {
+					if (is_array($value) && isset($ret[$key])) {
+						$ret[$key] = call_user_func_array (array($this,__METHOD__), array($ret[$key], $value));
+					}
+					else {
+						$ret[$key] = $value;
+					}
+			}    
+		}
+		return $ret;
 	}
 
 
