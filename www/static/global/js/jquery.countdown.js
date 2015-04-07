@@ -1,11 +1,3 @@
-/*!
- * Countdown v0.1.0
- * https://github.com/fengyuanchen/countdown
- *
- * Copyright 2014 Fengyuan Chen
- * Released under the MIT license
- */
-
 (function (factory) {
     if (typeof define === "function" && define.amd) {
         // AMD. Register as anonymous module.
@@ -107,9 +99,11 @@
                 this.active = true;
                 this.reset();
                 if(this.defaults.sync){
+					/* ensure we start right on a second synced with the computer time */
 	                this.syncToSecond();
                 }
                 if(this.defaults.resync >0){
+					/* periodically resync with computer time */
 		            this.autoResync=setInterval($.proxy(this.resync, this), 1000 * this.defaults.resync);
                 }
                 this.autoUpdate = this.defaults.fast ?
@@ -117,7 +111,7 @@
                     setInterval($.proxy(this.update, this), 1000);
             }
         },
-
+		
 		syncToSecond: function () {
 			var wait= 1000 - ((new Date().getTime()) % 1000);
 			var start = new Date().getTime();
@@ -129,7 +123,7 @@
 		},
 		
 		resync: function () {
-			console.log('resync');
+			/* console.log('resyncing'); */
 			this.stop();
 			this.start();
 		},
@@ -275,6 +269,7 @@
         sync: false,
         resync: 0,
         pad: false
+
     };
 
     // Set default settings
