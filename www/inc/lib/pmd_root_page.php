@@ -46,10 +46,20 @@ class PMD_Root_Page extends PMD_Root{
 	//----------------------------------------------------------------------------------
 	private function _init(){
 
-		$lang_file=$this->conf['paths']['lang'].$this->conf['app']['page'].'.php';
+		$lang_file=$this->conf['paths']['lang_en'].$this->conf['app']['page'].'.php';
 		if(file_exists($lang_file)){
-			include($lang_file);
+			//first english
+			$lang=array();
+			include_once($lang_file);
 			$this->lang['page']=$lang;
+			
+			//merge with locale
+			$lang=array();
+			$lang_file=$this->conf['paths']['lang'].$this->conf['app']['page'].'.php';
+			if(file_exists($lang_file)){
+				include_once($lang_file);
+				$this->lang['page']=$this->o_kernel->ArrayMergeRecursive($this->lang['page'],$lang);
+			}
 		}
 		
 		$this->_initHeaders();
@@ -66,7 +76,7 @@ class PMD_Root_Page extends PMD_Root{
 	
 	//----------------------------------------------------------------------------------
 	private function _initSmarty(){
-		require($this->conf['libs']['smarty']);
+		require_once($this->conf['libs']['smarty']);
 		$this->o_smarty= new Smarty();
 		
 		if(!defined('SMARTY_RESOURCE_CHAR_SET') ){
@@ -122,6 +132,7 @@ class PMD_Root_Page extends PMD_Root{
 
 		
 		$this->SetHeadJavascript("var ajax_url='{$this->conf['urls']['www']}/ajax';");
+		$this->SetHeadJavascript("var pmd_url_static='{$this->conf['urls']['static']}';");
 
 	}
 
@@ -245,7 +256,7 @@ class PMD_Root_Page extends PMD_Root{
 		if(isset($this->headers['js_vars'])){
 			$out_vars ="	<script language='javascript'>\n";
 			foreach($this->headers['js_vars'] as $var){
-				$out_vars.="$var\n";
+				$out_vars.="$var";
 			}
 			$out_vars.="	</script>\n";
 			$out=$out_vars.$out;
