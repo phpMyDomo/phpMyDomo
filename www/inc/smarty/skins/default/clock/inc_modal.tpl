@@ -1,4 +1,4 @@
-	<div class="modal fade" id="modal_alarm" tabindex="-1" role="dialog" aria-labelledby="modal_alarm_label" aria-hidden="true">
+	<div class="modal" id="modal_alarm" tabindex="-1" role="dialog" aria-labelledby="modal_alarm_label" aria-hidden="true">
 		<div class="modal-dialog">
 			<div class="modal-content">
 				<ul class="nav nav-pills nav-justified" role="tablist" id="jsModalTabs">
@@ -15,7 +15,7 @@
 									<label class="col-xs-3 control-label">{$l.modal.duration}</label>
 									<div class="col-xs-4">
 										<div class="input-group">
-											<select id="jsInputTimerMin" class="form-control">{html_options options=$data.opt_min selected=0}</select>
+											<select id="jsInputTimerMin" class="form-control">{html_options options=$data.opt_min2 selected=0}</select>
 											<div class="input-group-addon">{$l.modal.minutes}</div>
 										</div>
 									</div>
@@ -35,13 +35,13 @@
 									<label class="col-xs-3 control-label">{$l.modal.end_time}</label>
 									<div class="col-xs-4">
 										<div class="input-group">
-											<select id="jsInputAlarmHour" class="form-control">{html_options options=$data.opt_hour selected={$smarty.now|date_format:"%H"}}</select>
+											<select id="jsInputAlarmHour" class="form-control">{html_options options=$data.opt_hour selected={intval($smarty.now|date_format:"%H")}}</select>
 											<div class="input-group-addon">{$l.modal.hours}</div>
 										</div>
 									</div>
 									<div class="col-xs-4">								
 										<div class="input-group">
-											<select id="jsInputAlarmMin" class="form-control">{html_options options=$data.opt_min selected={$smarty.now|date_format:"%M"}}</select>
+											<select id="jsInputAlarmMin" class="form-control">{html_options options=$data.opt_min selected={intval($smarty.now|date_format:"%M")}}</select>
 											<div class="input-group-addon">{$l.modal.minutes}</div>
 										</div>
 									</div>
@@ -56,8 +56,12 @@
   									<div class="col-xs-2 checkbox">
 										<input type="checkbox" id="jsInputSound" value=1 checked="checked">
 									</div>
-  									<div class="col-xs-6">
+  									<div class="col-xs-5">
 										<select id="jsSelectSound" class="form-control">{html_options options=$data.opt_sounds selected=''}</select>
+									</div>
+  									<div class="col-xs-1">
+										<button type="button" class="btn btn-success" id="jsButSoundPlay"><i class="fa fa-play"></i></button>
+										<button type="button" class="btn btn-default" id="jsButSoundStop"><i class="fa fa-stop"></i></button>
 									</div>
 								</div>
 								<div class="form-group  form-group-lg">
