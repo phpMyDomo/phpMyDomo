@@ -86,6 +86,7 @@ jQuery( document ).ready(function() {
 		var sec=parseInt($('#jsInputTimerSec').val());
 		var a_time=moment().add(min,'m').add(sec,'s');
 		ClockAlarmSet(a_time);
+		clock_sound_preview=undefined;
 	});
 
 	$("#jsButAlarm").click(function() {
@@ -93,8 +94,48 @@ jQuery( document ).ready(function() {
 		var min	=parseInt($('#jsInputAlarmMin').val());
 		var a_time=moment({ hour:hour, minute:min });
 		ClockAlarmSet(a_time);
+		clock_sound_preview=undefined;
 	});
 
+	var clock_sound_preview;
+	var clock_sound_preview_play=false;
+	$("#jsButSoundPlay").click(function() {
+		$("#jsButSoundStop").click();
+		$("#jsButSoundPlay").hide();
+		$("#jsButSoundStop").show();
+		var audio_file=pmd_url_static + '/global/audio/clock/'+ $("#jsSelectSound").val();
+		clock_sound_preview = new Howl({
+			urls: [
+				audio_file+'.ogg',
+				audio_file+'.mp3'
+			],
+			autoplay: true,
+			volume: 1,
+			loop: false,
+			onend: function() {
+    			clock_sound_preview_play=false;
+    			$("#jsButSoundStop").click();
+    			
+  			},
+			onplay: function() {
+    			clock_sound_preview_play=true;
+  			}
+		});
+	});
+	$("#jsSelectSound").change(function() {
+		if(clock_sound_preview_play){
+			$("#jsButSoundPlay").click();
+		}
+	});
+	$("#jsButSoundStop").click(function() {
+		if(clock_sound_preview !== undefined){
+			clock_sound_preview.unload();
+		}
+    	clock_sound_preview_play=false;
+		$("#jsButSoundStop").hide();
+		$("#jsButSoundPlay").show();
+	});
+	$("#jsButSoundStop").hide();
 
 
 
@@ -102,10 +143,14 @@ jQuery( document ).ready(function() {
 	
 	/* --------------------------------------------------*/
 	function ClockAlarmSet(moment){
+		$("#jsButSoundStop").click();
 		ClockAlarmStop();
 		console.log('Alarm set to : '+moment.format('HH:mm:ss'));
 	
-		e_view_alarm.html(moment.format('HH:mm:ss'));		
+		e_view_alarm.html(moment.format('HH:mm:ss'));
+		$('#jsInputAlarmHour').val(moment.format('H'));
+		$('#jsInputAlarmMin').val(moment.format('m'));
+				
 		e_view_timer.countdown('destroy');
 		e_view_timer.removeData("countdown");
 		e_view_timer.countdown({
@@ -162,7 +207,7 @@ jQuery( document ).ready(function() {
 				y+=1;
 			}
 			$('body').css('background-color',color);
-			clock_bg_timeout = setTimeout(function(){ClockAlarmFlipBackground(y);},200);
+			clock_bg_timeout = setTimeout(function(){ClockAlarmFlipBackground(y);},213);
 	}
 
 	/* --------------------------------------------------*/
@@ -171,8 +216,8 @@ jQuery( document ).ready(function() {
 		var audio_file=pmd_url_static + '/global/audio/clock/'+ $("#jsSelectSound").val();
 		clock_sound = new Howl({
 		urls: [
-			audio_file+'.mp3',
 			audio_file+'.ogg',
+			audio_file+'.mp3'
 		],
 		autoplay: false,
 		volume: 1,
