@@ -24,6 +24,7 @@ class PMD_Page extends PMD_Root_Page{
 		$data['type']		=$this->vars['type'];
 		$data['opt_hour']	=$this->_SmartyTimeOptions(23);
 		$data['opt_min']	=$this->_SmartyTimeOptions(59);
+		$data['opt_min2']	=$this->_SmartyTimeOptions(120);
 		$data['opt_sec']	=$this->_SmartyTimeOptions(59);
 		$data['opt_sounds']	=$this->_ListSounds();
 		
@@ -59,7 +60,7 @@ class PMD_Page extends PMD_Root_Page{
 			$ext = pathinfo($file, PATHINFO_EXTENSION);
 			$name=str_replace(".$ext",'',$file);
 			if($ext !='mp3'){continue;}
-			$out[$name]=ucfirst($name);
+			$out[$name]=ucwords(str_replace('_',' ',$name));
 		}
 		if(!$out){
 			$this->o_kernel->PageError(500,"The clock sound directory ($path_files) does not contain any .mp3 file.");			
