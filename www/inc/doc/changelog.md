@@ -2,7 +2,7 @@
 
 ## Version : (NOT RELEASED) 0.2 - xxxx xx, 2016
 - new: Clock Page (to complete)
-- new: Domoticz Selector Button type (to complete)
+- new: Domoticz : implements Selector Button types
 - new: Lighttpd install documentation (thanks to cblomart)
 - fix: No php warning on some servers without HTTPS
 - fix: Minimum HTTP Timeout for faster actions

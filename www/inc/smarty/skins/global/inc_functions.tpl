@@ -24,7 +24,7 @@
 	{foreach from=$row.choices key=cv item=cn}
 		{$my_class=''}
 		{if $row.value==$cv}{$my_class='btn-success'}{/if}
-		<a href='#' name='but_{$row.uid}' data-address='{$row.address}' data-type='selector' data-target='{$cv}' title="" class='btn btn-lg btn-default jsButSelector button_selector {$my_class}'>{$cn}</a>
+		<a href='#' name='but_{$row.uid}' data-address='{$row.address}' data-type='selector' data-value='{$cv}' data-onclass='btn-success' title="" class='btn btn-lg btn-default jsButSelector button_selector {$my_class}'>{$cn}</a>
 	{/foreach}
 {/if}
 

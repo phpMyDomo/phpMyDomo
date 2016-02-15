@@ -38,6 +38,7 @@ $api['actions']['set']['blinds']		='/json.htm?type=command&param=switchlight&idx
 $api['actions']['set']['dim_level']		='/json.htm?type=command&param=switchlight&idx={address}&switchcmd=Set+Level&level={state}';
 $api['actions']['set']['scene']			='/json.htm?type=command&param=switchscene&idx={address}&switchcmd={state}';
 $api['actions']['set']['group']			='/json.htm?type=command&param=switchscene&idx={address}&switchcmd={state}';
+$api['actions']['set']['selector']		='/json.htm?type=command&param=switchlight&idx={address}&switchcmd=Set+Level&level={state}';
 
 
 //#############################################################################

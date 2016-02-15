@@ -100,6 +100,46 @@ jQuery( document ).ready(function() {
 			});    	
     });
 
+
+    /* Button Selector -------------------------------------- */
+    $('.jsButSelector').click(function(e){
+    	e.preventDefault();
+    	var but		=$(this);
+    	var address	=but.attr('data-address');
+    	var value	=but.attr('data-value');
+    	var onclass	=but.attr('data-onclass');
+    	var group_buts=but.closest('.jsButGroup').find('.jsButSelector');
+
+    	but.removeClass('active').addClass('active');
+    	
+    	var my_refresh_time = refresh_time;
+    	    	
+    	$.getJSON( ajax_url, { mode: "set", a: address, v: value, t: 'selector' } )
+  			.done(function( json ) {
+			    but.removeClass('active');
+				
+  				if(json.status=='ok'){
+					group_buts.removeClass(onclass);
+  					but.addClass(onclass);
+					SetReload(my_refresh_time);
+  					console.log('OK');
+  				}
+  				else{
+  					console.log('ERROR');
+  				}
+			})
+			.fail(function( jqxhr, textStatus, error ) {
+			    but.removeClass('active');
+				var err = textStatus + ", " + error;
+				console.log( "Selector Request Failed: " + err );
+			});    	
+    });
+
+
+
+
+
+
     /* Button Dimmer (to finish) -------------------------------------- */
    $('.jsButDimmer').each(function(){
     	var but			=$(this);
