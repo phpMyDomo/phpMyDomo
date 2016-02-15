@@ -4,7 +4,7 @@ ini_set('display_errors','On');
 
 // base ------------------------------------------------------------------------------------
 $conf=array();
-$conf['app']['version']		="0.144";
+$conf['app']['version']		="0.2a";
 $conf['app']['name']		="phpMyDomo";
 
 //detect https

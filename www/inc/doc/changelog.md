@@ -1,10 +1,17 @@
 # phpMyDomo ChangeLog
 
-## Version : (NOT RELEASED)
+## Version : (NOT RELEASED) 0.2 - xxxx xx, 2016
+- new: Clock Page (to complete)
+- new: Domoticz Selector Button type (to complete)
 - new: Lighttpd install documentation (thanks to cblomart)
 - fix: No php warning on some servers without HTTPS
 - fix: Minimum HTTP Timeout for faster actions
+- fix: Domogik : state for dimmers
+- fix: Minimum HTTP Timeout for faster actions
+- fix: buttons height for Firefox
 - dev: Domogik API cleanup
+- dev: allow per devices dim min/max level
+- dev: recursive merge of language
 
 ## Version : 0.144 - April 23, 2014
 - new: Custom devices icons
