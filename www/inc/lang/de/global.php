@@ -4,6 +4,7 @@ $lang['locale']="de_DE.utf8";
 
 // menu head ###################################################
 $lang['menu_head']['home']		="Home";
+//$lang['menu_head']['clock']		="Clock";	// to translate
 $lang['menu_head']['cameras']	="Kameras";
 $lang['menu_head']['photos']	="Photos"; // to translate
 $lang['menu_head']['commands']	="Befehle";
@@ -29,7 +30,7 @@ $lang['types']['temp']		="Temperatur";
 $lang['types']['wind_speed']="Wind Geschwindigkeit";
 $lang['types']['wind_gust']	="Wind Böen";
 $lang['types']['wind_temp']	="Wind Temperatur";
-$lang['types']['wind_chill']="Wind gefuehlte Temperatur";	//Wind gefuehlte Temperatur
+$lang['types']['wind_chill']="Wind gefuehlte Temperatur";
 $lang['types']['rain']		="Regen";
 $lang['types']['baro']		="Barometer";
 $lang['types']['hum']		="Feuchte";
@@ -52,6 +53,7 @@ $lang['types']['gaz']		="Gas/Rauch";
 $lang['types']['counter']	="Zähler";
 $lang['types']['radiation']	="Radiations";	//To translate
 $lang['types']['visibility']="Visibility";	//To Translate
+//$lang['types']['selector']	="Selector";	//To Translate
 
 // infos ################################################################
 $lang['infos']['sunset']	="Sonnenuntergang";

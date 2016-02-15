@@ -4,8 +4,9 @@ $lang['locale']="nl_NL.utf8";
 
 // menu head ###################################################
 $lang['menu_head']['home']		="Dashboard";
-$lang['menu_head']['cameras']	="Camera's";
-$lang['menu_head']['photos']	="Photo's"; // to translate
+//$lang['menu_head']['clock']		="Clock";	// to translate
+//$lang['menu_head']['cameras']	="Cameras";	// to translate
+//$lang['menu_head']['photos']	="Photos"; // to translate
 $lang['menu_head']['commands']	="Commando's";
 $lang['menu_head']['sensors']	="Sensoren";
 $lang['menu_head']['devices']	="Apparaten";
@@ -20,7 +21,7 @@ $lang['classes']['security']="beveiliging";
 // blocks ###################################################
 $lang['blocks_titles']['weather']	="Weer";
 $lang['blocks_titles']['sensors']	="Sensoren";
-$lang['blocks_titles']['links']		="Links";	// To translate
+//$lang['blocks_titles']['links']		="Links";	// To translate
 
 // types blocks ###################################################
 $lang['types']['scene']		="Scene";
@@ -29,7 +30,7 @@ $lang['types']['temp']		="Temperatuur";
 $lang['types']['wind_speed']="Wind";
 $lang['types']['wind_gust']	="Windvlaag";
 $lang['types']['wind_temp']	="Temperatuur";
-$lang['types']['wind_chill']="Gevoelstemperatuur";	// Gevoelstemperatuur
+$lang['types']['wind_chill']="Gevoelstemperatuur";
 $lang['types']['rain']		="Regen";
 $lang['types']['baro']		="Barometer";
 $lang['types']['hum']		="Luchtvochtigheid";
@@ -37,7 +38,7 @@ $lang['types']['switch']	="Schakelaar";
 $lang['types']['window']	="Raam";
 $lang['types']['door']		="Deur";
 $lang['types']['dimmer']	="Dimmer";
-$lang['types']['blinds']	="Blinds";	//to translate
+//$lang['types']['blinds']	="Blinds";	//to translate
 $lang['types']['heating']	="Verwarming";
 $lang['types']['cam_ip']	="IP Camera";
 $lang['types']['air']		="Air Conditioning";
@@ -52,6 +53,7 @@ $lang['types']['gas']		="Gas/ Rook";
 $lang['types']['counter']	="Meter";
 $lang['types']['radiation']	="Zoninstraling";
 $lang['types']['visibility']="Zicht";
+//$lang['types']['selector']	="Selector";	//to translate
 
 // infos ################################################################
 $lang['infos']['sunset']	="Zonsondergang";
