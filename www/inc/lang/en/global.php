@@ -53,6 +53,7 @@ $lang['types']['gas']		="Gas/Smoke";
 $lang['types']['counter']	="Counter";
 $lang['types']['radiation']	="Radiations";
 $lang['types']['visibility']="Visibility";
+$lang['types']['selector']	="Selector";
 
 // infos ################################################################
 $lang['infos']['sunset']	="Sunset";

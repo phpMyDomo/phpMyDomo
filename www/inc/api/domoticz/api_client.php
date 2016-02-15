@@ -212,6 +212,22 @@ class PMD_ApiClient extends PMD_Root_ApiClient{
 					$d['value']		=$raw['LevelInt'];
 					$d['invert_set']=true;
 				}
+				elseif($raw['SwitchType']=='Selector'){
+					$d['class']	='command';
+					$d['type']	='selector';
+					$d['value']	=$raw['LevelInt'];
+					//set (pseudo) state
+					$d['state']='off';
+					//create choice
+					$choices=explode('|',$raw['LevelNames']);
+					if(is_array($choices)){
+						$i=0;
+						foreach($choices as $choice){
+							$d['choices'][$i]=$choice;
+							$i +=10;
+						}
+					}
+				}
 				$this->RegisterDevice($d);
 			}
 			//$this->Debug('Devices',$this->devices);

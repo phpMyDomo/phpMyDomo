@@ -14,9 +14,18 @@
 {if $row.type=='dimmer'}
 	<a href='#' name='but_{$row.uid}' data-address='{$row.address}' data-js_address='{$row.js_address}' data-type='dimmer' data-value='{$row.value}'  title="{$row.name}" class='btn btn-lg btn-default jsButDimmer jsPopover button_dim'>{$row.value}</a>
 {/if}
+
 {if $command=='blinds'}
 	<a href='#' name='but_{$row.uid}' data-address='{$row.address}' data-type='blinds' data-target='off' data-invert='{$row.invert_set}' title="" class='btn btn-lg btn-default jsButBlinds button_blinds'><i class="fa fa-chevron-up"></i><u>.</u></a>
 	<a href='#' name='but_{$row.uid}' data-address='{$row.address}' data-type='blinds' data-target='on' data-invert='{$row.invert_set}' title="" class='btn btn-lg btn-default jsButBlinds button_blinds'><i class="fa fa-chevron-down"></i><u>.</u></a>
+{/if}
+
+{if $command=='selector'}
+	{foreach from=$row.choices key=cv item=cn}
+		{$my_class=''}
+		{if $row.value==$cv}{$my_class='btn-success'}{/if}
+		<a href='#' name='but_{$row.uid}' data-address='{$row.address}' data-type='selector' data-target='{$cv}' title="" class='btn btn-lg btn-default jsButSelector button_selector {$my_class}'>{$cn}</a>
+	{/foreach}
 {/if}
 
 </div>
