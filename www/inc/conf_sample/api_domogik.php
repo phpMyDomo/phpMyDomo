@@ -8,11 +8,12 @@
 // Mysql Server IP and host where Domogik Database is installed
 /*
 1) if PMD is located on the same host, you can leave this to 'lacalhost', and use the "domogik" user with has right to connect to the "domogik" database
+or create a new user having only read rights -ie SELECT- on the database (safer)
 2) if PMD is not located on the same host, you will need to make sure that:
 - the mysql server authorizes external connections : in /etc/mysql/my.cnf , "bind-address" should be commented
 - you have created a user who has the rights to connect to the domogik db from an external host, ie:
 # mysql -u root -p
-> GRANT ALL PRIVILEGES ON domogik.* TO 'domogik'@'%'  IDENTIFIED BY 'domopass'  WITH GRANT OPTION;
+> GRANT SELECT PRIVILEGES ON domogik.* TO 'domogik'@'%'  IDENTIFIED BY 'domopass';
 
 */
 $api['db']['host'] 	= 'localhost';
