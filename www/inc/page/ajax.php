@@ -8,6 +8,9 @@ class PMD_Page extends PMD_Root_Page{
 		if($mode=='set'){
 			$this->_modeSet();
 		}
+		elseif($mode=='list_devices'){
+			$this->_modeListDevices();			
+		}
 		
 		$this->_jsonError();
 	}
@@ -29,6 +32,20 @@ class PMD_Page extends PMD_Root_Page{
 			}
 			$this->_jsonError();
 		}
+	}
+
+	//----------------------------------------------------------------------------------
+	private function _modeListDevices(){
+		if($this->conf['app']['demo_api_limit']){
+			$this->_jsonError();			
+		}
+		isset($_GET['c'])	and $class	=$_GET['c'];
+		isset($_GET['t'])	and $type	=$_GET['t'];
+		if($arr['data']=$this->o_api->GetDevices($class,$type)){
+			$this->_jsonOk($arr);
+			exit;
+		}
+		$this->_jsonError();
 	}
 
 	//----------------------------------------------------------------------------------

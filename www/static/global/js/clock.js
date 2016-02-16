@@ -1,6 +1,11 @@
 
 jQuery( document ).ready(function() {
 
+	/* --------------------------------------------------*/
+	//immediately refresh to correctly pad decimals  & set the refresh time
+	UpdateSensors();
+
+
 	/* ----- Digital clock ------------------ */
 	function ClockUpdateDigital() {
 		function pad(n) {
@@ -21,7 +26,7 @@ jQuery( document ).ready(function() {
 		//setTimeout(ClockUpdateDigital, delay);
 	};
 
-	/* ----- Analog clock ------------------ */
+	/* ----- Resize Analog clock ------------------ */
 	var clock_body_w	=$(document).width();
 	var clock_body_h	=$(document).height();
 	if(clock_body_w > clock_body_h){
@@ -33,6 +38,9 @@ jQuery( document ).ready(function() {
 	else{
 		var clock_w	=clock_body_h * 0.4;
 	}
+	/* ----- Resize Digital clock ------------------ */
+
+
 
 	//clock plugin constructor
 	$('#jsClockAnalog').thooClock({
@@ -237,42 +245,51 @@ jQuery( document ).ready(function() {
 	}
 
 
+});
 
-
-
-
-    /* Button Blinds & Shutter -------------------------------------- */
-/*
-    $('.jsButBlinds').click(function(e){
-    	e.preventDefault();
-    	var but		=$(this);
-    	var address	=but.attr('data-address');
-    	var target	=but.attr('data-target');
-    	var invert	=but.attr('data-invert');
-    	but.removeClass('active').addClass('active');
-    	
-    	var my_refresh_time = refresh_time_blinds;
-    	    	
-    	$.getJSON( ajax_url, { mode: "set", a: address, v: target, t: 'blinds', i: invert } )
+	/* --------------------------------------------------*/
+	function UpdateSensors(){
+    	$.getJSON( ajax_url, { mode: 'list_devices', c:'sensor' } )
   			.done(function( json ) {
-			    but.removeClass('active');
-  				if(json.status=='ok'){
-					SetReload(my_refresh_time);
+  				if(json){
   					console.log('OK');
+  					//console.log(json.toSource());
+  					$('.jsAutoSensors').each(function(){
+    					var span	=$(this);
+    					var uid		=span.attr('data-uid');
+    					var type	=span.attr('data-type');
+    					var sensor=json.data[uid];  
+    					var value = sensor.value;
+    					//we may add some other type to show 1 decimal
+    					if(type=='temp'){
+    						value=value.toFixed(1);
+    					}
+    					else{
+    						value= Math.round(value);
+    					}
+    					span.html(value);
+				    });
+
   				}
   				else{
   					console.log('ERROR');
   				}
 			})
 			.fail(function( jqxhr, textStatus, error ) {
-			    but.removeClass('active');
 				var err = textStatus + ", " + error;
-				console.log( "Switch Request Failed: " + err );
-			});    	
-    });
-*/
+				console.log( "List Request Failed: " + err );
+		});
+		SetReloadClockSensors(pmd_clock_refresh_time);
+	}
 
 
-});
+	/* --------------------------------------------------*/
+	var global_clock_sensors_timeout;
+	function SetReloadClockSensors(time){
+		clearTimeout(global_clock_sensors_timeout);
+		if(time > 0){
+			global_clock_sensors_timeout=setTimeout("UpdateSensors()", time * 1000);		
+		}
+	}
 
 

@@ -751,7 +751,7 @@ html, body {
 ----------------------------------------------------------------- */
 #body_clock{
 	background: #000;
-	color: #444;
+	color: #555;
 }
 
 @font-face {
@@ -825,38 +825,36 @@ html, body {
 #div_clock_sensors{
 }
 #div_clock_sensors TABLE {
+	float: right;
 	margin: auto;
-	margin-top: 20px;
+	margin-top: 0px;
 	margin-bottom: 30px;
 	font-family: 'lcd2';
 }
 #div_clock_sensors TH{
-	text-align: center;
-	padding-left: 10px;
-	padding-right: 20px;
+	text-align: right;
+	padding-left: 5px;
 	font-size: 34px;
 	line-height: 100%;
 }
 #div_clock_sensors TD {
-	padding-left: 10px;
-	padding-right: 10px;
+	padding-left: 20px;
 	text-align: right;
-	line-height: 100%;
+	line-height: 90%;
 	font-family: 'lcd2';
 	font-size: 80px;
 	color: cyan;
+	white-space: nowrap;
 }
-#div_clock_sensors TD .deg,
-#div_clock_sensors TD .per {
+#div_clock_sensors TD .unit{
 	font-family: helvetica;
-	font-size: 52px;
-	color: #444;
-	width: 20px;
-	display: inline-block;
-}
-#div_clock_sensors TD .per {
 	font-size: 15px;
+	color: #555;
+	width: 26px;
+	display: inline-block;
+	text-align: left;
 }
+
 #div_clock_timer{
 	text-align: center;
 }

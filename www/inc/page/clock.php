@@ -21,13 +21,18 @@ class PMD_Page extends PMD_Root_Page{
 		foreach($this->vars['analog'] as $k => $v){
 			$this->SetHeadJavascript("pmd_clock.$k='$v';");
 		}
+		$this->SetHeadJavascript("pmd_clock_refresh_time={$this->vars['refresh_time']};");
+
 		$data['type']		=$this->vars['type'];
 		$data['opt_hour']	=$this->_SmartyTimeOptions(23);
 		$data['opt_min']	=$this->_SmartyTimeOptions(59);
 		$data['opt_min2']	=$this->_SmartyTimeOptions(120);
 		$data['opt_sec']	=$this->_SmartyTimeOptions(59);
 		$data['opt_sounds']	=$this->_ListSounds();
-		
+
+		$data['devices']	=$this->o_api->GetDevices();
+		$data['sensors']	=$this->vars['sensors'];
+				
 		$this->Assign('data',				$data);
 		$this->Display($page);
 	}
