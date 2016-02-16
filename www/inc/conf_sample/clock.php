@@ -14,7 +14,7 @@ Display the clock,  selected sensors in realtime and allow setting an alarm/time
 // Clock Preferences  ##########################################################
 // ##############################################################################
 
-$clock['type']								='digital';	// 'digital' | 'analog' : clock type
+$clock['type']								='analog';	// 'digital' | 'analog' : clock type
 
 // analog clock colors: can be defined as hex, colorstring, or rgb, rgba (https://github.com/thooyork/thooClock)
 $clock['analog']['dialColor']				='#333333';	// dial color

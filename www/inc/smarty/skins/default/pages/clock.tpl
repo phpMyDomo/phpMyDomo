@@ -3,6 +3,8 @@
 
 {include file="{$p.template}/clock/inc_modal.tpl"}
 
+<div id="clock_type_{$data.type}">
+
 	<div class="col-sm-8 jsClockCol">
 {include file="{$p.template}/clock/inc_date.tpl"}
 {if $data.type=='digital'}
@@ -18,6 +20,8 @@
 {include file="{$p.template}/clock/inc_timer.tpl"}
 
 	</div>
+
+</div>
 
 {/capture}
 

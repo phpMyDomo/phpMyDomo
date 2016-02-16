@@ -775,42 +775,17 @@ html, body {
 }
 #div_clock_analog {
 	text-align: center;
+	margin-bottom: 20px;
 }
 
 #div_clock_digital {
 	text-align: center;
-	padding-right: 20px;
 	font-size: 170px;
 	font-family: "lcd";
 	color: cyan;
 	line-height: 100%;
+	padding-bottom: 30px;
 }
-@media (min-width: 1px){
-	#div_clock_digital{
-		font-size: 100px;
-	}
-}
-@media (min-width: 480px){
-	#div_clock_digital{
-		font-size: 120px;
-	}
-}
-@media (min-width: 768px){
-	#div_clock_digital{
-		font-size: 130px;
-	}
-}
-@media (min-width: 992px){
-	#div_clock_digital{
-		font-size: 150px;
-	}
-}
-@media (min-width: 1200px){
-	#div_clock_digital{
-		font-size: 200px;
-	}
-}
-
 
 #div_clock_date {
 	margin-bottom: 20px;
@@ -823,6 +798,7 @@ html, body {
 }
 
 #div_clock_sensors{
+	overflow: hidden;
 }
 #div_clock_sensors TABLE {
 	float: right;
@@ -840,7 +816,7 @@ html, body {
 #div_clock_sensors TD {
 	padding-left: 20px;
 	text-align: right;
-	line-height: 90%;
+	line-height: 80%;
 	font-family: 'lcd2';
 	font-size: 80px;
 	color: cyan;
@@ -875,19 +851,54 @@ html, body {
 #div_clock_timer .digits{
 	font-family: 'lcd2';
 	font-size: 45px;
-	line-height: 100%;
+	line-height: 80%;
 	vertical-align: middle;
 }
 #div_clock_timer .active .digits{
 	color: orange;	
 }
-#div_clock_timer #view_alarm,
 #div_clock_timer #view_timer{
-	margin: 0 15px;
+	margin-left: 30px;
 }
 #div_clock_timer #timer_buttons{
 	text-align: center;
 }
+
+@media (min-width: 1px){
+	#div_clock_digital{font-size: 90px;}
+	#div_clock_timer #view_timer{margin-left: 20px;}
+	#div_clock_sensors table{float: none;}
+}
+
+/* really needs some tweeking */
+
+@media (min-width: 480px){
+	#div_clock_digital{font-size: 120px;}
+}
+@media (min-width: 767px){
+	#div_clock_digital			{font-size: 120px;}
+	#div_clock_sensors TH		{font-size: 22px;}
+	#div_clock_sensors TD		{font-size: 40px;}
+	#div_clock_sensors TD .unit	{font-size: 11px;}
+	#div_clock_timer .digits	{font-size: 32px;}
+	#div_clock_timer #view_timer{margin-left: 0px;}
+}
+@media (min-width: 992px){
+	#div_clock_digital			{font-size: 150px;}
+	#div_clock_sensors TH		{font-size: 30px;}
+	#div_clock_sensors TD		{font-size: 70px;}
+	#div_clock_sensors TD .unit	{font-size: 14px; width: 13px;}
+	#div_clock_timer .digits	{font-size: 35px;}
+	#div_clock_timer #view_timer{margin-left: 30px;}
+}
+@media (min-width: 1200px){
+	#div_clock_digital			{font-size: 200px;}
+	#div_clock_sensors TH		{font-size: 34px;}
+	#div_clock_sensors TD		{font-size: 80px;}
+	#div_clock_sensors TD .unit	{font-size: 16px;}
+	#div_clock_timer .digits	{font-size: 40px;}
+}
+
 
 
 

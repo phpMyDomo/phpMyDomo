@@ -38,9 +38,6 @@ jQuery( document ).ready(function() {
 	else{
 		var clock_w	=clock_body_h * 0.4;
 	}
-	/* ----- Resize Digital clock ------------------ */
-
-
 
 	//clock plugin constructor
 	$('#jsClockAnalog').thooClock({
