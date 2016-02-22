@@ -69,8 +69,11 @@ class PMD_Root_Page extends PMD_Root{
 	
 	//----------------------------------------------------------------------------------
 	private function _initVersion(){
-		if($this->conf['app']['last_version'] and $this->conf['app']['last_version'] > $this->conf['app']['version']){
+		if($this->conf['app']['last_version'] and $this->conf['app']['last_version'] != $this->conf['app']['version']){
 			$this->conf['app']['dl_version'] = $this->conf['app']['last_version'];
+		}
+		if($this->conf['app']['installed_version'] and $this->conf['app']['installed_version'] != $this->conf['app']['version']){
+			$this->conf['app']['version_needs_update']=1; 
 		}
 	}
 	
@@ -133,6 +136,7 @@ class PMD_Root_Page extends PMD_Root{
 		
 		$this->SetHeadJavascript("var ajax_url='{$this->conf['urls']['www']}/ajax';");
 		$this->SetHeadJavascript("var pmd_url_static='{$this->conf['urls']['static']}';");
+		$this->SetHeadJavascript("var pmd_url_www='{$this->conf['urls']['www']}';");
 
 	}
 

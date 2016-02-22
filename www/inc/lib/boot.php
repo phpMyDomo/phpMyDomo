@@ -137,6 +137,9 @@ if(!file_exists($conf['paths']['caches'].'version')){
 if(file_exists($conf['paths']['caches'].'last_version')){
 	$conf['app']['last_version']=(float) file_get_contents($conf['paths']['caches'].'last_version');
 }
+if(file_exists($conf['paths']['caches'].'version')){
+	$conf['app']['installed_version']	=file_get_contents($conf['paths']['caches'].'version');
+}
 
 //starting ------------------------------------------------------
 require_once($conf['libs']['kernel']);
