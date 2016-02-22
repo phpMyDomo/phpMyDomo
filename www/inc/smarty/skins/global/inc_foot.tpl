@@ -1,3 +1,12 @@
+{if $c.app.custom_client_api}
+<div class="container">
+	<div class="alert alert-danger text-center">
+		It seems that sou you are using a custom made Api client, "<b>{$c.app.api}</b>".<br>
+		We'd be really grateful if you could <b>submit it back to <a href="{$c.urls.pmd_github}" target='_blank'>our GitHub</a></b>, so that everyone could use it or improve it.
+	</div>
+</div>
+{/if}
+
 <div id='lay_footer'>
 	<ul class="menu_foot">
 {foreach from=$p.menu_foot item=k}

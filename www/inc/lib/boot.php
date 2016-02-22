@@ -93,6 +93,8 @@ $conf['urls']['pmd_dl_zip']=$conf['urls']['pmd_url'].'/download/?t=zip';
 $conf['urls']['pmd_dl_gz']	=$conf['urls']['pmd_url'].'/download/?t=gz';
 $conf['urls']['pmd_changelog']	='https://raw.github.com/phpMyDomo/phpMyDomo/master/www/inc/doc/changelog.md';
 $conf['urls']['photoframe_album']=$conf['urls']['www'].'/'.$conf['menu_urls']['photos'].'?id=';
+$conf['urls']['pmd_github']	="https://github.com/phpMyDomo/phpMyDomo";
+
 
 
 

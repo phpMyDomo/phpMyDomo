@@ -27,6 +27,10 @@ class PMD_Page extends PMD_Root_Page{
 						header("location: {$this->conf['urls']['www']}/utils/update");
 						exit;
 					}
+					// custom api
+					if($arr['custom_client_api']){
+						$this->conf['app']['custom_client_api']=1;
+					}					
 				}
 			}
 		}
