@@ -24,3 +24,6 @@ __*
 /www/inc/conf/*
 
 !.gitkeep
+
+# vendors ——————————————————
+/www/inc/vendor/MySensors_php_API/images/

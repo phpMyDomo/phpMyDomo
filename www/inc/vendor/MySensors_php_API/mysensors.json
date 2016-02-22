@@ -1,0 +1,27 @@
+{
+	"gh_id": 		"soif/MySensors_Php_API",
+	"name": 		"MySensors Php API",
+	"baseline": 	"Php class implementing methods to directly send messages (and get answers) to a MySensors Ethernet or Serial gateway.",
+	"description":	"readme.md",
+	"type":			"api",
+	"version":		"1.2",
+	"time":			"2016-02-22",	
+	"keywords":		"api, php, mysensors, gateway, ethernet, class",
+	"homepage":		"https://www.mysensors.org",
+	"license":		"GPL",
+	"authors": [
+		{
+			"name":		"Francois Déchery",
+			"homepage":	"http://www.phpmydomo.org",
+			"role": 	"Developper",
+			"gh_user": 	"soif",
+			"mys_user": "soif"
+		}
+	],
+	"images": [
+		{"type": "main",	"file": "command_line.png"},
+		{"misc": "main",	"file": "form.png"}
+	],
+	"hardware": [
+	]
+}

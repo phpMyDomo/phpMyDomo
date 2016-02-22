@@ -1,6 +1,7 @@
 <?
 /*
 	MySensors PHP API : Php interface to Mysensors Gateway
+	https://github.com/soif/MySensors_Php_API
 	http://www.mysensors.org
     ----------------------------------------------
 	Copyright (C) 2016  Francois Dechery
