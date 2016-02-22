@@ -27,7 +27,7 @@
 {if $c.app.version_needs_update && $p.code !="utils_update"}
 <div class="container">
 	<div class="alert alert-danger text-center">
-		<div class='h3'><div class="text-danger"><i class='fa fa-warning'></i> Please <u><a href='{$p.urls.www}/utils/update'>click here</a></u> to finish the update !</div></div>
+		<div class='h3'><div class="text-danger"><i class='fa fa-warning'></i> Please <u><a href='{$p.urls.www}/utils/update?step=1'>click here</a></u> to finish the update !</div></div>
 	</div>
 </div>
 {/if}
