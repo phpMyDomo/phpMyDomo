@@ -10,7 +10,7 @@ class PMD_Page extends PMD_Root_Page{
 		echo "<hr>DONE!";
 		sleep(2);
 		if(isset($_GET['redirect'])){
-			header("location: {$this->conf['urls']['www']}/utils/update?step=2");
+			echo("<script language=javascript>window.location.href='{$this->conf['urls']['www']}/utils/update?step=2';</script>");
 		}
 	}
 
