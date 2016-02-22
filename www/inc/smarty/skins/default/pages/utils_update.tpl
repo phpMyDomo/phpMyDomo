@@ -40,7 +40,20 @@
 	{else}
 
 		<div class="panel panel-default">
-		{if $data.dl_version}
+		{if $data.step}
+			{$next_step=$data.step+1}
+			{if $data.refresh}<meta http-equiv='refresh' content='{$data.refresh}; url={$p.urls.www}/utils/update?step={$next_step}'>{/if}
+
+			<div class="panel-heading h3">
+				<B><i class='fa fa-flag'></i> Step {$data.step}</B> : {$data.title}
+			</div>
+			
+			<div class="panel-body">
+				<p class="mess">{$data.text}</p>
+				<a href='?step={$next_step}' class="btn btn-lg btn-warning pull-right"><i class='fa fa-chevron-circle-right'></i> Continue to Step {$next_step}</a>
+			</div>
+
+		{elseif $data.dl_version}
 			<div class="panel-heading h3">
 				<i class='fa fa-warning'></i> New version <b>{$data.dl_version}</b> available
 			</div>
@@ -89,19 +102,6 @@
 					
 					</ul>
 				</div>
-			</div>
-
-		{elseif $data.step}
-			{$next_step=$data.step+1}
-			{if $data.refresh}<meta http-equiv='refresh' content='{$data.refresh}; url={$p.urls.www}/utils/update?step={$next_step}'>{/if}
-
-			<div class="panel-heading h3">
-				<B><i class='fa fa-flag'></i> Step {$data.step}</B> : {$data.title}
-			</div>
-			
-			<div class="panel-body">
-				<p class="mess">{$data.text}</p>
-				<a href='?step={$next_step}' class="btn btn-lg btn-warning pull-right"><i class='fa fa-chevron-circle-right'></i> Continue to Step {$next_step}</a>
 			</div>
 
 		{else}
