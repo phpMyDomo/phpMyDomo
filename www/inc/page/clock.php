@@ -22,6 +22,7 @@ class PMD_Page extends PMD_Root_Page{
 			$this->SetHeadJavascript("pmd_clock.$k='$v';");
 		}
 		$this->SetHeadJavascript("pmd_clock_refresh_time={$this->vars['refresh_time']};");
+		$this->SetHeadJavascript("pmd_clock_goback='{$_GET['back']}';");
 
 		$data['type']		=$this->vars['type'];
 		$data['opt_hour']	=$this->_SmartyTimeOptions(23);

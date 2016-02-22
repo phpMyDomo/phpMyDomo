@@ -5,7 +5,7 @@
 
 <div id="clock_type_{$data.type}">
 
-	<div class="col-sm-8 jsClockCol">
+	<div class="col-sm-8 jsClockCol" id="jsClockDiv">
 {include file="{$p.template}/clock/inc_date.tpl"}
 {if $data.type=='digital'}
 {include file="{$p.template}/clock/inc_time_digital.tpl"}

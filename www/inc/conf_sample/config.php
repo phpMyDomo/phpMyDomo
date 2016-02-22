@@ -35,8 +35,9 @@ $conf['app']['photoframe']		="directory";
 // The home page automatically reload after xx seconds, to refresh the buttons or sensor states.
 $conf['app']['reload_time']			="120"; // time in seconds
 
-//When a "photoframe_ss_album" is set, instead of refreshing the home windows, PMD automatically jump to this selected album (like a screen saver)
-//$conf['app']['photoframe_ss_album']	="Landscapes";	// album id to launch in ScreenSaver mode 
+// ScreenSaver mode : is set, instead of refreshing the home windows, PMD automatically jump to one of the selected destination
+$conf['app']['screensaver_mode']	="clock"; 	// ''|'clock'|'photoframe'	=>  No ScreenSaver | jump to Clock page | jump to album selected in 'screensaver_fp_album'
+//$conf['app']['screensaver_fp_album']="Landscapes"; 		// (required) album ID to launch only when ScreenSaver mode is set to 'photoframe';
 
 // Show or hide sensors names in home groups: 0=hide, 1=show , x= show and truncate after x characters
 $conf['app']['groups_sensors_names']	="1";

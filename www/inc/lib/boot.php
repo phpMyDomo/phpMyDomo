@@ -90,10 +90,11 @@ $conf['urls']['static']		=$conf['urls']['www'].'/static';
 $conf['urls']['minify']		=$conf['urls']['www'].'/static/min';
 $conf['urls']['pmd_url']	="http://www.phpmydomo.org";
 $conf['urls']['pmd_api']	=$conf['urls']['pmd_url'].'/api/?q=';
-$conf['urls']['pmd_dl_zip']=$conf['urls']['pmd_url'].'/download/?t=zip';
+$conf['urls']['pmd_dl_zip']	=$conf['urls']['pmd_url'].'/download/?t=zip';
 $conf['urls']['pmd_dl_gz']	=$conf['urls']['pmd_url'].'/download/?t=gz';
 $conf['urls']['pmd_changelog']	='https://raw.github.com/phpMyDomo/phpMyDomo/master/www/inc/doc/changelog.md';
-$conf['urls']['photoframe_album']=$conf['urls']['www'].'/'.$conf['menu_urls']['photos'].'?id=';
+$conf['urls']['ss_pf_album']=$conf['urls']['www'].'/'.$conf['menu_urls']['photos'].'?id=';
+$conf['urls']['ss_clock']	=$conf['urls']['www'].'/'.$conf['menu_urls']['clock'];
 $conf['urls']['pmd_github']	="https://github.com/phpMyDomo/phpMyDomo";
 
 

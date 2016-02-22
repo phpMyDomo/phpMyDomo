@@ -8,6 +8,17 @@ class PMD_Page extends PMD_Root_Page{
 		$data['commands']	=$this->o_api->GetCommands();
 		$data['infos']		=$this->o_api->GetInfos();
 		//$this->Debug('',$data);
+		
+		//screensaver
+		if($this->conf['app']['screensaver_mode']=='clock'){
+			$this->conf['app']['screensaver_url']=$this->conf['urls']['ss_clock'].'?back=1';
+		}
+		elseif($this->conf['app']['screensaver_mode']=='photoframe'){
+			if($this->conf['app']['screensaver_pf_album']){
+				$this->conf['app']['screensaver_url']=$this->conf['urls']['ss_pf_album'].$this->conf['app']['screensaver_pf_album'].'&back=1';
+			}
+		}
+
 		$this->Assign('data',$data);
 		$this->_checkNewVersion();
 		$this->Display();

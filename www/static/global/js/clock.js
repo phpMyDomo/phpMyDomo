@@ -6,6 +6,13 @@ jQuery( document ).ready(function() {
 	UpdateSensors();
 
 
+		if(pmd_clock_goback){
+			$('#jsClockDiv').addClass('clock_cursor');
+			$('#jsClockDiv').click(function(e){
+				window.location.href = pmd_url_www;
+			});
+		}
+		
 	/* ----- Digital clock ------------------ */
 	function ClockUpdateDigital() {
 		function pad(n) {
@@ -21,7 +28,7 @@ jQuery( document ).ready(function() {
 
 		var date = moment().locale('fr').format('dddd')+', '+moment().locale('fr').format('LL');
 		$('#jsClockDate').html(date);
-
+		
 		//var delay = 1000 - (now % 1000);
 		//setTimeout(ClockUpdateDigital, delay);
 	};

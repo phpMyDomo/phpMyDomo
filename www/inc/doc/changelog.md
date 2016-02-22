@@ -3,9 +3,10 @@
 ## Version : (NOT RELEASED) 0.2 - xxxx xx, 2016
 - new: Clock Page
 - new: MySensors action
+- new: Now support Nabaztag voices
 - new: Domoticz : implements Selector Button types
 - new: Lighttpd install documentation (thanks to cblomart)
-- new: Now support Nabaztag voices
+- new: Screensaver mode : clock or photoframe album
 - fix: No php warning on some servers without HTTPS
 - fix: Minimum HTTP Timeout for faster actions
 - fix: Domogik : state for dimmers

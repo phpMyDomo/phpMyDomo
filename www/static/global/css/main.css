@@ -864,6 +864,10 @@ html, body {
 	text-align: center;
 }
 
+.clock_cursor:hover{
+	cursor: pointer;
+}
+
 @media (min-width: 1px){
 	#div_clock_digital{font-size: 90px;}
 	#div_clock_timer #view_timer{margin-left: 20px;}
