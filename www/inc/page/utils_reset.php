@@ -10,7 +10,9 @@ class PMD_Page extends PMD_Root_Page{
 		echo "<hr>DONE!";
 		sleep(2);
 		if(isset($_GET['redirect'])){
-			echo("<script language=javascript>window.location.href='{$this->conf['urls']['www']}/utils/update?step=2';</script>");
+			$url="{$this->conf['urls']['www']}/utils/update?step=2";
+			echo "Redirecting.... <a href='$url'>Click here</a> if you are not redirected to the next step.";
+			echo("<script language=javascript>window.location.href='$url';</script>");
 		}
 	}
 
