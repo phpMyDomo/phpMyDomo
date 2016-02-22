@@ -5,6 +5,7 @@
 - new: MySensors action
 - new: Domoticz : implements Selector Button types
 - new: Lighttpd install documentation (thanks to cblomart)
+- new: Now support Nabaztag voices
 - fix: No php warning on some servers without HTTPS
 - fix: Minimum HTTP Timeout for faster actions
 - fix: Domogik : state for dimmers

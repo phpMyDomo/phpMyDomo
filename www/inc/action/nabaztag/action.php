@@ -23,11 +23,9 @@
 
 class PMD_Action extends PMD_Root_Action{
 
+	var $timeout=3;
 	var $server;
-	var $timeout=1;
 	var $mac;
-	var $login;
-	var $pass;
 	var $token;
 	var $api_result=array();
 	
@@ -36,39 +34,33 @@ class PMD_Action extends PMD_Root_Action{
 
 		$server			=$this->GetParam('server'	,'str');
 		$mac			=$this->GetParam('mac'		,'raw');
-		$timeout		=$this->GetParam('timeout'	,'int');
-
-		$login			=$this->GetParam('login'	,'str');
-		$pass			=$this->GetParam('pass'		,'raw');
 		$token			=$this->GetParam('token'	,'raw');
+		$timeout		=$this->GetParam('timeout'	,'int');
 
 		$mode			=$this->GetParam('mode'		,'str');
 
 		$left			=$this->GetParam('left',	'int');
 		$right			=$this->GetParam('right',	'int');
+
 		$text			=urldecode($this->GetParam('text','raw'));
+		$voice			=$this->GetParam('voice',	'raw');
+		$voice			or $voice="Claire";
 
 		$custom			=$this->GetParam('custom'	,'raw');
 		$text			=str_replace('{custom}',$custom, $text);
 
 		$this->server	=$server;
 		$this->mac		=$mac;
-		$this->login	=$login;
-		$this->pass		=$pass;
 		$this->token	=$token;
+
 		$timeout and $this->timeout	=$timeout;
 
-		if($server and $mac ){
-			if($mode=="ears" and $token and $mac ){
+		if($server and $mac and $token){
 				$complete=1;
-			}
-			elseif($login and $pass and $mac){
-				$complete=1;
-			}
 		}
 		if($complete and $mode ){
 			if($mode=='tts' and $text){
-				$ok= $this->ApiSend($mode, $text);
+				$ok= $this->ApiSend($mode, $text,$voice);
 			}
 			elseif($mode=='ears'){
 				$ok= $this->ApiSend($mode,$left,$right);				
@@ -94,10 +86,9 @@ class PMD_Action extends PMD_Root_Action{
 
 	//----------------------------------------------------------------------------------
 	private function ApiSend($mode, $data1="",$data2=""){
-		$auth_url="http://{$this->server}/ojn_api/accounts/auth?login={$this->login}&pass={$this->pass}";
-		
-		$urls['tts']	="http://{$this->server}/ojn_api/bunny/{$this->mac}/tts/say?text=".urlencode($data1);
-		$violet_urls['ears']	="http://{$this->server}/ojn/FR/api.jsp?posleft={$data1}&posright={$data2}&sn={$this->mac}&token={$this->token}";
+
+		$violet_urls['ears']	="http://{$this->server}/ojn/FR/api.jsp?sn={$this->mac}&token={$this->token}&posleft={$data1}&posright={$data2}";
+		$violet_urls['tts']		="http://{$this->server}/ojn/FR/api.jsp?sn={$this->mac}&token={$this->token}&voice={$data2}&tts=".urlencode($data1);
 
 		$options = array(
 			'http' => array(
@@ -107,18 +98,6 @@ class PMD_Action extends PMD_Root_Action{
 		$context  = stream_context_create($options);
 
 		if($url=$violet_urls[$mode]){
-			$this->api_result['url']=$url;
-			if($xml=file_get_contents($url,false,$context)){
-				$this->api_result['mess']=htmlentities($xml);
-				return $this->ApiValidateResult($xml);
-			}
-		}
-		elseif($url=$urls[$mode] and $result=file_get_contents($auth_url,false,$context)){
-			$token=trim(strip_tags($result));
-			$this->api_result['token']=$token;
-			//$this->api_result['url_auth']=$auth_url;
-			
-			$url .="&token=".$token;
 			$this->api_result['url']=$url;
 			if($xml=file_get_contents($url,false,$context)){
 				$this->api_result['mess']=htmlentities($xml);
