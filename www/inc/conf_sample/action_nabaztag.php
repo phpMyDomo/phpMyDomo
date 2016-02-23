@@ -27,13 +27,13 @@ http://openjabnab.fr/ojn_admin/
   - 'right' => (required) position of the right ear (0 to 16)
 
 - In 'stream' mode (play a mp3) :
-  - mp3		=> url to the mp3 file to be streamed 
+  - mp3		=>  (required) url to the mp3 file to be streamed 
 
 - 'force' => (optionnal) 0 | 1 : When the bunny is in sleeping mode, it force him to wakeup before doing an action, then put it back to sleep.
 - 'timeout' => (optionnal) the maximum time to spend asking the remote server
 - 'custom'	=> (optionnal) replaces "{custom}" in the  text field
 
-## Possible voices (Acapella tts mode) -----------------------------------------------------------
+## Possible voices (acapela tts mode) -----------------------------------------------------------
 - Arabic			: Leila, Mehdi, Nizar, Salma, 
 - English (AU)		: Liam, Lisa, Olivia, Tyler, 
 - English (India)	: Deepa, 
