@@ -4,7 +4,7 @@ apt-get update
 
 echo
 echo "Installing Web Server : Apache + php5 +ModRewrite...."
-apt-get install apache2 php5 php5-curl php5-json 
+apt-get install apache2 php5 php5-curl php5-sqlite php5-json 
 a2enmod rewrite
 
 echo
