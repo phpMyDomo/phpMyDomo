@@ -5,8 +5,9 @@
 - new: MySensors action
 - new: Now support Nabaztag voices
 - new: Domoticz : implements Selector Button types
-- new: Lighttpd install documentation (thanks to cblomart)
 - new: Screensaver mode : clock or photoframe album
+- new: in Nabaztag Action : implements stream mode, voice selection, force action when sleeping, and various utility modes
+- new: Lighttpd install documentation (thanks to cblomart)
 - fix: No php warning on some servers without HTTPS
 - fix: Minimum HTTP Timeout for faster actions
 - fix: photo album count badge in Firefox

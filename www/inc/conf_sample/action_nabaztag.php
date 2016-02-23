@@ -16,14 +16,20 @@ http://openjabnab.fr/ojn_admin/
 - 'server' 	=> (required) the server were is installed OJN: ie "myserver.com:81/ojn"
 - 'mac' 	=> (required) MAC address of your bunny, ie "0019db9e1234"
 - 'token' 	=> (required in 'ears' mode) Violet API Token (grab it from the OJN Admin)
-- 'mode' 	=> (required) 'tts' (Text To Speech) | 'ears' (Move ears)
+- 'mode' 	=> (required) 'tts' | 'ears' | 'stream' | 'wake' | 'sleep' | 'reboot' | 'softreboot'
 
-- 'text' 	=> (required in 'tts' mode) Text to be spoken by the Nabaztag
-- 'voice' 	=> (optionnal in 'tts' mode) voice to use (see the list bellow)
+- In 'tts' mode  (Text To Speech) :
+  - 'text' 	=> (required) Text to be spoken by the Nabaztag
+  - 'voice' => (optionnal) voice to use (see the list bellow)
 
-- 'left' 	=> (required in 'ears' mode) position of the left ear (0 to 16)
-- 'right' 	=> (required in 'ears' mode) position of the right ear (0 to 16)
+- In 'ears' mode (Move ears) :
+  - 'left' 	=> (required) position of the left ear (0 to 16)
+  - 'right' => (required) position of the right ear (0 to 16)
 
+- In 'stream' mode (play a mp3) :
+  - mp3		=> url to the mp3 file to be streamed 
+
+- 'force' => (optionnal) 0 | 1 : When the bunny is in sleeping mode, it force him to wakeup before doing an action, then put it back to sleep.
 - 'timeout' => (optionnal) the maximum time to spend asking the remote server
 - 'custom'	=> (optionnal) replaces "{custom}" in the  text field
 
