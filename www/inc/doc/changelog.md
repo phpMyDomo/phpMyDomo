@@ -9,8 +9,9 @@
 - new: Screensaver mode : clock or photoframe album
 - fix: No php warning on some servers without HTTPS
 - fix: Minimum HTTP Timeout for faster actions
-- fix: Domogik : state for dimmers
+- fix: photo album count badge in Firefox
 - fix: buttons height for Firefox
+- fix: Domogik : state for dimmers
 - dev: Domogik API cleanup
 - dev: allow per devices dim min/max level
 - dev: recursive merge of language
