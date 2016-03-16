@@ -29,7 +29,9 @@ class PMD_Page extends PMD_Root_Page{
 		$cache_last_version=$this->conf['paths']['caches'].'last_version';
 		$cache_duration=3600*8;
 		if(!$this->conf['app']['last_version'] or filemtime($cache_last_version) < ( time() - $cache_duration) or isset($_GET['update']) ){
-			$url="{$this->conf['urls']['pmd_api']}version&version={$this->conf['app']['version']}&api={$this->conf['app']['api']}";
+			$os		=urlencode(php_uname('s'));
+			$arch	=urlencode(php_uname('m'));
+			$url="{$this->conf['urls']['pmd_api']}version&version={$this->conf['app']['version']}&api={$this->conf['app']['api']}&os=$os&arch=$arch";
 			if($json=@file_get_contents($url)){
 				$arr=json_decode($json,true);
 				if(is_array($arr) and $arr['result'] and $arr['version']){
