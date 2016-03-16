@@ -936,11 +936,14 @@ html, body {
 	font-size: 30px;
 	text-align: right;
 }
+#modal_alarm .modal-content .checkbox{
+	padding-left: 0;
+}
 #modal_alarm .modal_buttons{
 	margin-top: 40px;
 }
 #modal_alarm .modal_buttons button{
-	margin: 0 5px;
+	margin: 0 5px 10px 5px;
 }
 
 

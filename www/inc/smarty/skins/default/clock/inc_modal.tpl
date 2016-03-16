@@ -66,7 +66,7 @@
 								</div>
 								<div class="form-group  form-group-lg">
 									<label class="col-xs-3 control-label" for="jsInputLight">{$l.modal.light}</label>
-  									<div class="col-xs-8 checkbox-inline">
+  									<div class="col-xs-8 checkbox">
 										<input type="checkbox" id="jsInputLight" value=1 checked="checked">
 									</div>
 								</div>
