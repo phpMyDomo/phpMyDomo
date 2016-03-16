@@ -50,9 +50,9 @@ http://openjabnab.fr/ojn_admin/
 ## URLS examples --------------------------------------------------------------------------------------------
 /action?type=nabaztag&preset=door_ring  
 /action?type=nabaztag&preset=ears_0  
-/action?type=nabaztag&preset=ears_8
-/action?type=nabaztag&mode=tts&voice=Lucy&text=Hello
-/action?type=nabaztag&mode=ears&left=7
+/action?type=nabaztag&preset=ears_8  
+/action?type=nabaztag&mode=tts&voice=Lucy&text=Hello  
+/action?type=nabaztag&mode=ears&left=7  
 
 */
 
