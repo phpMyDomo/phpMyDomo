@@ -1,7 +1,7 @@
 # phpMyDomo
 _The ultimate Domotic remote for the rest of us !_  
 
-http://www.phpmydomo.org
+[www.phpmydomo.org](http://www.phpmydomo.org)
 
 
 ## About phpMyDomo
@@ -11,7 +11,7 @@ phpMyDomo is an open-source Web Application aimed to provide a clean, robust, cu
 With todays chinese phones and tablets starting as low as $50, it becomes a cheap and powerfull way to build remotes to control anything smartly in your house. phpMyDomo wants to be the ultimate WebApp that works as well on these devices, as on any computer browser.
 phpMyDomo don't aim to replace the cool domotic's software you're currently using, but rather to add a convenient web interface to it.
 
-Currently supported software include __Domoticz__, __Domotiga__, __OpenHab__ and __Domogik__. (+ draft pilight)
+Currently supported software include __Domoticz__, __Domotiga__, __OpenHab__ and __Domogik__. (+ pilight draft)
 
 This is a Work In Progress: Depending on the chosen server API, some features might not be fully working at this time.
 
@@ -20,6 +20,7 @@ This is a Work In Progress: Depending on the chosen server API, some features mi
 - View all sensors at once, or per user defined groups
 - View all your IP Cameras on a single page
 - Display your photo library from a PhotoFrame like page
+- Display Clock and favorites sensors in a Wheater Station like page
 - Launch Actions (ie Notifications) triggered by your HomeAutomation software (a simple URL request)
 - Responsive design : Display fine on any Android/IOS tablet, phone and any modern (HTML5) web browser
 - Multiple Skins, build your own easily
@@ -31,6 +32,9 @@ This is a Work In Progress: Depending on the chosen server API, some features mi
 - Object oriented, MVC design : easily build your own custom pages, in minutes...
 - Free and Open Source
 - Highest WAF (Wife acceptation Factor) possible
+
+## Demo
+Please go the [phpMyDomo Demo site](http://www.phpmydomo.org/demo/www) for a live preview.
 
 
 ## Screenshots
