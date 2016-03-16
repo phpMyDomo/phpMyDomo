@@ -17,7 +17,7 @@ OR send a message like this :
 
 - 'node' 	=> (required) Node ID
 - 'child' 	=> (required) Child ID
-- 'type' 	=> (required) message type (presentation|set|req|internal|stream) or correspo,ding num values (0|1|2|3|4)
+- 'type' 	=> (required) message type (presentation|set|req|internal|stream) or corresponding num values (0|1|2|3|4)
 - 'sub'		=> (required) message sub-type (use either the numerical sub-type or the 'X_TYPE') depending on the 'type' used (see MySensors documentation)
 - 'payload' => the payload to send, when needed. (see MySensors documentation)
 
