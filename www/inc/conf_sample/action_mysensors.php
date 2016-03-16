@@ -23,9 +23,9 @@ OR send a message like this :
 
 
 ## Some URLS examples ----------------------------------------------------------------------------
-/action?type=mysensors&msg=12;0;2;1;1 
-/action?type=mysensors&node=12&child=0&type=2&sub=1&payload=1 
-/action?type=mysensors&preset=set_relay1 
+/action?type=mysensors&msg=12;0;2;1;1  
+/action?type=mysensors&node=12&child=0&type=2&sub=1&payload=1  
+/action?type=mysensors&preset=set_relay1  
 
 */
 
