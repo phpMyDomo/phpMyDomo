@@ -10,7 +10,7 @@ This action send a MySensors message to your MySensors Gateway
 You must have a MySensors Gateway installed
 
 ## Fields  ---------------------------------------------------------------------------------------
-either send a raw MySensors message ie:
+Either send a raw MySensors message ie:
 - 'msg'		=> (required)  Mysensors raw message, ie : "1;3;0;4;5"
 
 OR send a message like this :
@@ -40,7 +40,7 @@ $action['globals']['eth_ip']	="10.1.7.40";	// gateway IP address
 $action['globals']['eth_port']	="5003";		// gateway TCP port (default to 5003)
 
 //set this for a Serial gateway (The Serial gateway client has not been tested, and may not work at all)
-//$action['globals']['serial_port']	="COM1";		// gateway TCP port (default to 5003)
+//$action['globals']['serial_port']	="COM1";		// gateway Serial port name
 
 
 // ##############################################################################

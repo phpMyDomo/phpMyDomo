@@ -27,7 +27,7 @@ class PMD_Action extends PMD_Root_Action{
 	function Run(){
 		require_once($this->conf['libs']['mysensors']);
 
-		$p['msg']		=$this->GetParam('msg'		,'str');
+		$p['msg']		=$this->GetParam('msg'			,'str');
 
 		$p['node']		=$this->GetParam('node'			,'int');
 		$p['child']		=$this->GetParam('child'		,'int');
