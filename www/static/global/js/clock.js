@@ -26,7 +26,7 @@ jQuery( document ).ready(function() {
 
 		$('#jsClockDigital').html(clock);
 
-		var date = moment().locale('fr').format('dddd')+', '+moment().locale('fr').format('LL');
+		var date = moment().locale(pmd_lang).format('dddd')+' '+moment().locale(pmd_lang).format('LL');
 		$('#jsClockDate').html(date);
 		
 		//var delay = 1000 - (now % 1000);

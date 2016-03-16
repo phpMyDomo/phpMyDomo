@@ -137,6 +137,7 @@ class PMD_Root_Page extends PMD_Root{
 		$this->SetHeadJavascript("var ajax_url='{$this->conf['urls']['www']}/ajax';");
 		$this->SetHeadJavascript("var pmd_url_static='{$this->conf['urls']['static']}';");
 		$this->SetHeadJavascript("var pmd_url_www='{$this->conf['urls']['www']}';");
+		$this->SetHeadJavascript("var pmd_lang='{$this->conf['app']['lang']}';");
 
 	}
 
