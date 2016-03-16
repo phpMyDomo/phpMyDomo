@@ -7,7 +7,8 @@ PLEASE READ the /phpMyDomo/doc/howto/actions.md for more informations
 This action send a MySensors message to your MySensors Gateway
 
 ## Requirements  ----------------------------------------------------------------------------------
-You must have a MySensors Gateway installed
+You must have a MySensors Gateway installed :
+http://www.mysensors.org/
 
 ## Fields  ---------------------------------------------------------------------------------------
 Either send a raw MySensors message ie:
