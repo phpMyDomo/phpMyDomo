@@ -84,10 +84,13 @@ class PMD_Root_ApiClient extends PMD_Root{
 			$api['urls']['api']=$this->conf['urls']["server_$my_api"];
 		}
 		if(isset($this->conf['urls']["www_$my_api"])){
-			$api['urls']['www']=$this->conf['urls']["www_$my_api"];
+			//$api['urls']['www']
+			$api['urls']['admin']=$this->conf['urls']["www_$my_api"];
 		}
-		$api['urls']['www'] or $api['urls']['www']=$api['urls']['api'];
-		$api['urls']['admin']=$api['urls']['www'].$api['dir_admin'];
+		else{
+			//$api['urls']['www']
+			$api['urls']['admin']=$api['urls']['api'].$api['dir_admin'];
+		}
 
 		$this->conf['api']= $api;
 		$this->vars=& $this->conf['api'];
