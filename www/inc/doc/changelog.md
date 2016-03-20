@@ -1,11 +1,11 @@
 # phpMyDomo ChangeLog
 
-## Version : (NOT RELEASED) 0.2 - xxxx xx, 2016
+## Version : 0.2 - March 20, 2016
 - new: Clock Page
 - new: MySensors action
-- new: Now support Nabaztag voices
 - new: Domoticz : implements Selector Button types
 - new: Screensaver mode : clock or photoframe album
+- new: Now support Nabaztag voices
 - new: in Nabaztag Action : implements stream mode, voice selection, force action when sleeping, and various utility modes
 - new: Lighttpd install documentation (thanks to cblomart)
 - new: IOS fullscreen web app
