@@ -1,6 +1,7 @@
 # phpMyDomo ChangeLog
 
 ## Version : 0.2xx (Not Released) - xxxx, 2016
+- dev: minify updated to v2.3
 
 ## Version : 0.200 - March 20, 2016
 - new: Clock Page
