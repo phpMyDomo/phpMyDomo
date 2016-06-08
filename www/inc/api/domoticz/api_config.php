@@ -16,6 +16,9 @@ $api['dir_admin']		='/';
 $api['set']['switch']['on']			='On';
 $api['set']['switch']['off']		='Off';
 
+$api['set']['push']['on']			='On';
+$api['set']['push']['off']			='Off';
+
 $api['set']['scene']['on']			='On';
 $api['set']['scene']['off']			='Off';
 
@@ -33,6 +36,7 @@ $api['set']['blinds']['on']			='On';
 
 // Actions -------------------------------------------------------------------
 $api['actions']['set']['switch']		='/json.htm?type=command&param=switchlight&idx={address}&switchcmd={state}';
+$api['actions']['set']['push']			='/json.htm?type=command&param=switchlight&idx={address}&switchcmd={state}';
 $api['actions']['set']['dimmer']		='/json.htm?type=command&param=switchlight&idx={address}&switchcmd={state}';
 $api['actions']['set']['blinds']		='/json.htm?type=command&param=switchlight&idx={address}&switchcmd={state}&level=0';
 $api['actions']['set']['dim_level']		='/json.htm?type=command&param=switchlight&idx={address}&switchcmd=Set+Level&level={state}';
@@ -58,6 +62,9 @@ $api['actions']['list']['info']			='/json.htm?type=command&param=getSunRiseSet';
 // states (values) from the 'result' rows
 $api['states']['command']['switch']['Off']		='off';		
 $api['states']['command']['switch']['On']		='on';		
+
+$api['states']['command']['push']['Off']		='off';		
+$api['states']['command']['push']['On']		='on';		
 
 $api['states']['command']['dimmer']['Off']		='off';		
 $api['states']['command']['dimmer']['On']		='on';		
