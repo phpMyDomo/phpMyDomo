@@ -1,6 +1,8 @@
 # phpMyDomo ChangeLog
 
 ## Version : 0.2xx (Not Released) - xxxx, 2016
+- new: Implements Push Buttons (Domoticz Only)
+- new: Italian Language (Thanks to Aldodemi)
 - dev: minify updated to v2.3
 
 ## Version : 0.200 - March 20, 2016
