@@ -13,7 +13,7 @@ $conf['app']['api']			="openhab";
 $conf['app']['home_name']	="Home Sweet Home";
 
 // language file to use : (name of the folder in /www/inc/lang/)
-$conf['app']['lang']		="en";	// en | fr | nl | de
+$conf['app']['lang']		="en";	// en | de | fr | it | nl | uk
 
 //choose a photoframe method : directory | iphoto
 $conf['app']['photoframe']		="directory"; 
@@ -37,7 +37,7 @@ $conf['app']['reload_time']			="120"; // time in seconds
 
 // ScreenSaver mode : is set, instead of refreshing the home windows, PMD automatically jump to one of the selected destination
 $conf['app']['screensaver_mode']	="clock"; 	// ''|'clock'|'photoframe'	=>  No ScreenSaver | jump to Clock page | jump to album selected in 'screensaver_fp_album'
-//$conf['app']['screensaver_fp_album']="Landscapes"; 		// (required) album ID to launch only when ScreenSaver mode is set to 'photoframe';
+//$conf['app']['screensaver_pf_album']="Landscapes"; 		// (required) album ID to launch only when ScreenSaver mode is set to 'photoframe';
 
 // Show or hide sensors names in home groups: 0=hide, 1=show , x= show and truncate after x characters
 $conf['app']['groups_sensors_names']	="1";

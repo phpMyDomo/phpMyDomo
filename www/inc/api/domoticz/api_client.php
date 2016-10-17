@@ -192,6 +192,16 @@ class PMD_ApiClient extends PMD_Root_ApiClient{
 					$d['class']	='command';
 					$d['type']	='switch';
 				}
+				elseif($raw['SwitchType']=='Push On Button'){
+					$d['class']	='command';
+					$d['type']	='push';
+					$d['state']	='off';
+				}
+				elseif($raw['SwitchType']=='Push Off Button'){
+					$d['class']	='command';
+					$d['type']	='push';
+					$d['state']	='on';
+				}
 				elseif($raw['SwitchType']=='Dimmer'){
 					$d['class']	='command';
 					$d['type']	='dimmer';
