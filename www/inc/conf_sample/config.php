@@ -13,7 +13,7 @@ $conf['app']['api']			="openhab";
 $conf['app']['home_name']	="Home Sweet Home";
 
 // language file to use : (name of the folder in /www/inc/lang/)
-$conf['app']['lang']		="en";	// en | fr | nl | de
+$conf['app']['lang']		="en";	// en | de | fr | it | nl | uk
 
 //choose a photoframe method : directory | iphoto
 $conf['app']['photoframe']		="directory"; 
