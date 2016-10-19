@@ -1,4 +1,7 @@
-/* @override http://domodev.lo.lo/static/global/css/main.css */
+/* @override 
+	http://domodev.lo.lo/static/global/css/main.css
+	http://domodev.dev.440net.net/static/global/css/main.css
+*/
 
 /* @group Bootstrap Add.
 -------------------------------------- */
@@ -949,5 +952,89 @@ html, body {
 
 /* @end */
 
+/* @group Page Clock 
+----------------------------------------------------------------- */
+#body_squeeze .sqz_panel .panel-heading{
+	overflow: hidden;
+}
+#body_squeeze .sqz_panel .player_right{
+	text-align: right;
+}
+#body_squeeze .player_radio{
+	display: inline-block;
+	margin-top: 3px;
+	padding: 1px 5px;
+	border: 1px solid;
+	border-color: rgba(0,0,0,0.05) rgba(255,255,255,0.3)  rgba(255,255,255,0.3)  rgba(0,0,0,0.05)  ;
+	background: rgba(255,255,255,0.2);
+	font-size: 9px;
+	text-transform: uppercase;
+}
+#body_squeeze .sqz_panel .player_links{
+	margin-left: 10px;
+}
+#body_squeeze .sqz_panel .player_artist{
+	margin-right: 3px;
+}
+#body_squeeze .sqz_panel .player_title{
+	margin-left: 3px;
+	font-style: italic;
+}
+#body_squeeze .sqz_panel .player_duration{
+	margin-left: 5px;
+}
+
+#body_squeeze .sqz_panel .player_links A{
+	margin-left: 5px;
+}
+
+#body_squeeze .sqz_panel .but_player{
+	display: inline-block;
+	margin-right: 20px;
+	white-space: nowrap;
+	overflow: hidden;
+	margin-bottom: 8px;
+}
+#body_squeeze .sqz_panel .player_volume{
+	display: inline-block;
+	width: 30px;
+	text-align: center;
+	vertical-align: middle;
+	font-size: 14px;
+}
+
+#body_squeeze #block_all_players .but_all{
+	margin-bottom: 20px;
+}
+#body_squeeze .but_all:last-child{
+	margin-bottom: 0;
+}
+#body_squeeze .but_all A{
+	/*margin-bottom: 7px;*/
+}
+
+#body_squeeze .but_all A,
+#body_squeeze .but_player A{
+	line-height: 100%;
+}
+#body_squeeze .but_all A .mini,
+#body_squeeze .but_player A .mini{
+	font-size: 10px;
+	text-decoration: none;
+	font-family: arial;
+}
+
+
+#body_squeeze .but_all A:active,
+#body_squeeze .but_player A:active{
+	color: yellow;
+	opacity: 0.8;
+}
+#body_squeeze .but_all .on,
+#body_squeeze .but_player .on{
+	color: orange;
+}
+
+/* @end */
 
 

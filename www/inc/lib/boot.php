@@ -20,6 +20,7 @@ else {
 // menus ------------------------------------------------------------------------------------
 $conf['menu_urls']['home']		='home';	
 $conf['menu_urls']['clock']		='clock';	
+$conf['menu_urls']['squeeze']	='squeeze';	
 $conf['menu_urls']['cameras']	='cameras';	
 $conf['menu_urls']['photos']	='photos';	
 $conf['menu_urls']['commands']	='commands';	
@@ -28,6 +29,7 @@ $conf['menu_urls']['devices']	='devices';
 
 $conf['menu_icons']['home']		='fa fa-home';
 $conf['menu_icons']['clock']	='fa fa-clock-o';
+$conf['menu_icons']['squeeze']	='fa fa-music';	
 $conf['menu_icons']['cameras']	='fa fa-video-camera';
 $conf['menu_icons']['photos']	='fa fa-camera';
 $conf['menu_icons']['commands']	='fa fa-power-off';

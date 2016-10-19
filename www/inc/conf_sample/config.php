@@ -242,8 +242,8 @@ $conf['cameras_urls']['room2']	="http://user:pass@10.0.0.2/videostream.cgi";
 Defines menus displayed on the header or footer of the page.
 If not set, all menus are shown.
 */
-$conf['menu_head']=array('home','clock','cameras','photos','devices');
-//$conf['menu_foot']=array('home','clock','cameras','photos','commands','sensors','devices');
+$conf['menu_head']=array('home','clock','squeeze','cameras','photos','devices');
+//$conf['menu_foot']=array('home','clock','squeeze','cameras','photos','commands','sensors','devices');
 
 
 
