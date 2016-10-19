@@ -266,6 +266,10 @@ function SqzRefreshCounter() {
 	last_refresh_date =Date.now();
 	$.each(current_times, function(jsid, ctime) {
 		var pid=$('#jsPlayer_'+jsid);
+		/* skip if not playing */
+		if(! pid.find('.jsSqzBut_play').hasClass('on')){
+			return true;
+		}
 
 		/* set counter and display*/
 		current_times[jsid] = ctime + (elapsed / 1000);
