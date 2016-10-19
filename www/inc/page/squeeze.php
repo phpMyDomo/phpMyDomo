@@ -150,6 +150,22 @@ class PMD_Page extends PMD_Root_Page{
 
 				$arr['f_artist']	=$this->_FormatTitle($arr['artist'],0);
 				$arr['f_title']		=$this->_FormatTitle($arr['title']);
+
+				//fix bad formatted radio
+				if($status['remote']){ //this is a radio
+					$radio_name=$status['current_title'];
+					similar_text($radio_name,$arr['artist'],$perc);
+					if($perc >= 70){
+						list($artist,$title)=explode(' - ',$arr['title']);
+						if(trim($title)){
+							$arr['f_artist']	=$this->_FormatTitle($artist,0); //. " ($perc)";
+							$arr['f_title']		=$this->_FormatTitle($title);
+						}
+					}
+					
+				}
+				
+				
 				$arr['album'] and $arr['f_album']	=$this->_FormatTitle($arr['album']) and $arr['f_album']	= '['. $arr['f_album'].']';
 				
 				if( $arr['f_full_title'] 	=$this->_makeSongFullTitle($arr)){
