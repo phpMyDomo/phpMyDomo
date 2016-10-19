@@ -10,7 +10,7 @@
 }
 
 </style>
-	<div class="panel panel-default camera camera_full" id="cam_{$cam.uid}">
+	<div class="panel panel-default pmd_panel camera_full" id="cam_{$cam.uid}">
 		<div class="panel-heading"><i class="fa fa-video-camera"></i> {$cam.name}</div>
 		<div class="panel-body-full">
 			<div class='iframe_border'>
@@ -23,7 +23,7 @@
 </p>
 {else}
 	{foreach $data.cameras item=cam}
-	<div class="panel panel-default camera" id="cam_{$cam.uid}">
+	<div class="panel panel-default pmd_panel" id="cam_{$cam.uid}">
 		<div class="panel-heading"><i class="fa fa-video-camera"></i> {$cam.name}</div>
 		<div class="panel-body-full">
 			<div class='iframe_border'>

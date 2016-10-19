@@ -4,7 +4,7 @@
 <meta name='jsvar' id="jsReload" data-time='{$c.app.reload_time}' data-url="{$c.app.screensaver_url}" />
 
 	{foreach from=$p.groups key=gid item=group}	
-		<div class="panel panel-default home_groups home_panel">
+		<div class="panel panel-default home_groups pmd_panel">
 			<div class="panel-heading">
 				<i class="fa fa-folder"></i> {$p.groups_names.$gid}
 		{if $group.sensor}
@@ -25,7 +25,7 @@
 		
 
 {if !$p.groups}
-		<div class="panel panel-info home_groups home_panel">
+		<div class="panel panel-info home_groups pmd_panel">
 			<div class="panel-heading"><i class="fa fa-folder"></i> {$lg.groups_names.all_commands}</div>
 			<div class="panel-body">
 		{foreach from=$data.commands item=i}
@@ -44,7 +44,7 @@
 
 
 {* Calendar Block -------------------------------------------------- *}
-<div class="panel panel-default block_right home_panel" id="block_calendar">
+<div class="panel panel-default block_right pmd_panel" id="block_calendar">
 	<div class="panel-heading"><i class="fa fa-calendar"></i> {{$data.infos.server_time|default:{$smarty.now}}|date_format:{$lg.dates.day}|ucwords}</div>
 	<div class="panel-body-full">
 	<table cellspacing=0 cellpadding=0>

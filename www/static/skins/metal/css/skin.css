@@ -1,6 +1,9 @@
 /* Add you own style here */
 
-/* @override http://domo.lo.lo/static/skins/metal/css/skin.css */
+/* @override 
+	http://domo.lo.lo/static/skins/metal/css/skin.css
+	http://domodev.dev.440net.net/static/skins/metal/css/skin.css
+*/
 
 body{
 	background: #888 url(../img/background.jpg) repeat;
@@ -59,7 +62,7 @@ body{
 
 
 
-.home_panel{
+.pmd_panel{
 	box-shadow: -1px -1px 3px rgba(0,0,0,0.4);
 	-moz-box-shadow: -1px -1px 3px rgba(0,0,0,0.4);
 	-webkit-box-shadow: -1px -1px 3px rgba(0,0,0,0.3);
@@ -67,7 +70,7 @@ body{
 	border-color: rgba(0,0,0,0.6) rgba(0,0,0,0.45) rgba(0,0,0,0.45) rgba(0,0,0,0.6);
 }
 
-.home_panel .panel-heading{
+.pmd_panel .panel-heading{
 	color: rgba(255,255,255,0.6);
 	text-shadow: -1px -1px 1px rgba(0,0,0,0.4);
   background-image: -webkit-linear-gradient(#8a9196, #7a8288);
@@ -79,25 +82,25 @@ body{
 	border-color: rgba(180,180,180,1) rgba(180,180,180,1) rgba(0,0,0,0.7) rgba(180,180,180,1);
 
 }
-.home_panel .panel-heading .sensor{
+.pmd_panel .panel-heading .sensor{
 	text-shadow: -1px -1px 1px rgba(255,255,255,0.1);
 	color: #555;
 }
-.home_panel .panel-heading .sensor B{
+.pmd_panel .panel-heading .sensor B{
 	color: #444;
 }
-.home_panel .panel-heading .sensor IMG{
+.pmd_panel .panel-heading .sensor IMG{
 	opacity: 1;
 }
-.home_panel .panel-body,
-.home_panel .panel-body-full{
+.pmd_panel .panel-body,
+.pmd_panel .panel-body-full{
 	border: 1px solid rgba(255,255,255,0.4);
 	background-color: #ccc;
 	border-radius:  0 0 4px 4px;
 	-moz-border-radius:  0 0 4px 4px;
 	-webkit-border-radius:  0 0 4px 4px;
 }
-.home_panel .panel-body-full TD{
+.pmd_panel .panel-body-full TD{
 	border-color: rgba(0,0,0,0.1);
 }
 

@@ -115,7 +115,7 @@ $(document).ready(function(){
 </script>
 
 {foreach from=$data.players item=row }
-		<div class="panel panel-info home_panel sqz_panel" id='jsPlayer_{$row.f_jsid}'>
+		<div class="panel panel-info pmd_panel sqz_panel" id='jsPlayer_{$row.f_jsid}'>
 			<div class="panel-heading">{MakePlayerTitle row=$row}</div>
 			<div class="panel-body jsSqzPlayer">
 {MakePlayer row=$row}
@@ -135,7 +135,7 @@ https://github.com/Logitech/slimserver/blob/public/7.9/IR/Default.map
 *}
 {* All Block -------------------------------------------------- *}
 
-		<div class="panel panel-default block_right" id="block_sqz_all">
+		<div class="panel panel-default block_right pmd_panel" id="block_sqz_all">
 			<div class="panel-heading text-center">{$l.all_players}</div>
 		</div>
 
@@ -188,7 +188,7 @@ https://github.com/Logitech/slimserver/blob/public/7.9/IR/Default.map
 
 
 
-		<div class="panel panel-default block_right" id="block_sqz_server">
+		<div class="panel panel-default block_right pmd_panel" id="block_sqz_server">
 			<div class="panel-heading text-center"><a href="{$data.prefs.url_server}" target='_blank'>{$l.all_server}</a></div>
 		</div>
 

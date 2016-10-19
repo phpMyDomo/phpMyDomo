@@ -1,4 +1,7 @@
-/* @override http://domo.lo.lo/static/skins/black/css/skin.css */
+/* @override 
+	http://domo.lo.lo/static/skins/black/css/skin.css
+	http://domodev.dev.440net.net/static/skins/black/css/skin.css
+*/
 
 body{
 	background: #444 url(../img/background.jpg) repeat;
@@ -7,16 +10,14 @@ body{
 	border-top: 1px solid rgba(250,250,250,0.17);
 	background: #000;
 }
-#body_home .home_panel,
-#body_cameras .camera{
+.pmd_panel{
 	border-color: #000;
 	background-color: #222;
 	box-shadow: 3px 3px 7px rgba(0,0,0,0.6);
 	-moz-box-shadow: 3px 3px 7px rgba(0,0,0,0.6);
 	-webkit-box-shadow: 3px 3px 7px rgba(0,0,0,0.6);
 }
-#body_home .home_panel .panel-heading,
-#body_cameras .camera .panel-heading{
+.pmd_panel .panel-heading{
 	text-shadow: -1px -1px 1px rgba(0,0,0,1) ;
 	background: #333;
 	color: #555;
@@ -39,16 +40,14 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#2b2d30', end
 	background-color: #000;
 }
 #body_home .home_groups .panel-body,
-#body_cameras .camera .panel-body-full{
+#body_cameras .pmd_panel .panel-body-full{
 	background-color: #222;
 	border-radius:  0 0 4px 4px;
 	-moz-border-radius:  0 0 4px 4px;
 	-webkit-border-radius:  0 0 4px 4px;
 }
 
-#body_home .home_panel .panel-body-full,
-#body_home .home_panel .panel-body,
-#body_cameras .camera .panel-body-full{
+.pmd_panel .panel-body-full{
 	border-top: 1px solid rgba(150,150,150,0.05);	
 	border-radius: 0 0 4px 4px;
 	-moz-border-radius: 0 0 4px 4px;

@@ -5,7 +5,7 @@ $devices
 *}
 
 {if $p.blocks.$type}
-<div class="panel panel-default block_right home_panel" id="block_{$type}">
+<div class="panel panel-default block_right pmd_panel" id="block_{$type}">
 	<div class="panel-heading"><i class="{$icon}"></i> {$lg.blocks_titles.$type}</div>
 	<div class="panel-body-full">
 	<table cellspacing=0 cellpadding=0>
