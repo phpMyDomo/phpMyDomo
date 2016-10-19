@@ -1,5 +1,6 @@
 /* @override 
 	http://domo.lo.lo/static/skins/black/css/skin.css
+	http://domodev.lo.lo/static/skins/black/css/skin.css
 	http://domodev.dev.440net.net/static/skins/black/css/skin.css
 */
 
@@ -36,8 +37,12 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#2b2d30', end
 
 
 }
-#body_home .block_right .panel-body-full{
-	background-color: #000;
+.block_right .panel-body,
+.block_right .panel-body-full{
+}
+.block_right .list-group .list-group-item{
+	background: none;
+	border-color: #000;
 }
 
 .pmd_panel .panel-body,
@@ -79,9 +84,14 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#2b2d30', end
 	border-color: #000;
 }
 
+
 #body_squeeze .player_radio{
 	text-shadow: none;
 	color: #000;
 	background-color: rgba(255,255,255,0.09);
+}
+#body_squeeze .pmd_panel_sqz.jsSelected{
+	border: 1px solid rgba(255,255,255,0.2);
+	background-color: rgb(20,20,21);
 }
 

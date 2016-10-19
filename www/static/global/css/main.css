@@ -290,7 +290,7 @@ html, body {
 	text-align: right;
 	padding-right: 4px;
 	font-size: 14px;
-	white-space: nowrap;
+	/*white-space: nowrap;*/
 	font-weight: bold;
 	color: #333;
 }
@@ -955,10 +955,10 @@ html, body {
 
 /* @group Page Squeeze 
 ----------------------------------------------------------------- */
-#body_squeeze .sqz_panel .panel-heading{
+#body_squeeze .pmd_panel_sqz .panel-heading{
 	overflow: hidden;
 }
-#body_squeeze .sqz_panel .player_right{
+#body_squeeze .pmd_panel_sqz .player_right{
 	text-align: right;
 }
 #body_squeeze .player_radio{
@@ -971,38 +971,46 @@ html, body {
 	font-size: 9px;
 	text-transform: uppercase;
 }
-#body_squeeze .sqz_panel .player_links{
+
+
+#body_squeeze .pmd_panel_sqz .player_links{
 	margin-left: 10px;
 }
-#body_squeeze .sqz_panel .player_artist{
+#body_squeeze .pmd_panel_sqz .player_artist{
 	margin-right: 3px;
 }
-#body_squeeze .sqz_panel .player_title{
+#body_squeeze .pmd_panel_sqz .player_title{
 	margin-left: 3px;
 	font-style: italic;
 }
-#body_squeeze .sqz_panel .player_duration{
+#body_squeeze .pmd_panel_sqz .player_duration{
 	margin-left: 5px;
 }
 
-#body_squeeze .sqz_panel .player_links A{
+#body_squeeze .pmd_panel_sqz .player_links A{
 	margin-left: 5px;
 }
 
-#body_squeeze .sqz_panel .but_player{
+#body_squeeze .pmd_panel_sqz .but_player{
 	display: inline-block;
 	margin-right: 20px;
 	white-space: nowrap;
 	overflow: hidden;
 	margin-bottom: 8px;
 }
-#body_squeeze .sqz_panel .player_volume{
+#body_squeeze .pmd_panel_sqz .player_volume{
 	display: inline-block;
 	width: 30px;
 	text-align: center;
 	vertical-align: middle;
 	font-size: 14px;
 }
+
+#body_squeeze .pmd_panel_sqz.jsSelected{
+	border: 1px solid rgba(0,0,0,0.3);
+}
+
+
 
 #body_squeeze #block_all_players .but_all{
 	margin-bottom: 20px;

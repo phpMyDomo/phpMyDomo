@@ -49,8 +49,14 @@ $lang['restart_squeezelite']="Restart SqueezeLite";
 $lang['mute']			="Mute On/Off";
 
 
-// global ###################################################
-$lang['all_players']	="All Players";
+// Blocks ###################################################
+$lang['selected_player']="Selected Player";
+$lang['all_players']	="Global Controls";
+
+$lang['link_server']	="Local Server";
+$lang['link_ios']		="Launch IOS App.";
+$lang['link_android']	="Launch Android App.";
+
 
 $lang['g_mute_on']		="Muted";
 $lang['g_mute_off']		="Normal";
@@ -66,6 +72,5 @@ $lang['g_shuffle_off']		="Off";
 $lang['g_shuffle_songs']	="Art.";
 $lang['g_shuffle_albums']	="Alb.";
 
-$lang['all_server']		="Server";
 
 ?>

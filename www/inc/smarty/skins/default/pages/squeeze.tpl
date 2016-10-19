@@ -1,6 +1,5 @@
 {* ##################################################################################### *}
 {function MakePlayerTitle row=''}
-	<input type='radio' name='selectedPlayer' class="jsSelectedPlayer" value='{$row.f_jsid}'>
 	<div class="pull-right player_right">
 	{$my_item=$row.status.playlist_loop.{$row.status.playlist_cur_index}}
 		<span class='player_fulltitle'>
@@ -116,9 +115,9 @@ $(document).ready(function(){
 </script>
 
 {foreach from=$data.players item=row }
-		<div class="panel panel-info pmd_panel sqz_panel" id='jsPlayer_{$row.f_jsid}'>
+		<div class="panel panel-info pmd_panel pmd_panel_sqz jsSqzPlayer" id='jsPlayer_{$row.f_jsid}' data-jsid='{$row.f_jsid}'>
 			<div class="panel-heading">{MakePlayerTitle row=$row}</div>
-			<div class="panel-body jsSqzPlayer">
+			<div class="panel-body">
 {MakePlayer row=$row}
 			</div>	
 		</div>
@@ -137,19 +136,31 @@ https://github.com/Logitech/slimserver/blob/public/7.9/IR/Default.map
 {* All Block -------------------------------------------------- *}
 
 		<div class="panel panel-default block_right pmd_panel jsCurrentPlayer" id="block_sqz_current">
-			<div class="panel-heading text-center jsCurrentPlayerHead">Selected Player</div>
+			<div class="panel-heading text-center jsCurrentPlayerHead">{$l.selected_player}</div>
 			<div class="panel-body-full jsCurrentPlayerBody">
 			
 			</div>
 		</div>
 
 
-
-		<div class="panel panel-default block_right pmd_panel" id="block_sqz_all">
-			<div class="panel-heading text-center">{$l.all_players}</div>
+		<div class="pmd_panel block_right" id="block_sqz_links">
+			<div class="panel-body-full">
+			<ul class="list-group">
+{if $data.agent !='ios'}
+    			<li class="list-group-item"><a class="btn btn-sm btn-info btn-block" target="_blank" href="market://search?q=pname:com.logitech.squeezeboxremote"><i class='fa fa-fw fa-android'></i> {$l.link_android}</a></li>
+{/if}
+{if $data.agent !='android'}
+				<li class="list-group-item"><a  class="btn btn-sm btn-info btn-block" target="_blank" href="https://itunes.apple.com/fr/app/logitech-squeezebox-controller/id431302899?mt=8"><i class='fa fa-fw fa-apple'></i> {$l.link_ios}</a></li>
+{/if}
+				<li class="list-group-item"><a  class="btn btn-sm btn-info btn-block" target="_blank" href="{$data.prefs.url_server}" target='_blank'><i class='fa fa-fw fa-exchange'></i> {$l.link_server}</a></i>
+			</ul>
+			</div>
 		</div>
 
-		<div id="block_all_players">
+
+		<div id="block_all_players" class="text-center">
+			<div class="panel-heading text-center">{$l.all_players}</div>
+
 			<div class="but_all but_all_transport">
 				<div class="btn-group" role="group">
 					{MakeButton id='ALL' mode='play'	txt='&nbsp;'}
@@ -195,12 +206,6 @@ https://github.com/Logitech/slimserver/blob/public/7.9/IR/Default.map
 
 		</div>
 
-
-
-
-		<div class="panel panel-default block_right pmd_panel" id="block_sqz_server">
-			<div class="panel-heading text-center"><a href="{$data.prefs.url_server}" target='_blank'>{$l.all_server}</a></div>
-		</div>
 
 
 {/capture}

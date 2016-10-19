@@ -30,6 +30,7 @@ class PMD_Page extends PMD_Root_Page{
 
 		$data['players']=$this->_RequestPlayersFull();
 		$data['prefs']=$this->vars;
+		$data['agent']=$this->_DetectMobileBrowser();
 		
 		// debug @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 		if($_GET['debugall']){
@@ -315,6 +316,17 @@ class PMD_Page extends PMD_Root_Page{
 	//----------------------------------------------------------------------------------
 	private function _ListSounds(){
 			$this->o_kernel->PageError(500,"The clock sound directory ($path_files) does not contain any .mp3 file.");			
+	}
+
+	//----------------------------------------------------------------------------------
+	private function _DetectMobileBrowser(){
+			$useragent=$_SERVER['HTTP_USER_AGENT'];
+			if(preg_match('#android#i', $useragent)){
+				return 'android';
+			}
+			if(preg_match('#iPhone|iPad|iPod|IOS#i', $useragent)){
+				return 'ios';
+			}
 	}
 
 

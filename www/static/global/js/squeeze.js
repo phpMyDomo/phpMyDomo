@@ -2,10 +2,15 @@
 jQuery( document ).ready(function() {
 
 	/* ----- Slected Player ------------------ */
-	$('.jsSelectedPlayer').on('change', function(){
-			selected_player_jsid=$(this).filter(':checked').val();
+	$('.jsSqzPlayer .panel-heading').on('click', function(){
+			var panel=$(this).closest('.jsSqzPlayer');
+			selected_player_jsid=panel.attr('data-jsid');
+			$('.jsSqzPlayer').removeClass('jsSelected');
+			panel.addClass('jsSelected');
 			var player_name = $('#jsPlayer_'+selected_player_jsid).find('.player_name').html();
 	  		$('.jsCurrentPlayer .jsCurrentPlayerHead').html(player_name);
+	  		$('.jsCurrentPlayer .jsCurrentPlayerBody').html('');
+
 	});
 	$('.jsSelectedPlayer:checked').trigger('change');
 
@@ -16,8 +21,6 @@ jQuery( document ).ready(function() {
 		var id	=$(this).attr('data-id');
 		var v1	=$(this).attr('data-v1');
 		var v2	=$(this).attr('data-v2');
-		var id_player=$(this).closest('.jsSqzPlayer');
-		var volume=parseInt(id_player.find('.jsSqzVolume').html());
 		var do_reload=true;
 		if(type=='cue'){
 			SqzSetCue(v1,v2);
@@ -28,6 +31,9 @@ jQuery( document ).ready(function() {
 			return;
 		}
 		if(v1=='voldown' || v1=='volup'){
+			var id_player=$(this).closest('.jsSqzPlayer');
+			var volume=parseInt(id_player.find('.jsSqzVolume').html());
+
 			v2=parseInt(v2);
 			if(v1=='voldown'){
 				volume=volume - v2;
