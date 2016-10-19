@@ -32,7 +32,9 @@ class PMD_Page extends PMD_Root_Page{
 		$data['prefs']=$this->vars;
 		
 		// debug @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
-		//echo "<hr><pre>\n";print_r($data);echo "\n</pre>\n\n";exit;
+		if($_GET['debugall']){
+			echo "<hr><pre>\n";print_r($data);echo "\n</pre>\n\n";exit;
+		}
 						
 		$this->Assign('data',	$data);
 		$this->Display($page);
@@ -152,7 +154,8 @@ class PMD_Page extends PMD_Root_Page{
 				
 				if( $arr['f_full_title'] 	=$this->_makeSongFullTitle($arr)){
 					$arr['f_url_youtube']	='https://www.youtube.com/results?search_query='.urlencode($arr['f_full_title']);
-					$arr['f_url_google']	='https://www.google.com/search?q='.urlencode($arr['f_full_title']);	
+					$arr['f_url_allmusic']	='http://www.allmusic.com/search/songs/'.urlencode($arr['f_full_title']);
+					$arr['f_url_google']	='https://www.google.com/search?q='.urlencode($arr['f_full_title']);
 				}
 				$row['status']['playlist_loop'][$k]=$arr;
 			}

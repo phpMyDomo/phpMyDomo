@@ -209,12 +209,14 @@ function SqzRefreshAllStates(init){
 				pid.find('.player_title').html(player.f_playing.f_title);
 				pid.find('.player_album').html(player.f_playing.f_album);
 				pid.find('.player_link_youtube').attr('href',player.f_playing.f_url_youtube).attr('title', "Youtube : [ "+player.f_playing.f_full_title+" ]");
+				pid.find('.player_link_allmusic').attr('href',player.f_playing.f_url_allmusic).attr('title', "AllMusic : [ "+player.f_playing.f_full_title+" ]");
 				pid.find('.player_link_google').attr('href',player.f_playing.f_url_google).attr('title', "Google : [ "+player.f_playing.f_full_title+" ]");
 				
 				pid.find('.jsSqzVolume').html(player.f_volume);
 				if (player.status.remote){
 					pid.find('.player_radio').show();
 					pid.find('.player_radio_name').html(player.status.current_title);
+					pid.find('.player_album').html('');
 				}
 				else{
 					pid.find('.player_radio').hide();						
