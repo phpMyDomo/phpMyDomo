@@ -1044,6 +1044,10 @@ html, body {
 	color: orange;
 }
 
+#body_squeeze #block_sqz_current .panel-body-full {
+	padding: 6px;
+}
+
 /* @end */
 
 
