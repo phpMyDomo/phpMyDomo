@@ -97,7 +97,8 @@ class PMD_Page extends PMD_Root_Page{
 
 	//----------------------------------------------------------------------------------
 	private function _RequestPlayerSlatus($id){
-		$r=$this->_Request(array($id,array('status',0,999)));
+		//$r=$this->_Request(array($id,array('status',0,999)));
+		$r=$this->_Request(array($id,array('status','-',1,"tags:aAbcdeghiJKlLNoqrStuy")));
 		$out=$r['result'];
 		if(! is_array($out)){
 			$out=array();
@@ -148,11 +149,16 @@ class PMD_Page extends PMD_Root_Page{
 			foreach($status['playlist_loop'] as $k => $arr){
 				$arr['f_duration']	=$this->_FormatSeconds($arr['duration']);
 
+				$arr['f_url_img']	='';
+				$arr['coverid']		and $arr['f_url_img']=$this->vars['url_server']."/music/{$arr['coverid']}/cover.png";
+
 				$arr['f_artist']	=$this->_FormatTitle($arr['artist'],0);
 				$arr['f_title']		=$this->_FormatTitle($arr['title']);
 
-				//fix bad formatted radio
 				if($status['remote']){ //this is a radio
+					$arr['artwork_url']	and $arr['f_url_img']	=$arr['artwork_url'];
+					
+					//fix bad formatted radio
 					$radio_name=$status['current_title'];
 					similar_text($radio_name,$arr['artist'],$perc);
 					if($perc >= 70){
@@ -166,13 +172,13 @@ class PMD_Page extends PMD_Root_Page{
 				}
 				
 				
-				$arr['album'] and $arr['f_album']	=$this->_FormatTitle($arr['album']) and $arr['f_album']	= '['. $arr['f_album'].']';
-				
+				$arr['album']		and $arr['f_album']		=$this->_FormatTitle($arr['album']) and $arr['f_album']	= '['. $arr['f_album'].']';
 				if( $arr['f_full_title'] 	=$this->_makeSongFullTitle($arr)){
 					$arr['f_url_youtube']	='https://www.youtube.com/results?search_query='.urlencode($arr['f_full_title']);
 					$arr['f_url_allmusic']	='http://www.allmusic.com/search/songs/'.urlencode($arr['f_full_title']);
 					$arr['f_url_google']	='https://www.google.com/search?q='.urlencode($arr['f_full_title']);
 				}
+				//store it
 				$row['status']['playlist_loop'][$k]=$arr;
 			}
 			$row['f_playing']=$row['status']['playlist_loop'][$status['playlist_cur_index']];

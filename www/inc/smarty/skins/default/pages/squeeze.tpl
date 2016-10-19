@@ -136,6 +136,15 @@ https://github.com/Logitech/slimserver/blob/public/7.9/IR/Default.map
 *}
 {* All Block -------------------------------------------------- *}
 
+		<div class="panel panel-default block_right pmd_panel jsCurrentPlayer" id="block_sqz_current">
+			<div class="panel-heading text-center jsCurrentPlayerHead">Selected Player</div>
+			<div class="panel-body-full jsCurrentPlayerBody">
+			
+			</div>
+		</div>
+
+
+
 		<div class="panel panel-default block_right pmd_panel" id="block_sqz_all">
 			<div class="panel-heading text-center">{$l.all_players}</div>
 		</div>

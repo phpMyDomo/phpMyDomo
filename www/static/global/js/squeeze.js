@@ -1,6 +1,14 @@
 
 jQuery( document ).ready(function() {
 
+	/* ----- Slected Player ------------------ */
+	$('.jsSelectedPlayer').on('change', function(){
+			selected_player_jsid=$(this).filter(':checked').val();
+			var player_name = $('#jsPlayer_'+selected_player_jsid).find('.player_name').html();
+	  		$('.jsCurrentPlayer .jsCurrentPlayerHead').html(player_name);
+	});
+	$('.jsSelectedPlayer:checked').trigger('change');
+
 	/* ----- Buttons ------------------ */
 	$(".jsSqzBut").click(function(e){
 		e.preventDefault();
@@ -155,6 +163,7 @@ var current_times={};
 var cues={};
 var loops={};
 var last_refresh_date=Date.now;
+var selected_player_jsid='';
 
 /* ----------------------------------------------------------------------------------- */	
 function SqzRequestButton(id,type,v1,v2){
@@ -181,6 +190,7 @@ function SqzRefreshAllStates(init){
 		/*	console.log('Reloading...'); */
 		$.getJSON(url,function(data){
 			last_refresh_date=Date.now;
+
 			$.each(data, function(player_id, player){
 				var jsid =player.f_jsid;
 				current_times[jsid]=player.status.time;
@@ -205,6 +215,9 @@ function SqzRefreshAllStates(init){
 				});
 				/* -- Refresh Title, current position --*/
 				pid.find('.player_position').html(player.f_position);
+				if(player.f_playing === null){
+					player.f_playing={};
+				}
 				pid.find('.player_artist').html(player.f_playing.f_artist);
 				pid.find('.player_title').html(player.f_playing.f_title);
 				pid.find('.player_album').html(player.f_playing.f_album);
@@ -225,6 +238,18 @@ function SqzRefreshAllStates(init){
 				pid.find('.jsSqzBut_rw2').attr('data-v1',player.f_rw2);
 				pid.find('.jsSqzBut_ff1').attr('data-v1',player.f_ff1);
 				pid.find('.jsSqzBut_ff2').attr('data-v1',player.f_ff2);
+				
+				/* current player*/
+				
+	  			if(jsid == selected_player_jsid){
+	  				var current_info=$('.jsCurrentPlayer .jsCurrentPlayerBody');
+	  				if( player.f_playing.f_url_img !==null && player.f_playing.f_url_img !==undefined && player.f_playing.f_url_img !=''){
+	  					current_info.html("<img src='"+player.f_playing.f_url_img+"' width=100%>");
+	  				}
+	  				else{
+	  					current_info.html('');	  					
+	  				}
+	  			}
 
 				//console.log('Reloading...'+ current_times[player.f_jsid] + ' = '+SqzFormatTime(current_times[player.f_jsid], true));
 			});
