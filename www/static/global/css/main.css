@@ -1,4 +1,5 @@
 /* @override 
+	http://domo.lo.lo/static/global/css/main.css
 	http://domodev.lo.lo/static/global/css/main.css
 	http://domodev.dev.440net.net/static/global/css/main.css
 */
@@ -232,27 +233,27 @@ html, body {
 /* @group Page Home
 ------------------------------------------- */
 
-.home_panel .panel-heading{
+.pmd_panel .panel-heading{
 	padding: 5px 10px;
 	font-size: 13px;
 }
-.home_panel .panel-heading I{
+.pmd_panel .panel-heading I{
 	opacity: 0.4;
 	margin-right: 4px;
 }
 
-.home_panel .panel-body{
+.pmd_panel .panel-body{
 	padding: 10px 0 0 10px;
 }
-.home_panel .sensor{
+.pmd_panel .sensor{
 	color: #AAA;
 }
-.home_panel .sensor B{
+.pmd_panel .sensor B{
 	color: #666;
 	margin-right: 2px;
 	margin-left: 4px;
 }
-.home_panel .sensor IMG{
+.pmd_panel .sensor IMG{
 	height: 16px;
 	margin-left: 15px;
 	margin-right: 2px;
@@ -952,7 +953,7 @@ html, body {
 
 /* @end */
 
-/* @group Page Clock 
+/* @group Page Squeeze 
 ----------------------------------------------------------------- */
 #body_squeeze .sqz_panel .panel-heading{
 	overflow: hidden;
@@ -965,7 +966,7 @@ html, body {
 	margin-top: 3px;
 	padding: 1px 5px;
 	border: 1px solid;
-	border-color: rgba(0,0,0,0.05) rgba(255,255,255,0.3)  rgba(255,255,255,0.3)  rgba(0,0,0,0.05)  ;
+	border-color: rgba(0,0,0,0.09) rgba(255,255,255,0.1)  rgba(255,255,255,0.1)  rgba(0,0,0,0.09)  ;
 	background: rgba(255,255,255,0.2);
 	font-size: 9px;
 	text-transform: uppercase;

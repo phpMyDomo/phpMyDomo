@@ -39,14 +39,8 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#2b2d30', end
 #body_home .block_right .panel-body-full{
 	background-color: #000;
 }
-#body_home .home_groups .panel-body,
-#body_cameras .pmd_panel .panel-body-full{
-	background-color: #222;
-	border-radius:  0 0 4px 4px;
-	-moz-border-radius:  0 0 4px 4px;
-	-webkit-border-radius:  0 0 4px 4px;
-}
 
+.pmd_panel .panel-body,
 .pmd_panel .panel-body-full{
 	border-top: 1px solid rgba(150,150,150,0.05);	
 	border-radius: 0 0 4px 4px;
@@ -84,3 +78,10 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#2b2d30', end
 #body_cameras .iframe_border{
 	border-color: #000;
 }
+
+#body_squeeze .player_radio{
+	text-shadow: none;
+	color: #000;
+	background-color: rgba(255,255,255,0.09);
+}
+
