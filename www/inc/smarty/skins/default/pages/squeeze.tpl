@@ -16,8 +16,8 @@
 
 	{if $row.f_playing}
 		<span class="player_links">
-			<a href="{$row.f_playing.f_url_youtube}" target='_blank' title="{$l.search} [{$row.f_playing.f_full_title}] {$l.on} YouTube..."><i class='fa fa-youtube'></i></a>
-			<a href="{$row.f_playing.f_url_google}" target='_blank' title="{$l.search} [{$row.f_playing.f_full_title}] {$l.on} Google..."><i class='fa fa-google'></i></a>
+			<a class="player_link_youtube" href="{$row.f_playing.f_url_youtube}" target='_blank' title="{$l.search} [{$row.f_playing.f_full_title}] {$l.on} YouTube..."><i class='fa fa-youtube'></i></a>
+			<a class="player_link_google" href="{$row.f_playing.f_url_google}" target='_blank' title="{$l.search} [{$row.f_playing.f_full_title}] {$l.on} Google..."><i class='fa fa-google'></i></a>
 		</span>
 	{/if}
 	
