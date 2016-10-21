@@ -182,7 +182,8 @@ class PMD_Page extends PMD_Root_Page{
 				//store it
 				$row['status']['playlist_loop'][$k]=$arr;
 			}
-			$row['f_playing']=$row['status']['playlist_loop'][$status['playlist_cur_index']];
+			//$row['f_playing']=$row['status']['playlist_loop'][$status['playlist_cur_index']];
+			$row['f_playing']=$row['status']['playlist_loop'][0];
 		}
 		list($row['f_ip'],$row['f_port'])=explode(':',$status['player_ip']);
 		$row['f_mac']		=strtoupper($row['playerid']);
