@@ -1,7 +1,7 @@
 
 jQuery( document ).ready(function() {
 
-	/* ----- Slected Player ------------------ */
+	/* ----- Selected Player ------------------ */
 	$('.jsSqzPlayer .panel-heading').on('click', function(){
 			var panel=$(this).closest('.jsSqzPlayer');
 			selected_player_jsid=panel.attr('data-jsid');
@@ -60,7 +60,7 @@ jQuery( document ).ready(function() {
 	
 	
 	$(document).keypress(function(e) {
-  		var jsid=$('input[name=selectedPlayer]:checked').val();
+  		var jsid=selected_player_jsid;
   		var c=e.charCode;
   		var l=String.fromCharCode(c);
   		if( l == pmd_sqz_prefs.key_cue_in_set) {
@@ -210,7 +210,7 @@ function SqzRefreshAllStates(init){
 					var but			=$(this);
 					var data_mode	=but.attr('data-mode');
 					var data_type	=but.attr('data-type');
-					if(data_type=='button'){
+					if(data_type=='button' || data_type=='playlist'){
 						but.removeClass('on');
 					}
 					$.each(player.f_states, function(button, val){
