@@ -31,7 +31,7 @@ class PMD_Action extends PMD_Root_Action{
 
 		$p['node']		=$this->GetParam('node'			,'int');
 		$p['child']		=$this->GetParam('child'		,'int');
-		$p['type']		=$this->GetParam('type'			,'str');
+		$p['type']		=$this->GetParam('mtype'		,'str');
 		$p['sub']		=$this->GetParam('sub'			,'str');
 		$p['payload']	=$this->GetParam('payload'		,'str');
 		//$p['get']		=$this->GetParam('get'			,'bool');
@@ -54,7 +54,7 @@ class PMD_Action extends PMD_Root_Action{
 		}
 		
 		$to="{$p['node']}:{$p['child']}";
-		if($p['node'] !='' and $p['child'] !='' and $p['type'] !='' and $p['sub'] !=''){
+		if(strlen($p['node']) >0 and strlen($p['child']) >0 and strlen($p['type']) >0 and strlen($p['sub']) >0 ){
 			$r= $o->SendMessage($p['node'],$p['child'],$p['type'],$p['ack'],$p['sub'],$p['payload'],$p['get']);
 			if($r){
 				$this->DisplayJson(true, array('code'=>200, 'message'=>"sucessfully sent to $to",'sent_parameters'=>$p));
