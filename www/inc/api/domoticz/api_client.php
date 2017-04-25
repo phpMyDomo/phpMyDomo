@@ -116,6 +116,20 @@ class PMD_ApiClient extends PMD_Root_ApiClient{
 					$d['value']	=$raw['Visibility'];
 					$d['unit']	="Km";
 				}
+				elseif($raw['Type']=='General' and $raw['SubType'] =='Distance' ){
+					$d['class']	='sensor';
+					$d['type']	='distance';
+					list($v,$u)=explode(" ",$raw['Data']);
+					$d['value']	=trim($v);
+					$d['unit']	=trim($u);
+				}
+				elseif($raw['Type']=='Lux'){
+					$d['class']	='sensor';
+					$d['type']	='lux';
+					list($v,$u)=explode(" ",$raw['Data']);
+					$d['value']	=trim($v);
+					$d['unit']	=trim(strtolower($u));
+				}
 
 				elseif($raw['Type']=='Temp'){
 					$d['class']	='sensor';
@@ -210,6 +224,10 @@ class PMD_ApiClient extends PMD_Root_ApiClient{
 				elseif($raw['SwitchType']=='Contact'){
 					$d['class']	='sensor';
 					$d['type']	='bool';
+				}
+				elseif($raw['SwitchType']=='Door Contact'){
+					$d['class']	='sensor';
+					$d['type']	='door';
 				}
 				elseif($raw['SwitchType']=='Blinds'){
 					$d['class']	='command';

@@ -86,6 +86,9 @@ $api['states']['sensor']['pir']['On']			='on';
 $api['states']['sensor']['bool']['Open']		='off';		
 $api['states']['sensor']['bool']['Closed']		='on';		
 
+$api['states']['sensor']['door']['Open']		='off';		
+$api['states']['sensor']['door']['Closed']		='on';		
+
 
 //json definition (auto formatted if defined) -------------------------------
 // fields from the 'result' rows

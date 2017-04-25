@@ -55,6 +55,8 @@ $lang['types']['counter']	="Counter";
 $lang['types']['radiation']	="Radiations";
 $lang['types']['visibility']="Visibility";
 $lang['types']['selector']	="Selector";
+$lang['types']['distance']	="Distance";
+$lang['types']['lux']		="Luminosity";
 
 // infos ################################################################
 $lang['infos']['sunset']	="Sunset";

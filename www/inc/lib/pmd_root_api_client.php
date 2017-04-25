@@ -46,7 +46,7 @@ class PMD_Root_ApiClient extends PMD_Root{
 	class 			=> Class of device: command | sensor  | scene | camera | security
 	type			=> Type of the device
 						-For Commands	: switch | dimmer | heating | shutter | fan | rgb | rgbw | therm | blind
-						-For Sensors	: temp | wind_speed | wind_gust | wind_temp | wind_chill | rain | baro | hygro | uv | pir | gas | bool | consum | counter | visibility | radiation
+						-For Sensors	: temp | wind_speed | wind_gust | wind_temp | wind_chill | rain | baro | hygro | uv | pir | gas | bool | consum | counter | visibility | radiation | door | distance | lux
 						-For Scenes 	: scene | group
 						-For Cameras 	: cam_ip
 						-For Security 	: door | window
@@ -169,7 +169,6 @@ class PMD_Root_ApiClient extends PMD_Root{
 			$this->devices[$k]['img_off_url']	=$icons['img_off'];
 		}
 	}
-
 
 	//----------------------------------------------------------------------------------
 	function ApiListDevices(){
