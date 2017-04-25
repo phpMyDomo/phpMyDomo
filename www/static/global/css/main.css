@@ -57,7 +57,6 @@
 .navbar-inverse .nav .open > a {
   border-color: transparent;
 }
-
 /* @end */
 
 
@@ -306,6 +305,13 @@ html, body {
 	font-weight: normal;
 	color: #333;
 }
+#block_calendar .td_value{
+	white-space: nowrap;
+}
+#block_calendar TR:last-child .td_value{
+	white-space: normal;	
+}
+
 #block_links TABLE{
 	margin: 4px 0;
 }
