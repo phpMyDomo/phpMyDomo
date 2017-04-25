@@ -54,6 +54,8 @@ $lang['types']['counter']	="Contatore";
 $lang['types']['radiation']	="Radiazioni";
 $lang['types']['visibility']="Visibilità";
 $lang['types']['selector']	="Selettore";
+$lang['types']['distance']	="Distance";	//To translate
+$lang['types']['lux']		="Luminosity";	//To translate
 
 // infos ################################################################
 $lang['infos']['sunset']	="Tramonto";

@@ -53,7 +53,9 @@ $lang['types']['gaz']		="Gas/Rauch";
 $lang['types']['counter']	="Zähler";
 $lang['types']['radiation']	="Radiations";	//To translate
 $lang['types']['visibility']="Visibility";	//To Translate
-//$lang['types']['selector']	="Selector";	//To Translate
+$lang['types']['selector']	="Selector";	//To Translate
+$lang['types']['distance']	="Distance";	//To translate
+$lang['types']['lux']		="Luminosity";	//To translate
 
 // infos ################################################################
 $lang['infos']['sunset']	="Sonnenuntergang";
