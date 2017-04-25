@@ -58,6 +58,7 @@ class PMD_Root_ApiClient extends PMD_Root{
 	raw_value1		=> (optionnal) raw main value of the device : used to autobuild 'state', if not specified in the RegisterDevice method
 	unit			=> (optionnal) unit of the value, if  it cant be guessed by the type (ie current) ... to improve
 	js_address		=> address formatted to be useable as a CSS id 
+	warning			=> warning (highlight) level 
 */
 
 	// various info from remote server
@@ -167,6 +168,9 @@ class PMD_Root_ApiClient extends PMD_Root{
 			$this->devices[$k]['img_url']		=$icons['img'];
 			$this->devices[$k]['img_on_url']	=$icons['img_on'];
 			$this->devices[$k]['img_off_url']	=$icons['img_off'];
+
+			$this->devices[$k]['warning']	=$this->_MakeWarning($row);
+			
 		}
 	}
 
@@ -183,7 +187,6 @@ class PMD_Root_ApiClient extends PMD_Root{
 	function ApiListInfos(){
 		echo "Extend this method to List general server information from remote api call";
 	}
-
 
 	//----------------------------------------------------------------------------------
 	function GetInfos(){
@@ -663,6 +666,48 @@ class PMD_Root_ApiClient extends PMD_Root{
 		return $out;
 	}
 
+	//----------------------------------------------------------------------------------
+	function _MakeWarning($device){
+		$warn=0;
+
+		$warnings=$this->conf['devices_warnings'][$device['uid']];
+		if(is_array($warnings)){
+			foreach($warnings as $k => $str){
+				$n=$k+1;
+				$op		=substr($str, 0,1);
+				$val	=substr($str, 1);
+				if(preg_match('#[a-z]#i',$val)){
+					$dev_value=$device['state'];
+				}
+				else{
+					$dev_value=$device['value'];
+				}
+				switch ($op) {
+					case '<':
+						if($dev_value < $val ) {$warn=$n;}
+						break;
+					
+					case '>':
+						if($dev_value > $val ) {$warn=$n;}
+						break;
+					
+					case '=':
+						if($dev_value == $val ) {$warn=$n;}
+						# code...
+						break;
+					
+					case '~':
+						if($dev_value != $val ) {$warn=$n;}
+						# code...
+						break;
+					
+					default:
+						break;
+				}
+			}
+		}
+		return $warn;
+	}
 
 	//---------------------------------------------------------------
 	//http://php.net/manual/en/function.array-multisort.php#91638
@@ -688,7 +733,6 @@ class PMD_Root_ApiClient extends PMD_Root{
 		}
 		return $ret;
 	}
-
 
 
 } 

@@ -148,7 +148,7 @@ Example 2: (working with openHab demo API)
 /*
 Define a different icons per devices: Normally icons are defined, depending on the device type (from /static/global/img/types/), but you can choose to override them, with your own device icon, for each device
 
-Example:
+Format:
 $conf['devices_icons']['DEVICE_ID']['LOCATION']	="ICON_NAME";
 
 Definitions:
@@ -158,8 +158,42 @@ Definitions:
 		- "types" 	: Icon is choosen from the /static/global/img/types/ folder
 		- "custom" : Icon is choosen from the /static/custom/devices/ folder. This is the RIGHT place to add your OWN custom icons
 	-ICON_NAME : the name of the icon files , ie "alarm1" whill select : "icon48_alarm1_on.png" or "icon48_alarm1_off.png" depending on the device's state
+
+Examples:
+$conf['devices_icons']['scene_group_gf_living']['devices']	="switch1";
 */
-//$conf['devices_icons']['scene_group_gf_living']['devices']	="switch1";
+
+
+// ##############################################################################
+// Devices Warnings #############################################################
+// ##############################################################################
+/*
+Compare device value/state with your own value(s) to highlight (in red) the sensor in the main home page.
+
+Format:
+$conf['devices_warnings']['DEVICE_ID'][]	="Oxxx";
+
+Definitions:
+	- DEVICE_ID: Unique Id of the Device (tips: grab it from the phpMyDomo Devices page)
+	- Oxxx: is the Operator + the value to compare to the current device value  
+		- "O" : Operator to use :
+			- "<" lower than
+			- ">" greater than
+			- "=" equal to
+			- "~" NOT equal to
+		- "xxx" : the value to compare to
+You can set multiple warning per sensors
+
+Example 1:
+$conf['devices_warnings']['sensor_bool_window_gf_living'][]	="=off";
+This would highlight the 'sensor_bool_window_gf_living' sensor whenever it is open (equals to 'off' state).
+
+Example 2:
+$conf['devices_warnings']['sensor_temp_temperature_gf_living'][]	=">40";
+$conf['devices_warnings']['sensor_temp_temperature_gf_living'][]	="<4";
+This would highlight the 'sensor_temp_temperature_gf_living' sensor whenever the temperature is greater than 40° OR lower than 4°.
+
+*/
 
 
 // ##############################################################################
@@ -194,7 +228,7 @@ Example 2: (working with openHab demo API)
 
 
 // ##############################################################################
-// Links Block #######################################################################
+// Links Block ##################################################################
 // ##############################################################################
 /*
 The Links Block allow you to create a block , with custom links to various websites

@@ -259,6 +259,9 @@ html, body {
 	opacity: 0.6;
 	vertical-align: text-bottom;
 }
+.pmd_panel .sensor_warn B{
+	color: red !important;
+}
 
 /* @group Blocks
 ------------------------------------------- */
@@ -298,6 +301,10 @@ html, body {
 	color: #555;
 	font-size: 10px;
 	white-space: nowrap;
+}
+
+.block_right .sensor_warn TD{
+	color: red !important;
 }
 
 #block_calendar .td_value{
