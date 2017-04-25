@@ -38,10 +38,15 @@
 {* ##################################################################################### *}
 {capture assign=page_right}
 
-{include file="{$p.template}/inc_block.tpl" type='weather'	devices=$data.devices icon='fa fa-cloud'}
-{include file="{$p.template}/inc_block.tpl" type='sensors'	devices=$data.devices icon='fa fa-info-circle'}
-{include file="{$p.template}/inc_block.tpl" type='links'	devices=$data.devices icon='fa fa-bookmark'}
+{foreach from=$p.blocks key=k item=ids}
+	{include file="{$p.template}/inc_block.tpl" type=$k	ids=$ids devices=$data.devices}
+{/foreach}
 
+{*
+	{include file="{$p.template}/inc_block.tpl" type='weather'	devices=$data.devices icon='fa fa-cloud'}
+	{include file="{$p.template}/inc_block.tpl" type='sensors'	devices=$data.devices icon='fa fa-info-circle'}
+	{include file="{$p.template}/inc_block.tpl" type='links'	devices=$data.devices icon='fa fa-bookmark'}
+*}
 
 {* Calendar Block -------------------------------------------------- *}
 <div class="panel panel-default block_right pmd_panel" id="block_calendar">

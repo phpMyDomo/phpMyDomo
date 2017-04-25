@@ -201,7 +201,14 @@ This would highlight the 'sensor_temp_temperature_gf_living' sensor whenever the
 // ##############################################################################
 /*
 Blocks are shown in the right column of the Home Page.
-They are 2 user defined blocks : "weather" and "sensors".
+
+Format:
+	$conf['blocks']['NAME'][]="DEVICE_ID";
+
+Definitions:
+	- NAME : Block's Name (if you set "weather" or "sensors" the block's title name and icons will be pre-set)
+	- DEVICE_ID : Unique Id of the Device (tips: grab it from the phpMyDomo Devices page)
+
 Example 1:
 	$conf['blocks']['weather'][]="DEVICE_ID_4";
 	$conf['blocks']['weather'][]="DEVICE_ID_5";
@@ -224,6 +231,7 @@ Example 2: (working with openHab demo API)
 	$conf['blocks']['sensors'][]="sensor_temp_temperature_ff_child";
 	$conf['blocks']['sensors'][]="sensor_temp_temperature_ff_bed";
 	$conf['blocks']['sensors'][]="sensor_temp_temperature_ff_bath";
+
 */
 
 
