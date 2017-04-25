@@ -404,6 +404,9 @@ html, body {
 
 /* @group Page Devices
 ------------------------------------------- */
+#body_devices .navbar-fixed-top {
+  z-index:1010;
+}
 .div_devices .popover{
 	max-width: 600px;
 	width: auto;
