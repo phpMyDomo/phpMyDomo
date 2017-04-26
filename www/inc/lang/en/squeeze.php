@@ -21,9 +21,9 @@ $lang['repeat_off']		="x";
 $lang['repeat_one']		="1";
 $lang['repeat_all']		="A";
 
-$lang['repeat_0']		="No Shuffe";
-$lang['repeat_1']		="Shuffle Songs";
-$lang['repeat_2']		="Shuffle Albums";
+$lang['shuffle_0']		="No Shuffe";
+$lang['shuffle_1']		="Shuffle Songs";
+$lang['shuffle_2']		="Shuffle Albums";
 
 $lang['shuffle_off']	="x";
 $lang['shuffle_songs']	="S";
