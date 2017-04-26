@@ -16,7 +16,7 @@ A local Logitech Server
 
 // Server URL #######################
 // Format : http://IP:PORT, ie : http://192.168.1.222:9000
-$prefs['url_server']						='http://net-ct.lo.lo:9000';
+$prefs['url_server']			='http://192.168.1.222:9000';
 
 // Refresh States time ##############
 // the display is updated every [refresh_states] milliseconds, to correctly display the ciurrent title and buttons states.
