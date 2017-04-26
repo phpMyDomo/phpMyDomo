@@ -1063,7 +1063,48 @@ html, body {
 #body_squeeze #block_sqz_current .panel-body-full {
 	padding: 6px;
 }
+/* @end */
 
+
+/* @group Page Calc 
+----------------------------------------------------------------- */
+#body_utils_calc H2{
+	color: #AAA;
+}
+#body_utils_calc H3{
+	color: #AAA;
+}
+
+#body_utils_calc .div_calc{
+	background: #000;
+	display: inline-block;
+	padding: 5px 20px;
+	border: 1px solid rgba(100,100,100,0.5);
+	margin: 10px 0 40px 50px;
+}
+#body_utils_calc .table_code TD{
+	border: none !important;
+	color: rgba(255,255,255,0.5);
+}
+#body_utils_calc .tr_dip td{
+	padding-bottom: 25px;
+}
+#body_utils_calc .tr_label td,
+#body_utils_calc .tr_dip input{
+	text-align:center
+}
+#body_utils_calc .td_code{
+	background: rgba(255,255,255,0.2);
+	text-align: center;
+}
+#body_utils_calc .td_code INPUT{
+	margin-left: 10px;
+}
+#body_utils_calc td.td_name{
+	text-align: right;
+	color: rgba(255,255,255,0.8);
+	padding-right: 15px;
+}
 /* @end */
 
 
