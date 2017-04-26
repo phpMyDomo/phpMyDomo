@@ -5,7 +5,7 @@ The Music page (*pmd_ip/squeeze*) allows to control all SqueezeBox players regis
 ## Features #########################################################################
  - Full transport controls (including *FastForward* and *Rewind*)
  - Keyboard shortcuts
- - Musician friendly In/Out cue points to precisely loop part of a song
+ - Musician friendly In/Out cue points to precisely loop part of a song, including nudge shortcuts
  - Auto link each playing Artist/song to Youtube, IMDB, Google
  - Album Art display
  - Global players controls : Stop all players, Mute all player, change all players volumes, etc...
