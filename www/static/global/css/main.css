@@ -1089,6 +1089,9 @@ html, body {
 #body_utils_calc .tr_dip td{
 	padding-bottom: 25px;
 }
+#body_utils_calc .tr_dip INPUT{
+	margin-bottom: 3px;
+}
 #body_utils_calc .tr_label td,
 #body_utils_calc .tr_dip input{
 	text-align:center
@@ -1099,6 +1102,7 @@ html, body {
 }
 #body_utils_calc .td_code INPUT{
 	margin-left: 10px;
+	text-align: center;
 }
 #body_utils_calc td.td_name{
 	text-align: right;
