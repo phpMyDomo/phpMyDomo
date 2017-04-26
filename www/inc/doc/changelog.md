@@ -1,9 +1,19 @@
 # phpMyDomo ChangeLog
 
-## Version : 0.2xx (Not Released) - xxxx, 2016
-- new: Implements Push Buttons (Domoticz Only)
+## Version : 0.300 (Not Released) - xxxx, 2017
+- new: Implements Logitech SqueezeBox Remote controller
+- new: Allows (multiple) warnings (red highlight) whenever sensor values change
+- new: Allows custom blocks
+- new: Domoticz Push Buttons
+- new: Domoticz supports Door Contacts, Luminosity and Distance sensors
 - new: Italian Language (Thanks to Aldodemi)
-- dev: minify updated to v2.3
+- fix: MySensors 'type' field renamed to 'mtype'
+- fix: Time display in calendar block
+- dev: Debug Device Popover no longer under NavBar
+- dev: 'utils_calc' page allows conversion between AB400 jumpers / House,Unit Code
+- dev: Minify updated to v2.3
+- dev: FontAwesome updated to v4.6.3
+- dev: latest MySensors_php_API library
 
 ## Version : 0.200 - March 20, 2016
 - new: Clock Page
@@ -101,9 +111,9 @@
 - dev: Language files: date information + use only double quotes
 - dev: Dimmers slider view (dont currently send data)
 - new: Devices Page shows commands values (ie for dimmers)
-- new: RGB icons, + nicer Groups icons 
-- new: Nicer Error Page 
-- dev: Nicer Debug Page 
+- new: RGB icons, + nicer Groups icons
+- new: Nicer Error Page
+- dev: Nicer Debug Page
 - new: Allow Installation of PMD in a sub-directory
 - fix: Index page now checks if .htaccess if already present
 
