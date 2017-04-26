@@ -4,9 +4,9 @@
 	"baseline": 	"Php class implementing methods to directly send messages (and get answers) to a MySensors Ethernet or Serial gateway.",
 	"description":	"readme.md",
 	"type":			"api",
-	"version":		"1.2",
-	"time":			"2016-02-22",	
-	"keywords":		"api, php, mysensors, gateway, ethernet, class",
+	"version":		"1.21",
+	"time":			"2016-02-23",	
+	"keywords":		"api, php, mysensors, gateway, serial, ethernet, class",
 	"homepage":		"https://www.mysensors.org",
 	"license":		"GPL",
 	"authors": [

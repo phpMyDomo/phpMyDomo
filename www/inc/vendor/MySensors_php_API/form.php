@@ -112,7 +112,7 @@ if($gateway=='serial'){
 	$html_gateway=<<<EOF
 					Gateway SerialPort : 
 					<div class="form-group">
-						<input type="text" class="form-control" id="s_port" value="{$form['s_port']}" size=25 placeholder="Serial Port">
+						<input type="text" class="form-control" name="s_port" value="{$form['s_port']}" size=25 placeholder="Serial Port">
 					</div>
 
 EOF;
@@ -121,11 +121,11 @@ else{
 	$html_gateway=<<<EOF
 					Gateway IP : 
 					<div class="form-group">
-						<input type="text" class="form-control" id="ip" value="{$form['ip']}" size=12 placeholder="IP address">
+						<input type="text" class="form-control" name="ip" value="{$form['ip']}" size=12 placeholder="IP address">
 					</div>
 					<div class="form-group">
 						&nbsp; Port :
-						<input type="text" class="form-control" id="port" value="{$form['port']}" size=4  placeholder="Port">
+						<input type="text" class="form-control" name="port" value="{$form['port']}" size=4  placeholder="Port">
 						&nbsp;
 					</div>
 
@@ -174,7 +174,7 @@ function message2form(){
 	formTypeChange(false);
 }
 
-function formTypeChange(with_update=true){
+function formTypeChange(with_update){
 	var mess_type	=$('#td_type SELECT').val();
 	var sub_list	=[];
 	var select_sub 	= $('#td_sub SELECT');
@@ -222,9 +222,9 @@ function UpdateWait(){
 	}
 }
 $( document ).ready(function() {
-	formTypeChange();
+	formTypeChange(true);
 	$('#td_type SELECT').on('keyup change',function(e){
-		formTypeChange();
+		formTypeChange(true);
 	});
 	
 	$('#td_node INPUT, #td_child INPUT, #td_type SELECT, #td_ack SELECT, #td_sub SELECT, #td_payload INPUT').on('keyup change',function(e){
@@ -248,7 +248,7 @@ $( document ).ready(function() {
 	<body>
 		<div class="bg-info">
 			<div class="container">
-				<h1><img src="http://www.mysensors.org/MySensorsLogo.png" height=50>&nbsp; Message Sender / Converter</h1>
+				<h1><img src="https://www.mysensors.org/images/MySensorsLogo.png" height=50>&nbsp; Message Sender / Converter</h1>
 			</div>
 		</div>
 		
