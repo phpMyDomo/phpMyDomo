@@ -4,7 +4,8 @@ $lang['locale']="de_DE.utf8";
 
 // menu head ###################################################
 $lang['menu_head']['home']		="Home";
-//$lang['menu_head']['clock']		="Clock";	// to translate
+$lang['menu_head']['clock']		="Clock";	// to translate
+$lang['menu_head']['squeeze']	="Music";	// to translate
 $lang['menu_head']['cameras']	="Kameras";
 $lang['menu_head']['photos']	="Photos"; // to translate
 $lang['menu_head']['commands']	="Befehle";

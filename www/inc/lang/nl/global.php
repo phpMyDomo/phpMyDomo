@@ -5,6 +5,7 @@ $lang['locale']="nl_NL.utf8";
 // menu head ###################################################
 $lang['menu_head']['home']		="Dashboard";
 $lang['menu_head']['clock']		="Klok";
+$lang['menu_head']['squeeze']	="Music";	// to translate
 $lang['menu_head']['cameras']	="Camera's";
 $lang['menu_head']['photos']	="Foto's";
 $lang['menu_head']['commands']	="Commando's";

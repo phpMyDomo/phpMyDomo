@@ -5,6 +5,7 @@ $lang['locale']="it_IT.utf8";
 // menu head ###################################################
 $lang['menu_head']['home']		="Home";
 $lang['menu_head']['clock']		="Orologio";
+$lang['menu_head']['squeeze']	="Music";		// to translate
 $lang['menu_head']['cameras']	="Telecamere";
 $lang['menu_head']['photos']	="Foto";
 $lang['menu_head']['commands']	="Comandi";
