@@ -56,6 +56,10 @@ class PMD_Kernel{
 
 		//merge local lang
 		$lang=array();
+		
+		if($debug_lang=$_GET['lang']){ // allow forcing lang in URL (for debugging purpose)
+			$this->conf['paths']['lang']=$this->conf['paths']['langs'].$debug_lang.'/';
+		}
 		include_once($this->conf['paths']['lang'].'global.php');
 		$this->lang['global']=$this->ArrayMergeRecursive($this->lang['global'],$lang);
 

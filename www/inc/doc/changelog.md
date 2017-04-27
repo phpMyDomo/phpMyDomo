@@ -14,6 +14,7 @@
 - dev: Minify updated to v2.3
 - dev: FontAwesome updated to v4.6.3
 - dev: latest MySensors_php_API library
+- dev: allow to force language in the URL using 'lang='
 
 ## Version : 0.200 - March 20, 2016
 - new: Clock Page
