@@ -60,6 +60,12 @@ class PMD_ApiClient extends PMD_Root_ApiClient{
 					$d['type']	="dimmer";
 					$d=$this->FormatState($d);
 					$d['state'] or $d['value']	=$raw['value1'];
+					if($raw['values'][0]['value']=='On'){
+						$d['value']='100';
+					}
+					else{
+						$d['value'] = intval(preg_replace('#[^\d]+#',' ',$raw['values'][0]['value']));
+					}
 				}
 				if(!$d['class']){
 					$d =$this->_guessFromIcon($d);
@@ -101,10 +107,10 @@ class PMD_ApiClient extends PMD_Root_ApiClient{
 				$d['class']	=$class_type_values[0];
 				$d['type']	=$class_type_values[1];
 				$class_type_values[2] and $d['value']	=$d['raw_value1'];
-				if($d['type']=='temp' and $raw['label2']=='%'){
+				if($d['type']=='temp' and $raw['values'][1]['units']=='%'){
 					$d2=$d;
 					$d2['type']	='hygro';
-					$d2['value']=$d['raw_value2'];
+					$d2['value']=$raw['values'][1]['value'];
 					$this->RegisterDevice($d2,'hum');	
 				}
 			}
