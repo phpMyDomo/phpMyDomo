@@ -1,6 +1,6 @@
 # phpMyDomo ChangeLog
 
-## Version : 0.300 (Not Released) - xxxx, 2017
+## Version : 0.300 - April 27, 2017
 - new: Implements Logitech SqueezeBox Remote controller
 - new: Allows (multiple) warnings (red highlight) whenever sensor values change
 - new: Allows custom blocks
