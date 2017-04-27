@@ -6,7 +6,7 @@ _The ultimate Domotic remote for the rest of us !_
 
 ## About phpMyDomo
 
-phpMyDomo is an open-source Web Application aimed to provide a clean, robust, customizable, fast and intuitive interface to many Home Automation software. 
+phpMyDomo is an open-source Web Application aimed to provide a clean, robust, customizable, fast and intuitive interface to many Home Automation software.
 
 With todays chinese phones and tablets starting as low as $50, it becomes a cheap and powerfull way to build remotes to control anything smartly in your house. phpMyDomo wants to be the ultimate WebApp that works as well on these devices, as on any computer browser.
 phpMyDomo don't aim to replace the cool domotic's software you're currently using, but rather to add a convenient web interface to it.
@@ -16,11 +16,12 @@ Currently supported software include __Domoticz__, __Domotiga__, __OpenHab__ and
 This is a Work In Progress: Depending on the chosen server API, some features might not be fully working at this time.
 
 ## Features
-- Allow to Switch on/off or Dim (experimental) any supported devices or scenes, from the Dashboard page
+- Allow to Switch on/off or Dim any supported devices or scenes, from the Dashboard page
 - View all sensors at once, or per user defined groups
 - View all your IP Cameras on a single page
 - Display your photo library from a PhotoFrame like page
 - Display Clock and favorites sensors in a Wheater Station like page
+- Controls all your SqueezeBox Players in the LAN
 - Launch Actions (ie Notifications) triggered by your HomeAutomation software (a simple URL request)
 - Responsive design : Display fine on any Android/IOS tablet, phone and any modern (HTML5) web browser
 - Multiple Skins, build your own easily
@@ -42,6 +43,7 @@ Please go the [phpMyDomo Demo site](http://www.phpmydomo.org/demo/www) for a liv
 ![alt text](www/inc/doc/screenshots/02.png?raw=true "Main page on phone (Metal Skin)")
 ![alt text](www/inc/doc/screenshots/03.png?raw=true "Main page (Black Skin)")
 ![alt text](www/inc/doc/screenshots/04.png?raw=true "Devices List (Black Skin)")
+![alt text](www/inc/doc/screenshots/05.png?raw=true "Squeezebox Player (Black Skin)")
 
 
 ## Install
