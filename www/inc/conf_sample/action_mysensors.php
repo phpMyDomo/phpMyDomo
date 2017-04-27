@@ -18,14 +18,14 @@ OR send a message like this :
 
 - 'node' 	=> (required) Node ID
 - 'child' 	=> (required) Child ID
-- 'type' 	=> (required) message type (presentation|set|req|internal|stream) or corresponding num values (0|1|2|3|4)
+- 'mtype' 	=> (required) message type (presentation|set|req|internal|stream) or corresponding num values (0|1|2|3|4)
 - 'sub'		=> (required) message sub-type (use either the numerical sub-type or the 'X_TYPE') depending on the 'type' used (see MySensors documentation)
 - 'payload' => the payload to send, when needed. (see MySensors documentation)
 
 
 ## Some URLS examples ----------------------------------------------------------------------------
 /action?type=mysensors&msg=12;0;2;1;1  
-/action?type=mysensors&node=12&child=0&type=2&sub=1&payload=1  
+/action?type=mysensors&node=12&child=0&mtype=2&sub=1&payload=1  
 /action?type=mysensors&preset=set_relay1  
 
 */
@@ -58,7 +58,7 @@ $action['globals']['eth_port']	="5003";		// gateway TCP port (default to 5003)
 
 // $action['presets']['set_relay2']['node']		=12;
 // $action['presets']['set_relay2']['child']	=0;
-// $action['presets']['set_relay2']['type']		=2;
+// $action['presets']['set_relay2']['mtype']	=2;
 // $action['presets']['set_relay2']['sub']		=1;
 // $action['presets']['set_relay2']['payload']	=1;
 
