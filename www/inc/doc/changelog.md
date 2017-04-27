@@ -1,5 +1,8 @@
 # phpMyDomo ChangeLog
 
+## Version : 0.30x (NOT RELEASED)- xxx, 2017
+- dev: MySensors documentation fix (mtype)
+
 ## Version : 0.300 - April 27, 2017
 - new: Implements Logitech SqueezeBox Remote controller
 - new: Allows (multiple) warnings (red highlight) whenever sensor values change
