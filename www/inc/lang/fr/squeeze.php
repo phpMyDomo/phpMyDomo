@@ -64,11 +64,11 @@ $lang['g_mute_off']		="Normal";
 $lang['g_power_on']		="On";
 $lang['g_power_off']	="Off";
 
-$lang['g_repeat_off']	="Non";
+$lang['g_repeat_off']	="0";
 $lang['g_repeat_one']	="Un";
 $lang['g_repeat_all']	="Tous";
 
-$lang['g_shuffle_off']		="Non";
+$lang['g_shuffle_off']		="0";
 $lang['g_shuffle_songs']	="Art.";
 $lang['g_shuffle_albums']	="Alb.";
 
