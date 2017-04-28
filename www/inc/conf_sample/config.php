@@ -6,7 +6,7 @@
 // ##############################################################################
 // Minimal Configuration  #######################################################
 // ##############################################################################
-//api to use : domoticz | domogik | domotiga | openhab
+//api to use : 'domoticz' | 'domogik' | 'domotiga' | 'openhab' . ALPHAS : 'pilight' | 'freedomotic'
 $conf['app']['api']			="openhab";
 
 // Personalize the name of your Home
@@ -57,6 +57,7 @@ $conf['urls']['server_openhab']	="http://demo.openhab.org:8080";
 //$conf['urls']['server_domogik']	="http://10.1.100.152:40405";
 //$conf['urls']['server_domotiga']	="http://10.1.100.153:9090";
 //$conf['urls']['server_pilight']	="http://10.1.100.153:5000";
+//$conf['urls']['server_freedomotic']	="http://admin:admin@93.186.254.203:9111";
 
 // Server Website, the normal GUI of your domotic server -----------------
 // Format : http://hostname_or_ip:port(/subdir)
@@ -66,6 +67,7 @@ $conf['urls']['www_openhab']		="http://demo.openhab.org:8080/openhab.app?sitemap
 //$conf['urls']['www_domogik']		="http://10.1.100.152:40404";
 //$conf['urls']['www_domotiga']		="http://10.1.100.153:9090";
 //$conf['urls']['www_pilight']		="http://10.1.100.153:5000";
+//$conf['urls']['www_freedomotic']	="http://93.186.254.203:8090";
 
 
 

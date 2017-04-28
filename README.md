@@ -11,7 +11,7 @@ phpMyDomo is an open-source Web Application aimed to provide a clean, robust, cu
 With todays chinese phones and tablets starting as low as $50, it becomes a cheap and powerfull way to build remotes to control anything smartly in your house. phpMyDomo wants to be the ultimate WebApp that works as well on these devices, as on any computer browser.
 phpMyDomo don't aim to replace the cool domotic's software you're currently using, but rather to add a convenient web interface to it.
 
-Currently supported software include __Domoticz__, __Domotiga__, __OpenHab__ and __Domogik__. (+ pilight draft)
+Currently supported software include __Domoticz__, __Domotiga__, __OpenHab__ and __Domogik__. (+ Pilight & Freedomotic drafts)
 
 This is a Work In Progress: Depending on the chosen server API, some features might not be fully working at this time.
 
