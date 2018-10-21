@@ -252,8 +252,14 @@ class PMD_ApiClient extends PMD_Root_ApiClient{
 					$d['value']	=$raw['LevelInt'];
 					//set (pseudo) state
 					$d['state']='off';
+
 					//create choice
+					if(!preg_match('#\|#',$raw['LevelNames'])){
+						$raw['LevelActions']=base64_decode($raw['LevelActions']);
+						$raw['LevelNames']	=base64_decode($raw['LevelNames']);
+					}					
 					$choices=explode('|',$raw['LevelNames']);
+
 					if(is_array($choices)){
 						$i=0;
 						foreach($choices as $choice){
