@@ -77,6 +77,7 @@ class PMD_Kernel{
 	//----------------------------------------------------------------------------------
 	function Controller(){
 		$url=$_SERVER['REQUEST_URI'];
+		$url=preg_replace("#http(s)?://".$_SERVER['HTTP_HOST']."(/)?#",'',$url);	// really weird but sometime $_REQUEST_URI contains the FULL url !!!!
 		$sub=$this->conf['app']['dir'];
 		$page=preg_replace("#^{$sub}/#",'',$url);
 		$page=preg_replace('#\?.*#','',$page);
