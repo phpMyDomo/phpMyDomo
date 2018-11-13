@@ -43,7 +43,11 @@
 {* ##################################################################################### *}
 
 {function name=makeSensorHome row=''}
-	{if $row.value}{$row.value=$row.value|number_format}{/if}
+	{if $row.type=='text'}
+		{$my_value=$row.value}
+	{else}
+		{$my_value=$row.state|ucwords|default:{$row.value|number_format}}
+	{/if}
 	{$my_name=''}
 	{if $c.app.groups_sensors_names==1}
 		{$my_name=$row.name}
@@ -54,5 +58,5 @@
 	{if $row.warning > 0}
 		{$my_class=" sensor_warn sensor_warn_{$row.warning}"}
 	{/if}
-	<span class='sensor{$my_class}'><img src='{$p.urls.static}{$row.img_url}'> {$my_name} <b>{$row.state|ucwords|default:$row.value}</b>{$row.unit|default:$p.units.{$row.type}}</span>
+	<span class='sensor{$my_class}'><img src='{$p.urls.static}{$row.img_url}'> {$my_name} <b>{$my_value}</b>{$row.unit|default:$p.units.{$row.type}}</span>
 {/function}
