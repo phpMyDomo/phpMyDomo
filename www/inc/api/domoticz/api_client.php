@@ -104,9 +104,14 @@ class PMD_ApiClient extends PMD_Root_ApiClient{
 					$d['value']	=$raw['UVI'];
 					$d['unit']	="UVI";
 				}
+				elseif($raw['Type']=='General' and $raw['SubType'] =='Text' ){
+					$d['class']	='sensor';
+					$d['type']	='text';
+					$d['value']	=$raw['Data'];
+				}
 				elseif($raw['Type']=='General' and $raw['SubType'] =='Alert' ){
 					$d['class']	='sensor';
-					$d['type']	='alert';
+					$d['type']	='text';
 					$d['value']	=$raw['Data'];
 					$d['state']	=$raw['Level'];
 				}
@@ -135,11 +140,6 @@ class PMD_ApiClient extends PMD_Root_ApiClient{
 					list($v,$u)=explode(" ",$raw['Data']);
 					$d['value']	=trim($v);
 					$d['unit']	=trim($u);
-				}
-				elseif($raw['Type']=='General' and $raw['SubType'] =='Text' ){
-					$d['class']	='sensor';
-					$d['type']	='text';
-					$d['value']	=$raw['Data'];
 				}
 				elseif($raw['Type']=='Lux'){
 					$d['class']	='sensor';
