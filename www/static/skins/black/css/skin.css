@@ -57,10 +57,10 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#2b2d30', end
 }
 #body_home .block_right TD{
 	border-color: #222;
-	color: #444;
+	color: #666;
 }
 #body_home .block_right .td_value{
-	color: #666;
+	color: #888;
 }
 #body_home .home_groups .sensor{
 	color: #444;
