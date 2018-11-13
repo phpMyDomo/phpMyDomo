@@ -46,7 +46,7 @@
 	{if $row.type=='text'}
 		{$my_value=$row.value}
 	{else}
-		{$my_value=$row.state|ucwords|default:{$row.value|number_format}}
+		{$my_value=$row.state|ucwords|default:{call number_format_lang from=$row.value}}
 	{/if}
 	{$my_name=''}
 	{if $c.app.groups_sensors_names==1}
@@ -59,4 +59,12 @@
 		{$my_class=" sensor_warn sensor_warn_{$row.warning}"}
 	{/if}
 	<span class='sensor{$my_class}'><img src='{$p.urls.static}{$row.img_url}'> {$my_name} <b>{$my_value}</b>{$row.unit|default:$p.units.{$row.type}}</span>
+{/function}
+
+{function name=number_format_lang from='' count=0 thous_sep=',' dec_sep=',' }
+	{if $c.conf.lang=='en' || $c.conf.lang=='uk'}
+		{$from|number_format:$count:'.':','}
+	{else}
+		{$from|number_format:$count:'.':' '|replace:' ':'&nbsp;'}
+	{/if}
 {/function}

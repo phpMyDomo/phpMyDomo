@@ -31,7 +31,7 @@ $devices
 		<tr class="{$my_class}">
 			<td class='td_icon'><img src='{$p.urls.static}{$devices.$id.img_url}'></td>
 			<td class='td_name' nowrap>{$my_name|truncate:13:'…':true}</td>
-			<td class='td_value'>{if $devices.$id.type=='text'}{$devices.$id.value}{else}{$devices.$id.state|ucwords|default:{$devices.$id.value|number_format:1}}{/if}</td>
+			<td class='td_value'>{if $devices.$id.type=='text'}{$devices.$id.value}{else}{$devices.$id.state|ucwords|default:{call number_format_lang from=$devices.$id.value count=1}}{/if}</td>
 			<td class='td_unit'>{$devices.$id.unit|default:$p.units.{$devices.$id.type}}</td>
 		</tr>	
 		{/if}
