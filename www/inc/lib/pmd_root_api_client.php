@@ -311,12 +311,16 @@ class PMD_Root_ApiClient extends PMD_Root{
 		//make state and value
 		$row=$this->FormatState($row);
 		$row=$this->FormatValue($row);
-		
+
+		// format row ----
+		// img_type
 		$row['img_type']=$row['type'];
 		if(strlen($row['state'])){
 			$row['img_type'] .='_'.$row['state'];
 		}
-
+		// --- html printable objet
+		$row['f_object']=htmlspecialchars(print_r($row,true), ENT_QUOTES, 'UTF-8' ) ;
+		
 		//save
 		$this->devices[$row['uid']]			=$row;
 	}

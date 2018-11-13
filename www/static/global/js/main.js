@@ -201,6 +201,12 @@ jQuery( document ).ready(function() {
     	trigger: 'hover',
     	html: true
     });
+
+    $('#body_devices .jsPopoverDebug').popover({
+    	trigger: 'click',
+    	html: true
+    });
+;
     
 
 
