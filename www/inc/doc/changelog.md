@@ -1,6 +1,14 @@
 # phpMyDomo ChangeLog
 
-## Version : 0.30x (NOT RELEASED)- xxx, 2017
+## Version : 0.30x (NOT RELEASED)- November, 2018
+- new: Localize Numbers formats
+- new: New sensors Types : custom, text, alert, mediaplayer in Domoticz
+- fix: Popover in Devices page
+- fix: Debug Popover in Devices page
+- fix: Fixes selectors for the latest Domoticz versions (names are now base64 encoded)
+- fix: 'HTTP_PORT' constant in some funky php installation
+- fix: Squeezebox display in Medium viewport
+- dev: freedomotic draft implementation
 - dev: MySensors documentation fix (mtype)
 
 ## Version : 0.300 - April 27, 2017
