@@ -104,6 +104,12 @@ class PMD_ApiClient extends PMD_Root_ApiClient{
 					$d['value']	=$raw['UVI'];
 					$d['unit']	="UVI";
 				}
+				elseif($raw['Type']=='General' and $raw['SubType'] =='Alert' ){
+					$d['class']	='sensor';
+					$d['type']	='alert';
+					$d['value']	=$raw['Data'];
+					$d['state']	=$raw['Level'];
+				}
 				elseif($raw['Type']=='General' and $raw['SubType'] =='Solar Radiation' ){
 					$d['class']	='sensor';
 					$d['type']	='radiation';
@@ -122,6 +128,18 @@ class PMD_ApiClient extends PMD_Root_ApiClient{
 					list($v,$u)=explode(" ",$raw['Data']);
 					$d['value']	=trim($v);
 					$d['unit']	=trim($u);
+				}
+				elseif($raw['Type']=='General' and $raw['SubType'] =='Custom Sensor' ){
+					$d['class']	='sensor';
+					$d['type']	='custom';
+					list($v,$u)=explode(" ",$raw['Data']);
+					$d['value']	=trim($v);
+					$d['unit']	=trim($u);
+				}
+				elseif($raw['Type']=='General' and $raw['SubType'] =='Text' ){
+					$d['class']	='sensor';
+					$d['type']	='text';
+					$d['value']	=$raw['Data'];
 				}
 				elseif($raw['Type']=='Lux'){
 					$d['class']	='sensor';
@@ -198,6 +216,7 @@ class PMD_ApiClient extends PMD_Root_ApiClient{
 					$d['value']	=(float) $raw['Counter'];
 					$d['unit']	="m3";
 				}
+
 				elseif($raw['SwitchType']=='Motion Sensor'){
 					$d['class']	='sensor';
 					$d['type']	='pir';
@@ -235,6 +254,13 @@ class PMD_ApiClient extends PMD_Root_ApiClient{
 					$d['class']	='sensor';
 					$d['type']	='door';
 				}
+				elseif($raw['SwitchType']=='Media Player'){
+					$d['class']	='sensor';
+					$d['type']	='mediaplayer';
+					$d['value']	=$raw['Data'];
+					$d['state']	='off';
+					$d['value'] and $d['state']	='on';
+				}
 				elseif($raw['SwitchType']=='Blinds'){
 					$d['class']	='command';
 					$d['type']	='blinds';
@@ -268,6 +294,7 @@ class PMD_ApiClient extends PMD_Root_ApiClient{
 						}
 					}
 				}
+
 				$this->RegisterDevice($d);
 			}
 			//$this->Debug('Devices',$this->devices);

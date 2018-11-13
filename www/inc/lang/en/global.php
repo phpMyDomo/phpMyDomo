@@ -57,6 +57,10 @@ $lang['types']['visibility']="Visibility";
 $lang['types']['selector']	="Selector";
 $lang['types']['distance']	="Distance";
 $lang['types']['lux']		="Luminosity";
+$lang['types']['custom']	="Custom";
+$lang['types']['mediaplayer']="Player";
+$lang['types']['text']		="Text";
+$lang['types']['Alert']		="Alert";
 
 // infos ################################################################
 $lang['infos']['sunset']	="Sunset";
