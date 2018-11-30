@@ -3,6 +3,7 @@
 ## Version : 0.30x (NOT RELEASED)- November, 2018
 - new: Localize Numbers formats
 - new: New sensors Types : custom, text, alert, mediaplayer in Domoticz
+- fix: Dark Theme - Lighter Texts in right block
 - fix: Popover in Devices page
 - fix: Debug Popover in Devices page
 - fix: Fixes selectors for the latest Domoticz versions (names are now base64 encoded)
