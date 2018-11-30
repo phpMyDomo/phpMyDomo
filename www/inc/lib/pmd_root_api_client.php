@@ -46,7 +46,7 @@ class PMD_Root_ApiClient extends PMD_Root{
 	class 			=> Class of device: command | sensor  | scene | camera | security
 	type			=> Type of the device
 						-For Commands	: switch | dimmer | heating | shutter | fan | rgb | rgbw | therm | blind
-						-For Sensors	: temp | wind_speed | wind_gust | wind_temp | wind_chill | rain | baro | hygro | uv | pir | gas | bool | consum | counter | visibility | radiation | door | distance | lux
+						-For Sensors	: temp | wind_speed | wind_gust | wind_temp | wind_chill | rain | baro | hygro | uv | pir | gas | bool | consum | counter | visibility | radiation | door | distance | lux | custom | text | mediaplayer
 						-For Scenes 	: scene | group
 						-For Cameras 	: cam_ip
 						-For Security 	: door | window
@@ -170,6 +170,10 @@ class PMD_Root_ApiClient extends PMD_Root{
 			$this->devices[$k]['img_off_url']	=$icons['img_off'];
 
 			$this->devices[$k]['warning']	=$this->_MakeWarning($row);
+			
+			// --- URLs -----------------
+			$this->devices[$k]['url_view_sensor']=$this->_parseUrl('view_sensor',$row['address']);
+		
 			
 		}
 	}
@@ -312,7 +316,7 @@ class PMD_Root_ApiClient extends PMD_Root{
 		$row=$this->FormatState($row);
 		$row=$this->FormatValue($row);
 
-		// format row ----
+		// format row ####################
 		// img_type
 		$row['img_type']=$row['type'];
 		if(strlen($row['state'])){
@@ -326,6 +330,12 @@ class PMD_Root_ApiClient extends PMD_Root{
 	}
 
 
+	//----------------------------------------------------------------------------------
+	function _parseUrl($url_key, $id){
+		
+		$url =$this->vars['urls']['api']. str_replace('{id}', $id, $this->vars['urls'][$url_key]);
+		return $url;
+	}
 
 	//----------------------------------------------------------------------------------
 	function FormatState($row,$raw_field=''){
