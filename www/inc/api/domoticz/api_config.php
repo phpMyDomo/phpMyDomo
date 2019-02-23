@@ -6,10 +6,12 @@
 $api['method']='json_get'; //api method : json_get | json_rpc2
 
 //api URL ----------------------------------------------------------------
-$api['urls']['api']	=$this->conf['urls']['host'].':8080';
-$api['urls']['www']	=$this->conf['urls']['host'].':8080';
-$api['dir_admin']		='/';
+$api['urls']['api']			=$this->conf['urls']['host'].':8080';
+$api['urls']['www']			=$this->conf['urls']['host'].':8080';
 
+$api['dir_admin']			='/';
+
+$api['urls']['view_sensor']	='/#/Devices/{id}/Log';	// (Abs.) Url to view the log/stats of a sensor 
 
 // Set Commands Values -------------------------------------------------------
 // Values used when Sending a command

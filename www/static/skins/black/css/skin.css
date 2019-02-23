@@ -62,6 +62,16 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#2b2d30', end
 #body_home .block_right .td_value{
 	color: #888;
 }
+
+#body_home .block_right TABLE .td_value A{
+	color: #888;
+}
+#body_home .block_right TABLE .td_value A:hover,
+#body_home .block_right TABLE .td_value A:active{
+	color: #eee;
+	text-decoration: none;
+}
+
 #body_home .home_groups .sensor{
 	color: #444;
 	text-shadow: -1px -1px 1px rgba(0,0,0,0.9) ;

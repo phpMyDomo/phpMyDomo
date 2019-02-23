@@ -27,11 +27,14 @@ $devices
 		{else}
 			{if $type=='weather'}{$my_name=$lg.types.{$devices.$id.type}}{else}{$my_name=$devices.$id.name}{/if}
 			{$my_class=''}{if $devices.$id.warning > 0}{$my_class="sensor_warn sensor_warn_{$devices.$id.warning}"}{/if}
-
 		<tr class="{$my_class}">
 			<td class='td_icon'><img src='{$p.urls.static}{$devices.$id.img_url}'></td>
 			<td class='td_name' nowrap>{$my_name|truncate:13:'…':true}</td>
-			<td class='td_value'>{if $devices.$id.type=='text'}{$devices.$id.value}{else}{$devices.$id.state|ucwords|default:{call number_format_lang from=$devices.$id.value count=1}}{/if}</td>
+			<td class='td_value'>
+{if $devices.$id.url_view_sensor}<A href="{$devices.$id.url_view_sensor}" target="_blank">{/if}
+				{if $devices.$id.type=='text'}{$devices.$id.value}{else}{$devices.$id.state|ucwords|default:{call number_format_lang from=$devices.$id.value count=1}}{/if}
+{if $devices.$id.url_view_sensor}</A>{/if}
+			</td>
 			<td class='td_unit'>{$devices.$id.unit|default:$p.units.{$devices.$id.type}}</td>
 		</tr>	
 		{/if}

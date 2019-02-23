@@ -263,7 +263,7 @@ html, body {
 	color: red !important;
 }
 
-/* @group Blocks
+/* @group Right Blocks
 ------------------------------------------- */
 
 .block_right TABLE{
@@ -296,6 +296,13 @@ html, body {
 	font-weight: bold;
 	color: #333;
 }
+.block_right TABLE .td_value A{
+	color: #444;
+}
+.block_right TABLE .td_value A:hover{
+	color: #000;
+}
+
 .block_right TABLE .td_unit{
 	padding-right: 6px;
 	color: #555;
