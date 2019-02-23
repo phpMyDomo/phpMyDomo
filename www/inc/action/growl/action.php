@@ -37,9 +37,9 @@ class PMD_Action extends PMD_Root_Action{
 		//echo get_include_path();
 		$hosts			=$this->GetParam('hosts'		,'raw');
 		$protocol		=$this->GetParam('protocol'		,'str');
-		$title			=$this->GetParam('title'		,'str');
+		$title			=$this->GetParam('title'		,'raw');
 		
-		$message		=$this->GetParam('message'		,'str');
+		$message		=$this->GetParam('message'		,'raw');
 		$pass			=$this->GetParam('pass'			,'raw');
 		$icon			=$this->GetParam('icon'			,'str');
 		$priority		=$this->GetParam('priority'		,'str');
