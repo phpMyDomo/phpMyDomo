@@ -201,9 +201,10 @@ class PMD_Action extends PMD_Root_Action{
 	private function _Publish($p,$k=0){
 		$p['message']	=$p['messages'][$k];
 		$p['title']		=$p['titles'][$k];
-		$p['sticky']	=$p['stickys'][$k]					or $p['sticky']		=$this->sticky;
-		$p['icon']		=$p['icon_url'] . $p['icons'][$k]	or $p['icon']		=$this->icon;
-		$p['priority']	=$p['prioritys'][$k]				or $p['priority']	=$this->priority;
+		$p['sticky']	=$p['stickys'][$k]			or $p['sticky']		=$this->sticky;
+		$p['priority']	=$p['prioritys'][$k]		or $p['priority']	=$this->priority;
+		$p['icon']		=$p['icons'][$k]			or $p['icon']		=$this->icon;
+		$p['icon'] 		and	$p['icon'] =$p['icon_url'] . $p['icon'];
 		
 		$priority 	=constant('Net_Growl::PRIORITY_'.strtoupper($p['priority']));
 		$options     = array(
