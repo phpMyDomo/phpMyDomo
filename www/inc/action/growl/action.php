@@ -26,45 +26,76 @@ class PMD_Action extends PMD_Root_Action{
 	private $timeout	=1;
 	private $sticky		=false;
 	private $priority	='normal';
+	private $group		='Notifications';
+	private $gapp_icon	='';
 	private $o_growl;
 	private $log=array();
 	private $do_register=true;
 
 	//----------------------------------------------------------------------------------
+	private function _paramToArray($str,$count=0,$default=''){
+		strlen($str) or $str= $default;
+		$arr=explode(',',$str);
+		$out=array();
+		for ($i = 0; $i < $count; $i++) {
+			$value=$arr[$i];
+			if(!strlen($value)){
+				$value=$default;
+			}
+			$out[$i]=$value;
+		} 
+		return $out;
+	}
+
+	//----------------------------------------------------------------------------------
 	function Run(){
 		require_once($this->conf['libs']['growl_atoload']);
 		//set_include_path(get_include_path() . PATH_SEPARATOR . $this->conf['paths']['vendors'].'PEAR_Net_Growl');
-		//echo get_include_path();
-		$hosts			=$this->GetParam('hosts'		,'raw');
-		$protocol		=$this->GetParam('protocol'		,'str');
-		$title			=$this->GetParam('title'		,'raw');
+
+		$this->app_icon	=$this->conf['urls']['static'].'/global/img/app_icon128.png';
+		$this->app_icon	='http://domo.lo.lo/static/global/img/app_icon128.png';
+
+		$p['app_icon']=$this->GetParam('app_icon'	,'str')	or $p['app_icon']	=$this->app_icon;
+		$p['app_name']=$this->GetParam('app_name'	,'raw')	or $p['app_name']  	= $this->conf['app']['name'];
 		
-		$message		=$this->GetParam('message'		,'raw');
-		$pass			=$this->GetParam('pass'			,'raw');
-		$icon			=$this->GetParam('icon'			,'str');
-		$priority		=$this->GetParam('priority'		,'str');
-		$sticky			=$this->GetParam('sticky'		,'bool');
-		$custom			=$this->GetParam('custom'		,'raw');
-		$message		=str_replace('{custom}',$custom, $message);
+		$p['hosts']			=$this->GetParam('hosts'		,'raw');
+		$p['protocol']		=$this->GetParam('protocol'		,'str');
+		$p['pass']			=$this->GetParam('pass'			,'raw');
+
+		$groups			= $this->GetParam('groups'		,'raw');
+		$a_groups 		= explode(',', $groups);
+		$count_groups	= count($a_groups);
+		$p['groups']	=$this->_paramToArray($groups, $count_groups, $this->group);
+		
+		$p['titles']	=$this->_paramToArray($this->GetParam('title',		'raw') , $count_groups,		'');
+		$p['messages']	=$this->_paramToArray($this->GetParam('message',	'raw') , $count_groups,		'');
+		$p['icons']		=$this->_paramToArray($this->GetParam('icon',		'str') , $count_groups,		$this->icon);
+		$p['prioritys']	=$this->_paramToArray($this->GetParam('priority',	'str') , $count_groups,		$this->priority);
+		$p['stickys']	=$this->_paramToArray($this->GetParam('sticky',		'bool') , $count_groups,	$this->sticky);
+
+		$p['icon_url']		=$this->GetParam('icon_url'		,'str');
+		$p['custom']		=$this->GetParam('custom'		,'raw');
+		$p['message']		=str_replace('{custom}',$p['custom,'], $p['message']);
+		
 
 		//$this->do_register=$this->GetParam('register'	,'bool');
 
 		$result='';
-		if($hosts and $protocol and $title and $message){
-			$hosts_arr=explode(',',$hosts);
-			foreach($hosts_arr as $host){
-				$host=trim($host);
-				if($protocol=='both'){
-					if($this->_Register($host,'udp',$pass)){
-						$this->_Publish($title,$message,$icon,$priority,$sticky);
+		if($p['hosts'] and $p['protocol']  and count($p['titles'])){
+			$hosts_arr=explode(',',$p['hosts']);
+			foreach($hosts_arr as $k => $host){
+				$p['host']=trim($host);
+				if($p['protocol']=='both'){
+					if($this->_Register($p,'udp')){
+						$this->_PublishGroups($p);
 					}
-					elseif($this->_Register($host,'gntp',$pass)){
-						$this->_Publish($title,$message,$icon,$priority,$sticky);
+					elseif($this->_Register($p,'gntp')){
+						$this->_PublishGroups($p);
 					}
 				}
 				else{
-					if($this->_Register($host,$protocol,$pass)){
-						$this->_Publish($title,$message,$icon,$priority,$sticky);
+					if($this->_Register($p,$p['protocol'])){
+						$this->_PublishGroups($p);
 					}
 				}
 			}
@@ -88,20 +119,22 @@ class PMD_Action extends PMD_Root_Action{
 					$out=true;
 				}			
 			}
-			//make logs ----------
+			
+			//make logs --------------------------------------------------
 			if(isset($this->log['ok_register'])){
 				$logs=array();
 				foreach($this->log['ok_register'] as $k => $l){
-					$logs[]=$l;
-					$this->log['ok_publish'][$k] and $logs[]=$this->log['ok_publish'][$k];
+					$logs[$k]['registration']=$l;
+					$this->log['ok_publish'][$k] and $logs[$k]['publications']=$this->log['ok_publish'][$k];
 				}
 				$data['logs_ok']=$logs;
 			}
+			
 			if(isset($this->log['err_register'])){
 				$logs=array();
 				foreach($this->log['err_register'] as $k => $l){
-					$logs[]=$l;
-					$this->log['err_publish'][$k] and $logs[]=$this->log['err_publish'][$k];
+					$logs[$k]['registration']=$l;
+					//$this->log['err_publish'][$k] and $logs[$k]['publications']=$this->log['err_publish'][$k];
 				}
 				$data['logs_errors']=$logs;
 			}
@@ -113,61 +146,91 @@ class PMD_Action extends PMD_Root_Action{
 	}
 	
 	//----------------------------------------------------------------------------------
-	private function _Register($host,$protocol='udp',$password=''){
-		$icon=$this->conf['urls']['static'].'/global/img/app_icon128.png';
-		$notifications = array(
-		    'Notification' => array(
-		        'display'	=> 'Notification',
-			//	'icon'	=> $icon
-				)
-		);
-		$appName  = $this->conf['app']['name'];
+	private function _Register($p, $protocol='udp'){
+
+		foreach($p['groups'] as $k => $group){
+			$group 			or	$group=$this->group;
+			$g_name	=$group	or	$g_name=$this->group;
+			$notifications[$group] = array(
+				'display'		=> $g_name,
+				'enabled'		=> 1
+			);
+		}
+		
 		$options  = array(
-			'AppIcon'	=> $icon,
-			'debug'		=> '/tmp/netgrowl.log',
-		    'host'		=> $host,
+		    'host'		=> $p['host'],
 		    'protocol'	=> $protocol,
+			'AppIcon'	=> $p['app_icon'],
 		    'timeout'	=> $this->timeout,
+//			'debug'		=> '/tmp/netgrowl.log',
 		);
+
 		try {
-		    $this->o_growl = Net_Growl::singleton($appName, $notifications, $password, $options);
+		    $this->o_growl = Net_Growl::singleton($p['app_name'], $notifications, $p['pass'], $options);
 			if($this->do_register){
 		    	$this->o_growl->register();
-				$this->log['ok_register'][]="Registered $protocol $host";
+				$this->log['ok_register'][$p['host']]['log']="Registered $protocol {$p['host']}";
+				$this->log['ok_register'][$p['host']]['options']		=$options;
+				$this->log['ok_register'][$p['host']]['groups'] =$notifications;
 			}
 			else{
-				$this->log['ok_register'][]="Instancied $protocol $host";
+				$this->log['ok_register'][$p['host']]['log']="Instancied $protocol {$p['host']}";
 			}
 			return true;
 		} 
 		catch (Net_Growl_Exception $e) {
 		    $this->o_growl->reset();
-			$this->log['err_register'][]="Register $protocol $host : ".$e->getMessage() ;
+			$this->log['err_register'][$p['host']]['log']=" - ERROR while registering $protocol {$p['host']} : ".$e->getMessage() ;
 		}
+		$this->log['err_register'][$p['host']]['options']		=$options;
+		$this->log['err_register'][$p['host']]['notifications'] =$notifications;
 	}
 
 	//----------------------------------------------------------------------------------
-	private function _Publish($title,$description,$icon='',$priority='normal',$sticky=false){
-		$sticky		or 	$sticky=$this->sticky;
-		$priority	or	$priority=$this->priority;
-		$icon		or $icon=$this->conf['urls']['static'].'/global/img/app_icon128.png';
-		$priority 	="PRIORITY_".strtoupper($priority);
-		$type 		= 'Notification';
+	private function _PublishGroups($p){
+		$groups=$p['groups'];
+		if(is_array($groups)){
+			foreach($groups as $k => $group){
+				$this->_Publish($p,$k);
+			}
+		}
+	}
+
+	
+	//----------------------------------------------------------------------------------
+	private function _Publish($p,$k=0){
+		$p['message']	=$p['messages'][$k];
+		$p['title']		=$p['titles'][$k];
+		$p['sticky']	=$p['stickys'][$k]					or $p['sticky']		=$this->sticky;
+		$p['icon']		=$p['icon_url'] . $p['icons'][$k]	or $p['icon']		=$this->icon;
+		$p['priority']	=$p['prioritys'][$k]				or $p['priority']	=$this->priority;
+		
+		$priority 	=constant('Net_Growl::PRIORITY_'.strtoupper($p['priority']));
 		$options     = array(
-			'priority'	=> constant('Net_Growl::'.$priority),
-			'sticky'	=> $sticky,
-			'icon'		=> $icon
+			'priority'	=> $priority,
+			'sticky'	=> $p['sticky'],
+			'icon'		=> $p['icon']
 		);
+		$group=$p['groups'][$k]	or $group=$this->group;
+
+		if($p['title']==''){
+			$this->log['ok_publish'][$p['host']][$k]['log']=" - Cancel group '{$group}' : title is empty !";
+			return false;
+		}
 		
 		try {
-		    $this->o_growl->publish($type, $title, $description, $options);
+		    $this->o_growl->publish($group, $p['title'], $p['message'], $options);
 		    $this->o_growl->reset();
-			$this->log['ok_publish'][]="-Published : \"$title\"";
+			$this->log['ok_publish'][$p['host']][$k]['log']=" - Published to '{$group}': \"{$p['title']}\"";
+			$options['title']	=$p['title'];
+			$options['message']=$p['message'];
+			$this->log['ok_publish'][$p['host']][$k]['sent']=$options;
+
 			return true;
 		} 
 		catch (Net_Growl_Exception $e) {
 		    $this->o_growl->reset();
-			$this->log['publish'][]="-Publish : ".$e->getMessage() ;
+			$this->log['ok_publish'][$p['host']][$k]['log']=" - Error while Publishing to '{$group}' : ".$e->getMessage() ;
 		}
 	}
 
