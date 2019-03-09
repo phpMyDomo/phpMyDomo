@@ -61,17 +61,18 @@ class PMD_Action extends PMD_Root_Action{
 		$p['hosts']			=$this->GetParam('hosts'		,'raw');
 		$p['protocol']		=$this->GetParam('protocol'		,'str');
 		$p['pass']			=$this->GetParam('pass'			,'raw');
+		$p['group']			=$this->GetParam('group'		,'int');
 
 		$groups			= $this->GetParam('groups'		,'raw');
 		$a_groups 		= explode(',', $groups);
 		$count_groups	= count($a_groups);
-		$p['groups']	=$this->_paramToArray($groups, $count_groups, $this->group);
+		$p['a_groups']	=$this->_paramToArray($groups, $count_groups, $this->group);
 		
-		$p['titles']	=$this->_paramToArray($this->GetParam('title',		'raw') , $count_groups,		'');
-		$p['messages']	=$this->_paramToArray($this->GetParam('message',	'raw') , $count_groups,		'');
-		$p['icons']		=$this->_paramToArray($this->GetParam('icon',		'str') , $count_groups,		$this->icon);
-		$p['prioritys']	=$this->_paramToArray($this->GetParam('priority',	'str') , $count_groups,		$this->priority);
-		$p['stickys']	=$this->_paramToArray($this->GetParam('sticky',		'bool') , $count_groups,	$this->sticky);
+		$p['a_titles']		=$this->_paramToArray($this->GetParam('title',		'raw') , $count_groups,		'');
+		$p['a_messages']	=$this->_paramToArray($this->GetParam('message',	'raw') , $count_groups,		'');
+		$p['a_icons']		=$this->_paramToArray($this->GetParam('icon',		'str') , $count_groups,		$this->icon);
+		$p['a_prioritys']	=$this->_paramToArray($this->GetParam('priority',	'str') , $count_groups,		$this->priority);
+		$p['a_stickys']		=$this->_paramToArray($this->GetParam('sticky',		'bool') , $count_groups,	$this->sticky);
 
 		$p['icon_url']		=$this->GetParam('icon_url'		,'str');
 		$p['custom']		=$this->GetParam('custom'		,'raw');
@@ -81,7 +82,7 @@ class PMD_Action extends PMD_Root_Action{
 		//$this->do_register=$this->GetParam('register'	,'bool');
 
 		$result='';
-		if($p['hosts'] and $p['protocol']  and count($p['titles'])){
+		if($p['hosts'] and $p['protocol']  and count($p['a_titles'])){
 			$hosts_arr=explode(',',$p['hosts']);
 			foreach($hosts_arr as $k => $host){
 				$p['host']=trim($host);
@@ -148,7 +149,7 @@ class PMD_Action extends PMD_Root_Action{
 	//----------------------------------------------------------------------------------
 	private function _Register($p, $protocol='udp'){
 
-		foreach($p['groups'] as $k => $group){
+		foreach($p['a_groups'] as $k => $group){
 			$group 			or	$group=$this->group;
 			$g_name	=$group	or	$g_name=$this->group;
 			$notifications[$group] = array(
@@ -188,22 +189,41 @@ class PMD_Action extends PMD_Root_Action{
 
 	//----------------------------------------------------------------------------------
 	private function _PublishGroups($p){
-		$groups=$p['groups'];
+		$groups=$p['a_groups'];
 		if(is_array($groups)){
-			foreach($groups as $k => $group){
+			//echo "<pre>";print_r($p);exit;
+			foreach($groups as $g => $group){
+				if($p['group']){
+					$k = 0;
+					$p['group_name']=$p['a_groups'][ $p['group'] - 1];
+					$do_break=true;
+				}
+				else{
+					$k = $g;
+					$p['group_name']=$p['a_groups'][$k];				
+				}
+
+				$p['message']	=$p['a_messages'][$k];
+				$p['title']		=$p['a_titles'][$k];
+				$p['sticky']	=$p['a_stickys'][$k];
+				$p['priority']	=$p['a_prioritys'][$k];
+				$p['icon']		=$p['a_icons'][$k];
+				
 				$this->_Publish($p,$k);
+				if($do_break){
+					break;
+				}
 			}
 		}
 	}
 
 	
 	//----------------------------------------------------------------------------------
-	private function _Publish($p,$k=0){
-		$p['message']	=$p['messages'][$k];
-		$p['title']		=$p['titles'][$k];
-		$p['sticky']	=$p['stickys'][$k]			or $p['sticky']		=$this->sticky;
-		$p['priority']	=$p['prioritys'][$k]		or $p['priority']	=$this->priority;
-		$p['icon']		=$p['icons'][$k]			or $p['icon']		=$this->icon;
+	private function _Publish($p){
+		$p['group']		or $p['group']		=$this->group;
+		$p['sticky']	or $p['sticky']		=$this->sticky;
+		$p['priority']	or $p['priority']	=$this->priority;
+		$p['icon']		or $p['icon']		=$this->icon;
 		$p['icon'] 		and	$p['icon'] =$p['icon_url'] . $p['icon'];
 		
 		$priority 	=constant('Net_Growl::PRIORITY_'.strtoupper($p['priority']));
@@ -212,15 +232,14 @@ class PMD_Action extends PMD_Root_Action{
 			'sticky'	=> $p['sticky'],
 			'icon'		=> $p['icon']
 		);
-		$group=$p['groups'][$k]	or $group=$this->group;
-
+		
 		if($p['title']==''){
 			$this->log['ok_publish'][$p['host']][$k]['log']=" - Cancel group '{$group}' : title is empty !";
 			return false;
 		}
 		
 		try {
-		    $this->o_growl->publish($group, $p['title'], $p['message'], $options);
+		    $this->o_growl->publish($p['group_name'], $p['title'], $p['message'], $options);
 		    $this->o_growl->reset();
 			$this->log['ok_publish'][$p['host']][$k]['log']=" - Published to '{$group}': \"{$p['title']}\"";
 			$options['title']	=$p['title'];
