@@ -4,12 +4,12 @@
 PLEASE READ the /phpMyDomo/www/inc/doc/howto/actions.md for more informations
 
 ## Description  ----------------------------------------------------------------------------------
-This action sends a command to an Kodi (aka as XBMC) media-center client.
+This action sends a command to an Kodi (formely know as XBMC) media-center client.
 
 
 ## Fields  ----------------------------------------------------------------------------------
-- 'type'	=> (mandatory) 'xbmc'
-- 'server' 	=> (required) hostname or ip (with optionnal :port), ie "xbmc.local", "192.168.0.12", "xbmc.local:8080"
+- 'type'	=> (mandatory) 'kodi'
+- 'server' 	=> (required) hostname or ip (with optionnal :port), ie "kodi.local", "192.168.0.12", "kodi.local:8080"
 - 'mode' 	=> (required) The command to send. Two modes are supported: 'notify' (display a notification) | 'pause' (pause a playing movies)
 
 Fields needed in 'notify' mode:
@@ -23,10 +23,10 @@ Fields required in 'pause' mode:
 none!
 
 ## URLs examples ----------------------------------------------------------------------------------
-	/action?type=xbmc&preset=door_ring
-	/action?type=xbmc&preset=door_ring&custom=Portal
-	/action?type=xbmc&preset=door_ring&custom=Main+Door&time=10&icon=warning
-	/action?type=xbmc&mode=pause
+	/action?type=kodi&preset=door_ring
+	/action?type=kodi&preset=door_ring&custom=Portal
+	/action?type=kodi&preset=door_ring&custom=Main+Door&time=10&icon=warning
+	/action?type=kodi&mode=pause
 
 */
 
@@ -36,7 +36,7 @@ none!
 // ##############################################################################
 //$action['globals']['debounce']	='3';	//minimum seconds to wait between identical action calls
 
-$action['globals']['server']	="192.168.1.2:8080"; // change to your xbmc Host:port
+$action['globals']['server']	="192.168.1.2:8080"; // change to your kodi Host:port
 $action['globals']['mode']		="notify";	// 'notify' | 'pause'
 $action['globals']['title']		="phpMyDomo Notification";
 $action['globals']['message']	="No Content Set";

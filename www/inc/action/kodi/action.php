@@ -74,6 +74,7 @@ class PMD_Action extends PMD_Root_Action{
 			$this->DisplayJson(false, array('code'=>500, 'message'=>"Missing some parameters!"));
 		}
 		
+		
 		$result=$o_jsonrpc->execute($method,$p);
 		$data=array("sent_url"=>$server_url ,"sent_method"=>$method,"sent_parameters"=>$p, "api_result"=>$result);
 		if($result=='OK'){
