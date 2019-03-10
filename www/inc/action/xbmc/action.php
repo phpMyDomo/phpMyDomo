@@ -32,7 +32,7 @@ class PMD_Action extends PMD_Root_Action{
 		$server			=$this->GetParam('server'		,'str');
 		$title			=$this->GetParam('title'		,'str');
 		$message		=$this->GetParam('message'		,'raw');
-		$image			=$this->GetParam('image'		,'str');
+		$icon			=$this->GetParam('icon'			,'str');
 		$time			=$this->GetParam('time'	,		'float');
 		$custom			=$this->GetParam('custom'		,'raw');
 		$message		=str_replace('{custom}',$custom, $message);
@@ -57,7 +57,7 @@ class PMD_Action extends PMD_Root_Action{
 				$method="GUI.ShowNotification";
 				$p['title']		=$title;
 				$p['message']	=$message;
-				$image	and  $p['image']		=$image;
+				$icon	and  $p['image']		=$icon;
 				$time	and  $p['displaytime']	=round($time *1000);
 			}
 		}
@@ -73,11 +73,11 @@ class PMD_Action extends PMD_Root_Action{
 		if($missing_parameters){
 			$this->DisplayJson(false, array('code'=>500, 'message'=>"Missing some parameters!"));
 		}
-
+		
 		$result=$o_jsonrpc->execute($method,$p);
 		$data=array("sent_url"=>$server_url ,"sent_method"=>$method,"sent_parameters"=>$p, "api_result"=>$result);
 		if($result=='OK'){
-			$data['code']	=200;
+			$data['code']	=200; 
 			$data['message']="Sucessfully sent mode: $mode";
 			$this->DisplayJson(true, $data);	
 		}
