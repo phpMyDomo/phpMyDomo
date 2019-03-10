@@ -74,6 +74,13 @@ class PMD_Action extends PMD_Root_Action{
 			$this->DisplayJson(false, array('code'=>500, 'message'=>"Missing some parameters!"));
 		}
 		
+		// legacy warnnig
+		if( $this->GetParam('image','str') ){
+			$p['title']	='[PMD Warning] '. $p['title'];
+			$p['message']	="Use of the 'image' parameter is deprecated. Use 'icon' from now on! ".$p['message'];
+			$p['image']='error';
+			$p['displaytime']=15*1000; 
+		}
 		
 		$result=$o_jsonrpc->execute($method,$p);
 		$data=array("sent_url"=>$server_url ,"sent_method"=>$method,"sent_parameters"=>$p, "api_result"=>$result);
