@@ -21,11 +21,11 @@ If you receive the mail, it will work, else you have to insatll a mail server, i
 - 'content'	=> (required) Email Content
 - 'custom'	=> (optionnal) replaces "{custom}" in the email content
 
-## URLS examples ----------------------------------------------------------------------------------
-/action?type=email&preset=door_ring  
-/action?type=email&preset=door_ring&custom=portal  
-/action?type=email&preset=door_ring&to=anotheremail@server.com  
-/action?type=email&subject=This+is_an+example&content=testing+a+custom+email  
+## URLs examples ----------------------------------------------------------------------------------
+	/action?type=email&preset=door_ring  
+	/action?type=email&preset=door_ring&custom=portal  
+	/action?type=email&preset=door_ring&to=anotheremail@server.com  
+	/action?type=email&subject=This+is_an+example&content=testing+a+custom+email  
 
 */
 

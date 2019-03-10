@@ -23,10 +23,10 @@ Fields required in 'pause' mode:
 none!
 
 ## URLs examples ----------------------------------------------------------------------------------
-/action?type=xbmc&preset=door_ring
-/action?type=xbmc&preset=door_ring&custom=Portal
-/action?type=xbmc&preset=door_ring&custom=Main+Door&time=10&icon=warning
-/action?type=xbmc&mode=pause
+	/action?type=xbmc&preset=door_ring
+	/action?type=xbmc&preset=door_ring&custom=Portal
+	/action?type=xbmc&preset=door_ring&custom=Main+Door&time=10&icon=warning
+	/action?type=xbmc&mode=pause
 
 */
 

@@ -23,10 +23,10 @@ OR send a message like this :
 - 'payload' => the payload to send, when needed. (see MySensors documentation)
 
 
-## Some URLS examples ----------------------------------------------------------------------------
-/action?type=mysensors&msg=12;0;2;1;1  
-/action?type=mysensors&node=12&child=0&mtype=2&sub=1&payload=1  
-/action?type=mysensors&preset=set_relay1  
+## URLs examples ----------------------------------------------------------------------------
+	/action?type=mysensors&msg=12;0;2;1;1  
+	/action?type=mysensors&node=12&child=0&mtype=2&sub=1&payload=1  
+	/action?type=mysensors&preset=set_relay1  
 
 */
 

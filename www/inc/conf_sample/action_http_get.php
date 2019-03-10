@@ -12,10 +12,11 @@ This action fetch an url.
 - 'timeout' => (required) the maximum time to spend asking the remote server
 - 'custom'	=> (optionnal) replaces "{custom}" in the  url field
 
-## Some URLS examples ----------------------------------------------------------------------------
-/action?type=http_get&preset=domoticz_sensor&custom=12.3;45;2
+## URLs examples ----------------------------------------------------------------------------
+	/action?type=http_get&preset=domoticz_sensor&custom=12.3;45;2
 
 */
+
 
 // ##############################################################################
 // Global Configuration  #######################################################

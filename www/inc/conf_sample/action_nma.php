@@ -18,8 +18,8 @@ http://www.notifymyandroid.com
 - 'priority'=> (optionnal) Priority : '-2' (Very Low) | '-1' (Moderate)  | '0' (Normal)  | '1' (High)  | '2' (Emergency)
 - 'custom'	=> (optionnal) replaces "{custom}" in the  message field
 
-## Some URLS examples ----------------------------------------------------------------------------
-/action?type=nma&preset=door_ring
+## URLs examples ----------------------------------------------------------------------------
+	/action?type=nma&preset=door_ring
 
 */
 

@@ -26,7 +26,7 @@ http://xplproject.org.uk/wiki/index.php?title=XPL_Specification_Document
 
 
 ## Some URLS examples ----------------------------------------------------------------------------
-/action?type=xpl&preset=door_ring  
+	/action?type=xpl&preset=door_ring  
 
 */
 

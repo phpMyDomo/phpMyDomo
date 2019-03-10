@@ -47,12 +47,12 @@ http://openjabnab.fr/ojn_admin/
 - Spanish (Spain)	: Antonio, Ines, Maria, 
 - Spanish (US)		: Rodrigo, Rosa
 
-## URLS examples --------------------------------------------------------------------------------------------
-/action?type=nabaztag&preset=door_ring  
-/action?type=nabaztag&preset=ears_0  
-/action?type=nabaztag&preset=ears_8  
-/action?type=nabaztag&mode=tts&voice=Lucy&text=Hello  
-/action?type=nabaztag&mode=ears&left=7  
+## URLs examples --------------------------------------------------------------------------------------------
+	/action?type=nabaztag&preset=door_ring  
+	/action?type=nabaztag&preset=ears_0  
+	/action?type=nabaztag&preset=ears_8  
+	/action?type=nabaztag&mode=tts&voice=Lucy&text=Hello  
+	/action?type=nabaztag&mode=ears&left=7  
 
 */
 

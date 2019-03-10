@@ -27,10 +27,10 @@ A Growl client must be installed on each notified workstation:
 - 'sticky' 	=> (optionnal) "Sticky" Notification : true | false
 - 'custom'	=> (optionnal) replaces "{custom}" in the  message field
 
-## URLS examples ----------------------------------------------------------------------------
-/action?type=growl&preset=door_ring  
-/action?type=growl&preset=door_ring&custom=Portal  
-/action?type=growl&preset=door_ring&priority=emergency  
+## URLs examples ----------------------------------------------------------------------------
+	/action?type=growl&preset=door_ring  
+	/action?type=growl&preset=door_ring&custom=Portal  
+	/action?type=growl&preset=door_ring&priority=emergency  
 
 */
 

@@ -13,8 +13,8 @@ Your command must be allowed to run under the web server user: ie on debian, the
 - 'type'	=> (mandatory) 'shell'
 - 'command' => (required) the command to execute: ie "/bin/ls -la /home"
 
-## Some URLS examples ----------------------------------------------------------------------------
-/action?type=shell&preset=list_home
+## URLs examples ----------------------------------------------------------------------------
+	/action?type=shell&preset=list_home
 
 */
 
