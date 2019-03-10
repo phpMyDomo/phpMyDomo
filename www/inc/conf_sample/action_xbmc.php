@@ -4,15 +4,15 @@
 PLEASE READ the /phpMyDomo/www/inc/doc/howto/actions.md for more informations
 
 ## Description  ----------------------------------------------------------------------------------
-This action send a command to an XBMC (media-center) client.
+This action sends a command to an Kodi (aka as XBMC) media-center client.
 
 
-## URLS Fields  ----------------------------------------------------------------------------------
+## Fields  ----------------------------------------------------------------------------------
 - 'type'	=> (mandatory) 'xbmc'
 - 'server' 	=> (required) hostname or ip (with optionnal :port), ie "xbmc.local", "192.168.0.12", "xbmc.local:8080"
-- 'mode' 	=> (required) The command to send. At this time only 2 are supported: 'notify' (display a notification) | 'pause' (pause a playing movies)
+- 'mode' 	=> (required) The command to send. Two modes are supported: 'notify' (display a notification) | 'pause' (pause a playing movies)
 
-Fields required in 'notify' mode:
+Fields needed in 'notify' mode:
 - 'title'   => (required) The title of the notification.
 - 'message'	=> (required) The content of the notification.
 - 'time'	=> (optional) The time in seconds the notification will be visible, minimum 1.5 (else default to 5 seconds)
@@ -22,7 +22,7 @@ Fields required in 'notify' mode:
 Fields required in 'pause' mode:
 none!
 
-## Some URLS examples ----------------------------------------------------------------------------------
+## URLs examples ----------------------------------------------------------------------------------
 /action?type=xbmc&preset=door_ring
 /action?type=xbmc&preset=door_ring&custom=Portal
 /action?type=xbmc&preset=door_ring&custom=Main+Door&time=10&icon=warning
