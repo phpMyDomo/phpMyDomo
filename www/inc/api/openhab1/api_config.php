@@ -36,10 +36,10 @@ $api['set']['dimmer']['max']		=100;
 
 // Actions -------------------------------------------------------------------
 $api['actions']['set']['switch']		=array(
-	'url'		=>'/rest/items/{address}',
+	'url'		=>'/rest/items/{address}?type=json',
 	'method'	=>'post',
 	'content'	=>'{state}',
-//	'result_type'=>'text_state'
+	'result_type'=>'text_state'
 );
 $api['actions']['set']['dimmer'] 	=$api['actions']['set']['switch'];
 $api['actions']['set']['dim_level'] =$api['actions']['set']['switch'];
@@ -55,12 +55,12 @@ $api['actions']['set']['blinds'] 	=$api['actions']['set']['switch'];
 
 // List actions URLS -------------------------------------
 $api['actions']['list']['device']		=array(
-	'url'			=>'/rest/items?recursive=false',
+	'url'			=>'/rest/items/?type=json',
 	'method'		=>'get',
 	'content'		=>'',
 );
 $api['actions']['list']['info']		=array(
-	'url'			=>'/rest/items/Datetime',
+	'url'			=>'/rest/items/Date?type=json',
 	'method'		=>'get',
 	'content'		=>'',
 );
@@ -75,23 +75,16 @@ $api['actions']['list']['info']		=array(
 // states (values) from the 'result' rows
 $api['states']['command']['switch']['OFF']		='off';		
 $api['states']['command']['switch']['ON']		='on';		
-$api['states']['command']['switch']['NULL']		='off';		
-//$api['states']['command']['switch']['Undefined']='';		
+$api['states']['command']['switch']['Undefined']='';		
 
 $api['states']['command']['shutter']['0']		='off';		
 $api['states']['command']['shutter']['100']		='on';		
 
-$api['states']['sensor']['pir']['NULL']		='off';		
 
 $api['states']['sensor']['bool']['OFF']		='off';		
 $api['states']['sensor']['bool']['ON']		='on';		
 $api['states']['sensor']['bool']['OPEN']	='off';		
 $api['states']['sensor']['bool']['CLOSED']	='on';		
-$api['states']['sensor']['bool']['NULL']	='off';
-
-$api['states']['sensor']['shutter']['UP']	='off';		
-$api['states']['sensor']['shutter']['DOWN']	='on';
-
 
 $api['states']['scene']['group']['OFF']			='off';		
 $api['states']['scene']['group']['ON']			='on';		
@@ -111,7 +104,7 @@ $api['fields']['raw_value1']		="state";
 
 //json_get definition ----------------------------------------------------------
 //$api['json']['status']="status";	//field with the Status of the response
-//$api['json']['result']="";	//field with the list of devices
+$api['json']['result']="item";	//field with the list of devices
 
 // json received statuts value in the "status" field
 //$api['json_status']['ok']	='OK';

@@ -22,8 +22,11 @@
 */
 /* 
 #########################################################################################
-OpenHab API #############################################################################
+OpenHab API v2 #############################################################################
 #########################################################################################
+
+https://docs.openhab.org/v2.1/concepts/items.html
+http://demo.openhab.org:8080/doc/index.html
 */
 
 class PMD_ApiClient extends PMD_Root_ApiClient{
@@ -44,58 +47,134 @@ class PMD_ApiClient extends PMD_Root_ApiClient{
 	function ApiListDevices(){
 		if($this->ApiFetch('list','device')){
 			$devices = $this->GetResult();
+			
 			$i=0;
 			foreach($devices as $d){
 				$raw=$d['raw'];
 				$d['address']=$raw['name'];
 				$d=$this->_makePrettyName($d);
-				
-				if($d['address']=='Temperature' or $d['address']=='Status' or $d['address']=='Weather' or $d['address']=='Weather_Chart'){
-					//skipped
-				}
-				elseif($d['address']=='Shutter_all'){
-					$d['class']	="scene";
-					$d['type']	="group";					
-				}
-				elseif($raw['type']=='DateTimeItem'){
-					$this->infos['server_time']		=strtotime($raw['state']);
+				//$d['address']=='Temperature' or $d['address']=='Status' or $d['address']=='Weather' or $d['address']=='Weather_Chart'
+				if($d['aaaa']){
+					// Dont know what they are! So skippeng registraion at the moment
 					continue;
 				}
-				elseif($raw['type']=='SwitchItem'){
+				elseif($raw['type']=='Color'){
 					$d['class']	="command";
-					$d['type']	="switch";
+					$d['type']	="rgb";
 				}
-				elseif($raw['type']=='RollershutterItem'){
+				elseif($raw['type']=='Contact'){
+					$d['class']	="sensor";
+					$d['type']	="bool";
+					$d=$this->FormatState($d);
+					if($raw['category']=='door'){
+						$d['type']	="door";					
+					}
+					elseif($raw['category']=='window'){
+						$d['type']	="door";	// should we create a 'window' type ?				
+					}
+				}
+				elseif($raw['type']=='DateTime'){
+					$d['class']	="sensor";
+					$d['type']	="time";
+					$d['value']	=strtotime($raw['state']);	//to implement;
+					if($raw['category']=='sunset'){
+						$this->infos['sunset_time']		=$d['value'];
+					}
+					elseif($raw['category']=='sunrise'){
+						$this->infos['sunrise_time']	=$d['value'];
+					}
+					//$this->infos['server_time']		=strtotime($raw['state']);
+					//continue;
+				}
+				elseif($raw['type']=='Dimmer'){
+					$d['class']	="command";
+					$d['type']	="dimmer";
+					$d['value']	=$raw['state'];
+					$d=$this->FormatState($d);
+					//isset($d['state']) or $d['value']	=$raw['value1'];
+				}
+				elseif($raw['type']=='Group'){
+					$d['class']	="scene";
+					$d['type']	="group";
+					$d=$this->_makePrettyName($d,1);
+
+					if($raw['category']=='rollershutter'){
+						$d['class']	="sensor";
+						$d['type']	="shutter";	// 
+						$d['raw_value1']=$raw['function']['params'][$raw['state']];
+						$d=$this->FormatState($d);
+					}
+					
+					if($raw['state']=='NULL'){
+						// Dont know what they are! So skippeng registraion at the moment
+						continue;
+					}
+					
+					
+				}
+				elseif($raw['type']=='Number'){
+					$d['class']	="sensor";
+					if($raw['category']=='humidity'){
+						$d['type']	="hygro";
+						$d['value']	=(float) $raw['state'];
+					}
+					elseif($raw['category']=='temperature'){
+						$d['type']	="temp";
+						$d['value']	=(float) $raw['state'];
+					}
+					elseif($raw['category']=='signal'){
+						$d['type']	="custom";		// should we create a 'level' type ?
+						$d['value']	=$raw['state'];
+					}
+					elseif($raw['category']=='network'){
+						$d['type']	="custom";
+						$d['value']	=$raw['state'];
+					}
+					elseif($raw['category']=='heating'){
+						$d['type']	="custom";
+						$d['value']	=str_replace('NULL','',$raw['state']);
+					}
+				}
+				elseif($raw['type']=='Player'){
+					$d['class']	="sensor";
+					$d['type']	="mediaplayer";
+				}
+				elseif($raw['type']=='Rollershutter'){
 					$d['class']	="command";
 					$d['type']	="shutter";
 					$d['value']	=$raw['state'];
 				}
-				elseif($raw['type']=='ColorItem'){
-					$d['class']	="command";
-					$d['type']	="rgb";
-				}
-				elseif($raw['type']=='DimmerItem'){
-					$d['class']	="command";
-					$d['type']	="dimmer";
-					$d['value']	=$raw['state'];
-					//$d=$this->FormatState($d);
-					//isset($d['state']) or $d['value']	=$raw['value1'];
-				}
-				elseif($raw['type']=='NumberItem'){
+				elseif($raw['type']=='String'){
 					$d['class']	="sensor";
-					$d['type']	="temp"; // we need to dertermine what type of sensor it is
-					$d['value']	=(float) $raw['state'];
+					$d['type']	="text";
+					$d['value']	=str_replace('NULL','',$raw['state']);
+					if($raw['category']=='moon'){
+						$d=$this->_StateLabelToValue($d);
+					}
 				}
-				elseif($raw['type']=='ContactItem'){
-					$d['class']	="sensor";
-					$d['type']	="bool"; // we need to dertermine what type of sensor it is
+				elseif($raw['type']=='Switch'){
+					$d['class']	="command";
+					$d['type']	="switch";
+					if($raw['category']=='heating'){
+						$d=$this->FormatState($d);	//use bool state
+						$d['type']	="heating";
+					}
+					elseif($raw['category']=='motion'){
+						$d['class']	="sensor";
+						$d['type']	="bool";
+						$d=$this->FormatState($d);	//use bool state
+						$d['type']	="pir";
+
+//				$this->Debug('Devices',$d);
+					}
 				}
-				elseif($raw['type']=='GroupItem'){
+				/*
+				elseif($d['address']=='Shutter_all'){
 					$d['class']	="scene";
-					$d['type']	="group";
-					$d=$this->_makePrettyName($d,1);
+					$d['type']	="group";					
 				}
-				
+				*/
+
 				$d['name']=str_replace('_',' ',$d['name']);
 				$this->RegisterDevice($d);					
 				
@@ -113,6 +192,25 @@ class PMD_ApiClient extends PMD_Root_ApiClient{
 
 	//----------------------------------------------------------------------------------
 
+	function _StateLabelToValue($d){
+		$states=$d['raw']['stateDescription']['options'];
+		if(is_array($states) and $d['raw']['state']){
+			foreach($states as $row){
+				if($row['value']==$d['raw']['state']){
+					$d['value']=$row['label'];
+					break;
+				}
+			}
+		}
+		return $d;
+	}
+	//----------------------------------------------------------------------------------
+
+	function _makePrettyNameN($d,$group_mode=0){
+		$d['name']=str_replace('_',' ',$d['raw']['name']);
+		return $d;
+	}
+
 	function _makePrettyName($d,$group_mode=0){
 		if($group_mode){
 			list($place,$name)=explode('_',$d['raw']['name']);
@@ -122,7 +220,7 @@ class PMD_ApiClient extends PMD_Root_ApiClient{
 		else{
 			list($type,$place,$name,$name2)=explode('_',$d['raw']['name']);
 			$name=str_replace('_',' ',$name.$name2);
-			$name and $d['name']=$name." / ".$type;
+			$name and $d['name']="$place - $name $type";
 		}
 		return $d;
 	}

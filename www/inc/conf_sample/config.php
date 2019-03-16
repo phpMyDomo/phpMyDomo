@@ -1,12 +1,8 @@
 <?php
-//	phpMyDomo main config File
-//	http://www.phpmydomo.org
-
-
 // ##############################################################################
 // Minimal Configuration  #######################################################
 // ##############################################################################
-//api to use : 'domoticz' | 'domogik' | 'domotiga' | 'openhab' . ALPHAS : 'pilight' | 'freedomotic'
+//API to use: 'domoticz' | 'domogik' | 'domotiga' | 'openhab' | 'openhab1' ... Alphas  APIs: 'pilight' | 'freedomotic' 
 $conf['app']['api']			="openhab";
 
 // Personalize the name of your Home
@@ -40,7 +36,7 @@ $conf['app']['screensaver_mode']	="clock"; 	// ''|'clock'|'photoframe'	=>  No Sc
 //$conf['app']['screensaver_pf_album']="Landscapes"; 		// (required) album ID to launch only when ScreenSaver mode is set to 'photoframe';
 
 // Show or hide sensors names in home groups: 0=hide, 1=show , x= show and truncate after x characters
-$conf['app']['groups_sensors_names']	="1";
+$conf['app']['groups_sensors_names']	="0";
 
 // When using actions, this is the default debounce period (in seconds) : It prevents the same action to be triggered multiple times, if the same action is called within this period.
 $conf['app']['actions_debounce']	="3";
@@ -112,37 +108,44 @@ Example 1:
 will create a group named "GROUP_NAME" (with ID "GROUP_KEY") displaying switches for DEVICE_ID_1 and DEVICE_ID_2, and showing DEVICE_ID_3 sensor values in the group title.
 
 Example 2: (working with openHab demo API)
-
-	// Groups Names ----------------------------------------------------
-	$conf['groups_names']['living']		="Living Room";
-	$conf['groups_names']['outside']	="OutDoor";
-	$conf['groups_names']['heating']	="Heating";
-
-	// Groups (unique ids) ----------------------------------------------
-
-	$conf['groups']['outside']['command'][]	="command_switch_light_outdoor_terrace";
-	$conf['groups']['outside']['command'][]	="command_switch_light_outdoor_frontdoor";
-	$conf['groups']['outside']['command'][]	="command_switch_light_outdoor_garage";
-	$conf['groups']['outside']['sensor'][]	="sensor_temp_weather_temperature";
-
-	$conf['groups']['living']['command'][]	="scene_group_gf_living";
-	$conf['groups']['living']['command'][]	="command_switch_heating_gf_living";
-	$conf['groups']['living']['command'][]	="command_shutter_shutter_gf_living";
-	$conf['groups']['living']['command'][]	="command_dimmer_light_gf_living_table";
-	$conf['groups']['living']['sensor'][]	="sensor_bool_window_gf_living";
-	$conf['groups']['living']['sensor'][]	="sensor_temp_temperature_gf_living";
-
-	$conf['groups']['heating']['command'][]	="scene_group_heating";
-	$conf['groups']['heating']['command'][]	="command_switch_heating_gf_toilet";
-	$conf['groups']['heating']['command'][]	="command_switch_heating_gf_living";
-	$conf['groups']['heating']['command'][]	="command_switch_heating_gf_kitchen";
-	$conf['groups']['heating']['command'][]	="command_switch_heating_gf_corridor";
-	$conf['groups']['heating']['command'][]	="command_switch_heating_ff_office";
-	$conf['groups']['heating']['command'][]	="command_switch_heating_ff_child";
-	$conf['groups']['heating']['command'][]	="command_switch_heating_ff_bed";
-	$conf['groups']['heating']['command'][]	="command_switch_heating_ff_bath";
-
 */
+
+// Groups Names ----------------------------------------------------
+$conf['groups_names']['living']		="Living Room";
+$conf['groups_names']['outside']	="OutDoor";
+$conf['groups_names']['heating']	="Heating";
+$conf['groups_names']['office']		="Office";
+
+// Groups (unique ids) ----------------------------------------------
+
+$conf['groups']['outside']['command'][]	="command_switch_light_garden_terrace";
+$conf['groups']['outside']['command'][]	="command_switch_gf_terrace_light";
+$conf['groups']['outside']['command'][]	="command_switch_outside_light";
+$conf['groups']['outside']['sensor'][]	="sensor_pir_gf_terrace_motion";
+$conf['groups']['outside']['sensor'][]	="sensor_door_ou_terrace_window";
+
+$conf['groups']['living']['command'][]	="command_switch_livingroom_light";
+$conf['groups']['living']['command'][]	="command_switch_livingdining_aircon";
+$conf['groups']['living']['command'][]	="command_switch_livingdining_fan";
+$conf['groups']['living']['command'][]	="command_dimmer_light_gf_living_table";
+$conf['groups']['living']['command'][]	="command_shutter_shutter_gf_living";
+$conf['groups']['living']['sensor'][]	="sensor_bool_window_gf_living";
+$conf['groups']['living']['sensor'][]	="sensor_temp_temperature_gf_living";
+
+$conf['groups']['office']['command'][]	="command_switch_ff_office_light";
+$conf['groups']['office']['command'][]	="command_heating_heating_ff_office";
+$conf['groups']['office']['command'][]	="command_dimmer_ff_office_blind";
+
+$conf['groups']['heating']['command'][]	="scene_group_heating";
+$conf['groups']['heating']['command'][]	="command_heating_heating_ff_bath";
+$conf['groups']['heating']['command'][]	="command_heating_heating_ff_bed";
+$conf['groups']['heating']['command'][]	="command_heating_heating_ff_child";
+$conf['groups']['heating']['command'][]	="command_heating_heating_gf_corridor";
+$conf['groups']['heating']['command'][]	="command_heating_heating_gf_kitchen";
+$conf['groups']['heating']['command'][]	="command_heating_heating_gf_living";
+$conf['groups']['heating']['command'][]	="command_heating_heating_gf_toilet";
+$conf['groups']['heating']['sensor'][]="sensor_temp_temperature_setpoint";
+
 
 // ##############################################################################
 // Devices Icons ################################################################
@@ -162,8 +165,9 @@ Definitions:
 	-ICON_NAME : the name of the icon files , ie "alarm1" whill select : "icon48_alarm1_on.png" or "icon48_alarm1_off.png" depending on the device's state
 
 Examples:
-$conf['devices_icons']['scene_group_gf_living']['devices']	="switch1";
 */
+
+$conf['devices_icons']['scene_group_heating']['devices']				="switch1";
 
 
 // ##############################################################################
@@ -196,6 +200,7 @@ $conf['devices_warnings']['sensor_temp_temperature_gf_living'][]	="<4";
 This would highlight the 'sensor_temp_temperature_gf_living' sensor whenever the temperature is greater than 40° OR lower than 4°.
 
 */
+$conf['devices_warnings']['sensor_temp_weather_temperature'][]	=">50";
 
 
 // ##############################################################################
@@ -220,21 +225,26 @@ Example 1:
 will show DEVICE_ID_4 and DEVICE_ID_5 in the 'weather' block, and DEVICE_ID_4 and DEVICE_ID_5 in the 'sensors' block
 
 Example 2: (working with openHab demo API)
-
-	// weather Block (unique ids) ---------------------------------------
-	$conf['blocks']['weather'][]="sensor_temp_weather_temperature";
-
-	// Sensor Block (unique ids) ---------------------------------------
-	$conf['blocks']['sensors'][]="sensor_temp_temperature_setpoint";
-	$conf['blocks']['sensors'][]="sensor_temp_temperature_gf_living";
-	$conf['blocks']['sensors'][]="sensor_temp_temperature_gf_toilet";
-	$conf['blocks']['sensors'][]="sensor_temp_temperature_gf_corridor";
-	$conf['blocks']['sensors'][]="sensor_temp_temperature_ff_office";
-	$conf['blocks']['sensors'][]="sensor_temp_temperature_ff_child";
-	$conf['blocks']['sensors'][]="sensor_temp_temperature_ff_bed";
-	$conf['blocks']['sensors'][]="sensor_temp_temperature_ff_bath";
-
 */
+
+// weather Block (unique ids) ---------------------------------------
+$conf['blocks']['weather'][]="sensor_temp_weather_temperature";
+
+// Sensor Block (unique ids) ---------------------------------------
+$conf['blocks']['sensors'][]="sensor_temp_temperature_gf_living";
+$conf['blocks']['sensors'][]="sensor_temp_temperature_ff_office";
+$conf['blocks']['sensors'][]="sensor_temp_temperature_ff_child";
+$conf['blocks']['sensors'][]="sensor_temp_temperature_ff_bed";
+$conf['blocks']['sensors'][]="sensor_temp_temperature_gf_toilet";
+$conf['blocks']['sensors'][]="sensor_hygro_f2_balcony_humidity";
+$conf['blocks']['sensors'][]="sensor_hygro_balcony_humidity";
+$conf['blocks']['sensors'][]="sensor_pir_ff_backyard_motion";
+$conf['blocks']['sensors'][]="sensor_door_c_guestroom_window";
+$conf['blocks']['sensors'][]="sensor_bool_garage_door";
+$conf['blocks']['sensors'][]="sensor_custom_wifi_level";
+$conf['blocks']['sensors'][]="sensor_custom_radio_station";
+$conf['blocks']['sensors'][]="sensor_text_moon_phase";
+
 
 
 // ##############################################################################
@@ -267,7 +277,7 @@ $conf['blocks']['links'][]=array(
 // ##############################################################################
 /*
 Define IP camera streams to be displayed in the Camera Page. if cameras_sizes is not defined, it defaults to 320x240
-Example:
+Example :
 $conf['cameras_names']['room1']	="Room 1";
 $conf['cameras_urls']['room1']	="http://user:pass@10.0.0.1/videostream.cgi";
 $conf['cameras_sizes']['room1']	="640x480";
@@ -275,8 +285,23 @@ $conf['cameras_sizes']['room1']	="640x480";
 $conf['cameras_names']['room2']	="Room 2";
 $conf['cameras_urls']['room2']	="http://user:pass@10.0.0.2/videostream.cgi";
 
+Example 2:
 */
+$conf['cameras_names']['room2']	="Comune di Melfi";
+$conf['cameras_urls']['room2']	="http://webcam.comunemelfi.it:8087/mjpg/video.mjpg";
+$conf['cameras_sizes']['room2']	="1280x1024";
 
+$conf['cameras_names']['caen']	="Grenoble";
+$conf['cameras_urls']['caen']	="http://webcam.minatec.grenoble-inp.fr/mjpg/video.mjpg";
+$conf['cameras_sizes']['caen']	="640x480";
+
+$conf['cameras_names']['somewhere']	="Somewhere";
+$conf['cameras_urls']['somewhere']	="http://monumentcam.kdhnc.com/mjpg/video.mjpg";
+$conf['cameras_sizes']['somewhere']	="800x600";
+
+$conf['cameras_names']['sandiego']	="San Diego School";
+$conf['cameras_urls']['sandiego']	="http://132.239.12.145/mjpg/video.mjpg";
+$conf['cameras_sizes']['sandiego']	="640x400";
 
 
 // ##############################################################################
@@ -293,7 +318,7 @@ $conf['menu_head']=array('home','clock','squeeze','cameras','photos','devices');
 
 
 // ##############################################################################
-// DEBUG : you don't need to change this #########################################
+//DEBUG : you don't need to change this #########################################
 // ##############################################################################
 $conf['debug']['allow']=1;					//allow debug from url (add ?debug in the url)
 $conf['debug']['force']=0;					//always show debug
