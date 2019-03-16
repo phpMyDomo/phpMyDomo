@@ -221,7 +221,7 @@ function SqzRefreshAllStates(init){
 				});
 				/* -- Refresh Title, current position --*/
 				pid.find('.player_position').html(player.f_position);
-				if(player.f_playing === null){
+				if( player.f_playing == undefined || player.f_playing === null){
 					player.f_playing={};
 				}
 				pid.find('.player_artist').html(player.f_playing.f_artist);
