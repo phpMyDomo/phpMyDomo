@@ -62,6 +62,7 @@ $lang['types']['mediaplayer']="Player";
 $lang['types']['text']		="Text";
 $lang['types']['date']		="Date";
 $lang['types']['time']		="Time";
+$lang['types']['push']		="Push Button";
 
 // infos ################################################################
 $lang['infos']['sunset']	="Sunset";

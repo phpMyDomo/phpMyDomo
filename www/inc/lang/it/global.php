@@ -62,6 +62,7 @@ $lang['types']['mediaplayer']="Player";		//To translate
 $lang['types']['text']		="Text";		//To translate
 $lang['types']['date']		="Date";		//To translate
 $lang['types']['time']		="Time";		//To translate
+$lang['types']['push']		="Push Button";	//To translate
 
 // infos ################################################################
 $lang['infos']['sunset']	="Tramonto";

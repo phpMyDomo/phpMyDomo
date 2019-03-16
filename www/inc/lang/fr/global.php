@@ -62,6 +62,7 @@ $lang['types']['mediaplayer']="Lecteur";
 $lang['types']['text']		="Texte";
 $lang['types']['date']		="Date";
 $lang['types']['time']		="Heure";
+$lang['types']['push']		="Poussoir";
 
 // infos ################################################################
 $lang['infos']['sunset']	="Coucher de Soleil";
