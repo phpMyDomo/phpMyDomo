@@ -1,6 +1,6 @@
 # phpMyDomo ChangeLog
 
-## Version : 0.402 (NOT RELEASED) - March 16, 2019
+## Version : 0.403 (NOT RELEASED) - March 16, 2019
 - new: Support for OpenHab v2 API (v1 still available as 'openhab1')
 - fix: XBMC Action - parameter 'image' renamed to 'icon'. . Update your calls ("image=" becomes "icon=" in the url)
 - new: XBMC Action -  renamed to 'kodi'. Update your calls ("type=xbmc" becomes "type=kodi" in the url)
@@ -12,9 +12,9 @@
 - dev: New sensors Types : 'mediaplayer', 'text', 'date', 'time', 'custom'
 - fix: Devices Pages - smallers rows
 - fix: Black Theme - lighter text color in right block & devices pages
-- fix: Always show Debug Popover (on icon click) in devices page
+- fix: Better Debug Popover positioning in devices page
+- new: Always show Debug Popover (on icon click) in devices page
 - fix: Timer audio file enhancements
-- fix: Debug Popover in Devices page
 - fix: Fixes selectors for the latest Domoticz versions (names are now base64 encoded)
 - fix: 'HTTP_PORT' constant in some funky php installation
 - fix: Squeezebox display in Medium viewport
