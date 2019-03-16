@@ -1010,6 +1010,10 @@ TABLE.table_devices TR TD{
 #body_squeeze .pmd_panel_sqz .panel-heading{
 	overflow: hidden;
 }
+#body_squeeze .pmd_panel_sqz .panel-body{
+	display: none;
+}
+
 #body_squeeze .pmd_panel_sqz .player_right{
 	text-align: right;
 }
@@ -1023,7 +1027,6 @@ TABLE.table_devices TR TD{
 	font-size: 9px;
 	text-transform: uppercase;
 }
-
 
 #body_squeeze .pmd_panel_sqz .player_links{
 	margin-left: 10px;
