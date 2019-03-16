@@ -227,7 +227,9 @@ jQuery( document ).ready(function() {
 		$(this).closest('TR').removeClass('selected');
 	});
 	$('#body_devices .jsPopoverDebug').on('shown.bs.popover',function(){
-  		$(this).next().css('top',parseInt($(this).next().css('top')) + 240 + 'px');
+  		var po=$(this).next();
+		var new_top =parseInt( po.css('top')) + parseInt(po.height()/ 2) - 16;
+		po.css('top',new_top + 'px');
 	});
 
 	
