@@ -74,6 +74,15 @@ class PMD_ApiClient extends PMD_Root_ApiClient{
 					}
 				}
 				elseif($raw['type']=='DateTime'){
+					$d['class']	="sensor";
+					$d['type']	="time";
+					$d['value']	=strtotime($raw['state']);	//to implement;
+					if($raw['category']=='sunset'){
+						$this->infos['sunset_time']		=$d['value'];
+					}
+					elseif($raw['category']=='sunrise'){
+						$this->infos['sunrise_time']	=$d['value'];
+					}
 					//$this->infos['server_time']		=strtotime($raw['state']);
 					//continue;
 				}
@@ -147,6 +156,7 @@ class PMD_ApiClient extends PMD_Root_ApiClient{
 					$d['class']	="command";
 					$d['type']	="switch";
 					if($raw['category']=='heating'){
+						$d=$this->FormatState($d);	//use bool state
 						$d['type']	="heating";
 					}
 					elseif($raw['category']=='motion'){
@@ -196,6 +206,11 @@ class PMD_ApiClient extends PMD_Root_ApiClient{
 	}
 	//----------------------------------------------------------------------------------
 
+	function _makePrettyNameN($d,$group_mode=0){
+		$d['name']=str_replace('_',' ',$d['raw']['name']);
+		return $d;
+	}
+
 	function _makePrettyName($d,$group_mode=0){
 		if($group_mode){
 			list($place,$name)=explode('_',$d['raw']['name']);
@@ -205,7 +220,7 @@ class PMD_ApiClient extends PMD_Root_ApiClient{
 		else{
 			list($type,$place,$name,$name2)=explode('_',$d['raw']['name']);
 			$name=str_replace('_',' ',$name.$name2);
-			$name and $d['name']=$name." / ".$type;
+			$name and $d['name']="$place - $name $type";
 		}
 		return $d;
 	}

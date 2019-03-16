@@ -75,11 +75,11 @@ $api['actions']['list']['info']		=array(
 // states (values) from the 'result' rows
 $api['states']['command']['switch']['OFF']		='off';		
 $api['states']['command']['switch']['ON']		='on';		
+$api['states']['command']['switch']['NULL']		='off';		
 //$api['states']['command']['switch']['Undefined']='';		
 
 $api['states']['command']['shutter']['0']		='off';		
 $api['states']['command']['shutter']['100']		='on';		
-
 
 $api['states']['sensor']['pir']['NULL']		='off';		
 
