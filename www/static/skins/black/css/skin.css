@@ -88,8 +88,12 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#2b2d30', end
 }
 .div_devices_border .table TD{
 	border-color: #222;
-	color: #444;
 }
+.table_devices .td_type I,
+.table_devices .td_id I{
+	color: rgba(255,255,255,0.2);
+}
+
 #body_cameras .iframe_border{
 	border-color: #000;
 }
