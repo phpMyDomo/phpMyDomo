@@ -35,9 +35,10 @@ class PMD_Root_ApiClient extends PMD_Root{
 	var $api_response;	// last api response
 
 
-	// devices list from remote server
+	//  The array of devices data, standardized for PMD
 	var $devices	=array();
 /*
+Required fields (for each device)) : 
 	uid 			=> 'unique id' per device if a hardware device report multiple values, you must create one device per value 
 					(ie: A hardware device with id=223 reports temperature + barometer, you must create 2 devices: 223_temp + 223_baro)
 	address			=> needed for commands: id to pass to the remote json API to control the device
@@ -51,12 +52,17 @@ class PMD_Root_ApiClient extends PMD_Root{
 						-For Cameras 	: cam_ip
 						-For Security 	: door | window
 	url				=> url of the video stream (for cam_ip only)
-	invert_set		=> undef | true: invert sthe set command (use on for OFF and off for ON)
+	invert_set		=> undef | true: invert the 'set' command (use on for OFF and off for ON)
 	raw (array)		=> original json from remote server
+
+Optionnal fields : 
 	battery_level 	=> (optionnal int 0/100) Battery level for sensor
 	signal_level 	=> (optionnal int 0/100) Signal level for RF sensor
 	raw_value1		=> (optionnal) raw main value of the device : used to autobuild 'state', if not specified in the RegisterDevice method
-	unit			=> (optionnal) unit of the value, if  it cant be guessed by the type (ie current) ... to improve
+	unit			=> (optionnal) unit of the value, Set it only when it can not be guessed by the type (ie baro,temperature,etc..) 
+
+Auto generated fields
+	html_value		=> formated value (ie date) 
 	js_address		=> address formatted to be useable as a CSS id 
 	warning			=> warning (highlight) level 
 */
@@ -324,7 +330,7 @@ class PMD_Root_ApiClient extends PMD_Root{
 			$row['img_type'] .='_'.$row['state'];
 		}
 
-		//html_value (for date and time types)
+		// html_value (for date and time types)
 		if($row['value'] and $row['type']=='time'){
 			$row['html_value'] or $row['html_value']=strftime($this->lang['global']['dates']['time'],	$row['value']);
 		}
