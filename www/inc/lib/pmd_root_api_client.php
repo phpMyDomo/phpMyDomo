@@ -46,7 +46,7 @@ class PMD_Root_ApiClient extends PMD_Root{
 	class 			=> Class of device: command | sensor  | scene | camera | security
 	type			=> Type of the device
 						-For Commands	: switch | dimmer | heating | shutter | fan | rgb | rgbw | therm | blind
-						-For Sensors	: temp | wind_speed | wind_gust | wind_temp | wind_chill | rain | baro | hygro | uv | pir | gas | bool | consum | counter | visibility | radiation | door | distance | lux | custom | text | mediaplayer
+						-For Sensors	: temp | wind_speed | wind_gust | wind_temp | wind_chill | rain | baro | hygro | uv | pir | gas | bool | consum | counter | visibility | radiation | door | distance | lux | custom | text | date | time | mediaplayer
 						-For Scenes 	: scene | group
 						-For Cameras 	: cam_ip
 						-For Security 	: door | window
@@ -551,24 +551,26 @@ class PMD_Root_ApiClient extends PMD_Root{
 
 		$this->api_url=$url; // used only in debug
 
+		$options = array();
+		$options['http']['timeout']	=10;
+		$options['http']['header']	="User-Agent: PhpMyDomo (http://www.phpmydomo.org)\r\n";
+
 		if($def['method']=='get'){
-			$context=null;
 		}
 		elseif($def['method']=='post'){
 			$content=$def['content'];
 			$content=str_replace('{address}',	$address,	$content);
 			$content=str_replace('{state}',		$state,		$content);
-			$options = array(
-				'http' => array(
-					'header'  => "Content-type: text/plain\r\n",
-					'method'  => 'POST',
-					'content' => $content
-				),
-			  );
-			$context  = stream_context_create($options);
-			$this->api_url	.=', http_method=POST, params= '.json_encode($options['http']); // used only in debug
+
+			$options['http']['header'] .="Content-type: text/plain\r\n";
+			$options['http']['method']	='POST';
+			$options['http']['content']	=$content;
+			$this->api_url .=', http_method=POST, params= '.json_encode($options['http']); // used only in debug
 		}
-		$out = trim(file_get_contents($url, false, $context));
+
+		$context  		= stream_context_create($options);
+		$out 			= trim(@file_get_contents($url, false, $context));
+
 		if($def['result_type']=='text_state'){
 			if($out==$state){
 				$this->api_status=true;		
