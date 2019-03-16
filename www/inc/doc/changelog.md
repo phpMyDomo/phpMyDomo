@@ -1,5 +1,8 @@
 # phpMyDomo ChangeLog
 
+## Version : 0.501 (NOT RELEASED) - xxx , 2019
+
+
 ## Version : 0.500 - March 16, 2019
 - new: Support for OpenHab v2 API (v1 still available as 'openhab1')
 - new: Domoticz - Clicking on Sensor values links to their graphs (log) page.
