@@ -3,7 +3,7 @@
 <div class='div_devices_border'>
 	<table class="table table_devices">
 	{foreach from=$data.rows item=i}
-		{if $i.state}{$my_val="<img src='{$p.urls.static}/global/img/icon48_{$i.state}.png'><div class='mini'>{$i.value}</class>"}{else}{$my_val=$i.value}{/if}
+		{if $i.state}{$my_val="<img src='{$p.urls.static}/global/img/icon48_{$i.state}.png'><div class='mini'>{$i.value}</class>"}{else}{$my_val=$i.html_value|default:$i.value}{/if}
 		<tr class="tr_class_{$i.class} tr_type_{$i.type} tr_state_{$i.state}">
 			<td cla   ss="td_img">		<img src='{$p.urls.static}{$i.img_url}' class='{if $c.debug.show}jsPopoverDebug{/if}' title="{$i.name}" data-content="<pre>{$i.f_object}</pre>"></td>
 			<td class="td_name">	{$i.name}</td>

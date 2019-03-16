@@ -60,7 +60,8 @@ $lang['types']['lux']		="Luminosité";
 $lang['types']['custom']	="Custom";
 $lang['types']['mediaplayer']="Lecteur";
 $lang['types']['text']		="Texte";
-$lang['types']['Alert']		="Alerte";
+$lang['types']['date']		="Date";
+$lang['types']['time']		="Heure";
 
 // infos ################################################################
 $lang['infos']['sunset']	="Coucher de Soleil";

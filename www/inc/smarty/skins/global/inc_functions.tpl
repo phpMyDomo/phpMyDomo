@@ -43,8 +43,8 @@
 {* ##################################################################################### *}
 
 {function name=makeSensorHome row=''}
-	{if $row.type=='text'}
-		{$my_value=$row.value}
+	{if $row.html_value}
+		{$my_value=$row.html_value}
 	{else}
 		{$my_value=$row.state|ucwords|default:{call number_format_lang from=$row.value}}
 	{/if}

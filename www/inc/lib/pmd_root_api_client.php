@@ -317,10 +317,22 @@ class PMD_Root_ApiClient extends PMD_Root{
 		$row=$this->FormatValue($row);
 
 		// format row ####################
+		
 		// img_type
 		$row['img_type']=$row['type'];
 		if(strlen($row['state'])){
 			$row['img_type'] .='_'.$row['state'];
+		}
+
+		//html_value (for date and time types)
+		if($row['value'] and $row['type']=='time'){
+			$row['html_value'] or $row['html_value']=strftime($this->lang['global']['dates']['time'],	$row['value']);
+		}
+		elseif($row['value'] and $row['type']=='date'){
+			$row['html_value'] or $row['html_value']=strftime($this->lang['global']['dates']['day'],	$row['value']);			
+		}
+		elseif($row['type']=='text' or $row['type']=='custom'){
+			$row['html_value'] or $row['html_value']=$row['value'];	
 		}
 		// --- html printable objet
 		$row['f_object']=htmlspecialchars(print_r($row,true), ENT_QUOTES, 'UTF-8' ) ;
