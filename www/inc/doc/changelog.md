@@ -1,23 +1,23 @@
 # phpMyDomo ChangeLog
 
-## Version : 0.403 (NOT RELEASED) - March 16, 2019
+## Version : 0.500 - March 16, 2019
 - new: Support for OpenHab v2 API (v1 still available as 'openhab1')
-- fix: XBMC Action - parameter 'image' renamed to 'icon'. . Update your calls ("image=" becomes "icon=" in the url)
-- new: XBMC Action -  renamed to 'kodi'. Update your calls ("type=xbmc" becomes "type=kodi" in the url)
-- new: Growl Action -  handles Notifications Groups.
-- new: Growl Action -  accepts unfiltered 'title' and 'message' parameters
 - new: Domoticz - Clicking on Sensor values links to their graphs (log) page.
-- new: Localize Numbers formats
 - new: Domoticz - New sensors types supported: custom, text, alert, mediaplayer
+- fix: Fixes selectors for the latest Domoticz versions (names are now base64 encoded)
 - dev: New sensors Types : 'mediaplayer', 'text', 'date', 'time', 'custom'
+- new: XBMC Action - renamed to 'kodi'. Update your calls ("type=xbmc" becomes "type=kodi" in the url)
+- fix: XBMC Action - parameter 'image' renamed to 'icon'. . Update your calls ("image=" becomes "icon=" in the url)
+- new: Growl Action - handles Notifications Groups.
+- new: Growl Action - accepts unfiltered 'title' and 'message' parameters
+- new: Localize Numbers formats
 - fix: Devices Pages - smallers rows
 - fix: Black Theme - lighter text color in right block & devices pages
 - fix: Better Debug Popover positioning in devices page
 - new: Always show Debug Popover (on icon click) in devices page
-- fix: Timer audio file enhancements
-- fix: Fixes selectors for the latest Domoticz versions (names are now base64 encoded)
-- fix: 'HTTP_PORT' constant in some funky php installation
 - fix: Squeezebox display in Medium viewport
+- fix: Timer audio files enhancements
+- fix: 'HTTP_PORT' constant in some funky php installation
 - dev: freedomotic draft implementation
 - dev: MySensors documentation fix (mtype)
 
