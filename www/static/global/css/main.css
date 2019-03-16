@@ -447,9 +447,11 @@ html, body {
 .table_devices{
 	width: auto;
 	margin-bottom: 0;
+	
 }
-.table_devices TD{
+TABLE.table_devices TR TD{
 	text-align: left;
+	padding: 5px 8px;
 }
 .table_devices TR:first-child TD{
 	border: none;
@@ -458,9 +460,13 @@ html, body {
 	
 }
 .table_devices .td_img img{
-	height: 30px;
-	width: 30px;
-	margin-right: 10px;
+	height: 24px;
+	width: 24px;
+	margin-right: 5px;
+	cursor: pointer;
+}
+.table_devices .td_type{
+	font-size: 13px;
 }
 .table_devices .td_type I{
 	font-size: 11px ;
@@ -473,6 +479,14 @@ html, body {
 .table_devices .td_id{
 	font-size: 11px;
 }
+.table_devices .td_id I{
+	font-size: 11px ;
+	font-style: normal;
+	color: #AAA;
+	display: inline-block;
+	padding-top: 2px;
+}
+
 .table_devices .td_value{
 	text-align: right;
 	font-weight: bold;
