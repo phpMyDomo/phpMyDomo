@@ -66,7 +66,7 @@ $api['states']['command']['switch']['Off']		='off';
 $api['states']['command']['switch']['On']		='on';		
 
 $api['states']['command']['push']['Off']		='off';		
-$api['states']['command']['push']['On']		='on';		
+$api['states']['command']['push']['On']			='on';		
 
 $api['states']['command']['dimmer']['Off']		='off';		
 $api['states']['command']['dimmer']['On']		='on';		
