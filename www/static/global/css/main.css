@@ -159,6 +159,10 @@ html, body {
 
 
 
+/* remove Firefox Outline, ie icon in device page */
+A:focus {outline:none;}
+
+
 #body_home .popover{
 	max-width: 600px;
 	width: auto;
@@ -425,6 +429,14 @@ html, body {
 	max-width: 600px;
 	width: auto;
 }
+
+.div_devices .popover_debug.right .arrow {
+	top: 20px;
+}
+.div_devices TR.selected{
+	background: rgba(150,150,150,0.08);
+}
+
 .div_devices .popover-content PRE{
 	font-size: 9px;	
 }

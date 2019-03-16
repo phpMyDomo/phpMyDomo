@@ -195,20 +195,42 @@ jQuery( document ).ready(function() {
 		
    });
 
+
+    /* Clear Popover on click outside  ------------------------------------------------------------------------ */
+	$(document).on('click', function (e) {
+	    $('[data-toggle="popover"],[data-original-title]').each(function () {
+	        //the 'is' for buttons that trigger popups
+	        //the 'has' for icons within a button that triggers a popup
+	        if (!$(this).is(e.target) && $(this).has(e.target).length === 0 && $('.popover').has(e.target).length === 0) {                
+	            (($(this).popover('hide').data('bs.popover')||{}).inState||{}).click = false  // fix for BS 3.3.6
+	        }
+
+	    });
+	});
     
     /* Debug Devices ------------------------------------------------------------------------ */
+/*
     $('#body_devices .jsPopover').popover({
     	trigger: 'hover',
     	html: true
     });
-
+*/
     $('#body_devices .jsPopoverDebug').popover({
     	trigger: 'click',
-    	html: true
+    	html: true,
+    	template: '<div class="popover popover_debug" role="tooltip"><div class="arrow"></div><div class="popover-title"></div><div class="popover-content"></div></div>'
     });
-;
-    
+	$('#body_devices .jsPopoverDebug').on('show.bs.popover',function(){
+		$(this).closest('TR').addClass('selected');
+	});
+	$('#body_devices .jsPopoverDebug').on('hide.bs.popover',function(){
+		$(this).closest('TR').removeClass('selected');
+	});
+	$('#body_devices .jsPopoverDebug').on('shown.bs.popover',function(){
+  		$(this).next().css('top',parseInt($(this).next().css('top')) + 240 + 'px');
+	});
 
+	
 
 });
 
