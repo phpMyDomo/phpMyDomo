@@ -39,8 +39,8 @@ class PMD_Root_ApiClient extends PMD_Root{
 	var $devices	=array();
 /*
 Required fields (for each device)) : 
-	uid 			=> 'unique id' per device if a hardware device report multiple values, you must create one device per value 
-					(ie: A hardware device with id=223 reports temperature + barometer, you must create 2 devices: 223_temp + 223_baro)
+	uid 			=> 'unique id' per reported value, auto-created. When a hardware device report multiple values, you must create one device per value 
+					(ie: A hardware device with id=223 reports temperature + barometer, then you must create 2 devices: 223_temp + 223_baro)
 	address			=> needed for commands: id to pass to the remote json API to control the device
 	state			=> Current state value of the device: 'on' | 'off' | 'mixed' (for groups)
 	value			=> Current value of the device: (int) for dimmers | (float) for sensors) | (hex) for rgb | '' for switches
