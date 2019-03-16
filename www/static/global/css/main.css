@@ -460,10 +460,13 @@ TABLE.table_devices TR TD{
 	
 }
 .table_devices .td_img img{
-	height: 24px;
-	width: 24px;
+	height: 30px;
+	width: 30px;
 	margin-right: 5px;
 	cursor: pointer;
+}
+.table_devices .td_img img:hover{
+	opacity: 0.6;
 }
 .table_devices .td_type{
 	font-size: 13px;
@@ -471,7 +474,7 @@ TABLE.table_devices TR TD{
 .table_devices .td_type I{
 	font-size: 11px ;
 	font-style: normal;
-	color: #AAA;
+	color: #999;
 }
 .table_devices .td_name{
 	font-weight: bold;
@@ -482,7 +485,7 @@ TABLE.table_devices TR TD{
 .table_devices .td_id I{
 	font-size: 11px ;
 	font-style: normal;
-	color: #AAA;
+	color: #999;
 	display: inline-block;
 	padding-top: 2px;
 }
