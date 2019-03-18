@@ -114,14 +114,16 @@ $(document).ready(function(){
 });
 </script>
 
+<div class="">
 {foreach from=$data.players item=row }
 		<div class="panel panel-info pmd_panel pmd_panel_sqz jsSqzPlayer" id='jsPlayer_{$row.f_jsid}' data-jsid='{$row.f_jsid}'>
-			<div class="panel-heading">{MakePlayerTitle row=$row}</div>
-			<div class="panel-body">
+			<div class="panel-heading jsPlayerHead">{MakePlayerTitle row=$row}</div>
+			<div class="panel-body  jsPlayerBody">
 {MakePlayer row=$row}
 			</div>	
 		</div>
 {/foreach}
+</div>
 
 {/capture}
 

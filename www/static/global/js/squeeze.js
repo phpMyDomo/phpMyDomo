@@ -2,22 +2,24 @@
 jQuery( document ).ready(function() {
 
 	/* ----- Selected Player ------------------ */
-	$('.jsSqzPlayer .panel-heading').on('click', function(){
+	$('.jsSqzPlayer .jsPlayerHead').on('click', function(){
 			var panel=$(this).closest('.jsSqzPlayer');
 			selected_player_jsid=panel.attr('data-jsid');
 			
 			$('.jsSqzPlayer').removeClass('jsSelected');
 			panel.addClass('jsSelected');
 			
-			$('.jsSqzPlayer .panel-body').hide();
-			panel.find('.panel-body').show();
+			$('.jsPlayerBody').hide();
+			panel.find('.jsPlayerBody').show();
 			
 			var player_name = $('#jsPlayer_'+selected_player_jsid).find('.player_name').html();
 	  		$('.jsCurrentPlayer .jsCurrentPlayerHead').html(player_name);
 	  		$('.jsCurrentPlayer .jsCurrentPlayerBody').html('');
 
+			panel.insertBefore($('.jsSqzPlayer').first());
+
 	});
-	$('.jsSqzPlayer .panel-heading').first().trigger('click');
+	$('.jsSqzPlayer .jsPlayerHead').first().trigger('click');
 	$('.jsSelectedPlayer:checked').trigger('change');
 
 	/* ----- Buttons ------------------ */
