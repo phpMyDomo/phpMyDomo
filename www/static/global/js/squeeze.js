@@ -63,6 +63,7 @@ jQuery( document ).ready(function() {
 	});
 	
 	
+	/* ----- Keyboard -------------------------------------- */
 	$(document).keypress(function(e) {
   		var jsid=selected_player_jsid;
   		var c=e.charCode;
@@ -258,7 +259,7 @@ function SqzRefreshAllStates(init){
 					});
 				});
 				/* -- Refresh Title, current position --*/
-				pid.find('.player_position').html(player.f_position);
+				//pid.find('.player_position').html(player.f_position);
 				if( player.f_playing == undefined || player.f_playing === null){
 					player.f_playing={};
 				}

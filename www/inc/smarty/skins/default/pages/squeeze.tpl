@@ -1,53 +1,58 @@
 {* ##################################################################################### *}
 {function MakePlayerTitle row=''}
-	<div class="pull-right player_right">
+	<div class="player_right">
 	{$my_item=$row.status.playlist_loop.{$row.status.playlist_cur_index}}
 		<span class='player_fulltitle'>
+			<span class='player_album'>
+				{$my_item.f_album}
+			</span>
+			<span class='player_title'>
+				{$my_item.f_title}
+			</span> 
 
 			<span class='player_artist'>
 			{$my_item.f_artist}
 			</span>
-		 - 
-			<span class='player_title'>
-				{$my_item.f_title}
-			</span> 
+		</span>
+
+		<span class='player_radio' {if !$row.status.remote}style='display:none'{/if}>
+			<i class='fa fa-signal'></i> 
+			<span class='player_radio_name'>{$row.status.current_title}</span>
 		</span>
 
 	{if $row.f_playing}
 		<span class="player_links">
 			<a class="player_link_youtube" href="{$row.f_playing.f_url_youtube}" target='_blank' title="{$l.search} [{$row.f_playing.f_full_title}] {$l.on} YouTube..."><i class='fa fa-youtube'></i></a>
-			<a class="player_link_allmusic" href="{$row.f_playing.f_url_google}" target='_blank' title="{$l.search} [{$row.f_playing.f_full_title}] {$l.on} AllMusic..."><i class='fa fa-database'></i></a>
+			<a class="player_link_allmusic" href="{$row.f_playing.f_url_allmusic}" target='_blank' title="{$l.search} [{$row.f_playing.f_full_title}] {$l.on} AllMusic..."><i class='fa fa-database'></i></a>
 			<a class="player_link_google" href="{$row.f_playing.f_url_google}" target='_blank' title="{$l.search} [{$row.f_playing.f_full_title}] {$l.on} Google..."><i class='fa fa-google'></i></a>
 		</span>
 	{/if}
-	
-	<br>
-	<span class='player_album'>
-		{$my_item.f_album}
-	</span>
 
-	<span class='player_radio' {if !$row.status.remote}style='display:none'{/if}>
-		<i class='fa fa-signal'></i> 
-		<span class='player_radio_name'>{$row.status.current_title}</span>
-	</span>
+
+		<span class='player_duration'>
+				{$row.f_playing.f_duration}
+		</span> 
+
 
 	</div>
-	<span  class='player_name'>
-		<b>
-		{if $row.f_ip}
-			<a href="http://{$row.f_ip}" target="_blank">{$row.name}</a>
-		{else}
-			{$row.name}
-		{/if}
-		</b>
-	</span>	
 
-	<span class='player_position'>
-		{if $my_item.duration > 0}
-			 {$row.f_position}
-		{/if}
-	</span>
+	<div class="player_left">
+		<span  class='player_name'>
+			<b>
+			{if $row.f_ip}
+				<a href="http://{$row.f_ip}" target="_blank">{$row.name}</a>
+			{else}
+				{$row.name}
+			{/if}
+			</b>
+		</span>	
 
+		<span class='player_position'>
+				 <span class='jsCurTime'>{$row.f_time|default:'--:--'}</span>
+			{if $my_item.duration > 0}
+			{/if}
+		</span>
+	</div>
 {/function}
 
 {function MakeButton row='' mode='' title='' v1='' v2='' icon='' type='button' id='' txt='' size=''}
@@ -55,7 +60,6 @@
 	{if is_array($row)}{if $row.f_states.$mode}{$my_class=' on'}{/if}{/if}
 	<a href='#' class='jsSqzBut jsSqzBut_{$mode} btn btn-default{$size_class}{$my_class}'  data-mode='{$mode}' data-type='{$type}' data-id='{$id|default:$row.playerid}' title="{$title|default:$l.$mode}" data-v1='{$v1|default:$mode}'  data-v2='{$v2}'>{if $icon !='NO'}<i class='fa fa-fw fa-{$icon|default:$mode}'></i>{/if}{$txt}</a> 
 {/function}
-
 
 {function MakePlayer row=''}
 			<span class="but_player but_player_transport">
@@ -125,7 +129,7 @@ $(document).ready(function(){
 
 <div class="">
 {foreach from=$data.players item=row }
-		<div class="panel panel-info pmd_panel pmd_panel_sqz jsSqzPlayer" id='jsPlayer_{$row.f_jsid}' data-jsid='{$row.f_jsid}'>
+		<div class="panel panel-default pmd_panel pmd_panel_sqz jsSqzPlayer" id='jsPlayer_{$row.f_jsid}' data-jsid='{$row.f_jsid}'>
 			<div class="panel-heading jsPlayerHead">{MakePlayerTitle row=$row}</div>
 			<div class="panel-body  jsPlayerBody">
 {MakePlayer row=$row}
@@ -135,11 +139,12 @@ $(document).ready(function(){
 </div>
 
 {/capture}
+{* 
+	
 
 
 
-
-{* ##################################################################################### *}
+##################################################################################### *}
 {capture assign=page_right}
 {*
 https://github.com/Logitech/slimserver/blob/public/7.9/IR/Default.map	

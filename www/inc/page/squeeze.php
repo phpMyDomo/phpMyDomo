@@ -173,7 +173,7 @@ class PMD_Page extends PMD_Root_Page{
 				}
 				
 				
-				$arr['album']		and $arr['f_album']		=$this->_FormatTitle($arr['album']) and $arr['f_album']	= '['. $arr['f_album'].']';
+				$arr['album']		and $arr['f_album']		=$this->_FormatTitle($arr['album'])  and $arr['f_album']	= '<b>'. $arr['f_album'].'</b> <i>:</i>'; // and $arr['f_album']	= '['. $arr['f_album'].']';
 				if( $arr['f_full_title'] 	=$this->_makeSongFullTitle($arr)){
 					$arr['f_url_youtube']	='https://www.youtube.com/results?search_query='.urlencode($arr['f_full_title']);
 					$arr['f_url_allmusic']	='http://www.allmusic.com/search/songs/'.urlencode($arr['f_full_title']);
@@ -193,12 +193,17 @@ class PMD_Page extends PMD_Root_Page{
 		$row['f_shuffle']	=$status['playlist shuffle'];
 		
 		$row['f_time']	=$this->_FormatSeconds($status['time']);
+		/*
 		if($status['time'] and $row['f_playing']['duration']){
 			$row['f_position']="( <span class='jsCurTime'>{$row['f_time']}</span> / {$row['f_playing']['f_duration']} )";
 		}
 		elseif($row['f_playing']['duration']){
 			$row['f_position']="( {$row['f_playing']['f_duration']} )";
 		}
+		*/
+		
+		
+		
 		//make rew & ff
 		if($status['time']){
 			$row['f_rw1'] = max(floatval($status['time']) - $this->vars['scroll_time1'], 0);

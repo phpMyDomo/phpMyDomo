@@ -1007,44 +1007,98 @@ TABLE.table_devices TR TD{
 
 /* @group Page Squeeze 
 ----------------------------------------------------------------- */
-#body_squeeze .pmd_panel_sqz .panel-heading{
-	overflow: hidden;
-}
+
 #body_squeeze .pmd_panel_sqz .panel-body{
 	display: none;
 }
+#body_squeeze .pmd_panel_sqz.jsSelected{
+	/*border: 1px solid rgba(0,0,0,0.3);*/
+}
+#body_squeeze .pmd_panel_sqz.jsSelected .panel-heading{
+	/*border-bottom: 1px solid rgba(0,0,0,0.3);*/
+}
+
+
+/* @group Player Heading 
+++++++++++++++++++++++++++++++++++++++ */
+
+#body_squeeze .pmd_panel_sqz .panel-heading{
+	overflow: hidden;
+	line-height: 170%;
+}
+#body_squeeze .pmd_panel_sqz.jsSelected .panel-heading{
+	background: #e2e2e9;
+}
+
+.pmd_panel .panel-heading I{
+	opacity: 0.4;
+	margin-right: 4px;
+}
+
+
+
+#body_squeeze .pmd_panel_sqz .player_left{
+	float: left;
+}
+#body_squeeze .pmd_panel_sqz .player_name{
+	display: block;
+}
+
+
 
 #body_squeeze .pmd_panel_sqz .player_right{
+	float: right;
 	text-align: right;
 }
+
+#body_squeeze .pmd_panel_sqz .player_album{
+	margin-right: 5px;
+	opacity: 0.9;
+}
+#body_squeeze .pmd_panel_sqz .player_album B{
+	font-weight: normal;
+}
+#body_squeeze .pmd_panel_sqz .player_album I{
+	font-style: normal;
+	opacity: 1;
+	margin-left: 5px;	
+	margin-right: 0px;	
+}
+#body_squeeze .pmd_panel_sqz .player_title{
+	font-size: 14px;
+}
+#body_squeeze .pmd_panel_sqz .player_artist{
+	display: block;
+}
+
 #body_squeeze .player_radio{
 	display: inline-block;
-	margin-top: 3px;
 	padding: 1px 5px;
 	border: 1px solid;
 	border-color: rgba(0,0,0,0.09) rgba(255,255,255,0.1)  rgba(255,255,255,0.1)  rgba(0,0,0,0.09)  ;
 	background: rgba(255,255,255,0.2);
 	font-size: 9px;
 	text-transform: uppercase;
+	/*margin-top: 3px;*/
 }
-
 #body_squeeze .pmd_panel_sqz .player_links{
 	margin-left: 10px;
 }
-#body_squeeze .pmd_panel_sqz .player_artist{
-	margin-right: 3px;
-}
-#body_squeeze .pmd_panel_sqz .player_title{
-	margin-left: 3px;
-	font-style: italic;
-}
-#body_squeeze .pmd_panel_sqz .player_duration{
-	margin-left: 5px;
-}
-
 #body_squeeze .pmd_panel_sqz .player_links A{
 	margin-left: 5px;
 }
+#body_squeeze .pmd_panel_sqz .player_duration{
+	margin-left: 20px;
+	opacity: 0.6;
+}
+
+
+/* @end */
+
+
+
+
+
 
 #body_squeeze .pmd_panel_sqz .but_player{
 	display: inline-block;
@@ -1061,13 +1115,6 @@ TABLE.table_devices TR TD{
 	font-size: 14px;
 }
 
-#body_squeeze .pmd_panel_sqz.jsSelected{
-	border: 1px solid rgba(0,0,0,0.3);
-}
-#body_squeeze .pmd_panel_sqz.jsSelected .panel-heading{
-	border-bottom: 1px solid rgba(0,0,0,0.3);
-
-}
 
 
 #body_squeeze #block_all_players .but_all{

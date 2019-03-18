@@ -104,8 +104,17 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#2b2d30', end
 	color: #000;
 	background-color: rgba(255,255,255,0.09);
 }
-#body_squeeze .pmd_panel_sqz.jsSelected{
+/*#body_squeeze .pmd_panel_sqz.jsSelected{
 	border: 1px solid rgba(255,255,255,0.2);
 	background-color: rgb(20,20,21);
+}*/
+#body_squeeze .pmd_panel_sqz  .panel-body{
+	background-color: rgb(20,20,21);
 }
+#body_squeeze .pmd_panel_sqz.jsSelected .panel-heading{
+	font-weight: normal;
+	background: #000 ;
+}
+
+
 
