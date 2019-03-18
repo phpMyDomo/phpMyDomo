@@ -1,26 +1,22 @@
 
 jQuery( document ).ready(function() {
+	
+	/* ----- Select Last Player ------------------ */
+	selected_player_jsid=Cookies.get('sqz_player');	
+	var last_player=$('#jsPlayer_'+selected_player_jsid);
+	if(! last_player.length > 0){
+		last_player=$('.jsSqzPlayer').first();
+	}
+	JqzSelectPlayer(last_player);
+	
+
 
 	/* ----- Selected Player ------------------ */
 	$('.jsSqzPlayer .jsPlayerHead').on('click', function(){
-			var panel=$(this).closest('.jsSqzPlayer');
-			selected_player_jsid=panel.attr('data-jsid');
-			
-			$('.jsSqzPlayer').removeClass('jsSelected');
-			panel.addClass('jsSelected');
-			
-			$('.jsPlayerBody').hide();
-			panel.find('.jsPlayerBody').show();
-			
-			var player_name = $('#jsPlayer_'+selected_player_jsid).find('.player_name').html();
-	  		$('.jsCurrentPlayer .jsCurrentPlayerHead').html(player_name);
-	  		$('.jsCurrentPlayer .jsCurrentPlayerBody').html('');
-
-			panel.insertBefore($('.jsSqzPlayer').first());
-
+			var player=$(this).closest('.jsSqzPlayer');
+			JqzSelectPlayer(player);
 	});
-	$('.jsSqzPlayer .jsPlayerHead').first().trigger('click');
-	$('.jsSelectedPlayer:checked').trigger('change');
+	
 
 	/* ----- Buttons ------------------ */
 	$(".jsSqzBut").click(function(e){
@@ -173,11 +169,45 @@ jQuery( document ).ready(function() {
 	SqzRefreshAllStates(1);
 });
 
+
+
+
+/* ########################################################################################################*/	
+
 var current_times={};
 var cues={};
 var loops={};
 var last_refresh_date=Date.now;
 var selected_player_jsid='';
+
+
+
+/* ----------------------------------------------------------------------------------- */	
+function JqzSelectPlayer(player){
+	selected_player_jsid=player.attr('data-jsid');
+	Cookies.set('sqz_player',selected_player_jsid, { expires: 365 })
+	
+	/* set jsSelected ----- */
+	$('.jsSqzPlayer').removeClass('jsSelected');
+	player.addClass('jsSelected');
+			
+	/* show only this player ----- */
+	$('.jsPlayerBody').hide();
+	player.find('.jsPlayerBody').show();
+			
+	/* Update Current player Infos block ----- */
+	var player_name = player.find('.player_name').html();
+	$('.jsCurrentPlayer .jsCurrentPlayerHead').html(player_name);
+	$('.jsCurrentPlayer .jsCurrentPlayerBody').html('');
+	
+	/* Put player on top----- */
+	var first_player=$('.jsSqzPlayer').first();
+	if(! player.is( first_player )){
+		player.insertBefore(first_player);
+	}
+}
+
+
 
 /* ----------------------------------------------------------------------------------- */	
 function SqzRequestButton(id,type,v1,v2){
