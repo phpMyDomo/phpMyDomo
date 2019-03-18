@@ -1100,11 +1100,38 @@ TABLE.table_devices TR TD{
 #body_squeeze .but_all .on,
 #body_squeeze .but_player .on{
 	color: orange;
+
+  background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#3d3f3f), color-stop(50%, #474949), to(#6d7070));
+  background-image: -webkit-linear-gradient(#3d3f3f, #474949 50%, #6d7070);
+  background-image: -moz-linear-gradient(top, #3d3f3f, #474949 50%, #6d7070);
+  background-image: linear-gradient(#3d3f3f, #474949 50%, #6d7070);
+  background-repeat: no-repeat;
+  border: 1px solid #2e2f2f;
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ff3d3f3f', endColorstr='#6d7070', GradientType=0);
+  filter: none;
 }
 
 #body_squeeze #block_sqz_current .panel-body-full {
 	padding: 6px;
+	min-height: 211px;
 }
+
+@media (min-width: 1200px) {
+	#body_squeeze #block_sqz_current .panel-body-full {
+		min-height: 259px;
+	}
+}
+
+/* Landscape tablets and medium desktops */
+@media (min-width: 992px) and (max-width: 1199px) {
+
+}
+
+@media (min-width: 1px){
+}
+@med ia (min-width: 992px){
+}
+
 /* @end */
 
 
