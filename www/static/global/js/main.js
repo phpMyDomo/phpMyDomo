@@ -3,9 +3,8 @@ var refresh_time		=12;
 var refresh_time_blinds	=25;
 
 jQuery( document ).ready(function() {
-    console.log( "JS Ready!" );
     
-    /* Hide browser address bar */
+    /* Hide browser address bar -------------------------------------- */
 	/Mobile/.test(navigator.userAgent) && !location.hash && setTimeout(function () {
     	if (!pageYOffset) window.scrollTo(0, 1);
 	}, 500);
