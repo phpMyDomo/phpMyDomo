@@ -50,61 +50,70 @@
 
 {/function}
 
-{function MakeButton row='' mode='' title='' v1='' v2='' icon='' type='button' id='' txt=''}
+{function MakeButton row='' mode='' title='' v1='' v2='' icon='' type='button' id='' txt='' size=''}
+	{if size}{$size_class=" btn-{$size}"}{/if}
 	{if is_array($row)}{if $row.f_states.$mode}{$my_class=' on'}{/if}{/if}
-	<a href='#' class='jsSqzBut jsSqzBut_{$mode} btn btn-default{$my_class}'  data-mode='{$mode}' data-type='{$type}' data-id='{$id|default:$row.playerid}' title="{$title|default:$l.$mode}" data-v1='{$v1|default:$mode}'  data-v2='{$v2}'>{if $icon !='NO'}<i class='fa fa-fw fa-{$icon|default:$mode}'></i>{/if}{$txt}</a> 
+	<a href='#' class='jsSqzBut jsSqzBut_{$mode} btn btn-default{$size_class}{$my_class}'  data-mode='{$mode}' data-type='{$type}' data-id='{$id|default:$row.playerid}' title="{$title|default:$l.$mode}" data-v1='{$v1|default:$mode}'  data-v2='{$v2}'>{if $icon !='NO'}<i class='fa fa-fw fa-{$icon|default:$mode}'></i>{/if}{$txt}</a> 
 {/function}
 
 
 {function MakePlayer row=''}
 			<span class="but_player but_player_transport">
-				{MakeButton row=$row mode='prev'	v1='rew.single' icon='fast-backward'}
-				{MakeButton row=$row mode='rw2' title="{$l.rw} ({$data.prefs.scroll_time2})"		type='time' v1=$row.f_rw2 	icon='NO' txt="<i class='fa fa-backward'></i><i class='fa fa-backward'></i>"}
-				{MakeButton row=$row mode='rw1' title="{$l.rw} ({$data.prefs.scroll_time1})"		type='time' v1=$row.f_rw1 	icon='backward'}
-				{MakeButton row=$row mode='play'}
-				{MakeButton row=$row mode='pause'}
-				{MakeButton row=$row mode='stop'}
-				{MakeButton row=$row mode='ff1'	title="{$l.ff} ({$data.prefs.scroll_time1})"		type='time' v1=$row.f_ff1 		icon='forward'}
-				{MakeButton row=$row mode='ff2' title="{$l.ff} ({$data.prefs.scroll_time2})"		type='time' v1=$row.f_ff2 	icon='NO' txt="<i class='fa fa-forward'></i><i class='fa fa-forward'></i>"}
-				{MakeButton row=$row mode='next'	v1='fwd.single' icon='fast-forward'}
+				{MakeButton size='lg' row=$row mode='prev'	v1='rew.single' icon='fast-backward'}
+				{MakeButton size='lg' row=$row mode='play'}
+				{MakeButton size='lg' row=$row mode='pause'}
+				{MakeButton size='lg' row=$row mode='stop'}
+				{MakeButton size='lg' row=$row mode='next'	v1='fwd.single' icon='fast-forward'}
 			</span>
+
 			<span class="but_player but_player_volume">
-				{MakeButton row=$row mode='voldown' v2='1' icon='volume-down'}
+				{MakeButton size='lg' row=$row mode='voldown' v2='1' icon='volume-down'}
 				<span class="player_volume"><b class="jsSqzVolume">{$row.f_volume}</b></span> 
-				{MakeButton row=$row mode='volup' v2='1' icon='volume-up'}
+				{MakeButton size='lg' row=$row mode='volup' v2='1' icon='volume-up'}
 			</span>
+
 			<span class="but_player but_player_misc">
-				{MakeButton row=$row mode='mute' v1='muting' icon='volume-off'}
-				{MakeButton row=$row mode='power' icon='power-off'}
+				{MakeButton size='lg' row=$row mode='mute' v1='muting' icon='volume-off'}
+				{MakeButton size='lg' row=$row mode='power' icon='power-off'}
 			{if $row.model=='squeezelite'}
-				{MakeButton row=$row title="{$l.restart_squeezelite}"  type='pcp' id=$row.f_ip v1='restartsqlt' icon='refresh'}
+				{MakeButton size='lg' row=$row title="{$l.restart_squeezelite}"  type='pcp' id=$row.f_ip v1='restartsqlt' icon='refresh'}
 			{/if}
 			</span>
-			<span class="but_player but_player_cue">
-				<div class="btn-group" role="group">
-					{MakeButton row=$row mode='cue_in_set'	type='cue'	v1=$row.f_jsid	v2='in'		icon='toggle-down' txt="{$l.set_in}"}
-					{MakeButton row=$row mode='cue_in_jump' type='time'	v1=""	icon='NO' txt="{$row.f_cue_in_view|default:'--:--:---'}"}
-				</div>
-				
-				{MakeButton row=$row 	mode='loop' 			type='loop'	v1=$row.f_jsid				icon='repeat fa-rotate-270'}
 
-				<div class="btn-group" role="group">
-					{MakeButton row=$row mode='cue_out_set'		type='cue'	v1=$row.f_jsid	v2='out'	icon='toggle-up' txt="{$l.set_out}"}
-					{MakeButton row=$row mode='cue_out_jump'	type='time'	v1=""						icon='NO' txt="{$row.f_cue_out_view|default:'--:--:---'}"}
-				</div>
+			<span class="but_player but_player_move">
+				{MakeButton size='lg' row=$row mode='rw2' title="{$l.rw} ({$data.prefs.scroll_time2})"		type='time' v1=$row.f_rw2 	icon='NO' txt="<i class='fa fa-backward'></i><i class='fa fa-backward'></i>"}
+				{MakeButton size='lg' row=$row mode='rw1' title="{$l.rw} ({$data.prefs.scroll_time1})"		type='time' v1=$row.f_rw1 	icon='backward'}
+				{MakeButton size='lg' row=$row mode='ff1'	title="{$l.ff} ({$data.prefs.scroll_time1})"		type='time' v1=$row.f_ff1 	icon='forward'}
+				{MakeButton size='lg' row=$row mode='ff2' title="{$l.ff} ({$data.prefs.scroll_time2})"		type='time' v1=$row.f_ff2 	icon='NO' txt="<i class='fa fa-forward'></i><i class='fa fa-forward'></i>"}
 			</span>
+
 			<span class="but_player but_player_mode">
 				<div class="btn-group" role="group">
-					{MakeButton row=$row mode='repeat_0' icon='repeat' txt="<span class='mini'>{$l.repeat_off}</span>"}
-					{MakeButton row=$row mode='repeat_1' icon='repeat' txt="<span class='mini'>{$l.repeat_one}</span>"}
-					{MakeButton row=$row mode='repeat_2' icon='repeat' txt="<span class='mini'>{$l.repeat_all}</span>"}
+					{MakeButton size='lg' row=$row mode='repeat_0' icon='repeat' txt="<span class='mini'>{$l.repeat_off}</span>"}
+					{MakeButton size='lg' row=$row mode='repeat_1' icon='repeat' txt="<span class='mini'>{$l.repeat_one}</span>"}
+					{MakeButton size='lg' row=$row mode='repeat_2' icon='repeat' txt="<span class='mini'>{$l.repeat_all}</span>"}
 				</div>
 				<div class="btn-group" role="group">
-					{MakeButton row=$row mode='shuffle_0'	type='playlist'	v1='shuffle' 	v2=0	icon='random' txt="<span class='mini'>{$l.shuffle_off}</span>"}
-					{MakeButton row=$row mode='shuffle_1'	type='playlist'	v1='shuffle' 	v2=1	icon='random' txt="<span class='mini'>{$l.shuffle_songs}</span>"}
-					{MakeButton row=$row mode='shuffle_2'	type='playlist'	v1='shuffle'	v2=2	icon='random' txt="<span class='mini'>{$l.shuffle_albums}</span>"}
+					{MakeButton size='lg' row=$row mode='shuffle_0'	type='playlist'	v1='shuffle' 	v2=0	icon='random' txt="<span class='mini'>{$l.shuffle_off}</span>"}
+					{MakeButton size='lg' row=$row mode='shuffle_1'	type='playlist'	v1='shuffle' 	v2=1	icon='random' txt="<span class='mini'>{$l.shuffle_songs}</span>"}
+					{MakeButton size='lg' row=$row mode='shuffle_2'	type='playlist'	v1='shuffle'	v2=2	icon='random' txt="<span class='mini'>{$l.shuffle_albums}</span>"}
 				</div>
 			</span>
+		<DIV>	
+			<span class="but_player but_player_cue">
+				<div class="btn-group" role="group">
+					{MakeButton size='lg' row=$row mode='cue_in_set'	type='cue'	v1=$row.f_jsid	v2='in'		icon='toggle-down' txt="{$l.set_in}"}
+					{MakeButton size='lg' row=$row mode='cue_in_jump' type='time'	v1=""	icon='NO' txt="{$row.f_cue_in_view|default:'--:--:---'}"}
+				</div>
+				
+				{MakeButton size='lg' row=$row 	mode='loop' 			type='loop'	v1=$row.f_jsid				icon='repeat fa-rotate-270'}
+
+				<div class="btn-group" role="group">
+					{MakeButton size='lg' row=$row mode='cue_out_set'		type='cue'	v1=$row.f_jsid	v2='out'	icon='toggle-up' txt="{$l.set_out}"}
+					{MakeButton size='lg' row=$row mode='cue_out_jump'	type='time'	v1=""						icon='NO' txt="{$row.f_cue_out_view|default:'--:--:---'}"}
+				</div>
+			</span>
+		</DIV>
 {/function}
 
 {capture assign=page_content}
