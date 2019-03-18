@@ -99,21 +99,21 @@
 					{MakeButton size='lg' row=$row mode='shuffle_2'	type='playlist'	v1='shuffle'	v2=2	icon='random' txt="<span class='mini'>{$l.shuffle_albums}</span>"}
 				</div>
 			</span>
-		<DIV>	
-			<span class="but_player but_player_cue">
-				<div class="btn-group" role="group">
-					{MakeButton size='lg' row=$row mode='cue_in_set'	type='cue'	v1=$row.f_jsid	v2='in'		icon='toggle-down' txt="{$l.set_in}"}
-					{MakeButton size='lg' row=$row mode='cue_in_jump' type='time'	v1=""	icon='NO' txt="{$row.f_cue_in_view|default:'--:--:---'}"}
-				</div>
+			<DIV>	
+				<span class="but_player but_player_cue">
+					<div class="btn-group" role="group">
+						{MakeButton size='lg' row=$row mode='cue_in_set'	type='cue'	v1=$row.f_jsid	v2='in'		icon='toggle-down' txt="{$l.set_in}"}
+						{MakeButton size='lg' row=$row mode='cue_in_jump' type='time'	v1=""	icon='NO' txt="{$row.f_cue_in_view|default:'--:--:---'}"}
+					</div>
 				
-				{MakeButton size='lg' row=$row 	mode='loop' 			type='loop'	v1=$row.f_jsid				icon='repeat fa-rotate-270'}
+					{MakeButton size='lg' row=$row 	mode='loop' 			type='loop'	v1=$row.f_jsid				icon='repeat fa-rotate-270'}
 
-				<div class="btn-group" role="group">
-					{MakeButton size='lg' row=$row mode='cue_out_set'		type='cue'	v1=$row.f_jsid	v2='out'	icon='toggle-up' txt="{$l.set_out}"}
-					{MakeButton size='lg' row=$row mode='cue_out_jump'	type='time'	v1=""						icon='NO' txt="{$row.f_cue_out_view|default:'--:--:---'}"}
-				</div>
-			</span>
-		</DIV>
+					<div class="btn-group" role="group">
+						{MakeButton size='lg' row=$row mode='cue_out_set'		type='cue'	v1=$row.f_jsid	v2='out'	icon='toggle-up' txt="{$l.set_out}"}
+						{MakeButton size='lg' row=$row mode='cue_out_jump'	type='time'	v1=""						icon='NO' txt="{$row.f_cue_out_view|default:'--:--:---'}"}
+					</div>
+				</span>
+			</DIV>
 {/function}
 
 {capture assign=page_content}
