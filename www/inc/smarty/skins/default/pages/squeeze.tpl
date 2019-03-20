@@ -28,11 +28,9 @@
 		</span>
 	{/if}
 
-
 		<span class='player_duration'>
 				{$row.f_playing.f_duration}
 		</span> 
-
 
 	</div>
 
@@ -62,48 +60,70 @@
 {/function}
 
 {function MakePlayer row=''}
-			<span class="but_player but_player_transport">
-				{MakeButton size='lg' row=$row mode='prev'	v1='rew.single' icon='fast-backward'}
-				{MakeButton size='lg' row=$row mode='play'}
-				{MakeButton size='lg' row=$row mode='pause'}
-				{MakeButton size='lg' row=$row mode='stop'}
-				{MakeButton size='lg' row=$row mode='next'	v1='fwd.single' icon='fast-forward'}
-			</span>
+			<div class="bar_display">
 
-			<span class="but_player but_player_volume">
-				{MakeButton size='lg' row=$row mode='voldown' v2='1' icon='volume-down'}
-				<span class="player_volume"><b class="jsSqzVolume">{$row.f_volume}</b></span> 
-				{MakeButton size='lg' row=$row mode='volup' v2='1' icon='volume-up'}
-			</span>
+				<div class="bar_display_lcd">
+					{strip}
+						<div class='lcd_icons'>
+							<span class='lcd_icon icon_play'><i class='fa fa-play'></i></span>
 
-			<span class="but_player but_player_misc">
-				{MakeButton size='lg' row=$row mode='mute' v1='muting' icon='volume-off'}
-				{MakeButton size='lg' row=$row mode='power' icon='power-off'}
-			{if $row.model=='squeezelite'}
-				{MakeButton size='lg' row=$row title="{$l.restart_squeezelite}"  type='pcp' id=$row.f_ip v1='restartsqlt' icon='refresh'}
-			{/if}
-			</span>
+							<span class='player_duration'>{$row.f_playing.duration}</span>
+							<span class='player_remain jsRemain'></span>
+							<span class="player_volume"><i class="fa fa-volume-up"></i><b class="jsSqzVolume">{$row.f_volume}</b></span> 
 
-			<span class="but_player but_player_move">
-				{MakeButton size='lg' row=$row mode='rw2' title="{$l.rw} ({$data.prefs.scroll_time2})"		type='time' v1=$row.f_rw2 	icon='NO' txt="<i class='fa fa-backward'></i><i class='fa fa-backward'></i>"}
-				{MakeButton size='lg' row=$row mode='rw1' title="{$l.rw} ({$data.prefs.scroll_time1})"		type='time' v1=$row.f_rw1 	icon='backward'}
-				{MakeButton size='lg' row=$row mode='ff1'	title="{$l.ff} ({$data.prefs.scroll_time1})"		type='time' v1=$row.f_ff1 	icon='forward'}
-				{MakeButton size='lg' row=$row mode='ff2' title="{$l.ff} ({$data.prefs.scroll_time2})"		type='time' v1=$row.f_ff2 	icon='NO' txt="<i class='fa fa-forward'></i><i class='fa fa-forward'></i>"}
-			</span>
+							<span class='player_encoder'>
+								<b class='player_etype'>{$row.f_playing.f_filetype}</b>
+								<b class='player_erate'>{$row.f_playing.f_rate}</b>
+								<b class='player_erate_unit'>{$row.f_playing.f_rate_unit}</b>
+								<b class='player_erate_info'>{$row.f_playing.f_rate_info}</b>
+							</span>
 
-			<span class="but_player but_player_mode">
-				<div class="btn-group" role="group">
-					{MakeButton size='lg' row=$row mode='repeat_0' icon='repeat' txt="<span class='mini'>{$l.repeat_off}</span>"}
-					{MakeButton size='lg' row=$row mode='repeat_1' icon='repeat' txt="<span class='mini'>{$l.repeat_one}</span>"}
-					{MakeButton size='lg' row=$row mode='repeat_2' icon='repeat' txt="<span class='mini'>{$l.repeat_all}</span>"}
+						</div>
+			
+					<div class="bar_display_lcd_time">
+						<li class="lcd_num lcd_min jsLcdMin">--</li>
+						<li class="lcd_sep jsLcdSep">:</li>
+						<li class="lcd_num lcd_sec jsLcdSec">--</li>
+						<li class="lcd_sep jsLcdSep">.</li>
+						<li class="lcd_num lcd_ms jsLcdMs">--</li>
+					</div>
+
+					<div class="bar_display_lcd_info">
+						<span class="lcd_song">
+							<span class='player_song1 player_title'>{$row.f_playing.f_title|default:"&nbsp;"}</span> 
+							<span class='player_song2 player_artist'>{$row.f_playing.f_artist|default:"&nbsp;"}</span>
+							<span class='player_song3'>
+								<span class='player_year'>{$row.f_playing.f_year}</span>
+								<span class='player_album'>{$row.f_album|default:"&nbsp;"}</span>
+							</span>
+						</span>
+					</div>
+					{/strip}
 				</div>
-				<div class="btn-group" role="group">
-					{MakeButton size='lg' row=$row mode='shuffle_0'	type='playlist'	v1='shuffle' 	v2=0	icon='random' txt="<span class='mini'>{$l.shuffle_off}</span>"}
-					{MakeButton size='lg' row=$row mode='shuffle_1'	type='playlist'	v1='shuffle' 	v2=1	icon='random' txt="<span class='mini'>{$l.shuffle_songs}</span>"}
-					{MakeButton size='lg' row=$row mode='shuffle_2'	type='playlist'	v1='shuffle'	v2=2	icon='random' txt="<span class='mini'>{$l.shuffle_albums}</span>"}
-				</div>
-			</span>
-			<DIV>	
+
+			</div>
+
+
+			<div class="bar_transport">
+				<span class="but_player but_player_transport">
+					{MakeButton size='lg' row=$row mode='prev'	v1='rew.single' icon='fast-backward'}
+					{MakeButton size='lg' row=$row mode='play'}
+					{MakeButton size='lg' row=$row mode='pause'}
+					{MakeButton size='lg' row=$row mode='stop'}
+					{MakeButton size='lg' row=$row mode='next'	v1='fwd.single' icon='fast-forward'}
+				</span>
+
+				<span class="but_player but_player_move">
+					{MakeButton size='lg' row=$row mode='rw2' title="{$l.rw} ({$data.prefs.scroll_time2})"		type='time' v1=$row.f_rw2 	icon='NO' txt="<i class='fa fa-backward'></i><i class='fa fa-backward'></i>"}
+					{MakeButton size='lg' row=$row mode='rw1' title="{$l.rw} ({$data.prefs.scroll_time1})"		type='time' v1=$row.f_rw1 	icon='backward'}
+					{MakeButton size='lg' row=$row mode='ff1'	title="{$l.ff} ({$data.prefs.scroll_time1})"		type='time' v1=$row.f_ff1 	icon='forward'}
+					{MakeButton size='lg' row=$row mode='ff2' title="{$l.ff} ({$data.prefs.scroll_time2})"		type='time' v1=$row.f_ff2 	icon='NO' txt="<i class='fa fa-forward'></i><i class='fa fa-forward'></i>"}
+				</span>
+
+			</div>
+
+
+			<div class="bar_studio">
 				<span class="but_player but_player_cue">
 					<div class="btn-group" role="group">
 						{MakeButton size='lg' row=$row mode='cue_in_set'	type='cue'	v1=$row.f_jsid	v2='in'		icon='toggle-down' txt="{$l.set_in}"}
@@ -117,21 +137,48 @@
 						{MakeButton size='lg' row=$row mode='cue_out_jump'	type='time'	v1=""						icon='NO' txt="{$row.f_cue_out_view|default:'--:--:---'}"}
 					</div>
 				</span>
-			</DIV>
+			</div>
+
+
+			<div class="bar_settings">
+
+				<span class="but_player but_player_mode">
+					<div class="btn-group" role="group">
+						{MakeButton size='' row=$row mode='repeat_0' icon='repeat' txt="<span class='mini'>{$l.repeat_off}</span>"}
+						{MakeButton size='' row=$row mode='repeat_1' icon='repeat' txt="<span class='mini'>{$l.repeat_one}</span>"}
+						{MakeButton size='' row=$row mode='repeat_2' icon='repeat' txt="<span class='mini'>{$l.repeat_all}</span>"}
+					</div>
+					<div class="btn-group" role="group">
+						{MakeButton size='' row=$row mode='shuffle_0'	type='playlist'	v1='shuffle' 	v2=0	icon='random' txt="<span class='mini'>{$l.shuffle_off}</span>"}
+						{MakeButton size='' row=$row mode='shuffle_1'	type='playlist'	v1='shuffle' 	v2=1	icon='random' txt="<span class='mini'>{$l.shuffle_songs}</span>"}
+						{MakeButton size='' row=$row mode='shuffle_2'	type='playlist'	v1='shuffle'	v2=2	icon='random' txt="<span class='mini'>{$l.shuffle_albums}</span>"}
+					</div>
+				</span>
+
+				<span class="but_player but_player_misc">
+					<span class="but_player_volume">
+						{MakeButton size='' row=$row mode='voldown' v2='1' icon='volume-down'}
+						{MakeButton size='' row=$row mode='mute' v1='muting' icon='volume-off'}
+						{MakeButton size='' row=$row mode='volup' v2='1' icon='volume-up'}
+					</span>
+					{MakeButton size='' row=$row mode='power' icon='power-off'}
+				{if $row.model=='squeezelite'}
+					{MakeButton size='' row=$row title="{$l.restart_squeezelite}"  type='pcp' id=$row.f_ip v1='restartsqlt' icon='refresh'}
+				{/if}
+				</span>
+
+			</div>
+
 {/function}
 
 {capture assign=page_content}
 
-<script language="javascript">
-$(document).ready(function(){
-});
-</script>
 
 <div class="">
 {foreach from=$data.players item=row }
 		<div class="panel panel-default pmd_panel pmd_panel_sqz jsSqzPlayer" id='jsPlayer_{$row.f_jsid}' data-jsid='{$row.f_jsid}'>
-			<div class="panel-heading jsPlayerHead">{MakePlayerTitle row=$row}</div>
-			<div class="panel-body  jsPlayerBody">
+			<div class="panel-heading player_head jsPlayerHead">{MakePlayerTitle row=$row}</div>
+			<div class="panel-body player_body jsPlayerBody">
 {MakePlayer row=$row}
 			</div>	
 		</div>

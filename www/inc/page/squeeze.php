@@ -155,6 +155,16 @@ class PMD_Page extends PMD_Root_Page{
 
 				$arr['f_artist']	=$this->_FormatTitle($arr['artist'],0);
 				$arr['f_title']		=$this->_FormatTitle($arr['title']);
+				$arr['f_filetype']	=$arr['type'];
+
+				$arr['year']		and $arr['f_year']		="<b>{$arr['year']}</b>";
+				$arr['album']		and $arr['f_album']		=$this->_FormatTitle($arr['album']);	//  and $arr['f_album']	= '<b>'. $arr['f_album'].'</b>'; // <i>:</i> and $arr['f_album']	= '['. $arr['f_album'].']';
+				
+
+				list($rate,$info)=explode(' ',$arr['bitrate']);
+				$arr['f_rate']		=trim(preg_replace('#^(\d+).*#','$1',$rate));
+				$arr['f_rate_unit']	=trim(preg_replace('#^'.$arr['f_rate'].'#','',$rate));
+				$arr['f_rate_info']	=trim($info);
 
 				if($status['remote']){ //this is a radio
 					$arr['artwork_url']	and $arr['f_url_img']	=$arr['artwork_url'];
@@ -173,7 +183,6 @@ class PMD_Page extends PMD_Root_Page{
 				}
 				
 				
-				$arr['album']		and $arr['f_album']		=$this->_FormatTitle($arr['album'])  and $arr['f_album']	= '<b>'. $arr['f_album'].'</b> <i>:</i>'; // and $arr['f_album']	= '['. $arr['f_album'].']';
 				if( $arr['f_full_title'] 	=$this->_makeSongFullTitle($arr)){
 					$arr['f_url_youtube']	='https://www.youtube.com/results?search_query='.urlencode($arr['f_full_title']);
 					$arr['f_url_allmusic']	='http://www.allmusic.com/search/songs/'.urlencode($arr['f_full_title']);

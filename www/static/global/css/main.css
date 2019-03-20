@@ -71,6 +71,7 @@ body {
 
 html, body {
 	height: 100%;
+	-webkit-font-smoothing: antialiased;
 }
 #lay_page{
 	min-height: 100%;
@@ -812,7 +813,7 @@ TABLE.table_devices TR TD{
 
 @font-face {
 	font-family: 'lcd';
-	src:	url('../fonts/digital-7_mono.eot');
+/*	src:	url('../fonts/digital-7_mono.eot'); */
 	src:	url('../fonts/digital-7_mono.woff') format('woff'), 
 			url('../fonts/digital-7_mono.ttf') format('truetype'), 
 			url('../fonts/digital-7_mono.svg') format('svg');
@@ -1005,6 +1006,9 @@ TABLE.table_devices TR TD{
 
 /* @end */
 
+
+
+
 /* @group Page Squeeze 
 ----------------------------------------------------------------- */
 
@@ -1029,6 +1033,10 @@ TABLE.table_devices TR TD{
 #body_squeeze .pmd_panel_sqz.jsSelected .panel-heading{
 	background: #e2e2e9;
 }
+#body_squeeze .pmd_panel_sqz.jsSelected .player_right,
+#body_squeeze .pmd_panel_sqz.jsSelected .player_position{
+	display: none;
+}
 
 .pmd_panel .panel-heading I{
 	opacity: 0.4;
@@ -1037,37 +1045,37 @@ TABLE.table_devices TR TD{
 
 
 
-#body_squeeze .pmd_panel_sqz .player_left{
+#body_squeeze .player_head .player_left{
 	float: left;
 }
-#body_squeeze .pmd_panel_sqz .player_name{
+#body_squeeze .player_head .player_name{
 	display: block;
 }
 
 
 
-#body_squeeze .pmd_panel_sqz .player_right{
+#body_squeeze .player_head .player_right{
 	float: right;
 	text-align: right;
 }
 
-#body_squeeze .pmd_panel_sqz .player_album{
+#body_squeeze .player_head .player_album{
 	margin-right: 5px;
 	opacity: 0.9;
 }
-#body_squeeze .pmd_panel_sqz .player_album B{
+#body_squeeze .player_head .player_album B{
 	font-weight: normal;
 }
-#body_squeeze .pmd_panel_sqz .player_album I{
+#body_squeeze .player_head .player_album I{
 	font-style: normal;
 	opacity: 1;
 	margin-left: 5px;	
 	margin-right: 0px;	
 }
-#body_squeeze .pmd_panel_sqz .player_title{
+#body_squeeze .player_head .player_title{
 	font-size: 14px;
 }
-#body_squeeze .pmd_panel_sqz .player_artist{
+#body_squeeze .player_head .player_artist{
 	display: block;
 }
 
@@ -1081,24 +1089,162 @@ TABLE.table_devices TR TD{
 	text-transform: uppercase;
 	/*margin-top: 3px;*/
 }
-#body_squeeze .pmd_panel_sqz .player_links{
+#body_squeeze .player_head .player_links{
 	margin-left: 10px;
 }
-#body_squeeze .pmd_panel_sqz .player_links A{
+#body_squeeze .player_head .player_links A{
 	margin-left: 5px;
 }
-#body_squeeze .pmd_panel_sqz .player_duration{
+#body_squeeze .player_head .player_duration{
 	margin-left: 20px;
 	opacity: 0.6;
 }
+/* @end */
 
+
+/* @group Player LCD
+++++++++++++++++++++++++++++++++++++++ */
+#body_squeeze .bar_display{
+	padding-right: 10px;
+}
+#body_squeeze .bar_display_lcd{
+	overflow: hidden;
+	padding: 10px 15px;
+	margin-bottom: 20px;
+	background: rgba(0,0,0,0.1);
+	border: 1px solid rgba(0,0,0,0.1);
+	border-radius: 4px;
+	font-family: Arial, Helvetica;
+	vertical-align: text-top;
+}
+#body_squeeze .bar_display_lcd .lcd_icons{
+	font-size: 11px;
+	overflow: hidden;
+	margin-bottom: 4px;
+	font-family: Courier, Monaco, mono;
+	position: relative;
+}
+
+#body_squeeze .bar_display_lcd .lcd_icons .lcd_icon{
+	float: left;
+}
+#body_squeeze .bar_display_lcd .lcd_icons .player_duration{
+	float: left;
+	padding-left: 10px ;
+}
+#body_squeeze .bar_display_lcd .lcd_icons .player_remain{
+	float: left;
+ 	padding-left: 10px ;
+}
+#body_squeeze .bar_display_lcd .lcd_icons .player_volume{
+	padd ing-left: 50px;
+	position: absolute;
+	left: 170px;
+}
+#body_squeeze .bar_display_lcd .lcd_icons .player_volume I{
+	padding-right: 7px;
+	font-size: 13px;
+	color: rgba(110,110,110,0.7);
+	vertical-align: middle;
+}
+#body_squeeze .bar_display_lcd .lcd_icons .player_encoder{
+	float: right;
+}
+#body_squeeze .bar_display_lcd .lcd_icons .player_etype{
+	margin-right: 20px;
+	text-transform: uppercase;
+}
+#body_squeeze .bar_display_lcd .lcd_icons .player_erate{
+	margin-right: 3px;	
+}
+#body_squeeze .bar_display_lcd .lcd_icons .player_erate_unit{
+	margin-right: 5px;
+	color: rgba(110,110,110,0.7);
+}
+#body_squeeze .bar_display_lcd .lcd_icons .player_erate{
+	margin-right: 3px;	
+}
+#body_squeeze .bar_display_lcd_time .lcd_icons{
+	padding-right: 24px;
+}
+
+/* @end */
+
+
+/* @group Player LCD Time
+++++++++++++++++++++++++++++++++++++++ */
+#body_squeeze .bar_display_lcd_time{
+	float: left;
+    display: inline-block;
+	padding: 0;
+	padding-top: 14px;
+    width: 300px;
+    /*background: beige;*/
+}
+#body_squeeze .bar_display_lcd_time LI{
+	display: inline-block;
+	margin: 0;
+	padding: 0;
+	list-style: none;
+	vertical-align: baseline;
+	font-family: "lcd";	
+	font-size: 80px;
+	line-height: 55px;
+}
+#body_squeeze .bar_display_lcd .lcd_num{
+	padding: 0;
+	letter-spacing: 4px;
+}
+#body_squeeze .bar_display_lcd .lcd_sep{
+	font-size: 70px;
+}
+#body_squeeze .bar_display_lcd .lcd_ms{
+	font-size: 48px;
+}
+/* @end */
+
+
+/* @group Player LCD Info
+++++++++++++++++++++++++++++++++++++++ */
+#body_squeeze .bar_display_lcd_info{
+	float: left;
+	padding: 0;
+	/*font-family: "lcd";*/	
+	/*background: red;*/
+} 
+#body_squeeze .bar_display_lcd_info .lcd_song{
+	display: block;
+	font-size: 17px;
+	line-height: 25px;
+	max-width: 360px;
+	/*padding-top: 2px;*/
+}
+#body_squeeze .bar_display_lcd_info .player_song1{
+	display: block;
+}
+#body_squeeze .bar_display_lcd_info .player_song2{
+	display: block;
+	font-weight: bold;
+}
+#body_squeeze .bar_display_lcd_info .player_song3{
+	display: block;
+	font-size: 14px;
+	opacity: 0.8;
+}
+#body_squeeze .bar_display_lcd_info .player_album{
+	font-style: italic;	
+}
+#body_squeeze .bar_display_lcd_info .player_song3 B{
+	font-weight: normal;
+	margin-right: 10px;
+}
 
 /* @end */
 
 
 
-
-
+/* @group Player  Buttons
+++++++++++++++++++++++++++++++++++++++ */
 
 #body_squeeze .pmd_panel_sqz .but_player{
 	display: inline-block;
@@ -1107,15 +1253,38 @@ TABLE.table_devices TR TD{
 	overflow: hidden;
 	margin-bottom: 8px;
 }
-#body_squeeze .pmd_panel_sqz .player_volume{
-	display: inline-block;
-	width: 30px;
-	text-align: center;
-	vertical-align: middle;
-	font-size: 14px;
+#body_squeeze .pmd_panel_sqz .but_player .btn{
+	margin-right: 8px;
+	margin-bottom: 15px;
+}
+#body_squeeze .pmd_panel_sqz .but_player .btn-group .btn{
+	margin-right: 0px;
+}
+#body_squeeze .pmd_panel_sqz .but_player .btn-group .btn:last-child{
+	margin-right: 8px;
+}
+/* @end */
+
+
+
+/* @group Current Block
+++++++++++++++++++++++++++++++++++++++ */
+#body_squeeze #block_sqz_current .panel-body-full {
+	padding: 6px;
+	min-height: 211px;
 }
 
+@media (min-width: 1200px) {
+	#body_squeeze #block_sqz_current .panel-body-full {
+		min-height: 259px;
+	}
+}
+/* @end */
 
+
+
+/* @group Global controls 
+++++++++++++++++++++++++++++++++++++++ */
 
 #body_squeeze #block_all_players .but_all{
 	margin-bottom: 20px;
@@ -1157,17 +1326,8 @@ TABLE.table_devices TR TD{
   filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ff3d3f3f', endColorstr='#6d7070', GradientType=0);
   filter: none;
 }
+/* @end */
 
-#body_squeeze #block_sqz_current .panel-body-full {
-	padding: 6px;
-	min-height: 211px;
-}
-
-@media (min-width: 1200px) {
-	#body_squeeze #block_sqz_current .panel-body-full {
-		min-height: 259px;
-	}
-}
 
 /* Landscape tablets and medium desktops */
 @media (min-width: 992px) and (max-width: 1199px) {

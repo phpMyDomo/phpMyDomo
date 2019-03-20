@@ -99,6 +99,13 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#2b2d30', end
 }
 
 
+#body_squeeze .bar_display_lcd{
+	background: rgba(0,0,0,0.5);
+	border: 1px solid rgba(255,255,255,0.15);
+	border-color: rgba(255,255,255,0.1) rgba(255,255,255,0.15) rgba(255,255,255,0.15) rgba(255,255,255,0.1);
+	color: #00ace9;
+}
+
 #body_squeeze .player_radio{
 	text-shadow: none;
 	color: #000;

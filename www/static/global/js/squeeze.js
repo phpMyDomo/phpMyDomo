@@ -266,6 +266,14 @@ function SqzRefreshAllStates(init){
 				pid.find('.player_artist').html(player.f_playing.f_artist);
 				pid.find('.player_title').html(player.f_playing.f_title);
 				pid.find('.player_album').html(player.f_playing.f_album);
+
+				pid.find('.player_duration').html(player.f_playing.f_duration).attr('rel', player.f_playing.duration);
+				pid.find('.player_etype').html(player.f_playing.f_type);
+				pid.find('.player_erate').html(player.f_playing.f_rate);
+				pid.find('.player_erate_unit').html(player.f_playing.f_rate_unit);
+				pid.find('.player_erate_info').html(player.f_playing.f_rate_info);
+				pid.find('.player_year').html(player.f_playing.f_year);
+
 				pid.find('.player_link_youtube').attr('href',player.f_playing.f_url_youtube).attr('title', "Youtube : [ "+player.f_playing.f_full_title+" ]");
 				pid.find('.player_link_allmusic').attr('href',player.f_playing.f_url_allmusic).attr('title', "AllMusic : [ "+player.f_playing.f_full_title+" ]");
 				pid.find('.player_link_google').attr('href',player.f_playing.f_url_google).attr('title', "Google : [ "+player.f_playing.f_full_title+" ]");
@@ -320,6 +328,17 @@ function SqzRefreshCounter() {
 		current_times[jsid] = ctime + (elapsed / 1000);
 		/*	console.log(jsid + ' => ' + ctime + ' + ' + elapsed); */
 		pid.find('.jsCurTime').html(SqzFormatTime(current_times[jsid]) );
+		pid.find('.jsLcdMin').html(SqzFormatTimeLcd(current_times[jsid], 'min'));
+		pid.find('.jsLcdSec').html(SqzFormatTimeLcd(current_times[jsid], 'sec'));
+		pid.find('.jsLcdMs').html(SqzFormatTimeLcd(current_times[jsid], 'ms10'));
+		
+		var remain="--:--";
+		var dur = parseInt(pid.find('.player_duration').attr('rel'));
+		if( dur > 0){
+			remain = SqzFormatTime( dur - current_times[jsid]);
+		}
+		pid.find('.jsRemain').html(remain);
+
 
 		/* process loop */
 		if(loops[jsid]==true && current_times[jsid] >= cues[jsid]['out'] ){
@@ -340,6 +359,36 @@ function SqzRefreshCounterTimes() {
 	});
 }
 
+/* ----------------------------------------------------------------------------------- */	
+function SqzFormatTimeLcd(sec_num,mode){
+	var ms		= Math.round((sec_num - Math.floor(sec_num))*1000);
+	sec_num 	= Math.round(sec_num);
+	var hours   = Math.floor(sec_num / 3600);
+	var minutes = Math.floor((sec_num - (hours * 3600)) / 60);	
+	var seconds = sec_num - (hours * 3600) - (minutes * 60);
+	if (hours   < 10) {hours   = "0"+hours;}
+	if (minutes < 10) {minutes = "0"+minutes;}
+	if (seconds < 10) {seconds = "0"+seconds;}
+	
+
+	if(mode=='min'){
+		return minutes;
+	}
+	else if(mode=='sec'){
+		return seconds;
+	}
+	else if(mode=='ms'){
+		if (ms < 10) 		{ms = "00"+ms;}
+		else if (ms < 100) 	{ms = "0"+ms;}
+		return ms;
+	}
+	else if(mode=='ms10'){
+		ms=Math.round( ms /10);
+		if(ms > 99)		{ms=99;}
+		if (ms < 10) 	{ms = "0"+ms;}
+		return ms;
+	}
+}
 
 /* ----------------------------------------------------------------------------------- */	
 function SqzFormatTime(sec_num, with_ms){
