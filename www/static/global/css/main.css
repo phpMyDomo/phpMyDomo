@@ -237,34 +237,34 @@ A:focus {outline:none;}
 /* @group Page Home
 ------------------------------------------- */
 
-.pmd_panel .panel-heading{
+#body_home .pmd_panel .panel-heading{
 	padding: 5px 10px;
 	font-size: 13px;
 }
-.pmd_panel .panel-heading I{
+#body_home .pmd_panel .panel-heading I{
 	opacity: 0.4;
 	margin-right: 4px;
 }
 
-.pmd_panel .panel-body{
+#body_home .pmd_panel .panel-body{
 	padding: 10px 0 0 10px;
 }
-.pmd_panel .sensor{
+#body_home .pmd_panel .sensor{
 	color: #AAA;
 }
-.pmd_panel .sensor B{
+#body_home .pmd_panel .sensor B{
 	color: #666;
 	margin-right: 2px;
 	margin-left: 4px;
 }
-.pmd_panel .sensor IMG{
+#body_home .pmd_panel .sensor IMG{
 	height: 16px;
 	margin-left: 15px;
 	margin-right: 2px;
 	opacity: 0.6;
 	vertical-align: text-bottom;
 }
-.pmd_panel .sensor_warn B{
+#body_home .pmd_panel .sensor_warn B{
 	color: red !important;
 }
 
@@ -1021,7 +1021,12 @@ TABLE.table_devices TR TD{
 #body_squeeze .pmd_panel_sqz.jsSelected .panel-heading{
 	/*border-bottom: 1px solid rgba(0,0,0,0.3);*/
 }
-
+#body_squeeze .player_fields B{
+	font-weight: normal;
+}
+#body_squeeze .player_fields U{
+	text-decoration: none;
+}
 
 /* @group Player Heading 
 ++++++++++++++++++++++++++++++++++++++ */
@@ -1033,14 +1038,9 @@ TABLE.table_devices TR TD{
 #body_squeeze .pmd_panel_sqz.jsSelected .panel-heading{
 	background: #e2e2e9;
 }
-#body_squeeze .pmd_panel_sqz.jsSelected .player_right,
+#body_squeeze .pmd_panel_sqz.jsSelected .player_fulltitle,
 #body_squeeze .pmd_panel_sqz.jsSelected .player_position{
 	display: none;
-}
-
-.pmd_panel .panel-heading I{
-	opacity: 0.4;
-	margin-right: 4px;
 }
 
 
@@ -1053,27 +1053,19 @@ TABLE.table_devices TR TD{
 }
 
 
-
 #body_squeeze .player_head .player_right{
 	float: right;
 	text-align: right;
 }
 
 #body_squeeze .player_head .player_album{
-	margin-right: 5px;
-	opacity: 0.9;
+	margin-right: 8px;
+	font-style: italic;
+	opacity: 0.65;
 }
-#body_squeeze .player_head .player_album B{
-	font-weight: normal;
-}
-#body_squeeze .player_head .player_album I{
-	font-style: normal;
-	opacity: 1;
-	margin-left: 5px;	
-	margin-right: 0px;	
-}
-#body_squeeze .player_head .player_title{
+#body_squeeze .player_head  .field_title B{
 	font-size: 14px;
+	color: rgba(0,0,0,0.9);
 }
 #body_squeeze .player_head .player_artist{
 	display: block;
@@ -1089,25 +1081,28 @@ TABLE.table_devices TR TD{
 	text-transform: uppercase;
 	/*margin-top: 3px;*/
 }
+
+
 #body_squeeze .player_head .player_links{
 	margin-left: 10px;
 }
 #body_squeeze .player_head .player_links A{
-	margin-left: 5px;
+	margin-left: 10px;
+	opacity: 0.55;
 }
-#body_squeeze .player_head .player_duration{
-	margin-left: 20px;
-	opacity: 0.6;
+#body_squeeze .player_head .player_links A:hover{
+	opacity: 1;
 }
+
 /* @end */
 
 
 /* @group Player LCD
 ++++++++++++++++++++++++++++++++++++++ */
-#body_squeeze .bar_display{
+#body_squeeze .row_lcd{
 	padding-right: 10px;
 }
-#body_squeeze .bar_display_lcd{
+#body_squeeze .lcd_screen{
 	overflow: hidden;
 	padding: 10px 15px;
 	margin-bottom: 20px;
@@ -1117,55 +1112,67 @@ TABLE.table_devices TR TD{
 	font-family: Arial, Helvetica;
 	vertical-align: text-top;
 }
-#body_squeeze .bar_display_lcd .lcd_icons{
+#body_squeeze .lcd_screen .lcd_icons{
 	font-size: 11px;
 	overflow: hidden;
 	margin-bottom: 4px;
 	font-family: Courier, Monaco, mono;
 	position: relative;
+	-webkit-font-smoothing: auto;
 }
-
-#body_squeeze .bar_display_lcd .lcd_icons .lcd_icon{
+#body_squeeze .lcd_screen .player_fields I{
+	vertical-align: text-bottom;
+	font-size: 12px;
+	padding-right: 4px;
+	color: rgba(110,110,110,0.7);
+}
+#body_squeeze .lcd_screen .player_fields{
+	
+}
+#body_squeeze .lcd_screen .lcd_icons .lcd_icon{
 	float: left;
 }
-#body_squeeze .bar_display_lcd .lcd_icons .player_duration{
-	float: left;
-	padding-left: 10px ;
+#body_squeeze .lcd_screen .lcd_icons .field_sep{
+	margin-left: 5px;
 }
-#body_squeeze .bar_display_lcd .lcd_icons .player_remain{
+#body_squeeze .lcd_screen .lcd_icons .field_duration{
+	position: absolute;
+	left: 70px;
+}
+#body_squeeze .lcd_screen .lcd_icons .field_remain{
 	float: left;
  	padding-left: 10px ;
 }
-#body_squeeze .bar_display_lcd .lcd_icons .player_volume{
-	padd ing-left: 50px;
+#body_squeeze .lcd_screen .lcd_icons .field_volume{
 	position: absolute;
-	left: 170px;
+	right: 0;
 }
-#body_squeeze .bar_display_lcd .lcd_icons .player_volume I{
-	padding-right: 7px;
-	font-size: 13px;
-	color: rgba(110,110,110,0.7);
-	vertical-align: middle;
+#body_squeeze .lcd_screen .lcd_icons .field_volume I{
 }
-#body_squeeze .bar_display_lcd .lcd_icons .player_encoder{
-	float: right;
-}
-#body_squeeze .bar_display_lcd .lcd_icons .player_etype{
-	margin-right: 20px;
+#body_squeeze .lcd_screen .lcd_icons .field_filetype{
+	position: absolute;
+	right: 180px;
 	text-transform: uppercase;
 }
-#body_squeeze .bar_display_lcd .lcd_icons .player_erate{
+#body_squeeze .lcd_screen .lcd_icons .player_encoder{
+	display: block;
+	position: absolute;
+	top: 0;
+	right: 50px;
+	width: 100px;
+}
+#body_squeeze .lcd_screen .lcd_icons .field_bitrate{
 	margin-right: 3px;	
 }
-#body_squeeze .bar_display_lcd .lcd_icons .player_erate_unit{
+#body_squeeze .lcd_screen .lcd_icons .field_bitrate_unit{
 	margin-right: 5px;
 	color: rgba(110,110,110,0.7);
 }
-#body_squeeze .bar_display_lcd .lcd_icons .player_erate{
-	margin-right: 3px;	
+#body_squeeze .lcd_screen .lcd_icons .field_bitrate_info{
 }
-#body_squeeze .bar_display_lcd_time .lcd_icons{
-	padding-right: 24px;
+
+#body_squeeze .lcd_screen .lcd_icons{
+	/*padding-right: 24px;*/
 }
 
 /* @end */
@@ -1173,7 +1180,7 @@ TABLE.table_devices TR TD{
 
 /* @group Player LCD Time
 ++++++++++++++++++++++++++++++++++++++ */
-#body_squeeze .bar_display_lcd_time{
+#body_squeeze .lcd_screen .lcd_time{
 	float: left;
     display: inline-block;
 	padding: 0;
@@ -1181,7 +1188,7 @@ TABLE.table_devices TR TD{
     width: 300px;
     /*background: beige;*/
 }
-#body_squeeze .bar_display_lcd_time LI{
+#body_squeeze .lcd_time LI{
 	display: inline-block;
 	margin: 0;
 	padding: 0;
@@ -1191,14 +1198,14 @@ TABLE.table_devices TR TD{
 	font-size: 80px;
 	line-height: 55px;
 }
-#body_squeeze .bar_display_lcd .lcd_num{
+#body_squeeze .lcd_screen .lcd_num{
 	padding: 0;
 	letter-spacing: 4px;
 }
-#body_squeeze .bar_display_lcd .lcd_sep{
+#body_squeeze .lcd_screen .lcd_sep{
 	font-size: 70px;
 }
-#body_squeeze .bar_display_lcd .lcd_ms{
+#body_squeeze .lcd_screen .lcd_ms{
 	font-size: 48px;
 }
 /* @end */
@@ -1206,36 +1213,39 @@ TABLE.table_devices TR TD{
 
 /* @group Player LCD Info
 ++++++++++++++++++++++++++++++++++++++ */
-#body_squeeze .bar_display_lcd_info{
+#body_squeeze .lcd_info{
 	float: left;
 	padding: 0;
 	/*font-family: "lcd";*/	
 	/*background: red;*/
 } 
-#body_squeeze .bar_display_lcd_info .lcd_song{
+#body_squeeze .lcd_info .lcd_song{
 	display: block;
 	font-size: 17px;
 	line-height: 25px;
 	max-width: 360px;
 	/*padding-top: 2px;*/
 }
-#body_squeeze .bar_display_lcd_info .player_song1{
+#body_squeeze .lcd_info .player_song1{
 	display: block;
 }
-#body_squeeze .bar_display_lcd_info .player_song2{
+#body_squeeze .lcd_info .player_song2{
 	display: block;
+}
+#body_squeeze .lcd_info .player_song2 B{
 	font-weight: bold;
 }
-#body_squeeze .bar_display_lcd_info .player_song3{
+
+
+#body_squeeze .lcd_info .player_song3{
 	display: block;
 	font-size: 14px;
 	opacity: 0.8;
 }
-#body_squeeze .bar_display_lcd_info .player_album{
+#body_squeeze .lcd_info .field_album{
 	font-style: italic;	
 }
-#body_squeeze .bar_display_lcd_info .player_song3 B{
-	font-weight: normal;
+#body_squeeze .lcd_info .field_year U{
 	margin-right: 10px;
 }
 

@@ -35,8 +35,9 @@ jQuery( document ).ready(function() {
 			return;
 		}
 		if(v1=='voldown' || v1=='volup'){
-			var id_player=$(this).closest('.jsSqzPlayer');
-			var volume=parseInt(id_player.find('.jsSqzVolume').html());
+			var player=$(this).closest('.jsSqzPlayer');
+			var el_volume=SqzGetElementsHavingDataField(player, 'volume');
+			var volume=parseInt(el_volume.data('value'));
 
 			v2=parseInt(v2);
 			if(v1=='voldown'){
@@ -47,8 +48,9 @@ jQuery( document ).ready(function() {
 				volume=volume + v2;
 				if(volume > 100){volume=100;}
 			}
-			id_player.find('.jsSqzVolume').html(volume);
-			 do_reload=false;
+			//el_volume.data('value',volume);
+			SqzRefreshField(el_volume,{ volume: volume });
+			do_reload=false;
 		}
 		
 		SqzRequestButton(id,type,v1,v2);
@@ -207,6 +209,26 @@ function JqzSelectPlayer(player){
 		player.insertBefore(first_player);
 	}
 }
+/* ----------------------------------------------------------------------------------- */	
+function SqzGetElementsHavingDataField(player,field){
+	return player.find(".jsSqzData[data-field='"+field+"']");
+}
+
+/* ----------------------------------------------------------------------------------- */	
+function SqzGetDataFieldValue(player,field){
+	var elements=SqzGetElementsHavingDataField(player,field);
+	return elements.first().data('value');
+}
+/* ----------------------------------------------------------------------------------- */	
+function SqzSetDataFieldValues(player,field, value, h_value){
+	var elements=SqzGetElementsHavingDataField(player,field);
+	elements.each(function(index){
+		var o={};
+		o[field]		=value;
+		o['h_'+field]	=h_value;
+		SqzRefreshField( $(this), o );
+	});	
+}
 
 
 
@@ -229,6 +251,7 @@ function SqzJsidToPlayerId(jsid){
 	return pid=$('#jsPlayer_'+jsid).find('.jsSqzBut_play').attr('data-id');
 }
 
+
 /* ----------------------------------------------------------------------------------- */	
 function SqzRefreshAllStates(init){
 		var url='?do=ajax&act=state_all';
@@ -245,6 +268,7 @@ function SqzRefreshAllStates(init){
 				}
 				
 				var pid=	$('#jsPlayer_'+player.f_jsid);
+
 				/* --- Refresh button states ---- */
 				pid.find('.jsSqzBut').each(function(){
 					var but			=$(this);
@@ -259,27 +283,15 @@ function SqzRefreshAllStates(init){
 						}
 					});
 				});
+
 				/* -- Refresh Title, current position --*/
 				//pid.find('.player_position').html(player.f_position);
 				if( player.song == undefined || player.song === null){
 					player.song={};
 				}
-				pid.find('.player_artist').html(player.song.f_artist);
-				pid.find('.player_title').html(player.song.f_title);
-				pid.find('.player_album').html(player.song.f_album);
 
-				pid.find('.player_duration').html(player.song.f_duration).attr('rel', player.song.duration);
-				pid.find('.player_etype').html(player.song.f_type);
-				pid.find('.player_erate').html(player.song.f_rate);
-				pid.find('.player_erate_unit').html(player.song.f_rate_unit);
-				pid.find('.player_erate_info').html(player.song.f_rate_info);
-				pid.find('.player_year').html(player.song.f_year);
+				SqzRefreshAllData(pid, player);
 
-				pid.find('.player_link_youtube').attr('href',player.song.f_url_youtube).attr('title', "Youtube : [ "+player.song.f_full_title+" ]");
-				pid.find('.player_link_allmusic').attr('href',player.song.f_url_allmusic).attr('title', "AllMusic : [ "+player.song.f_full_title+" ]");
-				pid.find('.player_link_google').attr('href',player.song.f_url_google).attr('title', "Google : [ "+player.song.f_full_title+" ]");
-				
-				pid.find('.jsSqzVolume').html(player.f_volume);
 				/*
 				if (player.status.remote){
 					pid.find('.player_radio').show();
@@ -295,12 +307,11 @@ function SqzRefreshAllStates(init){
 				pid.find('.jsSqzBut_ff1').attr('data-v1',player.f_ff1);
 				pid.find('.jsSqzBut_ff2').attr('data-v1',player.f_ff2);
 				
-				/* current player*/
-				
+				/* current player ------------- */
 	  			if(jsid == selected_player_jsid){
 	  				var current_info=$('.jsCurrentPlayer .jsCurrentPlayerBody');
-	  				if( player.song.f_url_img !==null && player.song.f_url_img !==undefined && player.song.f_url_img !=''){
-	  					current_info.html("<img src='"+player.song.f_url_img+"' width=100%>");
+	  				if( player.song.f_url_img !==null && player.song.url_img !==undefined && player.song.url_img !=''){
+	  					current_info.html("<img src='"+player.song.url_img+"' width=100%>");
 	  				}
 	  				else{
 	  					current_info.html('');	  					
@@ -312,6 +323,49 @@ function SqzRefreshAllStates(init){
 			//SqzRefreshCounter();
 		});
 }
+/* ----------------------------------------------------------------------------------- */	
+function SqzRefreshAllData(player, data){
+	SqzRefreshData(player, data);
+	SqzRefreshData(player, data.song);
+	SqzRefreshDataLinks(player, data.song.links);
+}
+
+/* ----------------------------------------------------------------------------------- */	
+function SqzRefreshData(player, data){
+	player.find('.jsSqzData').each(function(index){
+		SqzRefreshField( $(this), data );
+	});
+}
+/* ----------------------------------------------------------------------------------- */	
+function SqzRefreshDataLinks(player, data){
+	player.find('.jsSqzData').each(function(index){
+		SqzRefreshField( $(this), data, true );
+	});
+}
+
+/* ----------------------------------------------------------------------------------- */	
+function SqzRefreshField(el, row, is_link){
+	var field = el.data('field');
+	if(field in row){
+		//console.log(el.parent().attr('class') + ', f=' + field + ', v=' + row[field]);
+		if(is_link == true){
+			el.data('value',row[field].href);
+			el.attr('href',	row[field].href);
+			el.attr('title',	row[field].title);
+		}
+		else{
+			el.data('value',row[field]);
+		
+			var html=row[field];
+			var h_field="h_"+field;
+			if( h_field in row ){
+				html=row[h_field];
+			}
+			el.html(html);
+		}
+	}
+}
+
 
 /* ----------------------------------------------------------------------------------- */	
 function SqzRefreshCounter() {
@@ -322,28 +376,37 @@ function SqzRefreshCounter() {
 	last_refresh_date =Date.now();
 	$.each(current_times, function(jsid, ctime) {
 		var pid=$('#jsPlayer_'+jsid);
-		/* skip if not playing */
+
+		/* skip if not playing --------- */
 		if(! pid.find('.jsSqzBut_play').hasClass('on')){
 			return true;
 		}
 
-		/* set counter and display*/
+		/* set counter and display ----- */
 		current_times[jsid] = ctime + (elapsed / 1000);
 		/*	console.log(jsid + ' => ' + ctime + ' + ' + elapsed); */
-		pid.find('.jsCurTime').html(SqzFormatTime(current_times[jsid]) );
+		var this_time = Math.round(current_times[jsid]);
+		SqzSetDataFieldValues(pid, 'time', this_time , SqzFormatTime(this_time) );
+
+		
 		pid.find('.jsLcdMin').html(SqzFormatTimeLcd(current_times[jsid], 'min'));
 		pid.find('.jsLcdSec').html(SqzFormatTimeLcd(current_times[jsid], 'sec'));
 		pid.find('.jsLcdMs').html(SqzFormatTimeLcd(current_times[jsid], 'ms10'));
 		
-		var remain="--:--";
-		var dur = parseInt(pid.find('.player_duration').attr('rel'));
+		/* remaining time ------ */
+		var remain		=0;
+		var h_remain	="--:--";
+		var dur		=	SqzGetDataFieldValue(pid,'duration');
 		if( dur > 0){
-			remain = SqzFormatTime( dur - current_times[jsid]);
+			remain	=dur - current_times[jsid];
+			h_remain = SqzFormatTime( remain );
 		}
-		pid.find('.jsRemain').html(remain);
+		//console.log(dur);
+		//console.log(remain);
+		//pid.find('.jsRemain').html(remain);
+		SqzSetDataFieldValues(pid,'remain',remain, h_remain);
 
-
-		/* process loop */
+		/* process loops --------- */
 		if(loops[jsid]==true && current_times[jsid] >= cues[jsid]['out'] ){
 			var playerid=pid.find('.jsSqzBut_play').attr('data-id');
 			current_times[jsid]=cues[jsid]['in'];
@@ -395,21 +458,15 @@ function SqzFormatTimeLcd(sec_num,mode){
 
 /* ----------------------------------------------------------------------------------- */	
 function SqzFormatTime(sec_num, with_ms){
-	var ms		= Math.round((sec_num - Math.floor(sec_num))*1000);
-	sec_num 	= Math.round(sec_num);
-    var hours   = Math.floor(sec_num / 3600);
-    var minutes = Math.floor((sec_num - (hours * 3600)) / 60);
-    var seconds = sec_num - (hours * 3600) - (minutes * 60);
-
-    if (hours   < 10) {hours   = "0"+hours;}
-    if (minutes < 10) {minutes = "0"+minutes;}
-    if (seconds < 10) {seconds = "0"+seconds;}
-
-    var out = minutes+':'+seconds;
+	var out=SqzFormatTimeLcd(sec_num,'min') +  ':' + SqzFormatTimeLcd(sec_num,'sec');
 	if(with_ms == true){
-		if (ms < 10) 		{ms = "00"+ms;}
-		else if (ms < 100) 	{ms = "0"+ms;}
-		out = out + '.' + ms;
+		out= out +  '.' + SqzFormatTimeLcd(sec_num,'ms')
+	}
+	if( parseInt(sec_num) == 0){
+		out="--:--";
+		if(with_ms == true){
+			out= out +  '.---';
+		}
 	}
     return out;
 }

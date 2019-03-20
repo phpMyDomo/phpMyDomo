@@ -1,16 +1,33 @@
 {* ##################################################################################### *}
+{function MakeButton row='' mode='' title='' v1='' v2='' icon='' type='button' id='' txt='' size=''}
+	{if size}{$size_class=" btn-{$size}"}{/if}
+	{if is_array($row)}{if $row.f_states.$mode}{$my_class=' on'}{/if}{/if}
+	<a href='#' class='jsSqzBut jsSqzBut_{$mode} btn btn-default{$size_class}{$my_class}'  data-mode='{$mode}' data-type='{$type}' data-id='{$id|default:$row.playerid}' title="{$title|default:$l.$mode}" data-v1='{$v1|default:$mode}'  data-v2='{$v2}'>{if $icon !='NO'}<i class='fa fa-fw fa-{$icon|default:$mode}'></i>{/if}{$txt}</a> 
+{/function}
+
+{function MakeField data='' field='' icon='' value='' h_default=''}{strip}
+{if $icon}{$icon="<i class='fa fa-{$icon}'></i>"}{/if}
+{if $value==''}{$value=$data[$field]}{/if}
+<span class="player_fields field_{$field}">{$icon}<b class="jsSqzData" data-field="{$field}" data-value="{$value}">{$data["h_{$field}"]|default:$h_default|default:$value}</b></span>
+{/strip}{/function}
+
+{function MakeLink link='' field=''}{strip}
+<span class="player_fields field_{$field}"><a href="{$link.href}"title="{$link.title}" class="jsSqzData" data-field="{$field}" data-value="{$link.href}"><i class='fa fa-{$link.icon}'></i></a></span>
+{/strip}{/function}
+
+
 {function MakePlayerTitle row=''}
 	<div class="player_right">
 		<span class='player_fulltitle'>
 			<span class='player_album'>
-				{$row.song.f_album}
+				{MakeField data=$row.song field='album'}
 			</span>
 			<span class='player_title'>
-				{$row.song.f_title}
+				{MakeField data=$row.song field='title'}
 			</span> 
 
 			<span class='player_artist'>
-			{$row.song.f_artist}
+				{MakeField data=$row.song field='artist'}
 			</span>
 		</span>
 
@@ -21,23 +38,24 @@
 
 	{if $row.song}
 		<span class="player_links">
+			{foreach from=$row.song.links item=link key=k}
+				{MakeLink link=$link field=$k}
+			{/foreach}
+			<!--
 			<a class="player_link_youtube" href="{$row.song.f_url_youtube}" target='_blank' title="{$l.search} [{$row.song.f_full_title}] {$l.on} YouTube..."><i class='fa fa-youtube'></i></a>
 			<a class="player_link_allmusic" href="{$row.song.f_url_allmusic}" target='_blank' title="{$l.search} [{$row.song.f_full_title}] {$l.on} AllMusic..."><i class='fa fa-database'></i></a>
 			<a class="player_link_google" href="{$row.song.f_url_google}" target='_blank' title="{$l.search} [{$row.song.f_full_title}] {$l.on} Google..."><i class='fa fa-google'></i></a>
+			-->
 		</span>
 	{/if}
-
-		<span class='player_duration'>
-				{$row.song.f_duration}
-		</span> 
 
 	</div>
 
 	<div class="player_left">
 		<span  class='player_name'>
 			<b>
-			{if $row.f_ip}
-				<a href="http://{$row.f_ip}" target="_blank">{$row.name}</a>
+			{if $row.ip}
+				<a href="http://{$row.ip}" target="_blank">{$row.name}</a>
 			{else}
 				{$row.name}
 			{/if}
@@ -45,41 +63,34 @@
 		</span>	
 
 		<span class='player_position'>
-				 <span class='jsCurTime'>{$row.f_time|default:'--:--'}</span>
-			{if $row.song.duration > 0}
-			{/if}
+			{MakeField data=$row field='time' h_default="--:--"}
 		</span>
 	</div>
 {/function}
 
-{function MakeButton row='' mode='' title='' v1='' v2='' icon='' type='button' id='' txt='' size=''}
-	{if size}{$size_class=" btn-{$size}"}{/if}
-	{if is_array($row)}{if $row.f_states.$mode}{$my_class=' on'}{/if}{/if}
-	<a href='#' class='jsSqzBut jsSqzBut_{$mode} btn btn-default{$size_class}{$my_class}'  data-mode='{$mode}' data-type='{$type}' data-id='{$id|default:$row.playerid}' title="{$title|default:$l.$mode}" data-v1='{$v1|default:$mode}'  data-v2='{$v2}'>{if $icon !='NO'}<i class='fa fa-fw fa-{$icon|default:$mode}'></i>{/if}{$txt}</a> 
-{/function}
-
 {function MakePlayer row=''}
-			<div class="bar_display">
+			<div class="row_lcd">
 
-				<div class="bar_display_lcd">
+				<div class="lcd_screen">
 					{strip}
-						<div class='lcd_icons'>
-							<span class='lcd_icon icon_play'><i class='fa fa-play'></i></span>
+					<div class='lcd_icons'>
+						<span class='lcd_icon icon_play'><i class='fa fa-play'></i></span>
 
-							<span class='player_duration'>{$row.song.duration}</span>
-							<span class='player_remain jsRemain'></span>
-							<span class="player_volume"><i class="fa fa-volume-up"></i><b class="jsSqzVolume">{$row.f_volume}</b></span> 
+						<span class='player_duration'>
+							{MakeField data=$row field='remain'}<span class="field_sep">/</span>{MakeField data=$row field='duration'}
+						</span>
+						
+						{MakeField data=$row field='volume' icon='volume-up'}
+						{MakeField data=$row field='filetype'}
 
-							<span class='player_encoder'>
-								<b class='player_etype'>{$row.song.f_filetype}</b>
-								<b class='player_erate'>{$row.song.f_rate}</b>
-								<b class='player_erate_unit'>{$row.song.f_rate_unit}</b>
-								<b class='player_erate_info'>{$row.song.f_rate_info}</b>
-							</span>
-
-						</div>
+						<span class='player_encoder'>
+							{MakeField data=$row field='bitrate'}
+							{MakeField data=$row field='bitrate_unit'}
+							{MakeField data=$row field='bitrate_info'}
+						</span>
+					</div>
 			
-					<div class="bar_display_lcd_time">
+					<div class="lcd_time">
 						<li class="lcd_num lcd_min jsLcdMin">--</li>
 						<li class="lcd_sep jsLcdSep">:</li>
 						<li class="lcd_num lcd_sec jsLcdSec">--</li>
@@ -87,13 +98,13 @@
 						<li class="lcd_num lcd_ms jsLcdMs">--</li>
 					</div>
 
-					<div class="bar_display_lcd_info">
+					<div class="lcd_info">
 						<span class="lcd_song">
-							<span class='player_song1 player_title'>{$row.song.f_title|default:"&nbsp;"}</span> 
-							<span class='player_song2 player_artist'>{$row.song.f_artist|default:"&nbsp;"}</span>
+							<span class='player_song1 player_title'>{MakeField data=$row field='title' h_default="&nbsp;"}</span> 
+							<span class='player_song2 player_artist'>{MakeField data=$row field='artist' h_default="&nbsp;"}</span>
 							<span class='player_song3'>
-								<span class='player_year'>{$row.song.f_year}</span>
-								<span class='player_album'>{$row.f_album|default:"&nbsp;"}</span>
+								<span class='player_year'>{MakeField data=$row field='year'}</span>
+								<span class='player_album'>{MakeField data=$row field='album' h_default="&nbsp;"}</span>
 							</span>
 						</span>
 					</div>
@@ -103,7 +114,7 @@
 			</div>
 
 
-			<div class="bar_transport">
+			<div class="row_transport">
 				<span class="but_player but_player_transport">
 					{MakeButton size='lg' row=$row mode='prev'	v1='rew.single' icon='fast-backward'}
 					{MakeButton size='lg' row=$row mode='play'}
@@ -122,7 +133,7 @@
 			</div>
 
 
-			<div class="bar_studio">
+			<div class="row_studio">
 				<span class="but_player but_player_cue">
 					<div class="btn-group" role="group">
 						{MakeButton size='lg' row=$row mode='cue_in_set'	type='cue'	v1=$row.f_jsid	v2='in'		icon='toggle-down' txt="{$l.set_in}"}
@@ -139,7 +150,7 @@
 			</div>
 
 
-			<div class="bar_settings">
+			<div class="row_settings">
 
 				<span class="but_player but_player_mode">
 					<div class="btn-group" role="group">
@@ -157,7 +168,7 @@
 				<span class="but_player but_player_misc">
 					<span class="but_player_volume">
 						{MakeButton size='' row=$row mode='voldown' v2='1' icon='volume-down'}
-						{MakeButton size='' row=$row mode='mute' v1='muting' icon='volume-off'}
+						{MakeButton size='' row=$row mode='mute' v1='muting' icon='volume-off' txt="<span class='mini'>{$l.repeat_off}</span>"}
 						{MakeButton size='' row=$row mode='volup' v2='1' icon='volume-up'}
 					</span>
 					{MakeButton size='' row=$row mode='power' icon='power-off'}
@@ -183,6 +194,7 @@
 		</div>
 {/foreach}
 </div>
+
 
 {/capture}
 {* 

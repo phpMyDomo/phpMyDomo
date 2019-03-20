@@ -99,7 +99,9 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#2b2d30', end
 }
 
 
-#body_squeeze .bar_display_lcd{
+
+
+#body_squeeze .lcd_screen{
 	background: rgba(0,0,0,0.5);
 	border: 1px solid rgba(255,255,255,0.15);
 	border-color: rgba(255,255,255,0.1) rgba(255,255,255,0.15) rgba(255,255,255,0.15) rgba(255,255,255,0.1);
@@ -117,6 +119,9 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#2b2d30', end
 }*/
 #body_squeeze .pmd_panel_sqz  .panel-body{
 	background-color: rgb(20,20,21);
+}
+#body_squeeze .player_head  .field_title B{
+	color: rgba(255,255,255,0.5);
 }
 #body_squeeze .pmd_panel_sqz.jsSelected .panel-heading{
 	font-weight: normal;

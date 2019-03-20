@@ -72,7 +72,7 @@ class PMD_Page extends PMD_Root_Page{
 	private function _RequestPlayersFull(){
 		$players=$this->_RequestPlayers();
 		foreach($players as $id => $row){
-			$row['status']	= $this->_RequestPlayerSlatus($row['playerid']);
+			$row['status']	= $this->_RequestPlayerSlatus($row['playerid'],5);
 			if($formated = $this->_FormatPlayer($row)){
 				$out[$id]	= $formated;
 			}
@@ -98,9 +98,9 @@ class PMD_Page extends PMD_Root_Page{
 	}
 
 	//----------------------------------------------------------------------------------
-	private function _RequestPlayerSlatus($id){
+	private function _RequestPlayerSlatus($id,$max=1){
 		//$r=$this->_Request(array($id,array('status',0,999)));
-		$r=$this->_Request(array($id,array('status','-',1,"tags:aAbcdeghiJKlLNoqrStuy")));
+		$r=$this->_Request(array($id,array('status','-',$max,"tags:aAbcdeghiIJKlLmNoqrStTuxy")));
 		$out=$r['result'];
 		if(! is_array($out)){
 			$out=array();
@@ -160,9 +160,9 @@ class PMD_Page extends PMD_Root_Page{
 			return FALSE; // hide ghost player
 		}
 		
-		list($out['f_ip'],$out['f_port'])=explode(':',$status['player_ip']);
-		$out['f_mac']		=strtoupper($row['playerid']);
-		$out['f_volume']	=$status['mixer volume'];
+		list($out['ip'],$trash['port'])=explode(':',$status['player_ip']);
+		//$out['mac']		=strtoupper($row['playerid']);
+		$out['volume']		=$status['mixer volume'];
 		$out['f_repeat']	=$status['playlist repeat'];
 		$out['f_mode']		=$status['playlist mode'];
 		$out['f_shuffle']	=$status['playlist shuffle'];
@@ -192,32 +192,44 @@ class PMD_Page extends PMD_Root_Page{
 		if($out['f_shuffle']==1)		$out['f_states']['shuffle_1']=1;
 		if($out['f_shuffle']==2)		$out['f_states']['shuffle_2']=1;
 		if($out['power'])				$out['f_states']['power']	=1;
-		if($out['f_volume'] < 0)		$out['f_states']['mute']	=1;
-		$out['f_volume']=abs($out['f_volume']); 
+		if($out['volume'] < 0)			$out['f_states']['mute']	=1;
+		$out['volume']=abs($out['volume']); 
 
 		//make current song & playlists ---------------------------
 		if(is_array($status['playlist_loop'])){
 			foreach($status['playlist_loop'] as $k => $arr){
-				$arr['f_duration']	=$this->_FormatSeconds($arr['duration']);
-
-				$arr['f_url_img']	='';
-				$arr['coverid']		and $arr['f_url_img']=$this->vars['url_server']."/music/{$arr['coverid']}/cover.png";
-
-				$arr['f_artist']	=$this->_FormatTitle($arr['artist'],0);
-				$arr['f_title']		=$this->_FormatTitle($arr['title']);
-				$arr['f_filetype']	=$arr['type'];
-
-				$arr['year']		and $arr['f_year']		="<b>{$arr['year']}</b>";
-				$arr['album']		and $arr['f_album']		=$this->_FormatTitle($arr['album']);	//  and $arr['f_album']	= '<b>'. $arr['f_album'].'</b>'; // <i>:</i> and $arr['f_album']	= '['. $arr['f_album'].']';
 				
+				$tmp=$arr;
+				$tmp=array();
 
-				list($rate,$info)=explode(' ',$arr['bitrate']);
-				$arr['f_rate']		=trim(preg_replace('#^(\d+).*#','$1',$rate));
-				$arr['f_rate_unit']	=trim(preg_replace('#^'.$arr['f_rate'].'#','',$rate));
-				$arr['f_rate_info']	=trim($info);
+				$tmp['artist']		=$this->_FormatTitle($arr['artist'],0);
+				$tmp['title']		=$this->_FormatTitle($arr['title']);
+				$tmp['album']		=$this->_FormatTitle($arr['album']);	//  and $arr['f_album']	= '<b>'. $arr['f_album'].'</b>'; // <i>:</i> and $arr['f_album']	= '['. $arr['f_album'].']';
+
+				$tmp['filetype']	=$arr['type'];
+
+				$tmp['duration']	=$arr['duration'];
+				$tmp['h_duration']	=$this->_FormatSeconds($arr['duration']);
+
+				$tmp['time']	=$arr['time'];
+				$tmp['h_time']	=$this->_FormatSeconds($arr['time']);
+
+				$tmp['year']	=$arr['year'];
+				$tmp['year']	and $tmp['h_year']	="<u>{$tmp['year']}</u>";
+
+
+				$tmp['url_img']	='';
+				$arr['coverid']		and $tmp['url_img']=$this->vars['url_server']."/music/{$arr['coverid']}/cover.png";
+
+
+				list($rate,$info)		=explode(' ',$arr['bitrate']);
+				$tmp['bitrate']			=trim(preg_replace('#^(\d+).*#','$1',$rate));
+				$tmp['bitrate_unit']	=trim(preg_replace('#^'.$tmp['bitrate'].'#','',$rate));
+				$tmp['bitrate_info']	=trim($info);
+
 
 				if($status['remote']){ //this is a radio
-					$arr['artwork_url']	and $arr['f_url_img']	=$arr['artwork_url'];
+					$arr['artwork_url']	and $tmp['url_img']	=$arr['artwork_url'];
 					
 					//fix bad formatted radio
 					$radio_name=$status['current_title'];
@@ -225,27 +237,37 @@ class PMD_Page extends PMD_Root_Page{
 					if($perc >= 70){
 						list($artist,$title)=explode(' - ',$arr['title']);
 						if(trim($title)){
-							$arr['f_artist']	=$this->_FormatTitle($artist,0); //. " ($perc)";
-							$arr['f_title']		=$this->_FormatTitle($title);
+							$tmp['artist']	=$this->_FormatTitle($artist,0); //. " ($perc)";
+							$tmp['title']	=$this->_FormatTitle($title);
 						}
 					}
+				}
+				
+
+				if( $search_title 	=$this->_makeSongFullTitle($arr)){
+
+					$links['url_youtube']['title']		='YouTube';
+					$links['url_youtube']['icon']		='youtube';
+					$links['url_youtube']['href']		='https://www.youtube.com/results?search_query='.urlencode($search_title);
+
+					$links['url_allmusic']['title']		='AllMusic';
+					$links['url_allmusic']['icon']		='database';
+					$links['url_allmusic']['href']		='http://www.allmusic.com/search/songs/'.urlencode($search_title);
+
+					$links['url_google']['title']		='Google';
+					$links['url_google']['icon']		='google';
+					$links['url_google']['href']		='https://www.google.com/search?q='.urlencode($search_title);
 					
+					if($k==0){	//only first song links
+						$tmp['links']=$links;
+					}
 				}
-				
-				
-				if( $arr['f_full_title'] 	=$this->_makeSongFullTitle($arr)){
-					$arr['f_url_youtube']	='https://www.youtube.com/results?search_query='.urlencode($arr['f_full_title']);
-					$arr['f_url_allmusic']	='http://www.allmusic.com/search/songs/'.urlencode($arr['f_full_title']);
-					$arr['f_url_google']	='https://www.google.com/search?q='.urlencode($arr['f_full_title']);
-				}
-				
 				
 				//store it
-				$out['playlists'][$k]=$arr;
-				//$out['playlists'][$k]['raw']=$arr
+				$out['playlist'][$k]=$tmp;
 			}
 			
-			$out['song']		=$out['playlists'][0];
+			$out['song']		=$out['playlist'][0];
 		}
 
 		
@@ -254,14 +276,13 @@ class PMD_Page extends PMD_Root_Page{
 			$out['f_rw1'] = max(floatval($status['time']) - $this->vars['scroll_time1'], 0);
 			$out['f_ff1'] = min(floatval($status['time']) + $this->vars['scroll_time1'], floatval($out['song']['duration']) );
 			
-			$row['f_rw2'] = max(floatval($status['time']) - $this->vars['scroll_time2'], 0);
+			$out['f_rw2'] = max(floatval($status['time']) - $this->vars['scroll_time2'], 0);
 			$out['f_ff2'] = min(floatval($status['time']) + $this->vars['scroll_time2'], floatval($out['song']['duration']) );
 		}
-		
 
 		//$row['remoteMeta']['f_duration']=$this->_FormatSeconds($row['remoteMeta']['duration']);
-		$out['raw']=$row;
-		//$out=array_merge($row,$out);
+
+		//$out['raw']		=$row;
 		return $out;
 	}
 
@@ -275,8 +296,8 @@ class PMD_Page extends PMD_Root_Page{
 	}
 	//----------------------------------------------------------------------------------
 	private function _makeSongFullTitle($metas) {
-		$metas['f_artist'] and $full_title .="{$metas['f_artist']} - ";
-		$full_title .="{$metas['f_title']}";
+		$metas['artist'] and $full_title .="{$metas['artist']} - ";
+		$full_title .="{$metas['title']}";
 		return $full_title;
 	}
 
