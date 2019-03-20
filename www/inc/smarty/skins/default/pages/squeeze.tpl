@@ -1,17 +1,16 @@
 {* ##################################################################################### *}
 {function MakePlayerTitle row=''}
 	<div class="player_right">
-	{$my_item=$row.status.playlist_loop.{$row.status.playlist_cur_index}}
 		<span class='player_fulltitle'>
 			<span class='player_album'>
-				{$my_item.f_album}
+				{$row.song.f_album}
 			</span>
 			<span class='player_title'>
-				{$my_item.f_title}
+				{$row.song.f_title}
 			</span> 
 
 			<span class='player_artist'>
-			{$my_item.f_artist}
+			{$row.song.f_artist}
 			</span>
 		</span>
 
@@ -20,16 +19,16 @@
 			<span class='player_radio_name'>{$row.status.current_title}</span>
 		</span>
 
-	{if $row.f_playing}
+	{if $row.song}
 		<span class="player_links">
-			<a class="player_link_youtube" href="{$row.f_playing.f_url_youtube}" target='_blank' title="{$l.search} [{$row.f_playing.f_full_title}] {$l.on} YouTube..."><i class='fa fa-youtube'></i></a>
-			<a class="player_link_allmusic" href="{$row.f_playing.f_url_allmusic}" target='_blank' title="{$l.search} [{$row.f_playing.f_full_title}] {$l.on} AllMusic..."><i class='fa fa-database'></i></a>
-			<a class="player_link_google" href="{$row.f_playing.f_url_google}" target='_blank' title="{$l.search} [{$row.f_playing.f_full_title}] {$l.on} Google..."><i class='fa fa-google'></i></a>
+			<a class="player_link_youtube" href="{$row.song.f_url_youtube}" target='_blank' title="{$l.search} [{$row.song.f_full_title}] {$l.on} YouTube..."><i class='fa fa-youtube'></i></a>
+			<a class="player_link_allmusic" href="{$row.song.f_url_allmusic}" target='_blank' title="{$l.search} [{$row.song.f_full_title}] {$l.on} AllMusic..."><i class='fa fa-database'></i></a>
+			<a class="player_link_google" href="{$row.song.f_url_google}" target='_blank' title="{$l.search} [{$row.song.f_full_title}] {$l.on} Google..."><i class='fa fa-google'></i></a>
 		</span>
 	{/if}
 
 		<span class='player_duration'>
-				{$row.f_playing.f_duration}
+				{$row.song.f_duration}
 		</span> 
 
 	</div>
@@ -47,7 +46,7 @@
 
 		<span class='player_position'>
 				 <span class='jsCurTime'>{$row.f_time|default:'--:--'}</span>
-			{if $my_item.duration > 0}
+			{if $row.song.duration > 0}
 			{/if}
 		</span>
 	</div>
@@ -67,15 +66,15 @@
 						<div class='lcd_icons'>
 							<span class='lcd_icon icon_play'><i class='fa fa-play'></i></span>
 
-							<span class='player_duration'>{$row.f_playing.duration}</span>
+							<span class='player_duration'>{$row.song.duration}</span>
 							<span class='player_remain jsRemain'></span>
 							<span class="player_volume"><i class="fa fa-volume-up"></i><b class="jsSqzVolume">{$row.f_volume}</b></span> 
 
 							<span class='player_encoder'>
-								<b class='player_etype'>{$row.f_playing.f_filetype}</b>
-								<b class='player_erate'>{$row.f_playing.f_rate}</b>
-								<b class='player_erate_unit'>{$row.f_playing.f_rate_unit}</b>
-								<b class='player_erate_info'>{$row.f_playing.f_rate_info}</b>
+								<b class='player_etype'>{$row.song.f_filetype}</b>
+								<b class='player_erate'>{$row.song.f_rate}</b>
+								<b class='player_erate_unit'>{$row.song.f_rate_unit}</b>
+								<b class='player_erate_info'>{$row.song.f_rate_info}</b>
 							</span>
 
 						</div>
@@ -90,10 +89,10 @@
 
 					<div class="bar_display_lcd_info">
 						<span class="lcd_song">
-							<span class='player_song1 player_title'>{$row.f_playing.f_title|default:"&nbsp;"}</span> 
-							<span class='player_song2 player_artist'>{$row.f_playing.f_artist|default:"&nbsp;"}</span>
+							<span class='player_song1 player_title'>{$row.song.f_title|default:"&nbsp;"}</span> 
+							<span class='player_song2 player_artist'>{$row.song.f_artist|default:"&nbsp;"}</span>
 							<span class='player_song3'>
-								<span class='player_year'>{$row.f_playing.f_year}</span>
+								<span class='player_year'>{$row.song.f_year}</span>
 								<span class='player_album'>{$row.f_album|default:"&nbsp;"}</span>
 							</span>
 						</span>

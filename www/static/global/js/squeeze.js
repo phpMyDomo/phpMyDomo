@@ -238,11 +238,12 @@ function SqzRefreshAllStates(init){
 
 			$.each(data, function(player_id, player){
 				var jsid =player.f_jsid;
-				current_times[jsid]=player.status.time;
+				current_times[jsid]=player.time;
 				if(init == true){
 					cues[jsid]={in:0,out:0};
 					loops[jsid]=false;
 				}
+				
 				var pid=	$('#jsPlayer_'+player.f_jsid);
 				/* --- Refresh button states ---- */
 				pid.find('.jsSqzBut').each(function(){
@@ -260,25 +261,26 @@ function SqzRefreshAllStates(init){
 				});
 				/* -- Refresh Title, current position --*/
 				//pid.find('.player_position').html(player.f_position);
-				if( player.f_playing == undefined || player.f_playing === null){
-					player.f_playing={};
+				if( player.song == undefined || player.song === null){
+					player.song={};
 				}
-				pid.find('.player_artist').html(player.f_playing.f_artist);
-				pid.find('.player_title').html(player.f_playing.f_title);
-				pid.find('.player_album').html(player.f_playing.f_album);
+				pid.find('.player_artist').html(player.song.f_artist);
+				pid.find('.player_title').html(player.song.f_title);
+				pid.find('.player_album').html(player.song.f_album);
 
-				pid.find('.player_duration').html(player.f_playing.f_duration).attr('rel', player.f_playing.duration);
-				pid.find('.player_etype').html(player.f_playing.f_type);
-				pid.find('.player_erate').html(player.f_playing.f_rate);
-				pid.find('.player_erate_unit').html(player.f_playing.f_rate_unit);
-				pid.find('.player_erate_info').html(player.f_playing.f_rate_info);
-				pid.find('.player_year').html(player.f_playing.f_year);
+				pid.find('.player_duration').html(player.song.f_duration).attr('rel', player.song.duration);
+				pid.find('.player_etype').html(player.song.f_type);
+				pid.find('.player_erate').html(player.song.f_rate);
+				pid.find('.player_erate_unit').html(player.song.f_rate_unit);
+				pid.find('.player_erate_info').html(player.song.f_rate_info);
+				pid.find('.player_year').html(player.song.f_year);
 
-				pid.find('.player_link_youtube').attr('href',player.f_playing.f_url_youtube).attr('title', "Youtube : [ "+player.f_playing.f_full_title+" ]");
-				pid.find('.player_link_allmusic').attr('href',player.f_playing.f_url_allmusic).attr('title', "AllMusic : [ "+player.f_playing.f_full_title+" ]");
-				pid.find('.player_link_google').attr('href',player.f_playing.f_url_google).attr('title', "Google : [ "+player.f_playing.f_full_title+" ]");
+				pid.find('.player_link_youtube').attr('href',player.song.f_url_youtube).attr('title', "Youtube : [ "+player.song.f_full_title+" ]");
+				pid.find('.player_link_allmusic').attr('href',player.song.f_url_allmusic).attr('title', "AllMusic : [ "+player.song.f_full_title+" ]");
+				pid.find('.player_link_google').attr('href',player.song.f_url_google).attr('title', "Google : [ "+player.song.f_full_title+" ]");
 				
 				pid.find('.jsSqzVolume').html(player.f_volume);
+				/*
 				if (player.status.remote){
 					pid.find('.player_radio').show();
 					pid.find('.player_radio_name').html(player.status.current_title);
@@ -287,6 +289,7 @@ function SqzRefreshAllStates(init){
 				else{
 					pid.find('.player_radio').hide();						
 				}
+				*/
 				pid.find('.jsSqzBut_rw1').attr('data-v1',player.f_rw1);
 				pid.find('.jsSqzBut_rw2').attr('data-v1',player.f_rw2);
 				pid.find('.jsSqzBut_ff1').attr('data-v1',player.f_ff1);
@@ -296,8 +299,8 @@ function SqzRefreshAllStates(init){
 				
 	  			if(jsid == selected_player_jsid){
 	  				var current_info=$('.jsCurrentPlayer .jsCurrentPlayerBody');
-	  				if( player.f_playing.f_url_img !==null && player.f_playing.f_url_img !==undefined && player.f_playing.f_url_img !=''){
-	  					current_info.html("<img src='"+player.f_playing.f_url_img+"' width=100%>");
+	  				if( player.song.f_url_img !==null && player.song.f_url_img !==undefined && player.song.f_url_img !=''){
+	  					current_info.html("<img src='"+player.song.f_url_img+"' width=100%>");
 	  				}
 	  				else{
 	  					current_info.html('');	  					
