@@ -61,7 +61,6 @@ class PMD_Page extends PMD_Root_Page{
 			foreach($arr as $a){
 				$id=$a['playerid'];
 				$out[$id]=$a;
-				$out[$id]['f_jsid']=strtolower(str_replace(':','',$a['playerid']));
 				//echo "{$a['name']}	{$a['ip']}	{$a['playerid']}\n";
 			}
 		}
@@ -74,7 +73,9 @@ class PMD_Page extends PMD_Root_Page{
 		$players=$this->_RequestPlayers();
 		foreach($players as $id => $row){
 			$row['status']	= $this->_RequestPlayerSlatus($row['playerid']);
-			$out[$id]		=$this->_FormatPlayer($row);
+			if($formated = $this->_FormatPlayer($row)){
+				$out[$id]	= $formated;
+			}
 		}
 		return $out;
 	}
@@ -124,7 +125,7 @@ class PMD_Page extends PMD_Root_Page{
 			else{ // button, playlist, time
 				$id=$_GET['id'];
 				$v1=$_GET['v1'];
-				$v2=$_GET['v2'] or $v2='';
+				$v2=$_GET['v2'];
 				if($v1=='undefined'){$v1='';}
 				if($v2=='undefined'){$v2='';}
 				if($id=="ALL"){
@@ -145,7 +146,56 @@ class PMD_Page extends PMD_Root_Page{
 
 	//----------------------------------------------------------------------------------
 	private function _FormatPlayer($row) {
+
+		$out['playerid']	=$row['playerid'];
+		$out['name']		=$row['name'];
+		$out['f_jsid']		=strtolower(str_replace(':','',$row['playerid']));
+		
 		$status=$row['status'];
+		$out['time']		=$status['time'];		
+		$out['f_time']		=$this->_FormatSeconds($status['time']);
+		
+		$out['firmware']		=$row['firmware'];
+		if(!$row['firmware']){
+			return FALSE; // hide ghost player
+		}
+		
+		list($out['f_ip'],$out['f_port'])=explode(':',$status['player_ip']);
+		$out['f_mac']		=strtoupper($row['playerid']);
+		$out['f_volume']	=$status['mixer volume'];
+		$out['f_repeat']	=$status['playlist repeat'];
+		$out['f_mode']		=$status['playlist mode'];
+		$out['f_shuffle']	=$status['playlist shuffle'];
+		
+
+		/*
+		if($status['time'] and $row['song']['duration']){
+			$out['f_position']="( <span class='jsCurTime'>{$row['f_time']}</span> / {$row['song']['f_duration']} )";
+		}
+		elseif($row['song']['duration']){
+			$out['f_position']="( {$row['song']['f_duration']} )";
+		}
+		*/
+		
+		
+		
+		//buttons state
+		if($status['mode'] =='play')	$out['f_states']['play']	=1;
+		if($status['mode'] =='stop')	$out['f_states']['stop']	=1;
+		if($status['mode'] =='pause')	$out['f_states']['pause']	=1;
+		
+		if(!$out['f_repeat'])			$out['f_states']['repeat_0']=1;
+		if($out['f_repeat']==1)			$out['f_states']['repeat_1']=1;
+		if($out['f_repeat']==2)			$out['f_states']['repeat_2']=1;
+		
+		if(!$out['f_shuffle'])			$out['f_states']['shuffle_0']=1;
+		if($out['f_shuffle']==1)		$out['f_states']['shuffle_1']=1;
+		if($out['f_shuffle']==2)		$out['f_states']['shuffle_2']=1;
+		if($out['power'])				$out['f_states']['power']	=1;
+		if($out['f_volume'] < 0)		$out['f_states']['mute']	=1;
+		$out['f_volume']=abs($out['f_volume']); 
+
+		//make current song & playlists ---------------------------
 		if(is_array($status['playlist_loop'])){
 			foreach($status['playlist_loop'] as $k => $arr){
 				$arr['f_duration']	=$this->_FormatSeconds($arr['duration']);
@@ -188,57 +238,31 @@ class PMD_Page extends PMD_Root_Page{
 					$arr['f_url_allmusic']	='http://www.allmusic.com/search/songs/'.urlencode($arr['f_full_title']);
 					$arr['f_url_google']	='https://www.google.com/search?q='.urlencode($arr['f_full_title']);
 				}
+				
+				
 				//store it
-				$row['status']['playlist_loop'][$k]=$arr;
+				$out['playlists'][$k]=$arr;
+				//$out['playlists'][$k]['raw']=$arr
 			}
-			//$row['f_playing']=$row['status']['playlist_loop'][$status['playlist_cur_index']];
-			$row['f_playing']=$row['status']['playlist_loop'][0];
+			
+			$out['song']		=$out['playlists'][0];
 		}
-		list($row['f_ip'],$row['f_port'])=explode(':',$status['player_ip']);
-		$row['f_mac']		=strtoupper($row['playerid']);
-		$row['f_volume']	=$status['mixer volume'];
-		$row['f_repeat']	=$status['playlist repeat'];
-		$row['f_mode']		=$status['playlist mode'];
-		$row['f_shuffle']	=$status['playlist shuffle'];
-		
-		$row['f_time']	=$this->_FormatSeconds($status['time']);
-		/*
-		if($status['time'] and $row['f_playing']['duration']){
-			$row['f_position']="( <span class='jsCurTime'>{$row['f_time']}</span> / {$row['f_playing']['f_duration']} )";
-		}
-		elseif($row['f_playing']['duration']){
-			$row['f_position']="( {$row['f_playing']['f_duration']} )";
-		}
-		*/
-		
-		
+
 		
 		//make rew & ff
 		if($status['time']){
-			$row['f_rw1'] = max(floatval($status['time']) - $this->vars['scroll_time1'], 0);
-			$row['f_ff1'] = min(floatval($status['time']) + $this->vars['scroll_time1'], floatval($row['f_playing']['duration']) );
+			$out['f_rw1'] = max(floatval($status['time']) - $this->vars['scroll_time1'], 0);
+			$out['f_ff1'] = min(floatval($status['time']) + $this->vars['scroll_time1'], floatval($out['song']['duration']) );
 			
 			$row['f_rw2'] = max(floatval($status['time']) - $this->vars['scroll_time2'], 0);
-			$row['f_ff2'] = min(floatval($status['time']) + $this->vars['scroll_time2'], floatval($row['f_playing']['duration']) );
+			$out['f_ff2'] = min(floatval($status['time']) + $this->vars['scroll_time2'], floatval($out['song']['duration']) );
 		}
 		
-		
-		//buttons state
-		if($status['mode'] =='play')	$row['f_states']['play']	=1;
-		if($status['mode'] =='stop')	$row['f_states']['stop']	=1;
-		if($status['mode'] =='pause')	$row['f_states']['pause']	=1;
-		if(!$row['f_repeat'])			$row['f_states']['repeat_0']=1;
-		if($row['f_repeat']==1)			$row['f_states']['repeat_1']=1;
-		if($row['f_repeat']==2)			$row['f_states']['repeat_2']=1;
-		if(!$row['f_shuffle'])			$row['f_states']['shuffle_0']=1;
-		if($row['f_shuffle']==1)		$row['f_states']['shuffle_1']=1;
-		if($row['f_shuffle']==2)		$row['f_states']['shuffle_2']=1;
-		if($row['power'])				$row['f_states']['power']	=1;
-		if($row['f_volume'] < 0)		$row['f_states']['mute']	=1;
-		$row['f_volume']=abs($row['f_volume']); 
 
 		//$row['remoteMeta']['f_duration']=$this->_FormatSeconds($row['remoteMeta']['duration']);
-		return $row;
+		$out['raw']=$row;
+		//$out=array_merge($row,$out);
+		return $out;
 	}
 
 	//----------------------------------------------------------------------------------
