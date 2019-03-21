@@ -1177,11 +1177,11 @@ TABLE.table_devices TR TD{
 }
 #body_squeeze .lcd_screen .lcd_icons .field_bpm{
 	position: absolute;
-	right: 205px;
+	right: 215px;
 }
 #body_squeeze .lcd_screen .lcd_icons .field_filetype{
 	position: absolute;
-	right: 150px;
+	right: 145px;
 	text-transform: uppercase;
 }
 #body_squeeze .lcd_screen .lcd_icons .player_encoder{
