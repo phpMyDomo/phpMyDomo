@@ -203,26 +203,20 @@ class PMD_Page extends PMD_Root_Page{
 				$tmp['title']		=$this->_FormatTitle($arr['title']);
 				$tmp['album']		=$this->_FormatTitle($arr['album']);	//  and $arr['f_album']	= '<b>'. $arr['f_album'].'</b>'; // <i>:</i> and $arr['f_album']	= '['. $arr['f_album'].']';
 
-				$tmp['filetype']	=$arr['type'];
 
 				$tmp['duration']	=$arr['duration'];
 				$tmp['h_duration']	=$this->_FormatSeconds($arr['duration']);
 
-				$tmp['time']	=$arr['time'];
-				$tmp['h_time']	=$this->_FormatSeconds($arr['time']);
+				//$tmp['time']	=$arr['time'];
+				//$tmp['h_time']	=$this->_FormatSeconds($arr['time']);
 
 				$tmp['year']	=$arr['year'];
 				$tmp['year']	and $tmp['h_year']	="<u>{$tmp['year']}</u>";
 
+				$tmp['bpm']		=$arr['bpm'];
 
 				$tmp['url_img']	='';
 				$arr['coverid']		and $tmp['url_img']=$this->vars['url_server']."/music/{$arr['coverid']}/cover.png";
-
-
-				list($rate,$info)		=explode(' ',$arr['bitrate']);
-				$tmp['bitrate']			=trim(preg_replace('#^(\d+).*#','$1',$rate));
-				$tmp['bitrate_unit']	=trim(preg_replace('#^'.$tmp['bitrate'].'#','',$rate));
-				$tmp['bitrate_info']	=trim($info);
 
 
 				if($status['remote']){ //this is a radio
@@ -240,34 +234,41 @@ class PMD_Page extends PMD_Root_Page{
 					}
 				}
 				
+				
+				if($k==0){	//only first song
+					list($rate,$info)		=explode(' ',$arr['bitrate']);
+					$tmp['bitrate']		=trim(preg_replace('#^(\d+).*#','$1',$rate));
+					$tmp['bitrate_unit']	=trim(preg_replace('#^'.$tmp['bitrate'].'#','',$rate));
+					$tmp['bitrate_info']	=trim($info);
 
-				if( $search_title 	=$this->_makeSongFullTitle($arr)){
-
-					$links['url_youtube']['title']		='YouTube';
-					$links['url_youtube']['icon']		='youtube';
-					$links['url_youtube']['href']		='https://www.youtube.com/results?search_query='.urlencode($search_title);
-
-					$links['url_allmusic']['title']		='AllMusic';
-					$links['url_allmusic']['icon']		='database';
-					$links['url_allmusic']['href']		='http://www.allmusic.com/search/songs/'.urlencode($search_title);
-
-					$links['url_google']['title']		='Google';
-					$links['url_google']['icon']		='google';
-					$links['url_google']['href']		='https://www.google.com/search?q='.urlencode($search_title);
+					$tmp['filetype']		=$arr['type'];
 					
-					if($k==0){	//only first song links
-						$tmp['links']=$links;
-					}
+					if( $search_title 	=$this->_makeSongFullTitle($arr)){
+
+						$links['url_youtube']['title']		='YouTube';
+						$links['url_youtube']['icon']		='youtube';
+						$links['url_youtube']['href']		='https://www.youtube.com/results?search_query='.urlencode($search_title);
+
+						$links['url_allmusic']['title']		='AllMusic';
+						$links['url_allmusic']['icon']		='database';
+						$links['url_allmusic']['href']		='http://www.allmusic.com/search/songs/'.urlencode($search_title);
+
+						$links['url_google']['title']		='Google';
+						$links['url_google']['icon']		='google';
+						$links['url_google']['href']		='https://www.google.com/search?q='.urlencode($search_title);					
+					}					
+					$out['song'] 	= $tmp;
+					$out['song']['links']=$links;
 				}
 				
 				//store it
 				$out['playlist'][$k]=$tmp;
+				
 			}
 			
-			$out['song']		=$out['playlist'][0];
 		}
 
-		
+
 		//make rew & ff
 		if($status['time']){
 			$out['f_rw1'] = max(floatval($status['time']) - $this->vars['scroll_time1'], 0);
