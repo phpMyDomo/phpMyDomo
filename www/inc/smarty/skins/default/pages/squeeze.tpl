@@ -12,12 +12,12 @@
 <span class="player_fields field_{$field}">{$icon}<b class="jsSqzData" data-type="field" data-field="{$field}" data-value="{$value}" data-post="{$post}">{$data["h_{$field}"]|default:$h_default|default:$value}{$h_post}</b></span>
 {/strip}{/function}
 
-{function MakeLink link='' field=''}{strip}
-<span class="player_fields field_{$field}"><a href="{$link.href}" title="{$link.title}" class="jsSqzData" data-type="link" data-field="{$field}" data-value="{$link.href}"><i class='fa fa-{$link.icon}'></i></a></span>
+{function MakeLink link='' field='' blank=1}{strip}
+<span class="player_fields field_{$field}"><a href="{$link.href}" title="{$link.title}"{if $blank} target="_blank"{/if} class="jsSqzData" data-type="link" data-field="{$field}" data-value="{$link.href}"><i class='fa fa-{$link.icon}'></i></a></span>
 {/strip}{/function}
 
-{function MakeIcon data='' field=''}{strip}
-<span class="player_fields field_{$field}"><b class="jsSqzData" data-type="icon" data-field="{$field}" data-value="{$data[$field]}" data-icons='{$data.json_icons}'><i class='fa fa-refresh'></i></b></span>
+{function MakeIcon data='' field='' icons=""}{strip}
+<span class="player_fields field_{$field}"><b class="jsSqzData" data-type="icon" data-field="{$field}" data-value="{$data[$field]}" data-icons='{$icons|default:$data.json_icons}'><i class='fa fa-refresh'></i></b></span>
 {/strip}{/function}
 
 {function MakePlayerTitle row=''}
@@ -78,19 +78,29 @@
 					{strip}
 					
 					<div class='lcd_icons'>
+						<div class='lcd_icons_left'>
+							<span class='player_duration'>
+								{MakeField data=$row field='duration' icon='clock-o'}
+							</span>
+							<span class='player_remain'>
+								{MakeIcon data=$row field='remain_icon' icons='["hourglass-1","hourglass-2","hourglass-3","hourglass-o"]'}{MakeField data=$row field='remain'}
+							</span>
 
-						<span class='player_duration'>
-							{MakeField data=$row field='remain' post='/'}{MakeField data=$row field='duration'}
-						</span>
+						</div>
+						<div class='lcd_icons_right'>
 						
-						{MakeField data=$row field='volume' icon='volume-up'}
-						{MakeField data=$row field='filetype'}
+							{MakeField data=$row field='bpm' icon='heartbeat'}
+							{MakeField data=$row field='filetype'  icon='file-o'}
 
-						<span class='player_encoder'>
-							{MakeField data=$row field='bitrate'}
-							{MakeField data=$row field='bitrate_unit'}
-							{MakeField data=$row field='bitrate_info'}
-						</span>
+							<span class='player_encoder'>
+								{MakeField data=$row field='bitrate'}
+								{MakeField data=$row field='bitrate_unit'}
+								{MakeField data=$row field='bitrate_info'}
+							</span>
+
+							{MakeField data=$row field='volume' icon='volume-up'}
+
+						</div>
 					</div>
 			
 					<div class="lcd_time">

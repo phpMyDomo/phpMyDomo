@@ -1016,10 +1016,17 @@ TABLE.table_devices TR TD{
 	display: none;
 }
 #body_squeeze .pmd_panel_sqz.jsSelected{
+	margin-bottom: 50px;
 	/*border: 1px solid rgba(0,0,0,0.3);*/
 }
 #body_squeeze .pmd_panel_sqz.jsSelected .panel-heading{
 	/*border-bottom: 1px solid rgba(0,0,0,0.3);*/
+}
+#body_squeeze .pmd_panel_sqz.jsSelected .panel-heading .player_links {
+	font-size: 17px;
+}
+#body_squeeze .player_fields{
+	white-space: nowrap;
 }
 #body_squeeze .player_fields B{
 	font-weight: normal;
@@ -1112,7 +1119,7 @@ TABLE.table_devices TR TD{
 /* @group Player LCD
 ++++++++++++++++++++++++++++++++++++++ */
 #body_squeeze .row_lcd{
-	padding-right: 10px;
+	padding-right: 0px;
 }
 #body_squeeze .lcd_screen{
 	overflow: hidden;
@@ -1125,12 +1132,22 @@ TABLE.table_devices TR TD{
 	vertical-align: text-top;
 }
 #body_squeeze .lcd_screen .lcd_icons{
-	position: relative;
-	height: 19px;
 	overflow: hidden;
 	font-size: 11px;
 	font-family: Courier, Monaco, mono;
 	-webkit-font-smoothing: auto;
+}
+#body_squeeze .lcd_screen .lcd_icons_left{
+	position: relative;
+	float: left;
+	height: 19px;
+	width: 120px;
+}
+#body_squeeze .lcd_screen .lcd_icons_right{
+	position: relative;
+	float: right;
+	height: 19px;
+	width: 250px;
 }
 #body_squeeze .lcd_screen .player_fields I{
 	vertical-align: text-bottom;
@@ -1138,42 +1155,43 @@ TABLE.table_devices TR TD{
 	padding-right: 4px;
 	color: rgba(110,110,110,0.7);
 }
+#body_squeeze .lcd_screen .player_fields.off I{
+	color: rgba(110,110,110,0.3);
+}
 #body_squeeze .lcd_screen .player_fields{
 	
-}
-#body_squeeze .lcd_screen .lcd_icons .lcd_icon{
-	float: left;
 }
 #body_squeeze .lcd_screen .lcd_icons .player_duration{
 	display: inline-block;
 }
-#body_squeeze .lcd_screen .lcd_icons .field_remain{
-	float: left;
+#body_squeeze .lcd_screen .lcd_icons .field_duration{
+}
+#body_squeeze .lcd_screen .lcd_icons .player_remain{
+	position: absolute;
+	left: 60px;
+}
+#body_squeeze .lcd_screen .lcd_icons .field_remain_icon{
 }
 #body_squeeze .lcd_screen .lcd_icons .field_remain U{
 	margin-left: 6px;
 }
-#body_squeeze .lcd_screen .lcd_icons .field_duration{
+#body_squeeze .lcd_screen .lcd_icons .field_bpm{
 	position: absolute;
-	left: 52px;
-}
-#body_squeeze .lcd_screen .lcd_icons .field_volume{
-	position: absolute;
-	right: 0;
-}
-#body_squeeze .lcd_screen .lcd_icons .field_volume I{
+	right: 205px;
 }
 #body_squeeze .lcd_screen .lcd_icons .field_filetype{
 	position: absolute;
-	right: 180px;
+	right: 150px;
 	text-transform: uppercase;
 }
 #body_squeeze .lcd_screen .lcd_icons .player_encoder{
 	display: block;
 	position: absolute;
 	top: 0;
-	right: 50px;
-	width: 100px;
+	right: 55px;
+	width: 90px;
+	text-align: right;
+	/*background-color: rgba(110,110,110,0.2);*/
 }
 #body_squeeze .lcd_screen .lcd_icons .field_bitrate{
 	margin-right: 3px;	
@@ -1183,6 +1201,12 @@ TABLE.table_devices TR TD{
 	color: rgba(110,110,110,0.7);
 }
 #body_squeeze .lcd_screen .lcd_icons .field_bitrate_info{
+}
+#body_squeeze .lcd_screen .lcd_icons .field_volume{
+	position: absolute;
+	right: 0;
+}
+#body_squeeze .lcd_screen .lcd_icons .field_volume I{
 }
 
 #body_squeeze .lcd_screen .lcd_icons{
@@ -1294,7 +1318,7 @@ TABLE.table_devices TR TD{
 /* @group Current Block
 ++++++++++++++++++++++++++++++++++++++ */
 #body_squeeze #block_sqz_current .panel-body-full {
-	padding: 6px;
+	padding: 0px;
 	min-height: 211px;
 }
 
