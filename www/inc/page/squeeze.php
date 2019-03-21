@@ -167,14 +167,6 @@ class PMD_Page extends PMD_Root_Page{
 		$out['f_repeat']	=$status['playlist repeat'];
 		$out['f_shuffle']	=$status['playlist shuffle'];
 		//$out['pl_mode']		=$status['playlist mode'];
-
-		$play_icons=array(
-			'play'	=>'play',
-			'pause'	=>'pause',
-			'stop'	=>'stop'
-		);
-		$out['json_icons']	=json_encode($play_icons);
-		
 		
 		//buttons state
 		if($status['mode'] =='play')	$out['f_states']['play']	=1;
@@ -244,7 +236,7 @@ class PMD_Page extends PMD_Root_Page{
 					$tmp['filetype']		=$arr['type'];	//known types 'mp3' , 'mp3 radio'
 					$tmp['h_filetype']		=preg_replace('#mp3 radio#i', 'radio', strtolower($arr['type']));	
 					
-					
+				
 					if( $search_title 	=$this->_makeSongFullTitle($arr)){
 
 						$links['url_youtube']['title']		='YouTube';
@@ -280,7 +272,7 @@ class PMD_Page extends PMD_Root_Page{
 
 		//$row['remoteMeta']['f_duration']=$this->_FormatSeconds($row['remoteMeta']['duration']);
 
-		//$out['raw']		=$row;
+		$out['raw']		=$row;
 		return $out;
 	}
 

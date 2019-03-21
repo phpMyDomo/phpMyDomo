@@ -17,7 +17,7 @@
 {/strip}{/function}
 
 {function MakeIcon data='' field='' icons=""}{strip}
-<span class="player_fields field_{$field}"><b class="jsSqzData" data-type="icon" data-field="{$field}" data-value="{$data[$field]}" data-icons='{$icons|default:$data.json_icons}'><i class='fa fa-refresh'></i></b></span>
+<span class="player_fields field_{$field}"><b class="jsSqzData" data-type="icon" data-field="{$field}" data-value="{$data[$field]}" data-icons='{$icons}'><i class='fa fa-refresh'></i></b></span>
 {/strip}{/function}
 
 {function MakePlayerTitle row=''}
@@ -52,7 +52,7 @@
 	</div>
 
 	<div class="player_left">
-		{MakeIcon data=$row field='mode'}
+		{MakeIcon data=$row field='mode' icons='{"play":"play","pause":"pause","stop":"stop"}'}
 
 		<span  class='player_name'>
 			<b>
