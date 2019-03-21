@@ -59,7 +59,8 @@ jQuery( document ).ready(function() {
 				SqzSetDataFieldValues(player,'mode', v1);
 			}
 			else if(v1=='rew.single' || v1=='fwd.single'){
-				SqzSetDataFieldValues(player,'mode', 'stop');				
+				SqzSetDataFieldValues(player,'mode', 'stop');
+				//SqzSetDataFieldValues(player,'remain_icon',3);
 			}
 			//SqzRazCounter(player);
 		}
@@ -375,6 +376,14 @@ function SqzRefreshField(el, row){
 			if(post != "" && value !='' && value !=0  ){
 				html=html+"<u>"+post+"</u>";
 			}
+			
+			if( value=='' || value=='0' || value == null){
+				el.parent().removeClass('on').removeClass('off').addClass('off');
+			}
+			else{
+				el.parent().removeClass('on').removeClass('off').addClass('on');
+			}
+			
 			el.html(html);
 		}
 	}
@@ -402,32 +411,38 @@ function SqzRefreshCounter() {
 
 		/* set times----- */
 		current_times[jsid] = ctime + (elapsed / 1000);
+		var this_time=current_times[jsid];
 
-		
 		/* Update LCD time Display  --------------------*/
 		/*	console.log(jsid + ' => ' + ctime + ' + ' + elapsed); */
-		var this_time = Math.round(current_times[jsid]);
-		SqzSetDataFieldValues(pid, 'time', this_time , SqzFormatTime(this_time) );
-
+		SqzSetDataFieldValues(pid, 'time', this_time , SqzFormatTime(Math.round(this_time)));		
+		pid.find('.jsLcdMin').html(SqzFormatTimeLcd(this_time, 'min'));
+		pid.find('.jsLcdSec').html(SqzFormatTimeLcd(this_time, 'sec'));
+		pid.find('.jsLcdMs').html(SqzFormatTimeLcd(this_time, 'ms10'));
 		
-		pid.find('.jsLcdMin').html(SqzFormatTimeLcd(current_times[jsid], 'min'));
-		pid.find('.jsLcdSec').html(SqzFormatTimeLcd(current_times[jsid], 'sec'));
-		pid.find('.jsLcdMs').html(SqzFormatTimeLcd(current_times[jsid], 'ms10'));
 		
 		/* Update LCD remaining Display ------ */
 		var remain		=0;
 		var h_remain	="--:--";
 		var dur		=	SqzGetDataFieldValue(pid,'duration');
 		if( dur > 0){
-			remain	=dur - current_times[jsid];
+			remain	=dur - this_time;
 			h_remain = SqzFormatTime( remain );
 		}
 		SqzSetDataFieldValues(pid,'remain',remain, h_remain);
 
+		/* Update LCD remaining Icon ------ */
+		if(this_time > 0){
+			var steps=3;
+			var state=Math.abs(Math.round( (steps -1) * this_time / dur ));
+			//console.log(state);
+			SqzSetDataFieldValues(pid,'remain_icon',state);
+		}
+
 		/* process loops --------- */
-		if(loops[jsid]==true && current_times[jsid] >= cues[jsid]['out'] ){
+		if(loops[jsid]==true && this_time >= cues[jsid]['out'] ){
 			var playerid=pid.find('.jsSqzBut_play').attr('data-id');
-			current_times[jsid]=cues[jsid]['in'];
+			this_time=cues[jsid]['in'];
 			SqzRequestButton(playerid,'time',cues[jsid]['in'],'');
 		}
 		
