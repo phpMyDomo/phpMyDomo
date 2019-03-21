@@ -237,11 +237,13 @@ class PMD_Page extends PMD_Root_Page{
 				
 				if($k==0){	//only first song
 					list($rate,$info)		=explode(' ',$arr['bitrate']);
-					$tmp['bitrate']		=trim(preg_replace('#^(\d+).*#','$1',$rate));
+					$tmp['bitrate']			=trim(preg_replace('#^(\d+).*#','$1',$rate));
 					$tmp['bitrate_unit']	=trim(preg_replace('#^'.$tmp['bitrate'].'#','',$rate));
 					$tmp['bitrate_info']	=trim($info);
 
-					$tmp['filetype']		=$arr['type'];
+					$tmp['filetype']		=$arr['type'];	//known types 'mp3' , 'mp3 radio'
+					$tmp['h_filetype']		=preg_replace('#mp3 radio#i', 'radio', strtolower($arr['type']));	
+					
 					
 					if( $search_title 	=$this->_makeSongFullTitle($arr)){
 
