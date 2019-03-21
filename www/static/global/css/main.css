@@ -1034,6 +1034,7 @@ TABLE.table_devices TR TD{
 #body_squeeze .pmd_panel_sqz .panel-heading{
 	overflow: hidden;
 	line-height: 170%;
+	position: relative;
 }
 #body_squeeze .pmd_panel_sqz.jsSelected .panel-heading{
 	background: #e2e2e9;
@@ -1047,8 +1048,19 @@ TABLE.table_devices TR TD{
 
 #body_squeeze .player_head .player_left{
 	float: left;
+	overflow: hidden;
+}
+#body_squeeze .player_head .field_mode{
+	margin-right: 8px;
+	font-size: 15px;
+	opacity: 0.7;
+}
+#body_squeeze .player_head .field_mode .state_play{
+	color: orange;	
 }
 #body_squeeze .player_head .player_name{
+}
+#body_squeeze .player_head .player_position{
 	display: block;
 }
 
@@ -1113,11 +1125,11 @@ TABLE.table_devices TR TD{
 	vertical-align: text-top;
 }
 #body_squeeze .lcd_screen .lcd_icons{
-	font-size: 11px;
-	overflow: hidden;
-	margin-bottom: 4px;
-	font-family: Courier, Monaco, mono;
 	position: relative;
+	height: 19px;
+	overflow: hidden;
+	font-size: 11px;
+	font-family: Courier, Monaco, mono;
 	-webkit-font-smoothing: auto;
 }
 #body_squeeze .lcd_screen .player_fields I{
@@ -1132,16 +1144,18 @@ TABLE.table_devices TR TD{
 #body_squeeze .lcd_screen .lcd_icons .lcd_icon{
 	float: left;
 }
-#body_squeeze .lcd_screen .lcd_icons .field_sep{
-	margin-left: 5px;
-}
-#body_squeeze .lcd_screen .lcd_icons .field_duration{
-	position: absolute;
-	left: 70px;
+#body_squeeze .lcd_screen .lcd_icons .player_duration{
+	display: inline-block;
 }
 #body_squeeze .lcd_screen .lcd_icons .field_remain{
 	float: left;
- 	padding-left: 10px ;
+}
+#body_squeeze .lcd_screen .lcd_icons .field_remain U{
+	margin-left: 6px;
+}
+#body_squeeze .lcd_screen .lcd_icons .field_duration{
+	position: absolute;
+	left: 52px;
 }
 #body_squeeze .lcd_screen .lcd_icons .field_volume{
 	position: absolute;

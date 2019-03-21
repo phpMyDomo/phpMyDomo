@@ -153,30 +153,27 @@ class PMD_Page extends PMD_Root_Page{
 		
 		$status=$row['status'];
 		$out['time']		=$status['time'];		
-		$out['f_time']		=$this->_FormatSeconds($status['time']);
+		$out['h_time']		=$this->_FormatSeconds($status['time']);
 		
 		$out['firmware']		=$row['firmware'];
 		if(!$row['firmware']){
 			return FALSE; // hide ghost player
 		}
+		$out['mode']		=$status['mode'];
 		
 		list($out['ip'],$trash['port'])=explode(':',$status['player_ip']);
 		//$out['mac']		=strtoupper($row['playerid']);
 		$out['volume']		=$status['mixer volume'];
 		$out['f_repeat']	=$status['playlist repeat'];
-		$out['f_mode']		=$status['playlist mode'];
 		$out['f_shuffle']	=$status['playlist shuffle'];
-		
+		//$out['pl_mode']		=$status['playlist mode'];
 
-		/*
-		if($status['time'] and $row['song']['duration']){
-			$out['f_position']="( <span class='jsCurTime'>{$row['f_time']}</span> / {$row['song']['f_duration']} )";
-		}
-		elseif($row['song']['duration']){
-			$out['f_position']="( {$row['song']['f_duration']} )";
-		}
-		*/
-		
+		$play_icons=array(
+			'play'	=>'play',
+			'pause'	=>'pause',
+			'stop'	=>'stop'
+		);
+		$out['json_icons']	=json_encode($play_icons);
 		
 		
 		//buttons state

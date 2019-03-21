@@ -5,19 +5,24 @@
 	<a href='#' class='jsSqzBut jsSqzBut_{$mode} btn btn-default{$size_class}{$my_class}'  data-mode='{$mode}' data-type='{$type}' data-id='{$id|default:$row.playerid}' title="{$title|default:$l.$mode}" data-v1='{$v1|default:$mode}'  data-v2='{$v2}'>{if $icon !='NO'}<i class='fa fa-fw fa-{$icon|default:$mode}'></i>{/if}{$txt}</a> 
 {/function}
 
-{function MakeField data='' field='' icon='' value='' h_default=''}{strip}
+{function MakeField data='' field='' icon='' value='' h_default=''  post=''}{strip}
 {if $icon}{$icon="<i class='fa fa-{$icon}'></i>"}{/if}
 {if $value==''}{$value=$data[$field]}{/if}
-<span class="player_fields field_{$field}">{$icon}<b class="jsSqzData" data-field="{$field}" data-value="{$value}">{$data["h_{$field}"]|default:$h_default|default:$value}</b></span>
+{if $post}{$h_post="<u>{$post}</u>"}{/if}
+<span class="player_fields field_{$field}">{$icon}<b class="jsSqzData" data-type="field" data-field="{$field}" data-value="{$value}" data-post="{$post}">{$data["h_{$field}"]|default:$h_default|default:$value}{$h_post}</b></span>
 {/strip}{/function}
 
 {function MakeLink link='' field=''}{strip}
-<span class="player_fields field_{$field}"><a href="{$link.href}"title="{$link.title}" class="jsSqzData" data-field="{$field}" data-value="{$link.href}"><i class='fa fa-{$link.icon}'></i></a></span>
+<span class="player_fields field_{$field}"><a href="{$link.href}" title="{$link.title}" class="jsSqzData" data-type="link" data-field="{$field}" data-value="{$link.href}"><i class='fa fa-{$link.icon}'></i></a></span>
 {/strip}{/function}
 
+{function MakeIcon data='' field=''}{strip}
+<span class="player_fields field_{$field}"><b class="jsSqzData" data-type="icon" data-field="{$field}" data-value="{$data[$field]}" data-icons='{$data.json_icons}'><i class='fa fa-refresh'></i></b></span>
+{/strip}{/function}
 
 {function MakePlayerTitle row=''}
 	<div class="player_right">
+
 		<span class='player_fulltitle'>
 			<span class='player_album'>
 				{MakeField data=$row.song field='album'}
@@ -41,17 +46,14 @@
 			{foreach from=$row.song.links item=link key=k}
 				{MakeLink link=$link field=$k}
 			{/foreach}
-			<!--
-			<a class="player_link_youtube" href="{$row.song.f_url_youtube}" target='_blank' title="{$l.search} [{$row.song.f_full_title}] {$l.on} YouTube..."><i class='fa fa-youtube'></i></a>
-			<a class="player_link_allmusic" href="{$row.song.f_url_allmusic}" target='_blank' title="{$l.search} [{$row.song.f_full_title}] {$l.on} AllMusic..."><i class='fa fa-database'></i></a>
-			<a class="player_link_google" href="{$row.song.f_url_google}" target='_blank' title="{$l.search} [{$row.song.f_full_title}] {$l.on} Google..."><i class='fa fa-google'></i></a>
-			-->
 		</span>
 	{/if}
 
 	</div>
 
 	<div class="player_left">
+		{MakeIcon data=$row field='mode'}
+
 		<span  class='player_name'>
 			<b>
 			{if $row.ip}
@@ -66,6 +68,7 @@
 			{MakeField data=$row field='time' h_default="--:--"}
 		</span>
 	</div>
+
 {/function}
 
 {function MakePlayer row=''}
@@ -73,11 +76,11 @@
 
 				<div class="lcd_screen">
 					{strip}
+					
 					<div class='lcd_icons'>
-						<span class='lcd_icon icon_play'><i class='fa fa-play'></i></span>
 
 						<span class='player_duration'>
-							{MakeField data=$row field='remain'}<span class="field_sep">/</span>{MakeField data=$row field='duration'}
+							{MakeField data=$row field='remain' post='/'}{MakeField data=$row field='duration'}
 						</span>
 						
 						{MakeField data=$row field='volume' icon='volume-up'}
@@ -108,6 +111,7 @@
 							</span>
 						</span>
 					</div>
+					
 					{/strip}
 				</div>
 

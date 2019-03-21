@@ -10,7 +10,6 @@ jQuery( document ).ready(function() {
 	JqzSelectPlayer(last_player);
 	
 
-
 	/* ----- Selected Player ------------------ */
 	$('.jsSqzPlayer .jsPlayerHead').on('click', function(){
 			var player=$(this).closest('.jsSqzPlayer');
@@ -34,8 +33,8 @@ jQuery( document ).ready(function() {
 			SqzSetLoop(v1);
 			return;
 		}
+		var player=$(this).closest('.jsSqzPlayer');
 		if(v1=='voldown' || v1=='volup'){
-			var player=$(this).closest('.jsSqzPlayer');
 			var el_volume=SqzGetElementsHavingDataField(player, 'volume');
 			var volume=parseInt(el_volume.data('value'));
 
@@ -54,6 +53,16 @@ jQuery( document ).ready(function() {
 		}
 		
 		SqzRequestButton(id,type,v1,v2);
+		
+		if(type=='button'){
+			if((v1=='play' || v1=='pause' || v1=='stop')){
+				SqzSetDataFieldValues(player,'mode', v1);
+			}
+			else if(v1=='rew.single' || v1=='fwd.single'){
+				SqzSetDataFieldValues(player,'mode', 'stop');				
+			}
+			//SqzRazCounter(player);
+		}
 
 		if(do_reload){
 			SetIntervalRefresh( 'states' , 	pmd_sqz_prefs.refresh_states);
@@ -327,7 +336,7 @@ function SqzRefreshAllStates(init){
 function SqzRefreshAllData(player, data){
 	SqzRefreshData(player, data);
 	SqzRefreshData(player, data.song);
-	SqzRefreshDataLinks(player, data.song.links);
+	SqzRefreshData(player, data.song.links);
 }
 
 /* ----------------------------------------------------------------------------------- */	
@@ -336,30 +345,35 @@ function SqzRefreshData(player, data){
 		SqzRefreshField( $(this), data );
 	});
 }
-/* ----------------------------------------------------------------------------------- */	
-function SqzRefreshDataLinks(player, data){
-	player.find('.jsSqzData').each(function(index){
-		SqzRefreshField( $(this), data, true );
-	});
-}
 
 /* ----------------------------------------------------------------------------------- */	
-function SqzRefreshField(el, row, is_link){
+function SqzRefreshField(el, row){
 	var field = el.data('field');
+	var type = el.data('type');
 	if(field in row){
+		var value=row[field];
 		//console.log(el.parent().attr('class') + ', f=' + field + ', v=' + row[field]);
-		if(is_link == true){
-			el.data('value',row[field].href);
-			el.attr('href',	row[field].href);
-			el.attr('title',	row[field].title);
+		if(type == 'link'){
+			el.data('value',value.href);
+			el.attr('href',	value.href);
+			el.attr('title',value.title);
 		}
-		else{
-			el.data('value',row[field]);
+		else if(type == 'icon'){
+			el.data('value',value);
+			var icons=el.data('icons');
+			el.find('I').attr('class', 'fa fa-'+icons[value] + " state_" + value);
+		}
+		else {	//if(type == 'field')
+			el.attr('data-value',value);
 		
-			var html=row[field];
+			var html=value;
 			var h_field="h_"+field;
 			if( h_field in row ){
 				html=row[h_field];
+			}
+			var post =el.data('post');
+			if(post != "" && value !='' && value !=0  ){
+				html=html+"<u>"+post+"</u>";
 			}
 			el.html(html);
 		}
@@ -378,12 +392,19 @@ function SqzRefreshCounter() {
 		var pid=$('#jsPlayer_'+jsid);
 
 		/* skip if not playing --------- */
-		if(! pid.find('.jsSqzBut_play').hasClass('on')){
+		var current_mode = SqzGetDataFieldValue(pid,'mode');
+		if(current_mode !='play' ){
+			if(current_mode =='stop' ){
+				SqzRazCounter(pid);
+			}
 			return true;
 		}
 
-		/* set counter and display ----- */
+		/* set times----- */
 		current_times[jsid] = ctime + (elapsed / 1000);
+
+		
+		/* Update LCD time Display  --------------------*/
 		/*	console.log(jsid + ' => ' + ctime + ' + ' + elapsed); */
 		var this_time = Math.round(current_times[jsid]);
 		SqzSetDataFieldValues(pid, 'time', this_time , SqzFormatTime(this_time) );
@@ -393,7 +414,7 @@ function SqzRefreshCounter() {
 		pid.find('.jsLcdSec').html(SqzFormatTimeLcd(current_times[jsid], 'sec'));
 		pid.find('.jsLcdMs').html(SqzFormatTimeLcd(current_times[jsid], 'ms10'));
 		
-		/* remaining time ------ */
+		/* Update LCD remaining Display ------ */
 		var remain		=0;
 		var h_remain	="--:--";
 		var dur		=	SqzGetDataFieldValue(pid,'duration');
@@ -401,9 +422,6 @@ function SqzRefreshCounter() {
 			remain	=dur - current_times[jsid];
 			h_remain = SqzFormatTime( remain );
 		}
-		//console.log(dur);
-		//console.log(remain);
-		//pid.find('.jsRemain').html(remain);
 		SqzSetDataFieldValues(pid,'remain',remain, h_remain);
 
 		/* process loops --------- */
@@ -415,6 +433,16 @@ function SqzRefreshCounter() {
 		
 	});
 }
+
+/* ----------------------------------------------------------------------------------- */	
+
+function SqzRazCounter(player){
+	player.find('.jsLcdMin').html('00');
+	player.find('.jsLcdSec').html('00');
+	player.find('.jsLcdMs').html('--');
+	SqzSetDataFieldValues(player, 'remain', 0, '');
+}
+
 /* ----------------------------------------------------------------------------------- */	
 function SqzRefreshCounterTimes() {
     var elapsed = Date.now() - last_refresh_date;
