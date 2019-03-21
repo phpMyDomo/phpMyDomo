@@ -5,11 +5,11 @@
 	<a href='#' class='jsSqzBut jsSqzBut_{$mode} btn btn-default{$size_class}{$my_class}'  data-mode='{$mode}' data-type='{$type}' data-id='{$id|default:$row.playerid}' title="{$title|default:$l.$mode}" data-v1='{$v1|default:$mode}'  data-v2='{$v2}'>{if $icon !='NO'}<i class='fa fa-fw fa-{$icon|default:$mode}'></i>{/if}{$txt}</a> 
 {/function}
 
-{function MakeField data='' field='' icon='' value='' h_default=''  post=''}{strip}
+{function MakeField data='' field='' icon='' value='' h_default=''  post='' noblank='0'}{strip}
 {if $icon}{$icon="<i class='fa fa-{$icon}'></i>"}{/if}
 {if $value==''}{$value=$data[$field]}{/if}
 {if $post}{$h_post="<u>{$post}</u>"}{/if}
-<span class="player_fields field_{$field}">{$icon}<b class="jsSqzData" data-type="field" data-field="{$field}" data-value="{$value}" data-post="{$post}">{$data["h_{$field}"]|default:$h_default|default:$value}{$h_post}</b></span>
+<span class="player_fields field_{$field}">{$icon}<b class="jsSqzData" data-type="field" data-field="{$field}" data-value="{$value}" data-noblank='{$noblank}' data-h_default="{$h_default}" data-post="{$post}">{$data["h_{$field}"]|default:$h_default|default:$value}{$h_post}</b></span>
 {/strip}{/function}
 
 {function MakeLink link='' field='' blank=1}{strip}
@@ -25,7 +25,7 @@
 
 		<span class='player_fulltitle'>
 			<span class='player_album'>
-				{MakeField data=$row.song field='album'}
+				{MakeField data=$row.song field='album'}{MakeField data=$row.song field='radio_name'}
 			</span>
 			<span class='player_title'>
 				{MakeField data=$row.song field='title'}
@@ -89,7 +89,7 @@
 						</div>
 						<div class='lcd_icons_right'>
 						
-							{MakeField data=$row field='bpm' icon='heartbeat'}
+							{MakeField data=$row field='bpm' icon='heartbeat' h_default="&nbsp;"}
 							{MakeField data=$row field='filetype'  icon='plug'}
 
 							<span class='player_encoder'>
@@ -116,8 +116,8 @@
 							<span class='player_song1 player_title'>{MakeField data=$row field='title' h_default="&nbsp;"}</span> 
 							<span class='player_song2 player_artist'>{MakeField data=$row field='artist' h_default="&nbsp;"}</span>
 							<span class='player_song3'>
-								<span class='player_year'>{MakeField data=$row field='year'}</span>
-								<span class='player_album'>{MakeField data=$row field='album' h_default="&nbsp;"}</span>
+								<span class='player_year'>{MakeField data=$row field='year' noblank=1}</span>
+								<span class='player_album'>{MakeField data=$row field='album' icon="chevron-circle-right" noblank=1}{MakeField data=$row.song field='radio_name' icon="podcast" noblank=1}</span>
 							</span>
 						</span>
 					</div>

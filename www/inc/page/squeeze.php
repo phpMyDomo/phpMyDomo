@@ -210,20 +210,25 @@ class PMD_Page extends PMD_Root_Page{
 				$tmp['url_img']	='';
 				$arr['coverid']		and $tmp['url_img']=$this->vars['url_server']."/music/{$arr['coverid']}/cover.png";
 
-
+				$tmp['radio_name']='';
 				if($status['remote']){ //this is a radio
 					$arr['artwork_url']	and $tmp['url_img']	=$arr['artwork_url'];
+					$tmp['url_img']	=preg_replace('#^/imageproxy/#','', $tmp['url_img']);
+					$tmp['url_img']=urldecode($tmp['url_img']);
 					
+					$tmp['album']		='';
+					$tmp['radio_name']	=$status['current_title'];
 					//fix bad formatted radio
-					$radio_name=$status['current_title'];
-					similar_text($radio_name,$arr['artist'],$perc);
+					similar_text($tmp['radio_name'],$arr['artist'],$perc);
 					if($perc >= 70){
 						list($artist,$title)=explode(' - ',$arr['title']);
 						if(trim($title)){
 							$tmp['artist']	=$this->_FormatTitle($artist,0); //. " ($perc)";
 							$tmp['title']	=$this->_FormatTitle($title);
+							$arr['remote_title'] and $tmp['radio_name']=$arr['remote_title'];
 						}
 					}
+					
 				}
 				
 				

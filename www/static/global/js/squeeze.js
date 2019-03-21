@@ -368,17 +368,23 @@ function SqzRefreshField(el, row){
 			if( h_field in row ){
 				html=row[h_field];
 			}
-			var post =el.data('post');
-			if(post != "" && value !='' && value !=0  ){
-				html=html+"<u>"+post+"</u>";
-			}
-			
-			if( value=='' || value=='0' || value == null){
-				//if(html==''){html=' ';}
+
+			var h_default	= el.data('h_default');
+			var noblank		= el.data('noblank');
+			if( value=='' || value==0 || value == null){
+				html=h_default;
+				if(noblank==1){
+					html='';
+				}
 				el.parent().removeClass('on').removeClass('off').addClass('off');
 			}
 			else{
 				el.parent().removeClass('on').removeClass('off').addClass('on');
+			}
+
+			var post =el.data('post');
+			if(post != "" && value !='' && value !=0  ){
+				html=html+"<u>"+post+"</u>";
 			}
 			
 			el.html(html);
