@@ -138,10 +138,10 @@
 				</span>
 
 				<span class="but_player but_player_move">
-					{MakeButton size='lg' row=$row mode='rw2' title="{$l.rw} ({$data.prefs.scroll_time2})"		type='time' v1=$row.f_rw2 	icon='NO' txt="<i class='fa fa-backward'></i><i class='fa fa-backward'></i>"}
-					{MakeButton size='lg' row=$row mode='rw1' title="{$l.rw} ({$data.prefs.scroll_time1})"		type='time' v1=$row.f_rw1 	icon='backward'}
-					{MakeButton size='lg' row=$row mode='ff1'	title="{$l.ff} ({$data.prefs.scroll_time1})"		type='time' v1=$row.f_ff1 	icon='forward'}
-					{MakeButton size='lg' row=$row mode='ff2' title="{$l.ff} ({$data.prefs.scroll_time2})"		type='time' v1=$row.f_ff2 	icon='NO' txt="<i class='fa fa-forward'></i><i class='fa fa-forward'></i>"}
+					{MakeButton size='lg' row=$row mode='rw2' title="{$l.rw} ({$data.prefs.scroll_time2})"		type='time' icon='NO' txt="<i class='fa fa-backward'></i><i class='fa fa-backward'></i>"}
+					{MakeButton size='lg' row=$row mode='rw1' title="{$l.rw} ({$data.prefs.scroll_time1})"		type='time' icon='backward'}
+					{MakeButton size='lg' row=$row mode='ff1'	title="{$l.ff} ({$data.prefs.scroll_time1})"	type='time' icon='forward'}
+					{MakeButton size='lg' row=$row mode='ff2' title="{$l.ff} ({$data.prefs.scroll_time2})"		type='time'	icon='NO' txt="<i class='fa fa-forward'></i><i class='fa fa-forward'></i>"}
 				</span>
 
 			</div>

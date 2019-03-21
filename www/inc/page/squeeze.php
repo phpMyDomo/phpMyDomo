@@ -276,16 +276,6 @@ class PMD_Page extends PMD_Root_Page{
 			
 		}
 
-
-		//make rew & ff
-		if($status['time']){
-			$out['f_rw1'] = max(floatval($status['time']) - $this->vars['scroll_time1'], 0);
-			$out['f_ff1'] = min(floatval($status['time']) + $this->vars['scroll_time1'], floatval($out['song']['duration']) );
-			
-			$out['f_rw2'] = max(floatval($status['time']) - $this->vars['scroll_time2'], 0);
-			$out['f_ff2'] = min(floatval($status['time']) + $this->vars['scroll_time2'], floatval($out['song']['duration']) );
-		}
-
 		//$row['remoteMeta']['f_duration']=$this->_FormatSeconds($row['remoteMeta']['duration']);
 
 		//$out['raw']		=$row;

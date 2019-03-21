@@ -312,10 +312,6 @@ function SqzRefreshAllStates(init){
 					pid.find('.player_radio').hide();						
 				}
 				*/
-				pid.find('.jsSqzBut_rw1').attr('data-v1',player.f_rw1);
-				pid.find('.jsSqzBut_rw2').attr('data-v1',player.f_rw2);
-				pid.find('.jsSqzBut_ff1').attr('data-v1',player.f_ff1);
-				pid.find('.jsSqzBut_ff2').attr('data-v1',player.f_ff2);
 				
 				/* current player ------------- */
 	  			if(jsid == selected_player_jsid){
@@ -420,7 +416,6 @@ function SqzRefreshCounter() {
 		pid.find('.jsLcdSec').html(SqzFormatTimeLcd(this_time, 'sec'));
 		pid.find('.jsLcdMs').html(SqzFormatTimeLcd(this_time, 'ms10'));
 		
-		
 		/* Update LCD remaining Display ------ */
 		var remain		=0;
 		var h_remain	="--:--";
@@ -438,6 +433,12 @@ function SqzRefreshCounter() {
 			//console.log(state);
 			SqzSetDataFieldValues(pid,'remain_icon',state);
 		}
+
+		/* Set ff & rw times --------------- */
+		pid.find('.jsSqzBut_rw1').attr('data-v1', Math.max(this_time - pmd_sqz_prefs.scroll_time1 , 0));
+		pid.find('.jsSqzBut_ff1').attr('data-v1', Math.min(this_time + pmd_sqz_prefs.scroll_time1 , dur));
+		pid.find('.jsSqzBut_rw2').attr('data-v1', Math.max(this_time - pmd_sqz_prefs.scroll_time2 , 0));
+		pid.find('.jsSqzBut_ff2').attr('data-v1', Math.min(this_time + pmd_sqz_prefs.scroll_time2 , dur));
 
 		/* process loops --------- */
 		if(loops[jsid]==true && this_time >= cues[jsid]['out'] ){
