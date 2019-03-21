@@ -256,6 +256,14 @@ class PMD_Page extends PMD_Root_Page{
 						$links['url_google']['title']		='Google';
 						$links['url_google']['icon']		='google';
 						$links['url_google']['href']		='https://www.google.com/search?q='.urlencode($search_title);					
+
+						$links['url_score']['title']	='Sheet Music';
+						$links['url_score']['icon']		='music';
+						$links['url_score']['href']		='https://www.google.com/search?q='.urlencode($search_title. " Sheet Music");					
+
+						$links['url_lyrics']['title']	='Lyrics';
+						$links['url_lyrics']['icon']	='microphone';
+						$links['url_lyrics']['href']	='https://www.google.com/search?q='.urlencode($search_title. " Lyrics");					
 					}					
 					$out['song'] 	= $tmp;
 					$out['song']['links']=$links;
