@@ -374,6 +374,7 @@ function SqzRefreshField(el, row){
 			}
 			
 			if( value=='' || value=='0' || value == null){
+				//if(html==''){html=' ';}
 				el.parent().removeClass('on').removeClass('off').addClass('off');
 			}
 			else{
@@ -418,7 +419,7 @@ function SqzRefreshCounter() {
 		
 		/* Update LCD remaining Display ------ */
 		var remain		=0;
-		var h_remain	="--:--";
+		var h_remain	="";
 		var dur		=	SqzGetDataFieldValue(pid,'duration');
 		if( dur > 0){
 			remain	=dur - this_time;

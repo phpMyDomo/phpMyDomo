@@ -65,7 +65,7 @@
 		</span>	
 
 		<span class='player_position'>
-			{MakeField data=$row field='time' h_default="--:--"}
+			{MakeField data=$row field='time'}
 		</span>
 	</div>
 
@@ -90,7 +90,7 @@
 						<div class='lcd_icons_right'>
 						
 							{MakeField data=$row field='bpm' icon='heartbeat'}
-							{MakeField data=$row field='filetype'  icon='file-o'}
+							{MakeField data=$row field='filetype'  icon='plug'}
 
 							<span class='player_encoder'>
 								{MakeField data=$row field='bitrate'}
