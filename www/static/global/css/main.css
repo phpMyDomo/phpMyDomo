@@ -1330,16 +1330,24 @@ TABLE.table_devices TR TD{
 
 /* @group Current Block
 ++++++++++++++++++++++++++++++++++++++ */
-#body_squeeze #block_sqz_current .panel-body-full {
+#body_squeeze #block_information .panel-body-full {
 	padding: 0px;
 	min-height: 211px;
 }
 
 @media (min-width: 1200px) {
-	#body_squeeze #block_sqz_current .panel-body-full {
+	#body_squeeze #block_information .panel-body-full {
 		min-height: 259px;
 	}
 }
+#body_squeeze #block_information .field_url_img IMG{
+	width: 100%;
+	height: auto;
+}
+#body_squeeze #block_information .panel-heading .player_fields I{
+	padding-right: 6px;
+}
+
 /* @end */
 
 

@@ -20,6 +20,10 @@
 <span class="player_fields field_{$field}"><b class="jsSqzData" data-type="icon" data-field="{$field}" data-value="{$data[$field]}" data-icons='{$icons}'><i class='fa fa-refresh'></i></b></span>
 {/strip}{/function}
 
+{function MakeImage data='' field=''}{strip}
+<span class="player_fields field_{$field}"><img class="jsSqzData" src='{$data[$field]}' data-type="image" data-field="{$field}" data-value="{$data[$field]}"></span>
+{/strip}{/function}
+
 {function MakePlayerTitle row=''}
 	<div class="player_right">
 
@@ -200,9 +204,10 @@
 
 <div class="">
 {foreach from=$data.players item=row }
-		<div class="panel panel-default pmd_panel pmd_panel_sqz jsSqzPlayer" id='jsPlayer_{$row.f_jsid}' data-jsid='{$row.f_jsid}'>
+		<div class="panel panel-default pmd_panel pmd_panel_sqz jsSqzPlayer" id='jsPlayer_{$row.f_jsid}' data-id='{$row.playerid}' data-jsid='{$row.f_jsid}'>
 			<div class="panel-heading player_head jsPlayerHead">{MakePlayerTitle row=$row}</div>
 			<div class="panel-body player_body jsPlayerBody">
+
 {MakePlayer row=$row}
 			</div>	
 		</div>
@@ -223,10 +228,10 @@ https://github.com/Logitech/slimserver/blob/public/7.9/IR/Default.map
 *}
 {* All Block -------------------------------------------------- *}
 
-		<div class="panel panel-default block_right pmd_panel jsCurrentPlayer" id="block_sqz_current">
-			<div class="panel-heading text-center jsCurrentPlayerHead">{$l.selected_player}</div>
-			<div class="panel-body-full jsCurrentPlayerBody">
-			
+		<div class="panel panel-default block_right pmd_panel jsSqzInformation" id="block_information">
+			<div class="panel-heading text-center">{MakeField field='name' value=$l.selected_player  icon='check' h_default="&nbsp;" noblank=1}</div>
+			<div class="panel-body-full">
+			 	{MakeImage field='url_img'}
 			</div>
 		</div>
 
