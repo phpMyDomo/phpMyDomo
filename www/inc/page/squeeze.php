@@ -163,10 +163,11 @@ class PMD_Page extends PMD_Root_Page{
 		
 		list($out['ip'],$trash['port'])=explode(':',$status['player_ip']);
 		//$out['mac']		=strtoupper($row['playerid']);
+		//$out['pl_mode']		=$status['playlist mode'];
+
 		$out['volume']		=$status['mixer volume'];
 		$out['f_repeat']	=$status['playlist repeat'];
 		$out['f_shuffle']	=$status['playlist shuffle'];
-		//$out['pl_mode']		=$status['playlist mode'];
 		
 		//buttons state
 		if($status['mode'] =='play')	$out['f_states']['play']	=1;
@@ -180,8 +181,10 @@ class PMD_Page extends PMD_Root_Page{
 		if(!$out['f_shuffle'])			$out['f_states']['shuffle_0']=1;
 		if($out['f_shuffle']==1)		$out['f_states']['shuffle_1']=1;
 		if($out['f_shuffle']==2)		$out['f_states']['shuffle_2']=1;
-		if($out['power'])				$out['f_states']['power']	=1;
+		
+		if($row['power'])				$out['f_states']['power']	=1;
 		if($out['volume'] < 0)			$out['f_states']['mute']	=1;
+		
 		$out['volume']=abs($out['volume']); 
 
 		//make current song & playlists ---------------------------
