@@ -194,7 +194,7 @@ var last_refresh_date=Date.now;
 var selected_player_jsid='';
 var last_data={
 	players : {},
-//	song_id : 0,
+	song_id : 0,
 };
 
 
@@ -266,18 +266,18 @@ function SqzAjaxFetch(init, limit, playerid){
 
 		$.getJSON(url,function(data){
 			last_refresh_date=Date.now;
-			$.each(data, function(player_id, player){
-				var jsid =player.f_jsid;
+			$.each(data, function(player_id, player_row){
+				var jsid =player_row.f_jsid;
 
 				/* store to vars */
-				current_times[jsid]=player.time;
-				last_data.players[player_id]=player;
+				current_times[jsid]=player_row.time;
+				last_data.players[player_id]=player_row;
 				if(init == true){
 					cues[jsid]={in:0,out:0};
 					loops[jsid]=false;
 				}
 				
-				var pid=	$('#jsPlayer_'+player.f_jsid);
+				var pid=	$('#jsPlayer_'+player_row.f_jsid);
 
 				/* --- Refresh button states ---- */
 				pid.find('.jsSqzBut').each(function(){
@@ -287,7 +287,7 @@ function SqzAjaxFetch(init, limit, playerid){
 					if(data_type=='button' || data_type=='playlist'){
 						but.removeClass('on');
 					}
-					$.each(player.f_states, function(button, val){
+					$.each(player_row.f_states, function(button, val){
 						if(data_mode == button){
 							but.addClass('on');
 						}
@@ -295,39 +295,52 @@ function SqzAjaxFetch(init, limit, playerid){
 				});
 
 				/* -- Refresh Title, current position --*/
-				if( player.song == undefined || player.song === null){
-					player.song={};
+				if( player_row.song == undefined || player_row.song === null){
+					player_row.song={};
 				}
-				SqzRefreshAllData(pid, player);
+				SqzRefreshAllData(pid, player_row);
 
 				/* current player ------------- */
 				SqzRefreshInformationData(pid);
 
 
 				/* Playlists */
-				SqzRefreshPlaylist(pid, player.playlist);
-				//console.log('Reloading...'+ current_times[player.f_jsid] + ' = '+SqzFormatTime(current_times[player.f_jsid], true));
+				//last_data.song_id=
+				SqzRefreshPlaylist(pid, player_row.playlist, player_row.song.type);
+				//console.log('Reloading...'+ current_times[player_row.f_jsid] + ' = '+SqzFormatTime(current_times[player_row.f_jsid], true));
 			});
 			//SqzLoopRefreshCounter();
 		});
 }
 /* ----------------------------------------------------------------------------------- */	
-function SqzRefreshPlaylist(player, songs){
+function SqzRefreshPlaylist(player, songs, type){
+	var target=player.find('.jsSqzPlaylist');
+	if(type !='file'){
+		target.html();
+		return true;
+	}
 	if(1 in songs){
-		//delete songs["0"];
-		var target=player.find('.jsSqzPlaylist');
+		songs.shift(); //remove first (current) song
 		var html='';
 		$.each(songs, function(i, song){
 			html +="<div class='pl_song'>";
-				html +="<span class='song_artist'>"		+song.artist	+"</span>";
+				html +="<span class='song_li'><i class='fa fa-check'></i></span>";
+				html +="<span class='song_artist'>"		+song.h_artist	+"</span>";
 				if(song.album !=''){
-					html +="<span class='song_album'><i class='fa fa-chevron-circle-right'></i>"	+song.album		+"</span>";
+					html +="<span class='song_album'><i class='fa fa-chevron-circle-right'></i>"	+song.h_album		+"</span>";
 				}
-				html +="<span class='song_title'>"		+song.title 	+"</span>";
+				if(song.h_artist !='' || song.h_album !=''){
+					html +="<span class='song_sep'>-</span>";
+				}
+				if(song.h_track !=''){
+					html +="<span class='song_track'>"	+song.h_track		+"</span>";
+				}
+				if(song.h_title !=''){
+					html +="<span class='song_title'>"	+song.h_title		+"</span>";
+				}
 				html +="<span class='song_duration'>"	+song.h_duration+"</span>";
 				if(song.bpm !=''){
 					html +="<span class='song_bpm'><i class='fa fa-heartbeat'></i>"		+song.bpm		+"</span>";
-					
 				}
 			html +="</div>\n";
 		});

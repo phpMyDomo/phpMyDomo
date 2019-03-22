@@ -17,7 +17,7 @@
 {/strip}{/function}
 
 {function MakeIcon data='' field='' icons=""}{strip}
-<span class="player_fields field_{$field}"><b class="jsSqzData" data-type="icon" data-field="{$field}" data-value="{$data[$field]}" data-icons='{$icons}'><i class='fa fa-refresh'></i></b></span>
+<span class="player_icons field_{$field}"><b class="jsSqzData" data-type="icon" data-field="{$field}" data-value="{$data[$field]}" data-icons='{$icons}'><i class='fa fa-refresh'></i></b></span>
 {/strip}{/function}
 
 {function MakeImage data='' field=''}{strip}
@@ -94,7 +94,8 @@
 						<div class='lcd_icons_right'>
 						
 							{MakeField data=$row field='bpm' icon='heartbeat' h_default="&nbsp;"}
-							{MakeField data=$row field='filetype'  icon='plug'}
+							{MakeIcon data=$row field='type' icons='{"file":"file-o","radio":"podcast","net":"wifi"}'}
+							{MakeField data=$row field='filetype'}
 
 							<span class='player_encoder'>
 								{MakeField data=$row field='bitrate'}

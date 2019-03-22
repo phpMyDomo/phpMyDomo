@@ -209,16 +209,31 @@ class PMD_Page extends PMD_Root_Page{
 				$tmp=$arr;
 				$tmp=array();
 
-				$tmp['artist']		=$this->_FormatTitle($arr['artist'],0);
 				$tmp['title']		=$this->_FormatTitle($arr['title']);
-				$tmp['album']		=$this->_FormatTitle($arr['album']);	//  and $arr['f_album']	= '<b>'. $arr['f_album'].'</b>'; // <i>:</i> and $arr['f_album']	= '['. $arr['f_album'].']';
+				$tmp['h_title']		=preg_replace('# \s*-\s*$#','',$tmp['title']);
 
+				$tmp['artist']		=$this->_FormatTitle($arr['artist'],0);
+				$tmp['h_artist']	=$tmp['artist'];
+				if($tmp['h_artist']=="No Artist"){
+					$tmp['h_artist']='';
+				}
+
+				$tmp['album']		=$this->_FormatTitle($arr['album']);
+				$tmp['h_album']		=$tmp['album'];
+				if($tmp['h_album']=="No Album"){
+					$tmp['h_album']='';
+				}
 
 				$tmp['duration']	=$arr['duration'];
 				$tmp['h_duration']	=$this->_FormatSeconds($arr['duration']);
 
-				//$tmp['time']	=$arr['time'];
-				//$tmp['h_time']	=$this->_FormatSeconds($arr['time']);
+				$tmp['id']		=$arr['id'];
+				$tmp['track']	=$arr['tracknum'];
+
+				$tmp['h_track']	='';
+				if($tmp['h_album']){
+					$tmp['track'] and $tmp['h_track']=str_pad($tmp['track'], 2, '0', STR_PAD_LEFT);
+				}
 
 				$tmp['year']	=$arr['year'];
 				$tmp['year']	and $tmp['h_year']	="<u>{$tmp['year']}</u>";
@@ -229,25 +244,56 @@ class PMD_Page extends PMD_Root_Page{
 				$tmp['url_img']	='';
 				$arr['coverid']		and $tmp['url_img']=$this->vars['url_server']."/music/{$arr['coverid']}/cover.png";
 
+
+				$type		=strtolower($arr['type']);	//known types 'mp3' , 'mp3 radio'
+				list($filetype, $radio)=explode(' ', $type);
+				if($radio){
+					$tmp['type']	='radio';
+					$tmp['filetype']=$filetype;
+				}
+				else{
+					$tmp['type']	='file';
+					$tmp['filetype']=$type;
+				}
+
 				$tmp['radio_name']='';
-				if($status['remote']){ //this is a radio
+				if($status['remote']){ //this is a remote (net or radio)
 					$arr['artwork_url']	and $tmp['url_img']	=$arr['artwork_url'];
 					$tmp['url_img']	=preg_replace('#^/imageproxy/#','', $tmp['url_img']);
 					$tmp['url_img']	=preg_replace('#/image.jpg$#','', $tmp['url_img']);
 					$tmp['url_img']=urldecode($tmp['url_img']);
 					
-					$tmp['album']		='';
-					$tmp['radio_name']	=$status['current_title'];
-					//fix bad formatted radio
-					similar_text($tmp['radio_name'],$arr['artist'],$perc);
-					if($perc >= 70){
-						list($artist,$title)=explode(' - ',$arr['title']);
-						if(trim($title)){
-							$tmp['artist']	=$this->_FormatTitle($artist,0); //. " ($perc)";
-							$tmp['title']	=$this->_FormatTitle($title);
-							$arr['remote_title'] and $tmp['radio_name']=$arr['remote_title'];
+					$tmp['h_album']		='';
+					if($tmp['h_artist'] ==''){
+						list($artist,$title,$empty)=explode(' - ', $tmp['h_title']);
+						if($title and !$empty ){
+							$tmp['artist']	=trim($artist); // else not shown
+							$tmp['h_artist']=trim($artist);
+
+							$tmp['h_title']	=trim($title);
 						}
-					}	
+					}
+					
+					if($tmp['type']=='radio'){
+						$tmp['radio_name']	=$status['current_title'];
+			
+						//fix bad formatted radio
+						/*
+						similar_text($tmp['radio_name'],$arr['artist'],$perc);
+						if($perc >= 70){
+							list($artist,$title)=explode(' - ',$arr['title']);
+							if(trim($title)){
+								$tmp['artist']	=$this->_FormatTitle($artist,0); //. " ($perc)";
+								$tmp['title']	=$this->_FormatTitle($title);
+								$arr['remote_title'] and $tmp['radio_name']=$arr['remote_title'];
+							}
+						}
+						*/
+
+					}
+					else{
+						$tmp['type']="net";
+					}
 				}
 				
 				
@@ -257,9 +303,6 @@ class PMD_Page extends PMD_Root_Page{
 					$tmp['bitrate_unit']	=trim(preg_replace('#^'.$tmp['bitrate'].'#','',$rate));
 					$tmp['bitrate_info']	=trim($info);
 
-					$tmp['filetype']		=$arr['type'];	//known types 'mp3' , 'mp3 radio'
-					$tmp['h_filetype']		=preg_replace('#mp3 radio#i', 'radio', strtolower($arr['type']));	
-					
 				
 					if( $search_title 	=$this->_makeSongFullTitle($arr)){
 

@@ -1147,13 +1147,17 @@ TABLE.table_devices TR TD{
 	position: relative;
 	float: right;
 	height: 19px;
-	width: 260px;
+	width: 240px;
 }
-#body_squeeze .lcd_screen .player_fields I{
+#body_squeeze .lcd_screen .player_fields I,
+#body_squeeze .lcd_screen .player_icons I{
 	vertical-align: text-bottom;
 	font-size: 12px;
 	padding-right: 4px;
 	color: rgba(110,110,110,0.65);
+}
+#body_squeeze .lcd_screen .player_icons I{
+	padding-top: 2px;
 }
 #body_squeeze .lcd_screen .player_fields.off I{
 	color: rgba(110,110,110,0.3);
@@ -1180,9 +1184,16 @@ TABLE.table_devices TR TD{
 	position: absolute;
 	left: 0px;
 }
+#body_squeeze .lcd_screen .lcd_icons .field_type{
+	position: absolute;
+	right: 166px;
+}
+#body_squeeze .lcd_screen .lcd_icons .field_type I{
+	/*color: rgba(110,110,110,0.9);*/	
+}
 #body_squeeze .lcd_screen .lcd_icons .field_filetype{
 	position: absolute;
-	left: 70px;
+	right: 145px;
 	text-transform: uppercase;
 }
 #body_squeeze .lcd_screen .lcd_icons .player_encoder{
@@ -1190,7 +1201,7 @@ TABLE.table_devices TR TD{
 	position: absolute;
 	top: 0;
 	right: 55px;
-	width: 90px;
+	width: 80px;
 	text-align: right;
 	/*background-color: rgba(110,110,110,0.2);*/
 }
@@ -1349,9 +1360,6 @@ TABLE.table_devices TR TD{
 	font-size: 10px;
 	padding-right: 4px;
 }
-#body_squeeze .cur_playlist .song_title{
-	
-}
 #body_squeeze .cur_playlist .song_artist{
 	margin-right: 10px;
 	font-weight: bold;
@@ -1359,6 +1367,16 @@ TABLE.table_devices TR TD{
 #body_squeeze .cur_playlist .song_album{
 	margin-right: 10px;
 	font-style: italic;	
+}
+#body_squeeze .cur_playlist .song_sep{
+	margin-right: 10px;	
+}
+#body_squeeze .cur_playlist .song_track{
+	margin-right: 5px;
+	font-size: 11px;
+}
+#body_squeeze .cur_playlist .song_title{
+	
 }
 #body_squeeze .cur_playlist .song_bpm{
 	padding-right: 20px;
