@@ -68,9 +68,9 @@ jQuery( document ).ready(function() {
 		if(do_reload){
 			setTimeout(function(){
     			/* console.log("Force Reload"); */
-				SetIntervalRefresh( 'states' , 	pmd_sqz_prefs.refresh_states);
-				SqzLoopLoadPlayers();
-			}, 200);
+				//SetIntervalRefresh( 'states' , 	pmd_sqz_prefs.refresh_states);
+				SqzAjaxFetchPlayer(id,1);
+			}, 100);
 		}
 	});
 	
@@ -179,7 +179,7 @@ jQuery( document ).ready(function() {
 	SetIntervalRefresh( 'states' , 	pmd_sqz_prefs.refresh_states);
 	SetIntervalRefresh( 'counters' , pmd_sqz_prefs.refresh_counters);
 
-	SqzLoopLoadPlayers(1);
+	SqzLoopFetchPlayers(1);
 });
 
 
@@ -263,9 +263,23 @@ function SqzJsidToPlayerId(jsid){
 
 
 /* ----------------------------------------------------------------------------------- */	
-function SqzLoopLoadPlayers(init){
-		var url='?do=ajax&act=state_all';
-		/*	console.log('Reloading...'); */
+function SqzLoopFetchPlayers(init){
+	SqzAjaxFetch(init);
+}
+/* ----------------------------------------------------------------------------------- */	
+function SqzAjaxFetchPlayer(playerid,limit){
+	SqzAjaxFetch(false, limit, playerid);
+}
+/* ----------------------------------------------------------------------------------- */	
+function SqzAjaxFetch(init, limit, playerid){
+		if(limit === undefined || limit === null || limit == '' ){
+			limit=5;
+		}
+		var url='?do=ajax&act=players&limit='+limit;
+		if(playerid !== undefined && playerid !== null && playerid != '' ){
+			url=url+'&id='+playerid;
+		}
+
 		$.getJSON(url,function(data){
 			last_refresh_date=Date.now;
 
@@ -556,7 +570,7 @@ function SqzStoreAndDisplayCue(jsid,point,ctime){
 	var global_sqz_timeout={};
 	global_sqz_timeout.states={
 		id : null,
-		method : "SqzLoopLoadPlayers()"
+		method : "SqzLoopFetchPlayers()"
 	};
 	global_sqz_timeout.counters={
 		id : null,

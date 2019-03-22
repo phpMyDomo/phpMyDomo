@@ -28,7 +28,7 @@ class PMD_Page extends PMD_Root_Page{
 			exit;
 		}
 
-		$data['players']=$this->_RequestPlayersFull();
+		$data['players']=$this->_RequestPlayersWithStatus();
 		$data['prefs']=$this->vars;
 		$data['agent']=$this->_DetectMobileBrowser();
 		
@@ -69,7 +69,7 @@ class PMD_Page extends PMD_Root_Page{
 	}
 
 	//----------------------------------------------------------------------------------
-	private function _RequestPlayersFull(){
+	private function _RequestPlayersWithStatus(){
 		$players=$this->_RequestPlayers();
 		foreach($players as $id => $row){
 			$row['status']	= $this->_RequestPlayerSlatus($row['playerid'],5);
@@ -78,6 +78,13 @@ class PMD_Page extends PMD_Root_Page{
 			}
 		}
 		return $out;
+	}
+
+	//----------------------------------------------------------------------------------
+	private function _RequestPlayer($id, $limit=5){
+			$row['playerid']=$id;
+			$row['status']	= $this->_RequestPlayerSlatus($id, $limit);
+			return $this->_FormatPlayer($row, true);
 	}
 
 	//----------------------------------------------------------------------------------
@@ -98,9 +105,9 @@ class PMD_Page extends PMD_Root_Page{
 	}
 
 	//----------------------------------------------------------------------------------
-	private function _RequestPlayerSlatus($id,$max=1){
+	private function _RequestPlayerSlatus($id, $max=1){
 		//$r=$this->_Request(array($id,array('status',0,999)));
-		$r=$this->_Request(array($id,array('status','-',$max,"tags:aAbcdeghiIJKlLmNoqrStTuxy")));
+		$r=$this->_Request(array($id,array('status', '-', $max, "tags:aAbcdeghiIJKlLmNoqrStTuxy")));
 		$out=$r['result'];
 		if(! is_array($out)){
 			$out=array();
@@ -137,15 +144,23 @@ class PMD_Page extends PMD_Root_Page{
 				
 			}
 		}
-		if($_GET['act']=='state_all' ){
-			echo json_encode($this->_RequestPlayersFull());
+		
+		if($_GET['act']=='players' ){
+			if( $id=$_GET['id']){
+				$limit=$_GET['limit'];
+				$out[$id]=$this->_RequestPlayer($id, $limit);
+			}
+			else{
+				$out=$this->_RequestPlayersWithStatus();
+			}
+			echo json_encode($out);
 		}
 		exit;
 	}
 
 
 	//----------------------------------------------------------------------------------
-	private function _FormatPlayer($row) {
+	private function _FormatPlayer($row, $mode_mini=false) {
 
 		$out['playerid']	=$row['playerid'];
 		$out['name']		=$row['name'];
@@ -156,7 +171,7 @@ class PMD_Page extends PMD_Root_Page{
 		$out['h_time']		=$this->_FormatSeconds($status['time']);
 		
 		$out['firmware']		=$row['firmware'];
-		if(!$row['firmware']){
+		if(!$row['firmware'] and !$mode_mini){
 			return FALSE; // hide ghost player
 		}
 		$out['mode']		=$status['mode'];
@@ -230,8 +245,7 @@ class PMD_Page extends PMD_Root_Page{
 							$tmp['title']	=$this->_FormatTitle($title);
 							$arr['remote_title'] and $tmp['radio_name']=$arr['remote_title'];
 						}
-					}
-					
+					}	
 				}
 				
 				
@@ -272,15 +286,13 @@ class PMD_Page extends PMD_Root_Page{
 				}
 				
 				//store it
-				$out['playlist'][$k]=$tmp;
-				
+				$out['playlist'][$k]=$tmp;	
 			}
-			
 		}
 
 		//$row['remoteMeta']['f_duration']=$this->_FormatSeconds($row['remoteMeta']['duration']);
 
-		$out['raw']		=$row;
+		//$out['raw']		=$row;
 		return $out;
 	}
 
