@@ -66,10 +66,10 @@ jQuery( document ).ready(function() {
 		}
 
 		if(do_reload){
-			SetIntervalRefresh( 'states' , 	pmd_sqz_prefs.refresh_states);
 			setTimeout(function(){
     			/* console.log("Force Reload"); */
-				SqzRefreshAllStates();
+				SetIntervalRefresh( 'states' , 	pmd_sqz_prefs.refresh_states);
+				SqzLoopLoadPlayers();
 			}, 200);
 		}
 	});
@@ -179,7 +179,7 @@ jQuery( document ).ready(function() {
 	SetIntervalRefresh( 'states' , 	pmd_sqz_prefs.refresh_states);
 	SetIntervalRefresh( 'counters' , pmd_sqz_prefs.refresh_counters);
 
-	SqzRefreshAllStates(1);
+	SqzLoopLoadPlayers(1);
 });
 
 
@@ -263,7 +263,7 @@ function SqzJsidToPlayerId(jsid){
 
 
 /* ----------------------------------------------------------------------------------- */	
-function SqzRefreshAllStates(init){
+function SqzLoopLoadPlayers(init){
 		var url='?do=ajax&act=state_all';
 		/*	console.log('Reloading...'); */
 		$.getJSON(url,function(data){
@@ -299,19 +299,7 @@ function SqzRefreshAllStates(init){
 				if( player.song == undefined || player.song === null){
 					player.song={};
 				}
-
 				SqzRefreshAllData(pid, player);
-
-				/*
-				if (player.status.remote){
-					pid.find('.player_radio').show();
-					pid.find('.player_radio_name').html(player.status.current_title);
-					pid.find('.player_album').html('');
-				}
-				else{
-					pid.find('.player_radio').hide();						
-				}
-				*/
 				
 				/* current player ------------- */
 	  			if(jsid == selected_player_jsid){
@@ -326,7 +314,7 @@ function SqzRefreshAllStates(init){
 
 				//console.log('Reloading...'+ current_times[player.f_jsid] + ' = '+SqzFormatTime(current_times[player.f_jsid], true));
 			});
-			//SqzRefreshCounter();
+			//SqzLoopRefreshCounter();
 		});
 }
 /* ----------------------------------------------------------------------------------- */	
@@ -394,7 +382,7 @@ function SqzRefreshField(el, row){
 
 
 /* ----------------------------------------------------------------------------------- */	
-function SqzRefreshCounter() {
+function SqzLoopRefreshCounter() {
     
     /*refresh counters*/
     var elapsed = Date.now() - last_refresh_date;
@@ -467,7 +455,7 @@ function SqzRazCounter(player){
 }
 
 /* ----------------------------------------------------------------------------------- */	
-function SqzRefreshCounterTimes() {
+function SqzSetCurrentTimes() {
     var elapsed = Date.now() - last_refresh_date;
 	if(isNaN(elapsed)){elapsed=0;}
 	last_refresh_date =Date.now();
@@ -548,7 +536,7 @@ function SqzNudgeCue(jsid,point,offset ,dir) {
 }
 /* ----------------------------------------------------------------------------------- */	
 function SqzSetCue(jsid,point) {
-	SqzRefreshCounterTimes();
+	SqzSetCurrentTimes();
 	var ctime=current_times[jsid] - pmd_sqz_prefs.cue_offset/1000;
 	SqzStoreAndDisplayCue(jsid,point,ctime);
 	if(cues[jsid]['out'] < cues[jsid]['in']){
@@ -567,19 +555,19 @@ function SqzStoreAndDisplayCue(jsid,point,ctime){
 /* ----------------------------------------------------------------------------------- */	
 	var global_sqz_timeout={};
 	global_sqz_timeout.states={
-		interval : null,
-		method : "SqzRefreshAllStates()"
+		id : null,
+		method : "SqzLoopLoadPlayers()"
 	};
 	global_sqz_timeout.counters={
-		interval : null,
-		method : "SqzRefreshCounter()"
+		id : null,
+		method : "SqzLoopRefreshCounter()"
 	};
 	
 	function SetIntervalRefresh(name, ctime){
 	/* 	console.log('SetIntervalRefresh '+name+' to '+ctime); */
-		clearTimeout(global_sqz_timeout[name]['interval']);
+		clearTimeout(global_sqz_timeout[name]['id']);
 		if(ctime > 0){
-			global_sqz_timeout[name]['interval']=setInterval(global_sqz_timeout[name]['method'], ctime);		
+			global_sqz_timeout[name]['id']=setInterval(global_sqz_timeout[name]['method'], ctime);		
 		}
 	}
 
