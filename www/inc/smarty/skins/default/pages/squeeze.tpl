@@ -197,6 +197,13 @@
 
 			</div>
 
+			<div class="row_playlist">
+				<div class="cur_playlist jsSqzPlaylist">
+					
+				</div>
+			</div>
+
+
 {/function}
 
 {capture assign=page_content}
@@ -209,6 +216,7 @@
 			<div class="panel-body player_body jsPlayerBody">
 
 {MakePlayer row=$row}
+
 			</div>	
 		</div>
 {/foreach}

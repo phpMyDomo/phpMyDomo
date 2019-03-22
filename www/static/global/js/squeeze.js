@@ -193,7 +193,8 @@ var loops={};
 var last_refresh_date=Date.now;
 var selected_player_jsid='';
 var last_data={
-	players : {}
+	players : {},
+//	song_id : 0,
 };
 
 
@@ -302,10 +303,36 @@ function SqzAjaxFetch(init, limit, playerid){
 				/* current player ------------- */
 				SqzRefreshInformationData(pid);
 
+
+				/* Playlists */
+				SqzRefreshPlaylist(pid, player.playlist);
 				//console.log('Reloading...'+ current_times[player.f_jsid] + ' = '+SqzFormatTime(current_times[player.f_jsid], true));
 			});
 			//SqzLoopRefreshCounter();
 		});
+}
+/* ----------------------------------------------------------------------------------- */	
+function SqzRefreshPlaylist(player, songs){
+	if(1 in songs){
+		//delete songs["0"];
+		var target=player.find('.jsSqzPlaylist');
+		var html='';
+		$.each(songs, function(i, song){
+			html +="<div class='pl_song'>";
+				html +="<span class='song_artist'>"		+song.artist	+"</span>";
+				if(song.album !=''){
+					html +="<span class='song_album'><i class='fa fa-chevron-circle-right'></i>"	+song.album		+"</span>";
+				}
+				html +="<span class='song_title'>"		+song.title 	+"</span>";
+				html +="<span class='song_duration'>"	+song.h_duration+"</span>";
+				if(song.bpm !=''){
+					html +="<span class='song_bpm'><i class='fa fa-heartbeat'></i>"		+song.bpm		+"</span>";
+					
+				}
+			html +="</div>\n";
+		});
+		target.html(html);
+	}
 }
 /* ----------------------------------------------------------------------------------- */	
 function SqzRefreshAllData(player, data){

@@ -224,6 +224,7 @@ class PMD_Page extends PMD_Root_Page{
 				$tmp['year']	and $tmp['h_year']	="<u>{$tmp['year']}</u>";
 
 				$tmp['bpm']		=$arr['bpm'];
+				$tmp['bpm']		=str_replace('null', '', $tmp['bpm']);
 
 				$tmp['url_img']	='';
 				$arr['coverid']		and $tmp['url_img']=$this->vars['url_server']."/music/{$arr['coverid']}/cover.png";
@@ -293,7 +294,7 @@ class PMD_Page extends PMD_Root_Page{
 
 		//$row['remoteMeta']['f_duration']=$this->_FormatSeconds($row['remoteMeta']['duration']);
 
-		//$out['raw']		=$row;
+		$out['raw']		=$row;
 		return $out;
 	}
 

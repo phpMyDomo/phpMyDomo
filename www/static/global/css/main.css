@@ -1326,6 +1326,50 @@ TABLE.table_devices TR TD{
 }
 /* @end */
 
+/* @group Player  Playlist
+++++++++++++++++++++++++++++++++++++++ */
+#body_squeeze .row_playlist{
+
+}
+#body_squeeze .cur_playlist{
+	font-size: 12px;
+	/*border: 1px solid rgba(0,0,0,0.1);*/	
+}
+#body_squeeze .cur_playlist .pl_song:first-child{
+	border-top: 1px solid rgba(0,0,0,0.1);	
+}
+#body_squeeze .cur_playlist .pl_song{
+	padding: 5px 0;
+	border-bottom: 1px solid rgba(0,0,0,0.1);
+}
+#body_squeeze .cur_playlist .pl_song:last-child{
+	/*border-bottom: 1px solid transparent;*/		
+}
+#body_squeeze .cur_playlist .pl_song I{
+	font-size: 10px;
+	padding-right: 4px;
+}
+#body_squeeze .cur_playlist .song_title{
+	
+}
+#body_squeeze .cur_playlist .song_artist{
+	margin-right: 10px;
+	font-weight: bold;
+}
+#body_squeeze .cur_playlist .song_album{
+	margin-right: 10px;
+	font-style: italic;	
+}
+#body_squeeze .cur_playlist .song_bpm{
+	padding-right: 20px;
+	float: right;
+}
+#body_squeeze .cur_playlist .song_duration{
+	float: right;
+}
+
+/* @end */
+
 
 
 /* @group Current Block
