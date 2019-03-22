@@ -203,21 +203,23 @@ function JqzSelectPlayer(player){
 	/* set jsSelected ----- */
 	$('.jsSqzPlayer').removeClass('jsSelected');
 	player.addClass('jsSelected');
-			
-	/* show only this player ----- */
-	$('.jsPlayerBody').hide();
-	player.find('.jsPlayerBody').show();
-			
-	/* Update Current player Infos block ----- */
-	var player_name = player.find('.player_name').html();
-	$('.jsCurrentPlayer .jsCurrentPlayerHead').html(player_name);
-	$('.jsCurrentPlayer .jsCurrentPlayerBody').html('');
-	
+
 	/* Put player on top----- */
 	var first_player=$('.jsSqzPlayer').first();
 	if(! player.is( first_player )){
 		player.insertBefore(first_player);
 	}
+			
+	/* show only this player ----- */
+	$('.jsPlayerBody').slideUp(200);
+	player.find('.jsPlayerBody').slideDown(270);
+	$(window).scrollTop(0);
+	
+	/* Update Current player Infos block ----- */
+	var player_name = player.find('.player_name').html();
+	$('.jsCurrentPlayer .jsCurrentPlayerHead').html(player_name);
+	$('.jsCurrentPlayer .jsCurrentPlayerBody').html('');
+	
 }
 /* ----------------------------------------------------------------------------------- */	
 function SqzGetElementsHavingDataField(player,field){
