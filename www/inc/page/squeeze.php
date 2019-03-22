@@ -232,6 +232,7 @@ class PMD_Page extends PMD_Root_Page{
 				if($status['remote']){ //this is a radio
 					$arr['artwork_url']	and $tmp['url_img']	=$arr['artwork_url'];
 					$tmp['url_img']	=preg_replace('#^/imageproxy/#','', $tmp['url_img']);
+					$tmp['url_img']	=preg_replace('#/image.jpg$#','', $tmp['url_img']);
 					$tmp['url_img']=urldecode($tmp['url_img']);
 					
 					$tmp['album']		='';
