@@ -127,6 +127,16 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#2b2d30', end
 	font-weight: normal;
 	background: #000 ;
 }
+#body_squeeze .cur_playlist{
+	border: 1px solid rgba(0,0,0,0.1);
+border-color: rgba(255,255,255,0.1) rgba(255,255,255,0.15) rgba(255,255,255,0.15) rgba(255,255,255,0.1);
+	background: rgba(0,0,0,0.5);
+}
+#body_squeeze .cur_playlist .pl_song{
+	padding: 5px 5px;
+	border-color:  rgba(255,255,255,0.1);
+	color: #00ace9;
+}
 
 
 
