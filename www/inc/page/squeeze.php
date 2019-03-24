@@ -69,10 +69,10 @@ class PMD_Page extends PMD_Root_Page{
 	}
 
 	//----------------------------------------------------------------------------------
-	private function _RequestPlayersWithStatus(){
+	private function _RequestPlayersWithStatus($limit=5){
 		$players=$this->_RequestPlayers();
 		foreach($players as $id => $row){
-			$row['status']	= $this->_RequestPlayerSlatus($row['playerid'],5);
+			$row['status']	= $this->_RequestPlayerSlatus($row['playerid'],$limit);
 			if($formated = $this->_FormatPlayer($row)){
 				$out[$id]	= $formated;
 			}
@@ -146,12 +146,12 @@ class PMD_Page extends PMD_Root_Page{
 		}
 		
 		if($_GET['act']=='players' ){
+			$limit=$_GET['limit'] or $limit=5;
 			if( $id=$_GET['id']){
-				$limit=$_GET['limit'];
 				$out[$id]=$this->_RequestPlayer($id, $limit);
 			}
 			else{
-				$out=$this->_RequestPlayersWithStatus();
+				$out=$this->_RequestPlayersWithStatus($limit);
 			}
 			echo json_encode($out);
 		}

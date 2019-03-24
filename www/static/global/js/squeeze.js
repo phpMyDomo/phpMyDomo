@@ -69,7 +69,7 @@ jQuery( document ).ready(function() {
 			setTimeout(function(){
     			/* console.log("Force Reload"); */
 				//SetIntervalRefresh( 'states' , 	pmd_sqz_prefs.refresh_states);
-				SqzAjaxFetchPlayer(id,1);
+				SqzAjaxFetchPlayer(id, playlist_max +1);
 			}, 100);
 		}
 	});
@@ -186,7 +186,7 @@ jQuery( document ).ready(function() {
 
 
 /* ########################################################################################################*/	
-
+var playlist_max=pmd_sqz_prefs.songs;
 var current_times={};
 var cues={};
 var loops={};
@@ -194,7 +194,7 @@ var last_refresh_date=Date.now;
 var selected_player_jsid='';
 var last_data={
 	players : {},
-	song_id : 0,
+	song_ids : {},
 };
 
 
@@ -257,7 +257,7 @@ function SqzAjaxFetchPlayer(playerid,limit){
 /* ----------------------------------------------------------------------------------- */	
 function SqzAjaxFetch(init, limit, playerid){
 		if(limit === undefined || limit === null || limit == '' ){
-			limit=5;
+			limit=playlist_max + 1;
 		}
 		var url='?do=ajax&act=players&limit='+limit;
 		if(playerid !== undefined && playerid !== null && playerid != '' ){
@@ -303,9 +303,15 @@ function SqzAjaxFetch(init, limit, playerid){
 				/* current player ------------- */
 				SqzRefreshInformationData(pid);
 
+				var song_id=player_row.song.id;
+				if(last_data.song_ids[player_row.playerid] != song_id){
+					//SqzAjaxFetch(false, 5, playerid);
+					console.log('Changing track for player '+ player_row.playerid);
+					last_data.song_ids[player_row.playerid] = song_id;
+				}
+				
 
 				/* Playlists */
-				//last_data.song_id=
 				SqzRefreshPlaylist(pid, player_row.playlist, player_row.song.type);
 				//console.log('Reloading...'+ current_times[player_row.f_jsid] + ' = '+SqzFormatTime(current_times[player_row.f_jsid], true));
 			});

@@ -27,6 +27,11 @@ $prefs['refresh_states']		=5000;
 // the real-time counter is updated every [refresh_counters] milliseconds. This also set the minimum steps of the cue points and loop.
 $prefs['refresh_counters']		=5;
 
+// Number of Songs #############
+// the number of Songs shown in the current Playlist.
+$prefs['songs']		=8;
+
+
 // Scroll times ######################
 // how much time (in second ) to jump when pressing << / >> buttons
 $prefs['scroll_time1']			=5;
