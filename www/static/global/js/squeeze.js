@@ -2,7 +2,8 @@
 jQuery( document ).ready(function() {
 	
 	/* ----- Select Last Player ------------------ */
-	selected_player_jsid=Cookies.get('sqz_player');	
+	selected_player_jsid		=Cookies.get('sqz_player');	
+	
 	var last_player=$('#jsPlayer_'+selected_player_jsid);
 	if(! last_player.length > 0){
 		last_player=$('.jsSqzPlayer').first();
@@ -15,6 +16,22 @@ jQuery( document ).ready(function() {
 			var player=$(this).closest('.jsSqzPlayer');
 			JqzSelectPlayer(player);
 	});
+
+	/* Load master playlists ----- */
+	SqzAjaxFetchPlaylists();
+
+
+
+	/* ----- Selected Playlist to add ------------------ */
+	selected_pl_add_id	=Cookies.get('sqz_playlist_add');
+
+	$('.jsSqzSelectPlaylistAdd').on('change', function(){
+		selected_pl_add_id = $(this).val(); //$(this).val()
+		console.log('change cookie '+selected_pl_add_id);
+		Cookies.set('sqz_playlist_add', selected_pl_add_id, { expires: 365 });
+		SqzUpdatePlaylistAddSelectedOption();
+	});
+
 	
 
 	/* ----- Buttons ------------------ */
@@ -25,15 +42,21 @@ jQuery( document ).ready(function() {
 		var v1	=$(this).attr('data-v1');
 		var v2	=$(this).attr('data-v2');
 		var do_reload=true;
+		var player=$(this).closest('.jsSqzPlayer');
+
 		if(type=='cue'){
 			SqzSetCue(v1,v2);
 			return;
 		}
-		if(type=='loop'){
+		else if(type=='loop'){
 			SqzSetLoop(v1);
 			return;
 		}
-		var player=$(this).closest('.jsSqzPlayer');
+		else if(type=="pl_add"){
+			SqzAddCurrentSongToSelectedPlaylist(player);
+			return;
+		}
+		
 		if(v1=='voldown' || v1=='volup'){
 			var el_volume=SqzGetElementsHavingDataField(player, 'volume');
 			var volume=parseInt(el_volume.data('value'));
@@ -192,6 +215,7 @@ var cues={};
 var loops={};
 var last_refresh_date=Date.now;
 var selected_player_jsid='';
+var selected_pl_add_id='';
 var last_data={
 	players : {},
 	song_ids : {},
@@ -249,7 +273,46 @@ function SqzClickButton(jsid,but){
 /* ----------------------------------------------------------------------------------- */	
 function SqzLoopFetchPlayers(init){
 	SqzAjaxFetch(init);
+	
 }
+/* ----------------------------------------------------------------------------------- */	
+function SqzAjaxFetchPlaylists(){
+		var url='?do=ajax&act=playlists';
+		$.getJSON(url,function(data){
+			var html='';
+			$.each(data,function(k,row){
+				html +='<option value="'+row['id']+'">'+row['playlist']+"</option>\n";
+			});
+			$('.jsSqzSelectPlaylistAdd').html(html);
+			SqzUpdatePlaylistAddSelectedOption();
+			/*Change Selected Menu Option -------- */
+			//$('.jsSelected .jsSqzSelectPlaylistAdd').trigger('change');
+		});
+}
+
+/* ----------------------------------------------------------------------------------- */	
+function SqzAddCurrentSongToSelectedPlaylist(player){
+	var playerid	=player.data('id');
+	var song_title	=encodeURIComponent(last_data.players[playerid].song.title);
+	var song_url	=encodeURIComponent(last_data.players[playerid].song.url);
+	var playlist_id = $('.jsSqzSelectPlaylistAdd').val();
+	var url='?do=ajax&act=pl_add&id='+playlist_id+"&url="+song_url+"&title="+song_title;;
+	$.getJSON(url,function(data){
+		/* confirm OK */
+	});
+}
+
+/* ----------------------------------------------------------------------------------- */	
+function SqzUpdatePlaylistAddSelectedOption(){
+	console.log('PL: val=' +selected_pl_add_id);
+	if(selected_pl_add_id !='' && selected_pl_add_id !='null'){
+		var selector='.jsSqzSelectPlaylistAdd OPTION[value='+selected_pl_add_id+']';	//.jsSelected 
+		console.log('Select val=' +selected_pl_add_id +' , Selctor='+selector);
+		$(selector).attr('selected', 'selected');
+	}
+}
+
+
 /* ----------------------------------------------------------------------------------- */	
 function SqzAjaxFetchPlayer(playerid,limit){
 	SqzAjaxFetch(false, limit, playerid);
@@ -306,14 +369,16 @@ function SqzAjaxFetch(init, limit, playerid){
 				var song_id=player_row.song.id;
 				if(last_data.song_ids[player_row.playerid] != song_id){
 					//SqzAjaxFetch(false, 5, playerid);
-					console.log('Changing track for player '+ player_row.playerid);
+					//console.log('Changing track for player '+ player_row.playerid);
 					last_data.song_ids[player_row.playerid] = song_id;
 				}
 				
 
-				/* Playlists */
+				/* Current Playlist */
 				SqzRefreshPlaylist(pid, player_row.playlist, player_row.song.type);
 				//console.log('Reloading...'+ current_times[player_row.f_jsid] + ' = '+SqzFormatTime(current_times[player_row.f_jsid], true));
+				
+					
 			});
 			//SqzLoopRefreshCounter();
 		});
@@ -350,7 +415,7 @@ function SqzRefreshPlaylist(player, songs, type){
 				}
 			html +="</div>\n";
 		});
-		target.html(html);
+		target.html(html);		
 	}
 }
 /* ----------------------------------------------------------------------------------- */	
@@ -495,8 +560,9 @@ function SqzLoopRefreshCounter() {
 		player.find('.jsSqzBut_ff2').attr('data-v1', Math.min(this_time + pmd_sqz_prefs.scroll_time2 , dur));
 
 		/* process loops --------- */
-		if(loops[jsid]==true && this_time >= cues[jsid]['out'] ){
-			this_time=cues[jsid]['in'];
+		if(loops[jsid]==true && this_time > cues[jsid]['out'] ){
+			//this_time=cues[jsid]['in'];
+			current_times[jsid]=cues[jsid]['in'];
 			SqzRequestButton(playerid,'time',cues[jsid]['in'],'');
 		}
 		

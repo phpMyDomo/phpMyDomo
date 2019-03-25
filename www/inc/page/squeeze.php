@@ -54,6 +54,28 @@ class PMD_Page extends PMD_Root_Page{
 	}
 
 	//----------------------------------------------------------------------------------
+	private function _RequestPlaylists(){
+		$r=$this->_Request(array('',array('playlists',0,0)));
+		$arr=$r['result']['playlists_loop'];
+		if(is_array($arr)){
+			foreach($arr as $k => $row){
+				if(preg_match('#^tempplaylist#', $row['playlist'])){
+					unset($arr[$k]);
+				}
+			}
+		}
+		return $arr;
+	}
+
+	//----------------------------------------------------------------------------------
+	private function _RequestPlaylistAdd($playlist_id,$url,$title=''){
+		//$title 	=rawurlencode($title);
+		$r=$this->_Request(array('',array('playlists','edit',"cmd:add","playlist_id:$playlist_id","url:$url")));
+		$arr=$r; //['result']
+		return $arr;
+	}
+
+	//----------------------------------------------------------------------------------
 	private function _RequestPlayers(){
 		$r=$this->_Request(array('',array('serverstatus',0,999)));
 		$arr=$r['result']['players_loop'];
@@ -144,8 +166,7 @@ class PMD_Page extends PMD_Root_Page{
 				
 			}
 		}
-		
-		if($_GET['act']=='players' ){
+		elseif($_GET['act']=='players' ){
 			$limit=$_GET['limit'] or $limit=5;
 			if( $id=$_GET['id']){
 				$out[$id]=$this->_RequestPlayer($id, $limit);
@@ -155,6 +176,17 @@ class PMD_Page extends PMD_Root_Page{
 			}
 			echo json_encode($out);
 		}
+		elseif($_GET['act']=='playlists' ){
+			$out=$this->_RequestPlaylists();
+			echo json_encode($out);
+		}
+		elseif($_GET['act']=='pl_add' ){
+			if($id=$_GET['id'] and $url=$_GET['url'] and $title=$_GET['title']){
+				$out=$this->_RequestPlaylistAdd($id,$url,$title);
+				echo json_encode($out);
+			}
+		}
+
 		exit;
 	}
 
@@ -206,7 +238,7 @@ class PMD_Page extends PMD_Root_Page{
 		if(is_array($status['playlist_loop'])){
 			foreach($status['playlist_loop'] as $k => $arr){
 				
-				$tmp=$arr;
+				//$tmp=$arr;
 				$tmp=array();
 
 				$tmp['title']		=$this->_FormatTitle($arr['title']);
@@ -228,6 +260,7 @@ class PMD_Page extends PMD_Root_Page{
 				$tmp['h_duration']	=$this->_FormatSeconds($arr['duration']);
 
 				$tmp['id']		=$arr['id'];
+				$tmp['url']		=$arr['url'];
 				$tmp['track']	=$arr['tracknum'];
 
 				$tmp['h_track']	='';

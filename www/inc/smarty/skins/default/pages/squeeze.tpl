@@ -149,6 +149,11 @@
 					{MakeButton size='lg' row=$row mode='ff2' title="{$l.ff} ({$data.prefs.scroll_time2})"		type='time'	icon='NO' txt="<i class='fa fa-forward'></i><i class='fa fa-forward'></i>"}
 				</span>
 
+				<span class="but_player but_player_playlist">
+					<select class="form-control input-sm jsSqzSelectPlaylistAdd" value=''></select>
+					{MakeButton row=$row icon='plus' type='pl_add'}
+				</span>
+
 			</div>
 
 

@@ -1186,14 +1186,14 @@ TABLE.table_devices TR TD{
 }
 #body_squeeze .lcd_screen .lcd_icons .field_type{
 	position: absolute;
-	right: 166px;
+	left: 49px;
 }
 #body_squeeze .lcd_screen .lcd_icons .field_type I{
 	/*color: rgba(110,110,110,0.9);*/	
 }
 #body_squeeze .lcd_screen .lcd_icons .field_filetype{
 	position: absolute;
-	right: 145px;
+	left: 69px;
 	text-transform: uppercase;
 }
 #body_squeeze .lcd_screen .lcd_icons .player_encoder{
@@ -1317,6 +1317,12 @@ TABLE.table_devices TR TD{
 
 /* @group Player  Buttons
 ++++++++++++++++++++++++++++++++++++++ */
+#body_squeeze .row_transport{
+}
+#body_squeeze .row_studio{
+}
+#body_squeeze .row_settings{
+}
 
 #body_squeeze .pmd_panel_sqz .but_player{
 	display: inline-block;
@@ -1324,6 +1330,12 @@ TABLE.table_devices TR TD{
 	white-space: nowrap;
 	overflow: hidden;
 	margin-bottom: 8px;
+}
+#body_squeeze .pmd_panel_sqz .but_player_move{
+	margin-right: 5px;
+}
+#body_squeeze .pmd_panel_sqz .but_player_cue{
+	margin-right: 5px;
 }
 #body_squeeze .pmd_panel_sqz .but_player .btn{
 	margin-right: 8px;
@@ -1334,6 +1346,22 @@ TABLE.table_devices TR TD{
 }
 #body_squeeze .pmd_panel_sqz .but_player .btn-group .btn:last-child{
 	margin-right: 8px;
+}
+#body_squeeze .pmd_panel_sqz .but_player_playlist{
+	float: right;
+	margin-right: 0;
+	padding-top: 7px;
+	height: 48px;
+}
+#body_squeeze .pmd_panel_sqz .but_player_playlist SELECT{
+	display: inline-block;
+	height: 31px;
+	margin-top: 1px;
+	width: auto;
+	vertical-align: top;
+}
+#body_squeeze .pmd_panel_sqz .but_player_playlist .btn{
+	margin-right: 0;
 }
 /* @end */
 
