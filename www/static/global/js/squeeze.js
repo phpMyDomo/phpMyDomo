@@ -298,7 +298,8 @@ function SqzAddCurrentSongToSelectedPlaylist(player){
 	var playlist_id = $('.jsSqzSelectPlaylistAdd').val();
 	var url='?do=ajax&act=pl_add&id='+playlist_id+"&url="+song_url+"&title="+song_title;;
 	$.getJSON(url,function(data){
-		/* confirm OK */
+		var obj=player.find('.jsSqzSelectPlaylistAdd');
+		obj.fadeTo(100, 0.1).fadeTo(200, 1.0);
 	});
 }
 
