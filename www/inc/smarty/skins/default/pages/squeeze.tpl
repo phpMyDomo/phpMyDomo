@@ -132,6 +132,11 @@
 
 			</div>
 
+			<div class="row_progression">
+					<div class="progress_border">
+						<div class="progress_inner jsSqzProgress"><span class="progress_head"></span></div>
+					</div>
+			</div>
 
 			<div class="row_transport">
 				<span class="but_player but_player_transport">
@@ -243,7 +248,7 @@ https://github.com/Logitech/slimserver/blob/public/7.9/IR/Default.map
 {* All Block -------------------------------------------------- *}
 
 		<div class="panel panel-default block_right pmd_panel jsSqzInformation" id="block_information">
-			<div class="panel-heading text-center">{MakeField field='name' value=$l.selected_player  icon='check' h_default="&nbsp;" noblank=1}</div>
+			<div class="panel-heading text-center">{MakeField field='name' value=$l.selected_player  icon='check' h_default="&nbsp;"}</div>
 			<div class="panel-body-full">
 			 	{MakeImage field='url_img'}
 			</div>

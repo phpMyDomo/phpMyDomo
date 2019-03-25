@@ -93,7 +93,7 @@ jQuery( document ).ready(function() {
     			/* console.log("Force Reload"); */
 				//SetIntervalRefresh( 'states' , 	pmd_sqz_prefs.refresh_states);
 				SqzAjaxFetchPlayer(id, playlist_max +1);
-			}, 100);
+			}, 500);
 		}
 	});
 	
@@ -541,17 +541,21 @@ function SqzLoopRefreshCounter() {
 		var h_remain	="";
 		var dur		=last_data.players[playerid].song.duration;
 		if( dur > 0){
-			remain	=dur - this_time;
+			remain	= dur - this_time;
 			h_remain = SqzFormatTime( remain );
 		}
 		SqzRefreshPlayerFieldValues(player,'remain',remain, h_remain);
 
-		/* Update LCD remaining Icon ------ */
+		/* Update LCD remaining Icon + progress bar ------ */
 		if(this_time > 0){
 			var steps=3;
 			var state=Math.abs(Math.round( (steps -1) * this_time / dur ));
 			//console.log(state);
 			SqzRefreshPlayerFieldValues(player,'remain_icon',state);
+
+			var state_perc=Math.abs(Math.round( 100 * this_time / dur ));
+			$('.jsSqzProgress').css('width',state_perc+'%');
+			
 		}
 
 		/* Set ff & rw times --------------- */

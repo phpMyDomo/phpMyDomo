@@ -1312,6 +1312,42 @@ TABLE.table_devices TR TD{
 }
 
 /* @end */
+/* @group Player Progress Bar
+++++++++++++++++++++++++++++++++++++++ */
+#body_squeeze .row_progression{
+	margin-bottom: 20px;
+}
+#body_squeeze .row_progression .progress_border{
+	border: 1px solid rgba(0,0,0,0.25);
+	border-radius: 5px;
+	/*background-color: rgba(255,255,255,0.1);*/
+}
+#body_squeeze .row_progression .progress_inner{
+	border-radius: 5px;
+	background-color: rgba(110,110,110,0.25);
+	height: 5px;
+	width: 0%;
+}
+#body_squeeze .row_progression .progress_head{
+	margin-top: -1px;
+	float: right;
+	display: block;
+	width: 7px;
+	height: 7px;
+	border-radius: 5px;
+	background-color: rgba(0,0,0, 0.9);
+/*
+	margin-top: -4px;
+	margin-right: -8px;
+	width: 0;
+	height: 0;
+	border-style: solid;
+	border-width: 10px 8px 0 0;
+	border-color: rgba(0,0,0,0.9) transparent transparent transparent;
+*/
+}
+	
+/* @end */
 
 
 
@@ -1359,6 +1395,8 @@ TABLE.table_devices TR TD{
 	margin-top: 1px;
 	width: auto;
 	vertical-align: top;
+}
+#body_squeeze .pmd_panel_sqz .but_player_playlist OPTION{
 }
 #body_squeeze .pmd_panel_sqz .but_player_playlist .btn{
 	margin-right: 0;
