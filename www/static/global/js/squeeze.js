@@ -42,8 +42,7 @@ jQuery( document ).ready(function() {
 		var ratio	= x / max;
 		var new_position=Math.round( last_data.players[playerid].song.duration * ratio ) ;
 		SqzRequestButton(player.data('id'),'time',new_position,'');
-		//current_times[selected_player_jsid]=new_position;
-		
+		current_times[selected_player_jsid]=new_position;
 	});
 
 	/* ----- Buttons ------------------ */
