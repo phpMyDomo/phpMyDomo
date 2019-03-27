@@ -15,7 +15,6 @@ A local Logitech Server
 // ##############################################################################
 
 // Logitech Media Server (LMS) #######################
-// Format : http://IP:PORT, ie : http://192.168.1.222:9000
 $prefs['server_host']			='192.168.1.222';	// Hostname or IP address
 $prefs['server_port_web']		='9000';			// Web port
 $prefs['server_port_cli']		='9090';			// CLI port
