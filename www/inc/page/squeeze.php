@@ -119,11 +119,31 @@ class PMD_Page extends PMD_Root_Page{
 		return $out;
 	}
 
+
 	//----------------------------------------------------------------------------------
 	private function _RequestButton($id,$type,$v1,$v2){
+		return $this->_RequestButtonWeb($id,$type,$v1,$v2);
+	}
+
+	//----------------------------------------------------------------------------------
+	private function _RequestButtonWeb($id,$type,$v1,$v2){
 		$debug=1;
 		$r=$this->_Request(array($id,array($type,$v1,$v2)), 0, $debug);
 		echo "ok\n";
+	}
+
+	//----------------------------------------------------------------------------------
+	private function _RequestButtonCli($id,$type,$v1,$v2){
+		$command="$id $type $v1 $v2";
+		
+		$socket = fsockopen($this->vars['server_host'], $this->vars['server_port_cli'], $errno, $errstr);
+		$buffer = ""; 
+		if($socket){ 
+			fputs($socket, "$command \r\n"); 
+			$buffer .=fread($socket,4096);
+		} 
+		@fclose($socket); 
+		echo "Result: ".urldecode($buffer);
 	}
 
 	//----------------------------------------------------------------------------------
@@ -186,7 +206,9 @@ class PMD_Page extends PMD_Root_Page{
 				echo json_encode($out);
 			}
 		}
-
+		else{
+			echo "Invalid 'act' ";
+		}
 		exit;
 	}
 
