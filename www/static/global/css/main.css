@@ -1316,6 +1316,7 @@ TABLE.table_devices TR TD{
 ++++++++++++++++++++++++++++++++++++++ */
 #body_squeeze .row_progression{
 	margin-bottom: 20px;
+	position: relative;
 }
 #body_squeeze .row_progression .progress_border{
 	border: 1px solid rgba(0,0,0,0.25);

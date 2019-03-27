@@ -27,12 +27,24 @@ jQuery( document ).ready(function() {
 
 	$('.jsSqzSelectPlaylistAdd').on('change', function(){
 		selected_pl_add_id = $(this).val(); //$(this).val()
-		console.log('change cookie '+selected_pl_add_id);
+		// console.log('change cookie '+selected_pl_add_id);
 		Cookies.set('sqz_playlist_add', selected_pl_add_id, { expires: 365 });
 		SqzUpdatePlaylistAddSelectedOption();
 	});
 
-	
+	/* Watch ProgressBar clicks  */
+	$('.jsSqzProgress').parent().on('click', function(e){
+		var player	=$(this).closest('.jsSqzPlayer');
+		var playerid=	player.data('id')
+		
+		var x 		= e.pageX - $(this).offset().left ;
+		var max 	= $(this).width();
+		var ratio	= x / max;
+		var new_position=Math.round( last_data.players[playerid].song.duration * ratio ) ;
+		SqzRequestButton(player.data('id'),'time',new_position,'');
+		//current_times[selected_player_jsid]=new_position;
+		
+	});
 
 	/* ----- Buttons ------------------ */
 	$(".jsSqzBut").click(function(e){
@@ -93,7 +105,7 @@ jQuery( document ).ready(function() {
     			/* console.log("Force Reload"); */
 				//SetIntervalRefresh( 'states' , 	pmd_sqz_prefs.refresh_states);
 				SqzAjaxFetchPlayer(id, playlist_max +1);
-			}, 500);
+			}, 300);
 		}
 	});
 	
@@ -194,7 +206,7 @@ jQuery( document ).ready(function() {
   		}
   		
   		else{
-	  		console.log(l +" :  "+ c);	
+			// console.log(l +" :  "+ c);	
   		}
 
 	});
@@ -305,10 +317,10 @@ function SqzAddCurrentSongToSelectedPlaylist(player){
 
 /* ----------------------------------------------------------------------------------- */	
 function SqzUpdatePlaylistAddSelectedOption(){
-	console.log('PL: val=' +selected_pl_add_id);
+	// console.log('PL: val=' +selected_pl_add_id);
 	if(selected_pl_add_id !='' && selected_pl_add_id !='null'){
 		var selector='.jsSqzSelectPlaylistAdd OPTION[value='+selected_pl_add_id+']';	//.jsSelected 
-		console.log('Select val=' +selected_pl_add_id +' , Selctor='+selector);
+		// console.log('Select val=' +selected_pl_add_id +' , Selctor='+selector);
 		$(selector).attr('selected', 'selected');
 	}
 }
@@ -554,7 +566,7 @@ function SqzLoopRefreshCounter() {
 			SqzRefreshPlayerFieldValues(player,'remain_icon',state);
 
 			var state_perc=Math.abs(Math.round( 100 * this_time / dur ));
-			$('.jsSqzProgress').css('width',state_perc+'%');
+			player.find('.jsSqzProgress').css('width',state_perc+'%');
 			
 		}
 
