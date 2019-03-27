@@ -42,7 +42,11 @@ jQuery( document ).ready(function() {
 		var ratio	= x / max;
 		var new_position=Math.round( last_data.players[playerid].song.duration * ratio ) ;
 		SqzRequestButton(player.data('id'),'time',new_position,'');
-		current_times[selected_player_jsid]=new_position;
+		//current_times[selected_player_jsid]=new_position;
+		setTimeout(function(){
+				SqzAjaxFetchPlayer(playerid, playlist_max +1);
+		}, 200);
+
 	});
 
 	/* ----- Buttons ------------------ */
@@ -104,7 +108,7 @@ jQuery( document ).ready(function() {
     			/* console.log("Force Reload"); */
 				//SetIntervalRefresh( 'states' , 	pmd_sqz_prefs.refresh_states);
 				SqzAjaxFetchPlayer(id, playlist_max +1);
-			}, 300);
+			}, 200);
 		}
 	});
 	
