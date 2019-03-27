@@ -14,9 +14,11 @@ A local Logitech Server
 // Squeeze Preferences  ##########################################################
 // ##############################################################################
 
-// Server URL #######################
+// Logitech Media Server (LMS) #######################
 // Format : http://IP:PORT, ie : http://192.168.1.222:9000
-$prefs['url_server']			='http://192.168.1.222:9000';
+$prefs['server_host']			='192.168.1.222';	// Hostname or IP address
+$prefs['server_port_web']		='9000';			// Web port
+$prefs['server_port_cli']		='9090';			// CLI port
 
 // Refresh States time ##############
 // the display is updated every [refresh_states] milliseconds, to correctly display the ciurrent title and buttons states.
@@ -34,8 +36,8 @@ $prefs['songs']		=8;
 
 // Scroll times ######################
 // how much time (in second ) to jump when pressing << / >> buttons
-$prefs['scroll_time1']			=5;
-$prefs['scroll_time2']			=10;
+$prefs['scroll_time1']			=7;
+$prefs['scroll_time2']			=20;
 
 // Cue Offset #######################
 // Musicians? Wanting perfect jump on beat  when using the Cue or Loop? Try to compensate the network latency by setting a small offset (in ms)

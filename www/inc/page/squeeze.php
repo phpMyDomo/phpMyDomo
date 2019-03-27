@@ -8,6 +8,10 @@ class PMD_Page extends PMD_Root_Page{
 	function __construct(& $class){
 		parent::__construct($class);
 		$this->_require();
+		
+		if(!$this->vars['url_server']){
+			$this->vars['url_server']="http://{$this->vars['server_host']}:{$this->vars['server_port_web']}";
+		}
 	}
 
 	//----------------------------------------------------------------------------------
