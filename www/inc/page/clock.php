@@ -12,6 +12,8 @@ class PMD_Page extends PMD_Root_Page{
 
 	//----------------------------------------------------------------------------------
 	function Run(){
+		$this->LoadApiClient();
+
 		$this->SetHeader('js/moment-with-locales.min.js','js_global');
 		$this->SetHeader('js/jquery.thooClock.js',		'js_global');
 		$this->SetHeader('js/jquery.countdown.js',		'js_global');

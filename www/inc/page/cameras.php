@@ -5,6 +5,8 @@ class PMD_Page extends PMD_Root_Page{
 
 	//----------------------------------------------------------------------------------
 	function Run(){
+		$this->LoadApiClient();
+
 		$data=array();
 
 		$cameras	=$this->o_api->GetCameras();

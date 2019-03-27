@@ -3,6 +3,8 @@ class PMD_Page extends PMD_Root_Page{
 
 	//----------------------------------------------------------------------------------
 	function Run(){
+		$this->LoadApiClient();
+
 		$data=array();
 		$data['devices']	=$this->o_api->GetDevices();
 		$data['commands']	=$this->o_api->GetCommands();

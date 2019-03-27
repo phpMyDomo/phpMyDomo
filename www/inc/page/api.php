@@ -3,6 +3,8 @@ class PMD_Page extends PMD_Root_Page{
 
 	//----------------------------------------------------------------------------------
 	function Run(){
+		$this->LoadApiClient();
+
 		isset($_GET['a'])	and $address	=$_GET['a'];
 		isset($_GET['v'])	and $val		=$_GET['v'];
 		isset($_GET['c'])	and $command	=$_GET['c'];

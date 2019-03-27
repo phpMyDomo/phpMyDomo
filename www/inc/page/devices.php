@@ -3,6 +3,8 @@ class PMD_Page extends PMD_Root_Page{
 
 	//----------------------------------------------------------------------------------
 	function Run(){
+		$this->LoadApiClient();
+
 		$data=array();
 		$data['rows']	=$this->o_api->GetDevices('','',array('lang_class' => SORT_ASC, 'name' => SORT_ASC , 'lang_type' => SORT_ASC  ));
 		if(isset($_GET['dump'])){

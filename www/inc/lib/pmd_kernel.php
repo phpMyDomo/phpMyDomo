@@ -63,17 +63,13 @@ class PMD_Kernel{
 		include_once($this->conf['paths']['lang'].'global.php');
 		$this->lang['global']=$this->ArrayMergeRecursive($this->lang['global'],$lang);
 
-		//api
-		require($this->conf['libs']['root_api_client']);
-		require($this->conf['libs']['api_client']);
-		$this->o_api= new PMD_ApiClient($this);
 		
 		//locale
 		$locale= isset($this->conf['app']['locale']) ? $this->conf['app']['locale'] : $this->lang['global']['locale'];
 		setlocale(LC_TIME,	$locale);
 		setlocale(LC_MESSAGES,	$locale);		
 	}
-	
+
 	//----------------------------------------------------------------------------------
 	function Controller(){
 		$url=$_SERVER['REQUEST_URI'];

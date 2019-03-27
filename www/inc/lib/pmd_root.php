@@ -36,12 +36,21 @@ class PMD_Root{
 	//----------------------------------------------------------------------------------
 	function __construct(& $kernel){
 		$this->o_kernel	= & $kernel;
-		$this->o_api	= & $kernel->o_api;
+		//$this->o_api	= & $kernel->o_api;
 		
 		$this->conf		= & $kernel->conf;
 		$this->lang		= & $kernel->lang;
 		$this->debug 	= $this->conf['debug']['show'];
 	}
+
+	//----------------------------------------------------------------------------------
+	function LoadApiClient(){
+		//api
+		require($this->conf['libs']['root_api_client']);
+		require($this->conf['libs']['api_client']);
+		$this->o_api= new PMD_ApiClient($this);
+	}
+	
 
 	//----------------------------------------------------------------------------------
 	function Debug($txt='',$arr='',$exit=1){

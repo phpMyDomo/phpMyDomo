@@ -12,6 +12,8 @@ class PMD_Page extends PMD_Root_Page{
 
 	//----------------------------------------------------------------------------------
 	function Run(){
+		//$this->LoadApiClient();
+
 		$this->SetHeader('js/squeeze.js',	'js_global');
 		$this->SetHeadJavascript("var pmd_sqz_prefs={} ;");
 		foreach($this->vars as $k => $v){

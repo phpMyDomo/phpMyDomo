@@ -3,6 +3,8 @@ class PMD_Page extends PMD_Root_Page{
 
 	//----------------------------------------------------------------------------------
 	function Run(){
+		$this->LoadApiClient();
+
 		isset($_GET['mode'])	and $mode	=$_GET['mode'];
 		
 		if($mode=='set'){

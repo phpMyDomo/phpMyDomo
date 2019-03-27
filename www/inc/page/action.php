@@ -3,6 +3,8 @@ class PMD_Page extends PMD_Root_Page{
 
 	//----------------------------------------------------------------------------------
 	function Run(){
+		//$this->LoadApiClient();
+
 		$error=0;
 		$message='';
 		require_once($this->conf['libs']['root_action']);
