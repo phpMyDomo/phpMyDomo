@@ -256,7 +256,7 @@ jQuery( document ).ready(function() {
     	$.getJSON( ajax_url, { mode: 'list_devices', c:'sensor' } )
   			.done(function( json ) {
   				if(json){
-  					console.log('OK');
+  					//console.log('OK');
   					//console.log(json.toSource());
   					$('.jsAutoSensors').each(function(){
     					var span	=$(this);
