@@ -126,6 +126,7 @@ class PMD_Root_Page extends PMD_Root{
 		$this->SetHeader('bs/css/spacelab-fonts.css','css_global');
 		$this->SetHeader('bs/css/bootstrap-slider.min.css','css_global');
 		$this->SetHeader('bs/css/font-awesome.min.css','css_global');
+		$this->SetHeader('css/wheelcolorpicker.css','css_global');
 
 		$this->SetHeader('js/jquery-1.7.2.min.js','js_global');
 		$this->SetHeader('js/jquery.lazyload.min.js','js_global');
@@ -133,6 +134,7 @@ class PMD_Root_Page extends PMD_Root{
 		$this->SetHeader('js/js.cookie-2.2.0.min.js','js_global');
 		$this->SetHeader('bs/js/bootstrap.min.js','js_global');
 		$this->SetHeader('bs/js/bootstrap-slider.min.js','js_global');
+		$this->SetHeader('js/jquery.wheelcolorpicker.js','js_global');
 		
 		$this->SetHeadJavascript("var ajax_url='{$this->conf['urls']['www']}/ajax';");
 		$this->SetHeadJavascript("var pmd_url_static='{$this->conf['urls']['static']}';");
