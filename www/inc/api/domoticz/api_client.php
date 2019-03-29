@@ -249,13 +249,13 @@ class PMD_ApiClient extends PMD_Root_ApiClient{
 						$d['type']		='rgb';
 						$raw_color		=json_decode($raw['Color'],true);
 						//$d['raw_color']	=$raw_color;
-						$d['color_rgb']=$this->_MaxHexColor($raw_color, $raw['LevelInt']);
+						$d['color_rgb']=$this->_MakeHexColor($raw_color, $raw['LevelInt']);
 					}
 					elseif($raw['SubType']=='RGBW'){
 						$d['type']		='rgbw';
 						$raw_color		=json_decode($raw['Color'],true);
 						//$d['raw_color']	=$raw_color;
-						$d['color_rgb']=$this->_MaxHexColor($raw_color, $raw['LevelInt']);
+						$d['color_rgb']=$this->_MakeHexColor($raw_color, $raw['LevelInt']);
 						
 					}
 
@@ -356,7 +356,7 @@ class PMD_ApiClient extends PMD_Root_ApiClient{
 	}
 
 	//----------------------------------------------------------------------------------
-	private function _MaxHexColor($color, $perc) {
+	private function _MakeHexColor($color, $perc) {
 		$color['r']=round($color['r'] * $perc /100);
 		$color['g']=round($color['g'] * $perc /100);
 		$color['b']=round($color['b'] * $perc /100);
