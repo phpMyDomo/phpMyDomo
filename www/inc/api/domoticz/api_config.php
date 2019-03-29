@@ -32,6 +32,12 @@ $api['set']['dimmer']['off']		='Off';
 $api['set']['dimmer']['min']		=1;
 $api['set']['dimmer']['max']		=16;
 
+$api['set']['rgb']['on']			='On';
+$api['set']['rgb']['off']			='Off';
+
+$api['set']['rgbw']['on']			='On';
+$api['set']['rgbw']['off']			='Off';
+
 $api['set']['blinds']['off']		='Off';		
 $api['set']['blinds']['on']			='On';		
 
@@ -40,6 +46,9 @@ $api['set']['blinds']['on']			='On';
 $api['actions']['set']['switch']		='/json.htm?type=command&param=switchlight&idx={address}&switchcmd={state}';
 $api['actions']['set']['push']			='/json.htm?type=command&param=switchlight&idx={address}&switchcmd={state}';
 $api['actions']['set']['dimmer']		='/json.htm?type=command&param=switchlight&idx={address}&switchcmd={state}';
+$api['actions']['set']['rgb']			='/json.htm?type=command&param=switchlight&idx={address}&switchcmd={state}';
+$api['actions']['set']['rgbw']			='/json.htm?type=command&param=switchlight&idx={address}&switchcmd={state}';
+$api['actions']['set']['rgb_color']		='/json.htm?type=command&param=setcolbrightnessvalue&idx={address}&hex={state}&brightness=100&iswhite=false';	// &brightness=100&iswhite=false
 $api['actions']['set']['blinds']		='/json.htm?type=command&param=switchlight&idx={address}&switchcmd={state}&level=0';
 $api['actions']['set']['dim_level']		='/json.htm?type=command&param=switchlight&idx={address}&switchcmd=Set+Level&level={state}';
 $api['actions']['set']['scene']			='/json.htm?type=command&param=switchscene&idx={address}&switchcmd={state}';
@@ -70,6 +79,9 @@ $api['states']['command']['push']['On']			='on';
 
 $api['states']['command']['dimmer']['Off']		='off';		
 $api['states']['command']['dimmer']['On']		='on';		
+
+$api['states']['command']['rgb']['Off']			='off';		
+$api['states']['command']['rgb']['On']			='on';		
 
 $api['states']['command']['blinds']['Open']		='off';		
 $api['states']['command']['blinds']['Closed']	='on';		

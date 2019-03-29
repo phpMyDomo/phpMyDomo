@@ -1704,6 +1704,9 @@
 		// #13 only update if value is different to avoid cursor repositioned to the end of text on some browsers
 		if(this.input.value != this.getValue()) {
 			this.input.value = this.getValue();
+			
+			$input.attr('value',this.getValue());	/* in layout:block mode , ensures that the value is really set */
+			$input.trigger('changed-value');
 		}
 		
 		if( this.options.preview ) {

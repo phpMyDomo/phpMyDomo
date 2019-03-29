@@ -25,7 +25,6 @@
 #########################################################################################
 Domoticz API ############################################################################
 #########################################################################################
-No dimmer supported at this time
 */
 
 class PMD_ApiClient extends PMD_Root_ApiClient{
@@ -216,7 +215,7 @@ class PMD_ApiClient extends PMD_Root_ApiClient{
 					$d['value']	=(float) $raw['Counter'];
 					$d['unit']	="m3";
 				}
-
+				
 				elseif($raw['SwitchType']=='Motion Sensor'){
 					$d['class']	='sensor';
 					$d['type']	='pir';
@@ -245,6 +244,21 @@ class PMD_ApiClient extends PMD_Root_ApiClient{
 					$d['class']	='command';
 					$d['type']	='dimmer';
 					$d['value']	=$raw['LevelInt'];
+
+					if($raw['SubType']=='RGB'){	//$raw['Type']=='Color Switch'
+						$d['type']		='rgb';
+						$raw_color		=json_decode($raw['Color'],true);
+						//$d['raw_color']	=$raw_color;
+						$d['color_rgb']=$this->_MaxHexColor($raw_color, $raw['LevelInt']);
+					}
+					elseif($raw['SubType']=='RGBW'){
+						$d['type']		='rgbw';
+						$raw_color		=json_decode($raw['Color'],true);
+						//$d['raw_color']	=$raw_color;
+						$d['color_rgb']=$this->_MaxHexColor($raw_color, $raw['LevelInt']);
+						
+					}
+
 				}
 				elseif($raw['SwitchType']=='Contact'){
 					$d['class']	='sensor';
@@ -340,6 +354,16 @@ class PMD_ApiClient extends PMD_Root_ApiClient{
 		$url .="/{$raw['VideoURL']}";
 		return $url;
 	}
+
+	//----------------------------------------------------------------------------------
+	private function _MaxHexColor($color, $perc) {
+		$color['r']=round($color['r'] * $perc /100);
+		$color['g']=round($color['g'] * $perc /100);
+		$color['b']=round($color['b'] * $perc /100);
+ 		//return dechex(($color['r']<<16)|($color['g']<<8)|$color['b']);
+		return sprintf("%02x%02x%02x", $color['r'], $color['g'], $color['b']);
+	}
+
 
 	
 } 

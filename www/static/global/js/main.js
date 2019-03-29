@@ -9,6 +9,7 @@ jQuery( document ).ready(function() {
     	if (!pageYOffset) window.scrollTo(0, 1);
 	}, 500);
 
+
     /* Reload page -------------------------------------- */
 	var reload_time	=$('#jsReload').attr('data-time');
 	SetReload(reload_time);
@@ -97,10 +98,10 @@ jQuery( document ).ready(function() {
 				var err = textStatus + ", " + error;
 				console.log( "Switch Request Failed: " + err );
 			});    	
-    });
+    	});
 
 
-    /* Button Selector -------------------------------------- */
+    /* Button Selector ------------------------------------------------------------------------- */
     $('.jsButSelector').click(function(e){
     	e.preventDefault();
     	var but		=$(this);
@@ -114,7 +115,7 @@ jQuery( document ).ready(function() {
     	var my_refresh_time = refresh_time;
     	    	
     	$.getJSON( ajax_url, { mode: "set", a: address, v: value, t: 'selector' } )
-  			.done(function( json ) {
+  		.done(function( json ) {
 			    but.removeClass('active');
 				
   				if(json.status=='ok'){
@@ -127,26 +128,23 @@ jQuery( document ).ready(function() {
   					console.log('ERROR');
   				}
 			})
-			.fail(function( jqxhr, textStatus, error ) {
+		.fail(function( jqxhr, textStatus, error ) {
 			    but.removeClass('active');
 				var err = textStatus + ", " + error;
 				console.log( "Selector Request Failed: " + err );
-			});    	
+		});    	
     });
 
 
 
-
-
-
-    /* Button Dimmer (to finish) -------------------------------------- */
-   $('.jsButDimmer').each(function(){
-    	var but			=$(this);
-    	var address		=but.attr('data-address');
-    	var popover_id	='#jsPopover_'+ but.attr('data-js_address');
-    	var slider_id	='#jsSlider_'+ but.attr('data-js_address');
-    	
-    	but.popover({
+    /* Button Dimmer (to finish) --------------------------------------------------------------- */
+	$('.jsButDimmer').each(function(){
+		var but			=$(this);
+		var address		=but.attr('data-address');
+		var popover_id	='#jsPopover_'+ but.attr('data-js_address');
+		var slider_id	='#jsSlider_'+ but.attr('data-js_address');
+		
+		but.popover({
 			html: true,
 			placement: 'bottom',
 			trigger:'manual',
@@ -187,33 +185,121 @@ jQuery( document ).ready(function() {
 								var err = textStatus + ", " + error;
 								console.log( "Dim Request Failed: " + err );
 						});
-            		}
-			}));            		
-            		
-        });
-		
+					}
+			}));
+		});
    });
 
 
+
+    /* Button RGB ------------------------------------------------------------------------------------------ */
+	function RvbGetPopoverContent(e){
+    	var popover_id	='#jsPopover_'+ $(this).data('js_address');
+		$(popover_id+ ' INPUT').attr('style',''); /* remove display:none */
+		return $(popover_id).html();
+	}
+
+	$('.jsButColor').each(function(){
+		var but				=$(this);
+		var address			=but.data('address');
+		var popover_src		=$('#jsPopover_'+ but.data('js_address')).find('.rgb_popover_content');
+		var input_sel		='#jsInput_'+ but.data('js_address');
+		var colorpick_sel	='.jsColorPicker_'+ but.data('js_address');
+		var last_value		=$(input_sel).val();
+		but.css('background','#'+last_value);
+
+    	but.popover({
+			//animation: false,
+			html: true,
+			container: 'body',
+			placement: 'bottom',
+			trigger:'manual',
+//			trigger:'focus',
+			content: RvbGetPopoverContent //popover_src.html()
+	   })
+	   .click(function(e){
+			e.preventDefault();
+			//but.filter(function(index, element) { return element != e.target; }).popover('hide');
+			//but.off('click').on('click', function(e) { e.stopPropagation(); });
+			//$('.jsButColor').filter(function(index, element) { return element != e.target; }).popover('hide');
+			but.popover('toggle');
+			//e.stopPropagation();
+		});
+		
+		but.on('shown.bs.popover', function(){
+			var in_value=$(input_sel).attr('value');
+			//console.log('in val='+in_value);
+			popover_src.html('');
+			$(input_sel).wheelColorPicker({ layout: 'block', live: true, format: "hex", preview:true, animDuration: 0 });
+			//but.popover('update');
+
+			$(input_sel).on('changed-value', $.throttle( 250, function (ev) {
+				var color=$(this).wheelColorPicker('getColor');
+				var value=$(this).wheelColorPicker('getValue');
+				var level=Math.round(color.v * 100)
+
+				but.html(level);
+				but.css('background','#'+value);
+			
+				/* Do Ajax Call, avoiding sending continous values */
+				if(value != last_value){
+					last_value= value;
+					// console.log('Sending Color: '+value + ' level: ' + level);		
+					$.getJSON( ajax_url, { mode: "set", a: address, v: value, t: 'rgb_color' } )
+						.done(function( json ) {
+							if(json.status=='ok'){
+								//console.log('Color set to '+ value);
+			            		//but.html(level);
+							}
+							else{
+			            		/* but.html(value); */
+								console.log('Color ERROR');
+							}
+						})
+						.fail(function( jqxhr, textStatus, error ) {
+							var err = textStatus + ", " + error;
+							console.log( "Color Request Failed: " + err );
+					});
+				}
+			}));
+		});
+	
+		but.on('hidden.bs.popover', function(){
+			/* move back to popover hidden div */
+			//var last_input_html=$(input_sel)[0].outerHTML;
+			var last_input_html=$(input_sel)[0].outerHTML;
+			$(input_sel).wheelColorPicker('destroy');
+			popover_src.html(last_input_html);
+			console.log('hide');
+		});
+		
+		
+	});
+
     /* Clear Popover on click outside  ------------------------------------------------------------------------ */
 	$(document).on('click', function (e) {
-	    $('[data-toggle="popover"],[data-original-title]').each(function () {
+		$('[data-toggle="popover"],[data-original-title]').each(function () {
 	        //the 'is' for buttons that trigger popups
 	        //the 'has' for icons within a button that triggers a popup
-	        if (!$(this).is(e.target) && $(this).has(e.target).length === 0 && $('.popover').has(e.target).length === 0) {                
-	            (($(this).popover('hide').data('bs.popover')||{}).inState||{}).click = false  // fix for BS 3.3.6
+	        if (!$(this).is(e.target) && $(this).has(e.target).length === 0 && $('.popover').has(e.target).length === 0 ) {                
+				//(($(this).popover('hide').data('bs.popover')||{}).inState||{}).click = false  // fix for BS 3.3.6
+				
+				/* https://stackoverflow.com/questions/13442749/how-to-check-whether-a-twitter-bootstrap-popover-is-visible-or-not/13442857 */
+				var isVisible = $(this).data('bs.popover').tip().hasClass('in');
+				//var isVisible = $('#element').data('bs.popover')._activeTrigger.click; //bs 4
+				
+				if(isVisible){
+					console.log("visible");
+					$(this).popover('toggle');
+				}
 	        }
-
 	    });
 	});
-    
+
+
+
     /* Debug Devices ------------------------------------------------------------------------ */
-/*
-    $('#body_devices .jsPopover').popover({
-    	trigger: 'hover',
-    	html: true
-    });
-*/
+
     $('#body_devices .jsPopoverDebug').popover({
     	trigger: 'click',
     	html: true,

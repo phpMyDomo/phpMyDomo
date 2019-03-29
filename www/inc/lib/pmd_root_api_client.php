@@ -384,12 +384,12 @@ Auto generated fields
 			$val=$row['value'];
 		}
 		//scale Value
-		if($row['type']=='dimmer'){
+		if($row['type']=='dimmer' or $row['type']=='rgb'){
 			$row['raw_dim_value']=$row['value']; //used only for debug
 			$value=$row['value'];
 			
-			$min=$this->_getDimmerMinMax($row,'min');
-			$max=$this->_getDimmerMinMax($row,'max');
+			$min=$this->_getMinMaxForType($row,'min',$row['type']);
+			$max=$this->_getMinMaxForType($row,'max',$row['type']);
 
 			//scale the value from 0 to 100
 			if($max !=100 or $min != 0){
@@ -472,13 +472,13 @@ Auto generated fields
 	}
 
 	//----------------------------------------------------------------------------------
-	private function _getDimmerMinMax($d,$mode='min'){
+	private function _getMinMaxForType($d,$mode='min',$type='dimmer'){
 		//set min and max, first from device (d) or from global or = 0 and 100
 		if( isset($d['dim_'.$mode])){
 			$out=$d['dim_'.$mode];
 		}
-		elseif(isset($this->vars['set']['dimmer'][$mode])){
-			$out=$this->vars['set']['dimmer'][$mode];
+		elseif(isset($this->vars['set'][$type][$mode])){
+			$out=$this->vars['set'][$type][$mode];
 		}
 		else{
 			if($mode=='min'){
@@ -512,8 +512,8 @@ Auto generated fields
 		if($command=='set' and $type=='dim_level'){
 
 			$d=$this->GetDeviceByAddress($address);
-			$min=$this->_getDimmerMinMax($d,'min');
-			$max=$this->_getDimmerMinMax($d,'max');
+			$min=$this->_getMinMaxForType($d,'min','dimmer');
+			$max=$this->_getMinMaxForType($d,'max','dimmer');
 
 			$state=round( ($state/100 * ($max - $min))  + $min );
 			if($state > $max){$state=$max;}
