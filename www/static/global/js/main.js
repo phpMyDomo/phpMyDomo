@@ -193,18 +193,32 @@ jQuery( document ).ready(function() {
 
 
     /* Button RGB ------------------------------------------------------------------------------------------ */
-	function RvbGetPopoverContent(e){
-    	var popover_id	='#jsPopover_'+ $(this).data('js_address');
-		$(popover_id+ ' INPUT').attr('style',''); /* remove display:none */
-		return $(popover_id).html();
+	function RgbGetPopoverContent(e){
+    	var js_address=$(this).data('js_address');
+		var popover_content	=$('.jsRgbPopoverHidden_'+ js_address);
+		popover_content.find('INPUT').attr('style',''); /* remove display:none */
+		var html = popover_content.html();
+		html ="<div class='jsRgbPopoverShown' data-js_address='"+js_address+"'>"+html+"</div>";
+		return html;
+	}
+	
+	function RgbShowColorPreview(js_address, value){
+		var button_color=$('.jsButGroup_'+js_address+' .jsButColor');
+		var cur_preview=$('.jsRgbPopoverShown .jsRgbPreview');
+		var hid_preview=$('.jsRgbPopoverHidden_'+js_address+' .jsRgbPreview');
+		button_color.css('background-color','#'+value);
+		cur_preview.css('background-color','#'+value);
+		hid_preview.css('background-color','#'+value);
 	}
 
 	$('.jsButColor').each(function(){
 		var but				=$(this);
 		var address			=but.data('address');
-		var popover_src		=$('#jsPopover_'+ but.data('js_address')).find('.rgb_popover_content');
-		var input_sel		='#jsInput_'+ but.data('js_address');
-		var colorpick_sel	='.jsColorPicker_'+ but.data('js_address');
+		var js_address		=but.data('js_address');
+		var popover_id		='.jsRgbPopoverHidden_'+ js_address;
+		var popover_input	=$(popover_id).find('.jsRgbPopoverInput');
+		var input_sel		='#jsInput_'+ js_address;
+		var colorpick_sel	='.jsColorPicker_'+ js_address;
 		var last_value		=$(input_sel).val();
 		but.css('background','#'+last_value);
 
@@ -214,24 +228,23 @@ jQuery( document ).ready(function() {
 			container: 'body',
 			placement: 'bottom',
 			trigger:'manual',
-//			trigger:'focus',
-			content: RvbGetPopoverContent //popover_src.html()
+			content: RgbGetPopoverContent //popover_input.html()
 	   })
 	   .click(function(e){
 			e.preventDefault();
-			//but.filter(function(index, element) { return element != e.target; }).popover('hide');
-			//but.off('click').on('click', function(e) { e.stopPropagation(); });
-			//$('.jsButColor').filter(function(index, element) { return element != e.target; }).popover('hide');
 			but.popover('toggle');
 			//e.stopPropagation();
 		});
 		
 		but.on('shown.bs.popover', function(){
 			var in_value=$(input_sel).attr('value');
-			//console.log('in val='+in_value);
-			popover_src.html('');
+			popover_input.html('');
 			$(input_sel).wheelColorPicker({ layout: 'block', live: true, format: "hex", preview:true, animDuration: 0 });
-			//but.popover('update');
+
+			$('.jsRgbPreset').on('click', function(e){
+				var color=$(this).data('rgb');
+				$(input_sel).wheelColorPicker('setValue',color);
+			});
 
 			$(input_sel).on('changed-value', $.throttle( 250, function (ev) {
 				var color=$(this).wheelColorPicker('getColor');
@@ -239,17 +252,15 @@ jQuery( document ).ready(function() {
 				var level=Math.round(color.v * 100)
 
 				but.html(level);
-				but.css('background','#'+value);
+				RgbShowColorPreview(js_address, value);
 			
 				/* Do Ajax Call, avoiding sending continous values */
 				if(value != last_value){
 					last_value= value;
-					// console.log('Sending Color: '+value + ' level: ' + level);		
 					$.getJSON( ajax_url, { mode: "set", a: address, v: value, t: 'rgb_color' } )
 						.done(function( json ) {
 							if(json.status=='ok'){
 								//console.log('Color set to '+ value);
-			            		//but.html(level);
 							}
 							else{
 			            		/* but.html(value); */
@@ -266,11 +277,9 @@ jQuery( document ).ready(function() {
 	
 		but.on('hidden.bs.popover', function(){
 			/* move back to popover hidden div */
-			//var last_input_html=$(input_sel)[0].outerHTML;
 			var last_input_html=$(input_sel)[0].outerHTML;
 			$(input_sel).wheelColorPicker('destroy');
-			popover_src.html(last_input_html);
-			console.log('hide');
+			popover_input.html(last_input_html);
 		});
 		
 		

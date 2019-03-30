@@ -3,14 +3,14 @@
 {$my_colorwheel_created=0}
 
 {function name=makeButton row='' style='default'}
-	{$c=''}
-	{if $row.state == 'on'}{$c=' btn-success'}{/if}
+	{$class_on=''}
+	{if $row.state == 'on'}{$class_on=' btn-success'}{/if}
 	{$command=$row.type}
 	{if $row.type=='group' || $row.type=='scene'}{$command='scene'}{/if}
 	{if $row.type=='blinds' or $row.type=='shutter'}{$command='blinds'}{/if}
 
-<div class="btn-group jsButGroup jsButGroup_{$row.type} button_group button_group_{$row.type}">
-	<a href='#' name='but_{$row.uid}' data-address='{$row.address}' data-type='{$command}' data-state='{$row.state}' data-invert='{$row.invert_set}' data-onclass='btn-success' class='btn btn-{$style} btn-lg jsButSwitch button_big{$c}'><span class='but_img'><img src='{$p.urls.static}{$row.img_url}' data-on="{$p.urls.static}{$row.img_on_url}" data-off="{$p.urls.static}{$row.img_off_url}"></span>{$row.name}</a>
+<div class="btn-group jsButGroup jsButGroup_{$row.type} jsButGroup_{$row.js_address} button_group button_group_{$row.type}">
+	<a href='#' name='but_{$row.uid}' data-address='{$row.address}' data-type='{$command}' data-state='{$row.state}' data-invert='{$row.invert_set}' data-onclass='btn-success' class='btn btn-{$style} btn-lg jsButSwitch button_big{$class_on}'><span class='but_img'><img src='{$p.urls.static}{$row.img_url}' data-on="{$p.urls.static}{$row.img_on_url}" data-off="{$p.urls.static}{$row.img_off_url}"></span>{$row.name}</a>
 
 {if $row.type=='dimmer'}
 	<a href='#' name='but_{$row.uid}' data-address='{$row.address}' data-js_address='{$row.js_address}' data-type='dimmer' data-value='{$row.value}'  title="{$row.name}" class='btn btn-lg btn-default jsButDimmer jsPopover button_dim'>{$row.value}</a>
@@ -47,9 +47,22 @@
 
 
 {if $row.color_rgb && !$my_colorwheel_created}
-<div id="jsPopover_{$row.js_address}" class="hidden">
+<div class="jsRgbPopoverHidden_{$row.js_address} hidden">
 	<div class='rgb_popover_content'>
-		<input id="jsInput_{$row.js_address}" type="text" name='input_{$row.uid}' value='{$row.color_rgb}' class="input_color jsInputColor" data-wcp-sliders="rgbwhsvp" data-wcp-cssclass="colorpicker jsColorPicker_{$row.js_address}">
+		{if $c.colors}
+		<div class="rgb_presets">
+			{foreach from=$c.colors key=k item=color}
+				<span class='rgb_preset jsRgbPreset' data-rgb='{$color}' style="background-color: #{$color}">{$k|ucfirst}</span>
+			{/foreach}
+		</div>
+		{/if}
+		<div class="rgb_sliders jsRgbPopoverInput">
+			<input id="jsInput_{$row.js_address}" type="text" name='input_{$row.uid}' value='{$row.color_rgb}' class="input_color jsInputColor" data-wcp-sliders="{$c.conf.rgb_sliders|default:'hsvwrgb'}" data-wcp-cssclass="colorpicker jsColorPicker_{$row.js_address}">
+		</div>
+		<div class="rgb_preview">
+			<div class="jsRgbPreview" style="background-color: #{$row.color_rgb}"></div>
+		</div>
+		
 	</div>
 </div>
 {$my_colorwheel_created=1}

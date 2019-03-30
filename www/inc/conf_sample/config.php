@@ -77,12 +77,23 @@ $conf['units']['wind']			="m/s";
 $conf['units']['rain']			="mm";
 $conf['units']['baro']			="hPa";
 $conf['units']['hygro']			="%";
-
 $conf['units']['wind_speed']	="m/s";
 $conf['units']['wind_gust']		="m/s";
-
 $conf['units']['wind_temp']		="°C";
 $conf['units']['wind_chill']	="°C";
+
+
+
+// ##############################################################################
+// RGB(W) Color presets ##########################################################
+// ##############################################################################
+// RGB type buttons ONLY: Each (hex) color is displayed as a buttons in the color Chooser 
+$conf['colors']['red']		='FF0000';
+$conf['colors']['green']	='00FF00';
+$conf['colors']['blue']		='0000FF';
+$conf['colors']['yellow']	='FFFF00';
+$conf['colors']['cyan']		='00FFFF';
+$conf['colors']['white']	='FFFFFF';
 
 
 
