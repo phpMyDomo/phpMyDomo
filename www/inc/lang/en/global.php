@@ -63,6 +63,8 @@ $lang['types']['text']		="Text";
 $lang['types']['date']		="Date";
 $lang['types']['time']		="Time";
 $lang['types']['push']		="Push Button";
+$lang['types']['rgb']		="RGB Light";
+$lang['types']['rgbw']		="RGBW Light";
 
 // infos ################################################################
 $lang['infos']['sunset']	="Sunset";
