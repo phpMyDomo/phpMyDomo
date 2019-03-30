@@ -53,6 +53,8 @@ class PMD_Page extends PMD_Root_Page{
 	//----------------------------------------------------------------------------------
 	private function _jsonOk($arr=array()){
 		$arr['status'] or $arr['status']='ok';
+		$arr['api_url']		=$this->o_api->api_url;
+		$arr['api_response']	=$this->o_api->api_response;
 		echo json_encode($arr);
 	}
 
