@@ -83,6 +83,9 @@ $api['states']['command']['dimmer']['On']		='on';
 $api['states']['command']['rgb']['Off']			='off';		
 $api['states']['command']['rgb']['On']			='on';		
 
+$api['states']['command']['rgbw']['Off']		='off';		
+$api['states']['command']['rgbw']['On']			='on';		
+
 $api['states']['command']['blinds']['Open']		='off';		
 $api['states']['command']['blinds']['Closed']	='on';		
 
