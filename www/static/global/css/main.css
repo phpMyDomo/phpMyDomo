@@ -280,13 +280,19 @@ A:focus {outline:none;}
 }
 #body_home .popover-title{
 }
-
+#body_home .dimmer_popover_content{
+	width: 443px; /* else arrow is not centered */	
+}
 #body_home .rgb_popover_content{
 	width: 425px; /* else arrow is not centered */
 }
 #body_home .rgb_presets{
-	margin-bottom: 5px;
-	overflow: hidden;
+	margin-bottom: 10px;
+	text-align: center;
+}
+#body_home .rgb_presets_bar{
+	display: inline-block;
+	/*overflow: hidden;*/
 }
 #body_home .rgb_preset{
 	display: inline-block;
@@ -299,8 +305,11 @@ A:focus {outline:none;}
 	text-align: center;
 	border: 1px solid rgba(0,0,0,0.25);
 	border-radius: 5px;
+	/*
 	color: rgba(250,250,250, 0.8);
 	text-shadow: 1px 1px 1px rgba(0,0,0,0.6);
+	*/
+	color: transparent;
 	font-size: 11px;
 	cursor: pointer ;
 }
@@ -312,7 +321,7 @@ A:focus {outline:none;}
 	height: 183px;
 }
 #body_home .rgb_preview{
-	margin-top: 10px;
+	margin-top: 15px;
 	border: 1px solid rgba(0,0,0,0.25);
 	width: 100%;
 	height: 50px;

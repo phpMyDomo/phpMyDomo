@@ -39,8 +39,10 @@
 
 
 {if $row.type=='dimmer' && !$my_popover_created}
-<div id="jsPopover_{$row.js_address}" class="hidden">
-        <span class="legend">0</span><input type="text" id="jsSlider_{$row.js_address}" class="jsSlider" value="{$row.value}" data-slider-min="0" data-slider-max="100" data-slider-step="{100/{$row.dim_steps}}" data-slider-value="{$row.value}"><span class="legend">100</span>
+<div id="jsDimmerPopover_{$row.js_address}" class="hidden">
+		<div class="dimmer_popover_content">
+        	<span class="legend">0</span><input type="text" id="jsSlider_{$row.js_address}" class="jsSlider" value="{$row.value}" data-slider-min="0" data-slider-max="100" data-slider-step="{100/{$row.dim_steps}}" data-slider-value="{$row.value}"><span class="legend">100</span>
+		</div>
 </div>
 {$my_popover_created=1}
 {/if}
@@ -51,9 +53,11 @@
 	<div class='rgb_popover_content'>
 		{if $c.colors}
 		<div class="rgb_presets">
-			{foreach from=$c.colors key=k item=color}
-				<span class='rgb_preset jsRgbPreset' data-rgb='{$color}' style="background-color: #{$color}">{$k|ucfirst}</span>
-			{/foreach}
+			<div class="rgb_presets_bar">
+				{foreach from=$c.colors key=k item=color}
+					<span class="rgb_preset jsRgbPreset" data-rgb="{$color}" style="background-color: #{$color}">{$k|ucfirst}</span>
+				{/foreach}
+			</div>
 		</div>
 		{/if}
 		<div class="rgb_sliders jsRgbPopoverInput">

@@ -141,7 +141,7 @@ jQuery( document ).ready(function() {
 	$('.jsButDimmer').each(function(){
 		var but			=$(this);
 		var address		=but.attr('data-address');
-		var popover_id	='#jsPopover_'+ but.attr('data-js_address');
+		var popover_id	='#jsDimmerPopover_'+ but.attr('data-js_address');
 		var slider_id	='#jsSlider_'+ but.attr('data-js_address');
 		
 		but.popover({
