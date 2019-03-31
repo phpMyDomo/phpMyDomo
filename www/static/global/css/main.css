@@ -236,7 +236,21 @@ A:focus {outline:none;}
 
 /* @group Page Home
 ------------------------------------------- */
-
+#body_home .row{
+}
+#body_home .container{
+	/*padding-left: 1px;
+	padding-right: 1px;*/
+}
+#body_home .container-fluid{
+	padding-left: 6px;
+	padding-right: 6px;
+}
+@media (min-width: 992px){
+	#body_home .col-md-3{
+		padding-left: 0px;
+	}
+}
 #body_home .pmd_panel .panel-heading{
 	padding: 5px 10px;
 	font-size: 13px;
@@ -1633,7 +1647,7 @@ TABLE.table_devices TR TD{
 
 @media (min-width: 1px){
 }
-@med ia (min-width: 992px){
+@media (min-width: 992px){
 }
 
 /* @end */

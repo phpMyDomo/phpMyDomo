@@ -4,7 +4,7 @@
 {include file='global/inc_head.tpl'}
 
 	<div id='lay_content'>
-		<div class='container'>
+		<div class='container{if $cont_fluid}-fluid{/if}'>
 			<div class="row">
 {if $page_right}
 				<div class="col-md-9">
