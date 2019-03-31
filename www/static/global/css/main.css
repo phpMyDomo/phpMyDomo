@@ -237,14 +237,17 @@ A:focus {outline:none;}
 /* @group Page Home
 ------------------------------------------- */
 #body_home .row{
+	margin-left: 0px;
+	margin-right: 0px;
 }
 #body_home .container{
 	/*padding-left: 1px;
 	padding-right: 1px;*/
+	
 }
 #body_home .container-fluid{
-	padding-left: 6px;
-	padding-right: 6px;
+	padding-left: 0px;
+	padding-right: 0px;
 }
 @media (min-width: 992px){
 	#body_home .col-md-3{
