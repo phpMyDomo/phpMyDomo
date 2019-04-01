@@ -246,7 +246,7 @@ jQuery( document ).ready(function() {
 				$(input_sel).wheelColorPicker('setValue',color);
 			});
 
-			$(input_sel).on('changed-value', $.throttle( 250, function (ev) {
+			$(input_sel).on('colorchange', $.throttle( 250, function (ev) {
 				var color=$(this).wheelColorPicker('getColor');
 				var value=$(this).wheelColorPicker('getValue');
 				var level=Math.round(color.v * 100)
