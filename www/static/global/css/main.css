@@ -1435,20 +1435,21 @@ TABLE.table_devices TR TD{
 #body_squeeze .row_progression .progress_border{
 	border: 1px solid rgba(0,0,0,0.25);
 	border-radius: 5px;
+	cursor: pointer;
 	/*background-color: rgba(255,255,255,0.1);*/
 }
 #body_squeeze .row_progression .progress_inner{
 	border-radius: 5px;
 	background-color: rgba(110,110,110,0.25);
-	height: 5px;
+	height: 6px;
 	width: 0%;
 }
 #body_squeeze .row_progression .progress_head{
 	margin-top: -1px;
 	float: right;
 	display: block;
-	width: 7px;
-	height: 7px;
+	width: 8px;
+	height: 8px;
 	border-radius: 5px;
 	background-color: rgba(0,0,0, 0.9);
 /*
