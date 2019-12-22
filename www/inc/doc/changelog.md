@@ -1,7 +1,20 @@
 # phpMyDomo ChangeLog
 
-## Version : 0.501 (NOT RELEASED) - xxx , 2019
-
+## Version : 0.600 (NOT RELEASED) - December XX , 2019
+- new: Domoticz - Handles RGB, RGBW buttons
+- new: RGB buttons: Full color picker
+- new: RGB buttons: Colors Presets
+- new: Brand new 'gorgeous' Squeeze Player
+- new: Squeeze - LCD like display
+- new: Squeeze - Show playlist next songs
+- new: Squeeze - Add currently playing song to a playlist
+- new: Squeeze - Clickable Progress bar
+- new: Squeeze - Links to Sheet music, Lyrics
+- new: Squeeze - Song Information (Tempo, year, reaminig time, file type)
+- fix: Don't display "ghost" players remaining registered at LMS
+- fix: Various bugs fixes
+- dev: Load Api client ONLY when needed
+- dev: FontAwesome v4.7
 
 ## Version : 0.500 - March 16, 2019
 - new: Support for OpenHab v2 API (v1 still available as 'openhab1')
