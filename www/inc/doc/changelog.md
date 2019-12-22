@@ -1,6 +1,6 @@
 # phpMyDomo ChangeLog
 
-## Version : 0.600 (NOT RELEASED) - December XX , 2019
+## Version : 0.600 - December 22 , 2019
 - new: Domoticz - Handles RGB, RGBW buttons
 - new: RGB buttons: Full color picker
 - new: RGB buttons: Colors Presets
