@@ -259,6 +259,7 @@ jQuery( document ).ready(function() {
 					last_value= value;
 					$.getJSON( ajax_url, { mode: "set", a: address, v: value, t: 'rgb_color' } )
 						.done(function( json ) {
+							SetReload(refresh_time);
 							if(json.status=='ok'){
 								//console.log('Color set to '+ value);
 							}
