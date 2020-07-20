@@ -24,6 +24,7 @@ jQuery( document ).ready(function() {
 
 	/* ----- Selected Playlist to add ------------------ */
 	selected_pl_add_id	=Cookies.get('sqz_playlist_add');
+	$('.jsSqzSelectPlaylistAdd').val(selected_pl_add_id);
 
 	$('.jsSqzSelectPlaylistAdd').on('change', function(){
 		selected_pl_add_id = $(this).val(); //$(this).val()
