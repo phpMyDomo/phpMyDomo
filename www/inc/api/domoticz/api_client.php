@@ -220,12 +220,14 @@ class PMD_ApiClient extends PMD_Root_ApiClient{
 					$d['class']	='sensor';
 					$d['type']	='pir';
 				}
+				/*
 				elseif($raw['SwitchType']=='On/Off' and $raw['SubType']=='RGB'){
 					//$d['class']	='unknown';
 					//$d['type']	='unknown';
 					//$d['value']	=$raw['LevelInt'];
 
 				}
+				*/
 				elseif($raw['SwitchType']=='On/Off'){
 					$d['class']	='command';
 					$d['type']	='switch';
