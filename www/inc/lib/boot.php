@@ -35,7 +35,7 @@ $conf['menu_icons']['admin']	='fa fa-gears';
 //admin menu
 $conf['menu_admin_urls']['devices']	='admin/devices';	
 
-$conf['menu_admin_icons']['devices']	='fa fa-gears';
+$conf['menu_admin_icons']['devices']	='fa fa-plug';
 
 //menus to show
 isset($conf['menu_head']) or $conf['menu_head']=array_keys($conf['menu_urls']);
