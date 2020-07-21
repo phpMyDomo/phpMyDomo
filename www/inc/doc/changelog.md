@@ -1,5 +1,10 @@
 # phpMyDomo ChangeLog
 
+## Version : 0.700 - August xx , 2020
+- new: Dashboard is now fully realtime (no longer refresh page)
+- fix: Domoticz - Dimmer level scale
+- fix: Squeeze - Playlist target correctly memorized by cookie
+
 ## Version : 0.600 - December 22 , 2019
 - new: Domoticz - Handles RGB, RGBW buttons
 - new: RGB buttons: Full color picker
