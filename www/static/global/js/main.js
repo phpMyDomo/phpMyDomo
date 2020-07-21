@@ -19,11 +19,6 @@ jQuery( document ).ready(function() {
 	sleep_time	=$('#jsReload').attr('data-time');
 	SetTimerSleep(sleep_time);
 
-	/* DEBUG -------------------------------------- */
-	$('.jsReloadData').click(function(e){
-		//console.log('Reloading Data from: '+ ajax_url);
-		AjaxRefreshData();
-	});
 
 	/* Refresh Devices states ------------------------- */
 	SetTimerRefresh(refresh_time);
@@ -325,7 +320,10 @@ jQuery( document ).ready(function() {
 				//(($(this).popover('hide').data('bs.popover')||{}).inState||{}).click = false  // fix for BS 3.3.6
 				
 				/* https://stackoverflow.com/questions/13442749/how-to-check-whether-a-twitter-bootstrap-popover-is-visible-or-not/13442857 */
-				var isVisible = $(this).data('bs.popover').tip().hasClass('in');
+				var isVisible = false;
+				if($(this).data('bs.popover') !== undefined){
+					isVisible = $(this).data('bs.popover').tip().hasClass('in');
+				}
 				//var isVisible = $('#element').data('bs.popover')._activeTrigger.click; //bs 4
 				
 				if(isVisible){
