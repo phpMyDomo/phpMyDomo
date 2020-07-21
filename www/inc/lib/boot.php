@@ -30,7 +30,7 @@ $conf['menu_icons']['clock']	='fa fa-clock-o';
 $conf['menu_icons']['squeeze']	='fa fa-music';	
 $conf['menu_icons']['cameras']	='fa fa-video-camera';
 $conf['menu_icons']['photos']	='fa fa-camera';
-$conf['menu_icons']['admin']	='fa fa-gears';
+$conf['menu_icons']['admin']	='fa fa-gear';
 
 //admin menu
 $conf['menu_admin_urls']['devices']	='admin/devices';	
