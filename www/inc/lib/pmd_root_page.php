@@ -170,6 +170,8 @@ class PMD_Root_Page extends PMD_Root{
 
 		$page['title'] 
 			or $page['title']=$this->lang['page']['title']
+			or $page['title']=$this->lang['global']['menu_head'][$this->conf['app']['page']]
+			or $page['title']=$this->lang['global']['menu_admin'][$this->conf['app']['page']]
 			or $page['title']=ucwords(str_replace('_',' / ',$this->conf['app']['page']));
 		
 		$page['app_name']			=$this->conf['app']['home_name'];
