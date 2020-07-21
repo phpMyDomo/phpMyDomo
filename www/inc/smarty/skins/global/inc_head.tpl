@@ -17,7 +17,7 @@
 {/foreach}
 				</ul>
 			    <ul class="nav navbar-nav navbar-right">
-					<li class="menu_admin"><a href="{$p.urls.server_admin}" title="Admin"><img src='{$p.urls.static}/global/img/icon48_api_{$p.api}.png'></a></li>
+					<li class="menu_api"><a href="{$p.urls.server_admin}" title="{$p.api|ucfirst} Admin"><img src='{$p.urls.static}/global/img/icon48_api_{$p.api}.png'></a></li>
 				</ul>
 			</div>
 		</div>

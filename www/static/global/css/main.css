@@ -94,10 +94,10 @@ html, body {
 #lay_header A{
 	white-space: nowrap;
 }
-#lay_header .menu_admin A{
+#lay_header .menu_api A{
 	padding: 9px;
 }
-#lay_header .menu_admin IMG{
+#lay_header .menu_api IMG{
 	height: 32px;
 }
 /* @end */
