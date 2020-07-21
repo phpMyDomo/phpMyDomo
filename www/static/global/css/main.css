@@ -1701,43 +1701,43 @@ TABLE.table_devices TR TD{
 
 /* @group Page Calc 
 ----------------------------------------------------------------- */
-#body_utils_calc H2{
+#body_admin_calc H2{
 	color: #AAA;
 }
-#body_utils_calc H3{
+#body_admin_calc H3{
 	color: #AAA;
 }
 
-#body_utils_calc .div_calc{
+#body_admin_calc .div_calc{
 	background: #000;
 	display: inline-block;
 	padding: 5px 20px;
 	border: 1px solid rgba(100,100,100,0.5);
 	margin: 10px 0 40px 50px;
 }
-#body_utils_calc .table_code TD{
+#body_admin_calc .table_code TD{
 	border: none !important;
 	color: rgba(255,255,255,0.5);
 }
-#body_utils_calc .tr_dip td{
+#body_admin_calc .tr_dip td{
 	padding-bottom: 25px;
 }
-#body_utils_calc .tr_dip INPUT{
+#body_admin_calc .tr_dip INPUT{
 	margin-bottom: 3px;
 }
-#body_utils_calc .tr_label td,
-#body_utils_calc .tr_dip input{
+#body_admin_calc .tr_label td,
+#body_admin_calc .tr_dip input{
 	text-align:center
 }
-#body_utils_calc .td_code{
+#body_admin_calc .td_code{
 	background: rgba(255,255,255,0.2);
 	text-align: center;
 }
-#body_utils_calc .td_code INPUT{
+#body_admin_calc .td_code INPUT{
 	margin-left: 10px;
 	text-align: center;
 }
-#body_utils_calc td.td_name{
+#body_admin_calc td.td_name{
 	text-align: right;
 	color: rgba(255,255,255,0.8);
 	padding-right: 15px;

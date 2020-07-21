@@ -12,6 +12,7 @@ $lang['menu_head']['admin']		="Admin";	 	// to translate
 
 // menu Admin ###################################################
 $lang['menu_admin']['devices']	="Geräte API";	// to fix ?
+$lang['menu_admin']['calc']		="DIP Switches"; // to translate
 
 // classes ###################################################
 $lang['classes']['scene']	="szenen";

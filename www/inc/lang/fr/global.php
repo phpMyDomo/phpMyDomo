@@ -12,6 +12,7 @@ $lang['menu_head']['admin']		="Appareils API";
 
 // menu Admin ###################################################
 $lang['menu_admin']['devices']	="Appareils API";
+$lang['menu_admin']['calc']		="DIP Switches";
 
 // classes ###################################################
 $lang['classes']['scene']	="scène";
