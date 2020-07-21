@@ -1,143 +1,169 @@
 /* var ajax_url='/ajax'; */
-var refresh_time		=12;
-var refresh_time_blinds	=25;
+var refresh_time		=3;
+//var refresh_time_blinds	=25;
+var feedback_time		=0.001;
+
+var sleep_time			=25;
+var global_class_on		='btn-success';
+
 
 jQuery( document ).ready(function() {
-    
-    /* Hide browser address bar -------------------------------------- */
+	
+	/* Hide browser address bar -------------------------------------- */
 	/Mobile/.test(navigator.userAgent) && !location.hash && setTimeout(function () {
-    	if (!pageYOffset) window.scrollTo(0, 1);
+		if (!pageYOffset) window.scrollTo(0, 1);
 	}, 500);
 
 
-    /* Reload page -------------------------------------- */
-	var reload_time	=$('#jsReload').attr('data-time');
-	SetReload(reload_time);
-    
+	/* Sleep Mode Reload page -------------------------------------- */
+	sleep_time	=$('#jsReload').attr('data-time');
+	SetTimerSleep(sleep_time);
 
-    /* Button Blinds & Shutter -------------------------------------- */
-    $('.jsButBlinds').click(function(e){
-    	e.preventDefault();
-    	var but		=$(this);
-    	var address	=but.attr('data-address');
-    	var target	=but.attr('data-target');
-    	var invert	=but.attr('data-invert');
-    	but.removeClass('active').addClass('active');
-    	
-    	var my_refresh_time = refresh_time_blinds;
-    	    	
-    	$.getJSON( ajax_url, { mode: "set", a: address, v: target, t: 'blinds', i: invert } )
-  			.done(function( json ) {
-			    but.removeClass('active');
-  				if(json.status=='ok'){
-					SetReload(my_refresh_time);
-  					console.log('OK');
-  				}
-  				else{
-  					console.log('ERROR');
-  				}
+	/* DEBUG -------------------------------------- */
+	$('.jsReloadData').click(function(e){
+		//console.log('Reloading Data from: '+ ajax_url);
+		AjaxRefreshData();
+	});
+
+	/* Refresh Devices states ------------------------- */
+	SetTimerRefresh(refresh_time);
+
+
+	/* Button Blinds & Shutter -------------------------------------- */
+	$('.jsButBlinds').click(function(e){
+		e.preventDefault();
+		SetTimerSleep(sleep_time);		
+		var but		=$(this);
+		var address	=but.attr('data-address');
+		var target	=but.attr('data-target');
+		var invert	=but.attr('data-invert');
+		but.removeClass('active').addClass('active');
+		
+		//var my_refresh_time = refresh_time_blinds;
+				
+		$.getJSON( ajax_url, { mode: "set", a: address, v: target, t: 'blinds', i: invert } )
+			.done(function( json ) {
+				but.removeClass('active');
+				if(json.status=='ok'){
+					SetTimerRefresh(feedback_time);
+					console.log('OK');
+				}
+				else{
+					console.log('ERROR');
+				}
 			})
 			.fail(function( jqxhr, textStatus, error ) {
-			    but.removeClass('active');
+				but.removeClass('active');
 				var err = textStatus + ", " + error;
 				console.log( "Switch Request Failed: " + err );
 			});    	
-    });
+	});
 
-    /* Button Switch -------------------------------------- */
-    $('.jsButSwitch').click(function(e){
-    	e.preventDefault();
-    	var but		=$(this);
-    	var img		=but.find('IMG');
-    	var dim		=but.closest('.jsButGroup').find('.jsButDimmer')
+	/* --------------------------------- */
+	function GetButData(but){
+		var but_group	=but.closest('.jsButGroup');
+		var data={};
+		data.type	=but_group.attr('data-type');
+		data.address=but_group.attr('data-address');
+		data.state	=but_group.attr('data-state');
+		data.invert	=but_group.attr('data-invert');
+		data.value	=but_group.attr('data-value');
+		data.object	=but_group;
+		return data;
+	}
 
-    	var images={
-    		'on': img.attr('data-on'),
-    		'off': img.attr('data-off'),
-    	};
-    	var type	=but.attr('data-type');
-    	var address	=but.attr('data-address');
-    	var state	=but.attr('data-state');
-    	var invert	=but.attr('data-invert');
-    	var onclass	=but.attr('data-onclass');
-    	but.removeClass('active').addClass('active');
-    	
-    	var my_refresh_time = refresh_time;
-    	if(type =='blinds'){
-    		my_refresh_time = refresh_time_blinds;
-    	}
-    	
-    	var target	='on';
-    	if(state=='on'){
-    		target='off'
-    	}
-    	
-    	$.getJSON( ajax_url, { mode: "set", a: address, v: target, t: type, i: invert } )
-  			.done(function( json ) {
-			    but.removeClass('active');
-  				if(json.status=='ok'){
-					SetReload(my_refresh_time);
-  					console.log('OK');
-					but.removeClass(onclass);
-					but.attr('data-state',target);
+	/* Button Switch -------------------------------------- */
+	$('.jsButSwitch').click(function(e){
+		e.preventDefault();
+		SetTimerSleep(sleep_time);		
+		var but		=$(this);
+		var data	=GetButData(but);
+		var dim		=data.object.find('.jsButDimmer')
+		var img		=but.find('IMG');
+
+		var images={
+			'on': img.attr('data-on'),
+			'off': img.attr('data-off'),
+		};
+		
+		but.removeClass('active').addClass('active');
+		
+		var target	='on';
+		if(data.state=='on'){
+			target='off'
+		}
+
+		if(data.type=='push'){
+			but.addClass(global_class_on);
+		}
+		
+		$.getJSON( ajax_url, { mode: "set", a: data.address, v: target, t: data.type, i: data.invert } )
+			.done(function( json ) {
+				but.removeClass('active');
+				if(json.status=='ok'){
+					SetTimerRefresh(feedback_time);
+					console.log('OK');
+					but.removeClass(global_class_on);
 					img.attr('src',images[target]);
+					data.object.attr('data-state',target);
 					if(target=='on'){
-						but.addClass(onclass);
+						but.addClass(global_class_on);
 						dim.html(100);
 					}
 					else{
 						dim.html(0);
 					}
-  				}
-  				else{
-  					console.log('ERROR');
-  				}
+				}
+				else{
+					console.log('ERROR');
+				}
 			})
 			.fail(function( jqxhr, textStatus, error ) {
-			    but.removeClass('active');
+				but.removeClass('active');
 				var err = textStatus + ", " + error;
 				console.log( "Switch Request Failed: " + err );
 			});    	
-    	});
+		});
 
 
-    /* Button Selector ------------------------------------------------------------------------- */
-    $('.jsButSelector').click(function(e){
-    	e.preventDefault();
-    	var but		=$(this);
-    	var address	=but.attr('data-address');
-    	var value	=but.attr('data-value');
-    	var onclass	=but.attr('data-onclass');
-    	var group_buts=but.closest('.jsButGroup').find('.jsButSelector');
+	/* Button Selector ------------------------------------------------------------------------- */
+	$('.jsButSelector').click(function(e){
+		e.preventDefault();
+		SetTimerSleep(sleep_time);		
+		var but		=$(this);
+		var data	=GetButData(but);
 
-    	but.removeClass('active').addClass('active');
-    	
-    	var my_refresh_time = refresh_time;
-    	    	
-    	$.getJSON( ajax_url, { mode: "set", a: address, v: value, t: 'selector' } )
-  		.done(function( json ) {
-			    but.removeClass('active');
+		var value	=but.attr('data-value');
+		var but_group=but.closest('.jsButGroup').find('.jsButSelector');
+
+		but.removeClass('active').addClass('active');
+		
+		//var my_refresh_time = refresh_time;
 				
-  				if(json.status=='ok'){
-					group_buts.removeClass(onclass);
-  					but.addClass(onclass);
-					SetReload(my_refresh_time);
-  					console.log('OK');
-  				}
-  				else{
-  					console.log('ERROR');
-  				}
+		$.getJSON( ajax_url, { mode: "set", a: data.address, v: value, t: 'selector' } )
+		.done(function( json ) {
+				but.removeClass('active');
+				
+				if(json.status=='ok'){
+					but_group.removeClass(global_class_on);
+					but.addClass(global_class_on);
+					SetTimerRefresh(feedback_time);
+					console.log('OK');
+				}
+				else{
+					console.log('ERROR');
+				}
 			})
 		.fail(function( jqxhr, textStatus, error ) {
-			    but.removeClass('active');
+				but.removeClass('active');
 				var err = textStatus + ", " + error;
 				console.log( "Selector Request Failed: " + err );
 		});    	
-    });
+	});
 
 
 
-    /* Button Dimmer (to finish) --------------------------------------------------------------- */
+	/* Button Dimmer (to finish) --------------------------------------------------------------- */
 	$('.jsButDimmer').each(function(){
 		var but			=$(this);
 		var address		=but.attr('data-address');
@@ -149,9 +175,10 @@ jQuery( document ).ready(function() {
 			placement: 'bottom',
 			trigger:'manual',
 			content: $(popover_id).html()
-	   })
-	   .click(function(e){
+		})
+		.click(function(e){
 			e.preventDefault();
+			SetTimerSleep(sleep_time);		
 			but.popover('toggle');
 			var last_value=null;
 			var value;
@@ -162,10 +189,9 @@ jQuery( document ).ready(function() {
 					}
 				})
 			.on('slide', $.throttle( 250, function (ev) {
-					SetReload(reload_time);
 					value = Math.round(ev.value);
-            		if(value != last_value){
-	            		last_value= value;
+					if(value != last_value){
+						last_value= value;
 						/* slider.slider('setValue', value); */
 					
 						/* Do Ajax Call, avoiding sending continous values */
@@ -173,11 +199,12 @@ jQuery( document ).ready(function() {
 						$.getJSON( ajax_url, { mode: "set", a: address, v: value, t: 'dim_level' } )
 							.done(function( json ) {
 								if(json.status=='ok'){
+									SetTimerRefresh(feedback_time);
 									console.log('Dim OK '+value);
-				            		but.html(value);
+									but.html(value);
 								}
 								else{
-				            		/* but.html(value); */
+									/* but.html(value); */
 									console.log('Dim ERROR');
 								}
 							})
@@ -188,13 +215,13 @@ jQuery( document ).ready(function() {
 					}
 			}));
 		});
-   });
+});
 
 
 
-    /* Button RGB ------------------------------------------------------------------------------------------ */
+	/* Button RGB ------------------------------------------------------------------------------------------ */
 	function RgbGetPopoverContent(e){
-    	var js_address=$(this).data('js_address');
+		var js_address=$(this).data('js_address');
 		var popover_content	=$('.jsRgbPopoverHidden_'+ js_address);
 		popover_content.find('INPUT').attr('style',''); /* remove display:none */
 		var html = popover_content.html();
@@ -213,25 +240,27 @@ jQuery( document ).ready(function() {
 
 	$('.jsButColor').each(function(){
 		var but				=$(this);
-		var address			=but.data('address');
+		var data			=GetButData(but);
+
 		var js_address		=but.data('js_address');
 		var popover_id		='.jsRgbPopoverHidden_'+ js_address;
 		var popover_input	=$(popover_id).find('.jsRgbPopoverInput');
 		var input_sel		='#jsInput_'+ js_address;
-		var colorpick_sel	='.jsColorPicker_'+ js_address;
+		//var colorpick_sel	='.jsColorPicker_'+ js_address;
 		var last_value		=$(input_sel).val();
 		but.css('background','#'+last_value);
 
-    	but.popover({
+		but.popover({
 			//animation: false,
 			html: true,
 			container: 'body',
 			placement: 'bottom',
 			trigger:'manual',
 			content: RgbGetPopoverContent //popover_input.html()
-	   })
-	   .click(function(e){
+	})
+	.click(function(e){
 			e.preventDefault();
+			SetTimerSleep(sleep_time);		
 			but.popover('toggle');
 			//e.stopPropagation();
 		});
@@ -247,6 +276,7 @@ jQuery( document ).ready(function() {
 			});
 
 			$(input_sel).on('colorchange', $.throttle( 250, function (ev) {
+				SetTimerSleep(sleep_time);		
 				var color=$(this).wheelColorPicker('getColor');
 				var value=$(this).wheelColorPicker('getValue');
 				var level=Math.round(color.v * 100)
@@ -257,14 +287,14 @@ jQuery( document ).ready(function() {
 				/* Do Ajax Call, avoiding sending continous values */
 				if(value != last_value){
 					last_value= value;
-					$.getJSON( ajax_url, { mode: "set", a: address, v: value, t: 'rgb_color' } )
+					$.getJSON( ajax_url, { mode: "set", a: data.address, v: value, t: 'rgb_color' } )
 						.done(function( json ) {
-							SetReload(refresh_time);
+							SetTimerRefresh(feedback_time);
 							if(json.status=='ok'){
 								//console.log('Color set to '+ value);
 							}
 							else{
-			            		/* but.html(value); */
+								/* but.html(value); */
 								console.log('Color ERROR');
 							}
 						})
@@ -286,12 +316,12 @@ jQuery( document ).ready(function() {
 		
 	});
 
-    /* Clear Popover on click outside  ------------------------------------------------------------------------ */
+	/* Clear Popover on click outside  ------------------------------------------------------------------------ */
 	$(document).on('click', function (e) {
 		$('[data-toggle="popover"],[data-original-title]').each(function () {
-	        //the 'is' for buttons that trigger popups
-	        //the 'has' for icons within a button that triggers a popup
-	        if (!$(this).is(e.target) && $(this).has(e.target).length === 0 && $('.popover').has(e.target).length === 0 ) {                
+			//the 'is' for buttons that trigger popups
+			//the 'has' for icons within a button that triggers a popup
+			if (!$(this).is(e.target) && $(this).has(e.target).length === 0 && $('.popover').has(e.target).length === 0 ) {                
 				//(($(this).popover('hide').data('bs.popover')||{}).inState||{}).click = false  // fix for BS 3.3.6
 				
 				/* https://stackoverflow.com/questions/13442749/how-to-check-whether-a-twitter-bootstrap-popover-is-visible-or-not/13442857 */
@@ -302,19 +332,19 @@ jQuery( document ).ready(function() {
 					console.log("visible");
 					$(this).popover('toggle');
 				}
-	        }
-	    });
+			}
+		});
 	});
 
 
 
-    /* Debug Devices ------------------------------------------------------------------------ */
+	/* Debug Devices ------------------------------------------------------------------------ */
 
-    $('#body_devices .jsPopoverDebug').popover({
-    	trigger: 'click',
-    	html: true,
-    	template: '<div class="popover popover_debug" role="tooltip"><div class="arrow"></div><div class="popover-title"></div><div class="popover-content"></div></div>'
-    });
+	$('#body_devices .jsPopoverDebug').popover({
+		trigger: 'click',
+		html: true,
+		template: '<div class="popover popover_debug" role="tooltip"><div class="arrow"></div><div class="popover-title"></div><div class="popover-content"></div></div>'
+	});
 	$('#body_devices .jsPopoverDebug').on('show.bs.popover',function(){
 		$(this).closest('TR').addClass('selected');
 	});
@@ -322,7 +352,7 @@ jQuery( document ).ready(function() {
 		$(this).closest('TR').removeClass('selected');
 	});
 	$('#body_devices .jsPopoverDebug').on('shown.bs.popover',function(){
-  		var po=$(this).next();
+		var po=$(this).next();
 		var new_top =parseInt( po.css('top')) + parseInt(po.height()/ 2) - 16;
 		po.css('top',new_top + 'px');
 	});
@@ -332,26 +362,166 @@ jQuery( document ).ready(function() {
 });
 
 /* FUNCTIONS ################################################################################### */
-var global_timeout;
-/* SetReload -------------------------------------- */
-function SetReload(time){
-	clearTimeout(global_timeout);
-	if(time > 0){
-		if(time == refresh_time || time == refresh_time_blinds){
-			global_timeout=setTimeout("ReloadPage(0)", time * 1000);		
+
+/* ---------------------------------- */
+function AjaxRefreshData(){
+	$.getJSON( ajax_url, { mode: "list_devices" } )
+		.done(function( json ) {
+			//console.log(json);
+			$.each(json.data,function(k,row){
+				SetState(row);
+			});
+
+		})
+		.fail(function( jqxhr, textStatus, error ) {
+		});    	
+}
+/* ---------------------------------- */
+function SetState(row){
+	if(row.class=='command'){
+		if(row.type=='switch' || row.type=='push' || row.type=='scene'){
+			SetStateCommandSwitch(row);
+			SetStateCommandView(row);
+		}
+		else if(row.type=='selector'){
+			SetStateCommandSelector(row);
+		}
+		else if(row.type=='rgb' || row.type=='rgbw'){
+			SetStateCommandSwitch(row);
+			SetStateCommandColor(row);
+		}
+		else if(row.type=='dimmer'){
+			SetStateCommandSwitch(row);
+			SetStateCommandDimmer(row);
+		}
+	}
+	else if(row.class=='sensor'){
+		SetStateSensor(row);
+	}
+}
+
+/*-------------------------------- */
+function SetStateCommandView(row){
+	var bgroup=$("[data-uid='"+row.uid+"']");
+	if(bgroup.hasClass('jsCommandView')){
+		var value =row.state;
+		value = value.charAt(0).toUpperCase() + value.slice(1);
+		row.value=value;
+		SetStateSensor(row);
+	}
+}
+
+/*-------------------------------- */
+function SetStateSensor(row){
+	var bgroup=$("[data-uid='"+row.uid+"']");
+	if (bgroup.length){
+		var sens=bgroup.find(".jsSensorValue");
+		var last_val=bgroup.attr('data-value');
+		if(last_val !=row.value ){
+			sens.html(row.value);
+			bgroup.attr('data-value',row.value);
+			sens.removeClass('changed').addClass('changed');
 		}
 		else{
-			global_timeout=setTimeout("ReloadPage(1)", time * 1000);		
+			sens.html(row.value).css('background','none');
+			sens.removeClass('changed');
 		}
 	}
 }
-/* ReloadPage -------------------------------------- */
-function ReloadPage(jump) {
+/* ---------------------------------- */
+function SetStateCommandSwitch(row){
+	var bgroup=$("[data-uid='"+row.uid+"']");
+	if (bgroup.length){
+		var but=bgroup.find(".jsButSwitch");
+		var img=but.find('img');
+		if(row.type == 'scene' || row.type == 'push'){
+			but.removeClass(global_class_on);
+			img.prop('src', img.data('off'));
+			bgroup.attr('data-state',row.state);
+			bgroup.attr('data-invert',row.invert);
+		}
+		else{
+			if(row.state=='on'){
+				but.removeClass(global_class_on).addClass(global_class_on);
+			}
+			else if(row.state=='off'){
+				but.removeClass(global_class_on);
+			}	
+			img.prop('src', img.data(row.state));
+			bgroup.attr('data-state',row.state);
+			bgroup.attr('data-invert',row.invert);
+		}
+	}
+}
+/* ---------------------------------- */
+function SetStateCommandSelector(row){
+	var bgroup=$("[data-uid='"+row.uid+"']");
+	if (bgroup.length){
+		var buttons=bgroup.find(".jsButSelector");
+		var sel_but=buttons.filter("[data-value="+row.value+"]");	
+		buttons.removeClass(global_class_on);
+		sel_but.addClass(global_class_on);
+		bgroup.attr('data-state',row.state);
+		bgroup.attr('data-value',row.value);
+	}
+}
+/* ---------------------------------- */
+function SetStateCommandColor(row){
+	var bgroup=$("[data-uid='"+row.uid+"']");
+	if (bgroup.length){
+		var but=bgroup.find(".jsButColor");
+		but.html(row.value);
+		bgroup.attr('data-value',row.value);
+		but.css('background','#'+row.color_rgb);
+	}
+}
+
+/* ---------------------------------- */
+function SetStateCommandDimmer(row){
+	var bgroup=$("[data-uid='"+row.uid+"']");
+	if (bgroup.length){
+		var but=bgroup.find(".jsButDimmer");
+		but.html(row.value);
+		bgroup.attr('data-value',row.value);
+	}
+}
+
+
+
+
+var global_timer_refresh;
+/* SetTimerRefresh -------------------------------------- */
+function SetTimerRefresh(time){
+	clearTimeout(global_timer_refresh);
+	if(time > 0){
+		global_timer_refresh=setTimeout("RefreshPage()", time * 1000);		
+	}
+}
+
+
+/* RefreshPage -------------------------------------- */
+function RefreshPage() {
+		//location.reload();
+		AjaxRefreshData();
+		SetTimerRefresh(refresh_time);
+};
+
+var global_timer_sleep;
+/* SetTimerSleep -------------------------------------- */
+function SetTimerSleep(time){
+	clearTimeout(global_timer_sleep);
+	if(time > 0){
+		global_timer_sleep=setTimeout("JumpSleep()", time * 1000);		
+	}
+}
+/* Jump to Sleep Page -------------------------------------- */
+function JumpSleep() {
 	var reload_url=$('#jsReload').attr('data-url');
-	if(jump == 1 && reload_url !=''){
+	if(reload_url !=''){
 		window.location.href=reload_url;
 	}
-	else{
-		location.reload();
-	}
 };
+
+
+
+

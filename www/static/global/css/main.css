@@ -347,6 +347,9 @@ A:focus {outline:none;}
 	height: 100%;
 }
 
+#body_home .changed{
+	color: #008e00 !important;
+}
 
 /*wWidget*/
 #body_home  .jQWCP-block{	
