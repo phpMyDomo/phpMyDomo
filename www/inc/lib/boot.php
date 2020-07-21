@@ -33,12 +33,8 @@ $conf['menu_icons']['photos']	='fa fa-camera';
 $conf['menu_icons']['admin']	='fa fa-gears';
 
 //admin menu
-$conf['menu_admin_urls']['commands']='admin/commands';	
-$conf['menu_admin_urls']['sensors']	='admin/sensors';	
 $conf['menu_admin_urls']['devices']	='admin/devices';	
 
-$conf['menu_admin_icons']['commands']	='fa fa-power-off';
-$conf['menu_admin_icons']['sensors']	='fa fa-cloud';
 $conf['menu_admin_icons']['devices']	='fa fa-gears';
 
 //menus to show
