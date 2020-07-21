@@ -14,302 +14,306 @@ jQuery( document ).ready(function() {
 		if (!pageYOffset) window.scrollTo(0, 1);
 	}, 500);
 
+	if($('#body_home').length){
 
-	/* Sleep Mode Reload page -------------------------------------- */
-	sleep_time	=$('#jsReload').attr('data-time');
-	SetTimerSleep(sleep_time);
-
-
-	/* Refresh Devices states ------------------------- */
-	SetTimerRefresh(refresh_time);
+		/* Sleep Mode Reload page -------------------------------------- */
+		sleep_time	=$('#jsReload').attr('data-time');
+		SetTimerSleep(sleep_time);
 
 
-	/* Button Blinds & Shutter -------------------------------------- */
-	$('.jsButBlinds').click(function(e){
-		e.preventDefault();
-		SetTimerSleep(sleep_time);		
-		var but		=$(this);
-		var address	=but.attr('data-address');
-		var target	=but.attr('data-target');
-		var invert	=but.attr('data-invert');
-		but.removeClass('active').addClass('active');
-		
-		//var my_refresh_time = refresh_time_blinds;
-				
-		$.getJSON( ajax_url, { mode: "set", a: address, v: target, t: 'blinds', i: invert } )
-			.done(function( json ) {
-				but.removeClass('active');
-				if(json.status=='ok'){
-					SetTimerRefresh(feedback_time);
-					console.log('OK');
-				}
-				else{
-					console.log('ERROR');
-				}
-			})
-			.fail(function( jqxhr, textStatus, error ) {
-				but.removeClass('active');
-				var err = textStatus + ", " + error;
-				console.log( "Switch Request Failed: " + err );
-			});    	
-	});
+		/* Refresh Devices states ------------------------- */
+		SetTimerRefresh(refresh_time);
 
-	/* --------------------------------- */
-	function GetButData(but){
-		var but_group	=but.closest('.jsButGroup');
-		var data={};
-		data.type	=but_group.attr('data-type');
-		data.address=but_group.attr('data-address');
-		data.state	=but_group.attr('data-state');
-		data.invert	=but_group.attr('data-invert');
-		data.value	=but_group.attr('data-value');
-		data.object	=but_group;
-		return data;
-	}
 
-	/* Button Switch -------------------------------------- */
-	$('.jsButSwitch').click(function(e){
-		e.preventDefault();
-		SetTimerSleep(sleep_time);		
-		var but		=$(this);
-		var data	=GetButData(but);
-		var dim		=data.object.find('.jsButDimmer')
-		var img		=but.find('IMG');
-
-		var images={
-			'on': img.attr('data-on'),
-			'off': img.attr('data-off'),
-		};
-		
-		but.removeClass('active').addClass('active');
-		
-		var target	='on';
-		if(data.state=='on'){
-			target='off'
-		}
-
-		if(data.type=='push'){
-			but.addClass(global_class_on);
-		}
-		
-		$.getJSON( ajax_url, { mode: "set", a: data.address, v: target, t: data.type, i: data.invert } )
-			.done(function( json ) {
-				but.removeClass('active');
-				if(json.status=='ok'){
-					SetTimerRefresh(feedback_time);
-					console.log('OK');
-					but.removeClass(global_class_on);
-					img.attr('src',images[target]);
-					data.object.attr('data-state',target);
-					if(target=='on'){
-						but.addClass(global_class_on);
-						dim.html(100);
+		/* Button Blinds & Shutter -------------------------------------- */
+		$('.jsButBlinds').click(function(e){
+			e.preventDefault();
+			SetTimerSleep(sleep_time);		
+			var but		=$(this);
+			var address	=but.attr('data-address');
+			var target	=but.attr('data-target');
+			var invert	=but.attr('data-invert');
+			but.removeClass('active').addClass('active');
+			
+			//var my_refresh_time = refresh_time_blinds;
+					
+			$.getJSON( ajax_url, { mode: "set", a: address, v: target, t: 'blinds', i: invert } )
+				.done(function( json ) {
+					but.removeClass('active');
+					if(json.status=='ok'){
+						SetTimerRefresh(feedback_time);
+						console.log('OK');
 					}
 					else{
-						dim.html(0);
+						console.log('ERROR');
 					}
-				}
-				else{
-					console.log('ERROR');
-				}
-			})
+				})
+				.fail(function( jqxhr, textStatus, error ) {
+					but.removeClass('active');
+					var err = textStatus + ", " + error;
+					console.log( "Switch Request Failed: " + err );
+				});    	
+		});
+
+		/* --------------------------------- */
+		function GetButData(but){
+			var but_group	=but.closest('.jsButGroup');
+			var data={};
+			data.type	=but_group.attr('data-type');
+			data.address=but_group.attr('data-address');
+			data.state	=but_group.attr('data-state');
+			data.invert	=but_group.attr('data-invert');
+			data.value	=but_group.attr('data-value');
+			data.object	=but_group;
+			return data;
+		}
+
+		/* Button Switch -------------------------------------- */
+		$('.jsButSwitch').click(function(e){
+			e.preventDefault();
+			SetTimerSleep(sleep_time);		
+			var but		=$(this);
+			var data	=GetButData(but);
+			var dim		=data.object.find('.jsButDimmer')
+			var img		=but.find('IMG');
+
+			var images={
+				'on': img.attr('data-on'),
+				'off': img.attr('data-off'),
+			};
+			
+			but.removeClass('active').addClass('active');
+			
+			var target	='on';
+			if(data.state=='on'){
+				target='off'
+			}
+
+			if(data.type=='push'){
+				but.addClass(global_class_on);
+			}
+			
+			$.getJSON( ajax_url, { mode: "set", a: data.address, v: target, t: data.type, i: data.invert } )
+				.done(function( json ) {
+					but.removeClass('active');
+					if(json.status=='ok'){
+						SetTimerRefresh(feedback_time);
+						console.log('OK');
+						but.removeClass(global_class_on);
+						img.attr('src',images[target]);
+						data.object.attr('data-state',target);
+						if(target=='on'){
+							but.addClass(global_class_on);
+							dim.html(100);
+						}
+						else{
+							dim.html(0);
+						}
+					}
+					else{
+						console.log('ERROR');
+					}
+				})
+				.fail(function( jqxhr, textStatus, error ) {
+					but.removeClass('active');
+					var err = textStatus + ", " + error;
+					console.log( "Switch Request Failed: " + err );
+				});    	
+			});
+
+
+		/* Button Selector ------------------------------------------------------------------------- */
+		$('.jsButSelector').click(function(e){
+			e.preventDefault();
+			SetTimerSleep(sleep_time);		
+			var but		=$(this);
+			var data	=GetButData(but);
+
+			var value	=but.attr('data-value');
+			var but_group=but.closest('.jsButGroup').find('.jsButSelector');
+
+			but.removeClass('active').addClass('active');
+			
+			//var my_refresh_time = refresh_time;
+					
+			$.getJSON( ajax_url, { mode: "set", a: data.address, v: value, t: 'selector' } )
+			.done(function( json ) {
+					but.removeClass('active');
+					
+					if(json.status=='ok'){
+						but_group.removeClass(global_class_on);
+						but.addClass(global_class_on);
+						SetTimerRefresh(feedback_time);
+						console.log('OK');
+					}
+					else{
+						console.log('ERROR');
+					}
+				})
 			.fail(function( jqxhr, textStatus, error ) {
-				but.removeClass('active');
-				var err = textStatus + ", " + error;
-				console.log( "Switch Request Failed: " + err );
+					but.removeClass('active');
+					var err = textStatus + ", " + error;
+					console.log( "Selector Request Failed: " + err );
 			});    	
 		});
 
 
-	/* Button Selector ------------------------------------------------------------------------- */
-	$('.jsButSelector').click(function(e){
-		e.preventDefault();
-		SetTimerSleep(sleep_time);		
-		var but		=$(this);
-		var data	=GetButData(but);
 
-		var value	=but.attr('data-value');
-		var but_group=but.closest('.jsButGroup').find('.jsButSelector');
-
-		but.removeClass('active').addClass('active');
-		
-		//var my_refresh_time = refresh_time;
-				
-		$.getJSON( ajax_url, { mode: "set", a: data.address, v: value, t: 'selector' } )
-		.done(function( json ) {
-				but.removeClass('active');
-				
-				if(json.status=='ok'){
-					but_group.removeClass(global_class_on);
-					but.addClass(global_class_on);
-					SetTimerRefresh(feedback_time);
-					console.log('OK');
-				}
-				else{
-					console.log('ERROR');
-				}
+		/* Button Dimmer (to finish) --------------------------------------------------------------- */
+		$('.jsButDimmer').each(function(){
+			var but			=$(this);
+			var address		=but.attr('data-address');
+			var popover_id	='#jsDimmerPopover_'+ but.attr('data-js_address');
+			var slider_id	='#jsSlider_'+ but.attr('data-js_address');
+			
+			but.popover({
+				html: true,
+				placement: 'bottom',
+				trigger:'manual',
+				content: $(popover_id).html()
 			})
-		.fail(function( jqxhr, textStatus, error ) {
-				but.removeClass('active');
-				var err = textStatus + ", " + error;
-				console.log( "Selector Request Failed: " + err );
-		});    	
-	});
+			.click(function(e){
+				e.preventDefault();
+				SetTimerSleep(sleep_time);		
+				but.popover('toggle');
+				var last_value=null;
+				var value;
+				var slider	=$(slider_id).slider({
+					value: but.html(),
+					formater: function(v) {
+							return Math.round(v);
+						}
+					})
+				.on('slide', $.throttle( 250, function (ev) {
+						value = Math.round(ev.value);
+						if(value != last_value){
+							last_value= value;
+							/* slider.slider('setValue', value); */
+						
+							/* Do Ajax Call, avoiding sending continous values */
+							console.log('Sending Dim '+value);		
+							$.getJSON( ajax_url, { mode: "set", a: address, v: value, t: 'dim_level' } )
+								.done(function( json ) {
+									if(json.status=='ok'){
+										SetTimerRefresh(feedback_time);
+										console.log('Dim OK '+value);
+										but.html(value);
+									}
+									else{
+										/* but.html(value); */
+										console.log('Dim ERROR');
+									}
+								})
+								.fail(function( jqxhr, textStatus, error ) {
+									var err = textStatus + ", " + error;
+									console.log( "Dim Request Failed: " + err );
+							});
+						}
+				}));
+			});
+		});
 
 
 
-	/* Button Dimmer (to finish) --------------------------------------------------------------- */
-	$('.jsButDimmer').each(function(){
-		var but			=$(this);
-		var address		=but.attr('data-address');
-		var popover_id	='#jsDimmerPopover_'+ but.attr('data-js_address');
-		var slider_id	='#jsSlider_'+ but.attr('data-js_address');
+		/* Button RGB ------------------------------------------------------------------------------------------ */
+		function RgbGetPopoverContent(e){
+			var js_address=$(this).data('js_address');
+			var popover_content	=$('.jsRgbPopoverHidden_'+ js_address);
+			popover_content.find('INPUT').attr('style',''); /* remove display:none */
+			var html = popover_content.html();
+			html ="<div class='jsRgbPopoverShown' data-js_address='"+js_address+"'>"+html+"</div>";
+			return html;
+		}
 		
-		but.popover({
-			html: true,
-			placement: 'bottom',
-			trigger:'manual',
-			content: $(popover_id).html()
+		function RgbShowColorPreview(js_address, value){
+			var button_color=$('.jsButGroup_'+js_address+' .jsButColor');
+			var cur_preview=$('.jsRgbPopoverShown .jsRgbPreview');
+			var hid_preview=$('.jsRgbPopoverHidden_'+js_address+' .jsRgbPreview');
+			button_color.css('background-color','#'+value);
+			cur_preview.css('background-color','#'+value);
+			hid_preview.css('background-color','#'+value);
+		}
+
+		$('.jsButColor').each(function(){
+			var but				=$(this);
+			var data			=GetButData(but);
+
+			var js_address		=but.data('js_address');
+			var popover_id		='.jsRgbPopoverHidden_'+ js_address;
+			var popover_input	=$(popover_id).find('.jsRgbPopoverInput');
+			var input_sel		='#jsInput_'+ js_address;
+			//var colorpick_sel	='.jsColorPicker_'+ js_address;
+			var last_value		=$(input_sel).val();
+			but.css('background','#'+last_value);
+
+			but.popover({
+				//animation: false,
+				html: true,
+				container: 'body',
+				placement: 'bottom',
+				trigger:'manual',
+				content: RgbGetPopoverContent //popover_input.html()
 		})
 		.click(function(e){
-			e.preventDefault();
-			SetTimerSleep(sleep_time);		
-			but.popover('toggle');
-			var last_value=null;
-			var value;
-			var slider	=$(slider_id).slider({
-				value: but.html(),
-				formater: function(v) {
-						return Math.round(v);
-					}
-				})
-			.on('slide', $.throttle( 250, function (ev) {
-					value = Math.round(ev.value);
+				e.preventDefault();
+				SetTimerSleep(sleep_time);		
+				but.popover('toggle');
+				//e.stopPropagation();
+			});
+			
+			but.on('shown.bs.popover', function(){
+				var in_value=$(input_sel).attr('value');
+				popover_input.html('');
+				$(input_sel).wheelColorPicker({ layout: 'block', live: true, format: "hex", preview:true, animDuration: 0 });
+
+				$('.jsRgbPreset').on('click', function(e){
+					var color=$(this).data('rgb');
+					$(input_sel).wheelColorPicker('setValue',color);
+				});
+
+				$(input_sel).on('colorchange', $.throttle( 250, function (ev) {
+					SetTimerSleep(sleep_time);		
+					var color=$(this).wheelColorPicker('getColor');
+					var value=$(this).wheelColorPicker('getValue');
+					var level=Math.round(color.v * 100)
+
+					but.html(level);
+					RgbShowColorPreview(js_address, value);
+				
+					/* Do Ajax Call, avoiding sending continous values */
 					if(value != last_value){
 						last_value= value;
-						/* slider.slider('setValue', value); */
-					
-						/* Do Ajax Call, avoiding sending continous values */
-						console.log('Sending Dim '+value);		
-						$.getJSON( ajax_url, { mode: "set", a: address, v: value, t: 'dim_level' } )
+						$.getJSON( ajax_url, { mode: "set", a: data.address, v: value, t: 'rgb_color' } )
 							.done(function( json ) {
+								SetTimerRefresh(feedback_time);
 								if(json.status=='ok'){
-									SetTimerRefresh(feedback_time);
-									console.log('Dim OK '+value);
-									but.html(value);
+									//console.log('Color set to '+ value);
 								}
 								else{
 									/* but.html(value); */
-									console.log('Dim ERROR');
+									console.log('Color ERROR');
 								}
 							})
 							.fail(function( jqxhr, textStatus, error ) {
 								var err = textStatus + ", " + error;
-								console.log( "Dim Request Failed: " + err );
+								console.log( "Color Request Failed: " + err );
 						});
 					}
-			}));
-		});
-});
-
-
-
-	/* Button RGB ------------------------------------------------------------------------------------------ */
-	function RgbGetPopoverContent(e){
-		var js_address=$(this).data('js_address');
-		var popover_content	=$('.jsRgbPopoverHidden_'+ js_address);
-		popover_content.find('INPUT').attr('style',''); /* remove display:none */
-		var html = popover_content.html();
-		html ="<div class='jsRgbPopoverShown' data-js_address='"+js_address+"'>"+html+"</div>";
-		return html;
-	}
-	
-	function RgbShowColorPreview(js_address, value){
-		var button_color=$('.jsButGroup_'+js_address+' .jsButColor');
-		var cur_preview=$('.jsRgbPopoverShown .jsRgbPreview');
-		var hid_preview=$('.jsRgbPopoverHidden_'+js_address+' .jsRgbPreview');
-		button_color.css('background-color','#'+value);
-		cur_preview.css('background-color','#'+value);
-		hid_preview.css('background-color','#'+value);
-	}
-
-	$('.jsButColor').each(function(){
-		var but				=$(this);
-		var data			=GetButData(but);
-
-		var js_address		=but.data('js_address');
-		var popover_id		='.jsRgbPopoverHidden_'+ js_address;
-		var popover_input	=$(popover_id).find('.jsRgbPopoverInput');
-		var input_sel		='#jsInput_'+ js_address;
-		//var colorpick_sel	='.jsColorPicker_'+ js_address;
-		var last_value		=$(input_sel).val();
-		but.css('background','#'+last_value);
-
-		but.popover({
-			//animation: false,
-			html: true,
-			container: 'body',
-			placement: 'bottom',
-			trigger:'manual',
-			content: RgbGetPopoverContent //popover_input.html()
-	})
-	.click(function(e){
-			e.preventDefault();
-			SetTimerSleep(sleep_time);		
-			but.popover('toggle');
-			//e.stopPropagation();
-		});
-		
-		but.on('shown.bs.popover', function(){
-			var in_value=$(input_sel).attr('value');
-			popover_input.html('');
-			$(input_sel).wheelColorPicker({ layout: 'block', live: true, format: "hex", preview:true, animDuration: 0 });
-
-			$('.jsRgbPreset').on('click', function(e){
-				var color=$(this).data('rgb');
-				$(input_sel).wheelColorPicker('setValue',color);
+				}));
 			});
-
-			$(input_sel).on('colorchange', $.throttle( 250, function (ev) {
-				SetTimerSleep(sleep_time);		
-				var color=$(this).wheelColorPicker('getColor');
-				var value=$(this).wheelColorPicker('getValue');
-				var level=Math.round(color.v * 100)
-
-				but.html(level);
-				RgbShowColorPreview(js_address, value);
+		
+			but.on('hidden.bs.popover', function(){
+				/* move back to popover hidden div */
+				var last_input_html=$(input_sel)[0].outerHTML;
+				$(input_sel).wheelColorPicker('destroy');
+				popover_input.html(last_input_html);
+			});
 			
-				/* Do Ajax Call, avoiding sending continous values */
-				if(value != last_value){
-					last_value= value;
-					$.getJSON( ajax_url, { mode: "set", a: data.address, v: value, t: 'rgb_color' } )
-						.done(function( json ) {
-							SetTimerRefresh(feedback_time);
-							if(json.status=='ok'){
-								//console.log('Color set to '+ value);
-							}
-							else{
-								/* but.html(value); */
-								console.log('Color ERROR');
-							}
-						})
-						.fail(function( jqxhr, textStatus, error ) {
-							var err = textStatus + ", " + error;
-							console.log( "Color Request Failed: " + err );
-					});
-				}
-			}));
+			
 		});
-	
-		but.on('hidden.bs.popover', function(){
-			/* move back to popover hidden div */
-			var last_input_html=$(input_sel)[0].outerHTML;
-			$(input_sel).wheelColorPicker('destroy');
-			popover_input.html(last_input_html);
-		});
-		
-		
-	});
+	} /* End Dashboard */
+
+
 
 	/* Clear Popover on click outside  ------------------------------------------------------------------------ */
 	$(document).on('click', function (e) {
@@ -336,7 +340,7 @@ jQuery( document ).ready(function() {
 
 
 
-	/* Debug Devices ------------------------------------------------------------------------ */
+	/* Admin Devices DEBUG ------------------------------------------------------------------------ */
 
 	$('#body_devices .jsPopoverDebug').popover({
 		trigger: 'click',
