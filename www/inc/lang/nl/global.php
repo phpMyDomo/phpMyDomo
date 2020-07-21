@@ -8,9 +8,10 @@ $lang['menu_head']['clock']		="Klok";
 $lang['menu_head']['squeeze']	="Music";	// to translate
 $lang['menu_head']['cameras']	="Camera's";
 $lang['menu_head']['photos']	="Foto's";
-$lang['menu_head']['commands']	="Commando's";
-$lang['menu_head']['sensors']	="Sensoren";
-$lang['menu_head']['devices']	="Apparaten";
+$lang['menu_head']['admin']		="Admin";	//to translate
+
+// menu Admin ###################################################
+$lang['menu_head']['devices']	="Apparaten API";	//to fix?
 
 // classes ###################################################
 $lang['classes']['scene']	="scene";

@@ -11,9 +11,7 @@ $lang['menu_head']['photos']	="Photo Frame";
 $lang['menu_head']['admin']		="Admin";
 
 // menu Admin ###################################################
-$lang['menu_admin']['commands']="Commands";
-$lang['menu_admin']['sensors']	="Sensors";
-$lang['menu_admin']['devices']	="Devices";
+$lang['menu_admin']['devices']	="API Devices";
 
 // classes ###################################################
 $lang['classes']['scene']	="scene";

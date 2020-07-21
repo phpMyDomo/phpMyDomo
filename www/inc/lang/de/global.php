@@ -4,13 +4,14 @@ $lang['locale']="de_DE.utf8";
 
 // menu head ###################################################
 $lang['menu_head']['home']		="Home";
-$lang['menu_head']['clock']		="Clock";	// to translate
-$lang['menu_head']['squeeze']	="Music";	// to translate
+$lang['menu_head']['clock']		="Clock";		// to translate
+$lang['menu_head']['squeeze']	="Music";		// to translate
 $lang['menu_head']['cameras']	="Kameras";
-$lang['menu_head']['photos']	="Photos"; // to translate
-$lang['menu_head']['commands']	="Befehle";
-$lang['menu_head']['sensors']	="Fühler";
-$lang['menu_head']['devices']	="Geräte";
+$lang['menu_head']['photos']	="Photos"; 		// to translate
+$lang['menu_head']['admin']		="Admin";	 	// to translate
+
+// menu Admin ###################################################
+$lang['menu_admin']['devices']	="Geräte API";	// to fix ?
 
 // classes ###################################################
 $lang['classes']['scene']	="szenen";
