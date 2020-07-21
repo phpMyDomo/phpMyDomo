@@ -12,6 +12,7 @@ $lang['menu_head']['admin']		="Admin";
 
 // menu Admin ###################################################
 $lang['menu_admin']['devices']	="Appareils API";
+$lang['menu_admin']['openwrt']	="OpenWRT";		// to translate
 $lang['menu_admin']['calc']		="DIP Switches";
 
 // classes ###################################################

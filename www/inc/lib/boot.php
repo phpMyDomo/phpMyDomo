@@ -34,9 +34,11 @@ $conf['menu_icons']['admin']	='fa fa-gear';
 
 //admin menu
 $conf['menu_admin_urls']['devices']	='admin/devices';	
+$conf['menu_admin_urls']['openwrt']	='admin/openwrt';	
 $conf['menu_admin_urls']['calc']	='admin/calc';	
 
 $conf['menu_admin_icons']['devices']	='fa fa-plug';
+$conf['menu_admin_icons']['openwrt']	='fa fa-wifi';
 $conf['menu_admin_icons']['calc']		='fa fa-calculator';
 
 //menus to show
