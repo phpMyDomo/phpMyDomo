@@ -246,6 +246,7 @@ class PMD_ApiClient extends PMD_Root_ApiClient{
 					$d['class']	='command';
 					$d['type']	='dimmer';
 					$d['value']	=$raw['LevelInt'];
+					$d['dim_max']=$raw['MaxDimLevel'];
 
 					if($raw['SubType']=='RGB'){	//$raw['Type']=='Color Switch'
 						$d['type']		='rgb';

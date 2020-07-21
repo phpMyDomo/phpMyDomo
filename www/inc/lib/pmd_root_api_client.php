@@ -378,22 +378,22 @@ Auto generated fields
 	function FormatValue($row,$raw_field=''){
 		//format value
 		if($raw_field){
-			$val=$row['raw'][$raw_field];
+			$value=$row['raw'][$raw_field];
 		}
 		else{
-			$val=$row['value'];
+			$value=$row['value'];
 		}
 		//scale Value
 		if($row['type']=='dimmer' or $row['type']=='rgb'){
 			$row['raw_dim_value']=$row['value']; //used only for debug
-			$value=$row['value'];
+			//$value=$row['value'];
 			
 			$min=$this->_getMinMaxForType($row,'min',$row['type']);
 			$max=$this->_getMinMaxForType($row,'max',$row['type']);
 
 			//scale the value from 0 to 100
 			if($max !=100 or $min != 0){
-				$value=round( ($row['value'] - $min) / ($max - $min) * 100);
+				$value=ceil( ($row['value'] - $min) / ($max - $min) * 100);
 			}
 
 			if($row['value'] <= $min){

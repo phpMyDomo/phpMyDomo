@@ -29,7 +29,7 @@ $api['set']['group']['off']			='Off';
 
 $api['set']['dimmer']['on']			='On';
 $api['set']['dimmer']['off']		='Off';
-$api['set']['dimmer']['min']		=1;
+$api['set']['dimmer']['min']		=0;
 $api['set']['dimmer']['max']		=16;
 
 $api['set']['rgb']['on']			='On';
