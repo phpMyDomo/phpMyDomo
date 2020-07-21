@@ -7,7 +7,7 @@ class PMD_Page extends PMD_Root_Page{
 	//----------------------------------------------------------------------------------
 	function __construct(& $class){
 		parent::__construct($class);
-		$this->_require();
+		$this->RequirePageConf();
 		
 		if(!$this->vars['url_server']){
 			$this->vars['url_server']="http://{$this->vars['server_host']}:{$this->vars['server_port_web']}";
@@ -45,18 +45,6 @@ class PMD_Page extends PMD_Root_Page{
 						
 		$this->Assign('data',	$data);
 		$this->Display($page);
-	}
-
-	//----------------------------------------------------------------------------------
-	private function _require(){
-		$my_conf		=$this->conf['paths']['confs'].'squeeze.php';		
-		if(file_exists($my_conf)){
-			require_once($my_conf);
-			$this->vars=$prefs;
-		}
-		else{			
-			$this->o_kernel->PageError(500,"Cant find configuration file at: $my_conf");
-		}
 	}
 
 	//----------------------------------------------------------------------------------

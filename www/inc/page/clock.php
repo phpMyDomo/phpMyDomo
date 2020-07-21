@@ -7,7 +7,7 @@ class PMD_Page extends PMD_Root_Page{
 	//----------------------------------------------------------------------------------
 	function __construct(& $class){
 		parent::__construct($class);
-		$this->_require();
+		$this->RequirePageConf();
 	}
 
 	//----------------------------------------------------------------------------------
@@ -40,17 +40,6 @@ class PMD_Page extends PMD_Root_Page{
 		$this->Display($page);
 	}
 
-	//----------------------------------------------------------------------------------
-	private function _require(){
-		$my_conf		=$this->conf['paths']['confs'].'clock.php';		
-		if(file_exists($my_conf)){
-			require_once($my_conf);
-			$this->vars=$clock;
-		}
-		else{			
-			$this->o_kernel->PageError(500,"Cant find configuration file at: $my_conf");
-		}
-	}
 	//----------------------------------------------------------------------------------
 	private function _SmartyTimeOptions($max){
 		for($i=0; $i<=$max; $i++ ){

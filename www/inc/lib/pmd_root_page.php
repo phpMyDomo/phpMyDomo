@@ -143,7 +143,23 @@ class PMD_Root_Page extends PMD_Root{
 
 	}
 
-
+	//----------------------------------------------------------------------------------
+	function RequirePageConf($conf_name=''){
+		$coconf_namenf or $conf_name=$this->conf['app']['page'];
+		$my_conf		=$this->conf['paths']['confs']."$conf_name.php";		
+		if(file_exists($my_conf)){
+			require_once($my_conf);
+			if(is_array($prefs)){
+				$this->vars=$prefs;
+			}
+			else{
+				$this->o_kernel->PageError(500,"Your configuration file (<b>$my_conf</b>) need to be updated: Please be sure to rename '<b>\${$this->conf['app']['page']}</b>' to '<b>\$prefs</b>' ");
+			}
+		}
+		else{			
+			$this->o_kernel->PageError(500,"Cant find configuration file at: $my_conf");
+		}
+	}
 
 
 	//----------------------------------------------------------------------------------
