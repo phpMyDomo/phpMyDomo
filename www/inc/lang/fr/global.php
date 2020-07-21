@@ -8,7 +8,7 @@ $lang['menu_head']['clock']		="Horloge";
 $lang['menu_head']['squeeze']	="Musique";
 $lang['menu_head']['cameras']	="Caméras";
 $lang['menu_head']['photos']	="Photos";
-$lang['menu_head']['admin']		="Appareils API";
+$lang['menu_head']['admin']		="Admin";
 
 // menu Admin ###################################################
 $lang['menu_admin']['devices']	="Appareils API";
