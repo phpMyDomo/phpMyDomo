@@ -13,7 +13,7 @@ class PMD_Page extends PMD_Root_Page{
 			$this->Debug('Devices Dump',$debug_arr);
 		}
 		$this->Assign('data',$data);
-		$this->Display();
+		$this->DisplayAdmin();
 	}
 
 } 

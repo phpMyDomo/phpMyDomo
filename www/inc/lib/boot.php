@@ -23,22 +23,28 @@ $conf['menu_urls']['clock']		='clock';
 $conf['menu_urls']['squeeze']	='squeeze';	
 $conf['menu_urls']['cameras']	='cameras';	
 $conf['menu_urls']['photos']	='photos';	
-$conf['menu_urls']['commands']	='commands';	
-$conf['menu_urls']['sensors']	='sensors';	
-$conf['menu_urls']['devices']	='devices';	
+$conf['menu_urls']['admin']		='admin';	
 
 $conf['menu_icons']['home']		='fa fa-home';
 $conf['menu_icons']['clock']	='fa fa-clock-o';
 $conf['menu_icons']['squeeze']	='fa fa-music';	
 $conf['menu_icons']['cameras']	='fa fa-video-camera';
 $conf['menu_icons']['photos']	='fa fa-camera';
-$conf['menu_icons']['commands']	='fa fa-power-off';
-$conf['menu_icons']['sensors']	='fa fa-cloud';
-$conf['menu_icons']['devices']	='fa fa-gears';
+$conf['menu_icons']['admin']	='fa fa-gears';
+
+//admin menu
+$conf['menu_admin_urls']['commands']='admin/commands';	
+$conf['menu_admin_urls']['sensors']	='admin/sensors';	
+$conf['menu_admin_urls']['devices']	='admin/devices';	
+
+$conf['menu_admin_icons']['commands']	='fa fa-power-off';
+$conf['menu_admin_icons']['sensors']	='fa fa-cloud';
+$conf['menu_admin_icons']['devices']	='fa fa-gears';
 
 //menus to show
 isset($conf['menu_head']) or $conf['menu_head']=array_keys($conf['menu_urls']);
 isset($conf['menu_foot']) or $conf['menu_foot']=array_keys($conf['menu_urls']);
+isset($conf['menu_admin']) or $conf['menu_admin']=array_keys($conf['menu_admin_urls']);
 
 
 //set paths -------------------------------------------------------------------------------

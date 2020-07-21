@@ -342,18 +342,18 @@ jQuery( document ).ready(function() {
 
 	/* Admin Devices DEBUG ------------------------------------------------------------------------ */
 
-	$('#body_devices .jsPopoverDebug').popover({
+	$('#body_admin_devices .jsPopoverDebug').popover({
 		trigger: 'click',
 		html: true,
 		template: '<div class="popover popover_debug" role="tooltip"><div class="arrow"></div><div class="popover-title"></div><div class="popover-content"></div></div>'
 	});
-	$('#body_devices .jsPopoverDebug').on('show.bs.popover',function(){
+	$('#body_admin_devices .jsPopoverDebug').on('show.bs.popover',function(){
 		$(this).closest('TR').addClass('selected');
 	});
-	$('#body_devices .jsPopoverDebug').on('hide.bs.popover',function(){
+	$('#body_admin_devices .jsPopoverDebug').on('hide.bs.popover',function(){
 		$(this).closest('TR').removeClass('selected');
 	});
-	$('#body_devices .jsPopoverDebug').on('shown.bs.popover',function(){
+	$('#body_admin_devices .jsPopoverDebug').on('shown.bs.popover',function(){
 		var po=$(this).next();
 		var new_top =parseInt( po.css('top')) + parseInt(po.height()/ 2) - 16;
 		po.css('top',new_top + 'px');

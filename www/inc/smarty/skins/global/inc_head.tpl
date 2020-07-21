@@ -13,7 +13,7 @@
 			<div class="collapse navbar-collapse navbar-ex1-collapse">
 				<ul class="nav navbar-nav">
 {foreach from=$p.menu_head item=k}
-					<li class="menu_{$k}{if $p.code==$k} active{/if}"><a href='{$p.urls.www}/{$p.menu_urls.$k}'><i class='{$p.menu_icons.$k}'></i> {$lg.menu_head.$k|default:$k}</a></li>	
+					<li class="menu_{$k}{if $p.code==$k || $p.section==$k} active{/if}"><a href='{$p.urls.www}/{$p.menu_urls.$k}'><i class='{$p.menu_icons.$k}'></i> {$lg.menu_head.$k|default:$k}</a></li>	
 {/foreach}
 				</ul>
 			    <ul class="nav navbar-nav navbar-right">

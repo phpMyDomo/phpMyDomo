@@ -322,8 +322,8 @@ $conf['cameras_sizes']['sandiego']	="640x400";
 Defines menus displayed on the header or footer of the page.
 If not set, all menus are shown.
 */
-$conf['menu_head']=array('home','clock','squeeze','cameras','photos','devices');
-//$conf['menu_foot']=array('home','clock','squeeze','cameras','photos','commands','sensors','devices');
+$conf['menu_head']=array('home','clock','squeeze','cameras','photos');
+//$conf['menu_foot']=array('home','clock','squeeze','cameras','photos','admin');
 
 
 

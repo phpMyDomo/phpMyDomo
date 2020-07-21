@@ -8,9 +8,12 @@ $lang['menu_head']['clock']		="Clock";
 $lang['menu_head']['squeeze']	="Music";
 $lang['menu_head']['cameras']	="Cameras";
 $lang['menu_head']['photos']	="Photo Frame";
-$lang['menu_head']['commands']	="Commands";
-$lang['menu_head']['sensors']	="Sensors";
-$lang['menu_head']['devices']	="Devices";
+$lang['menu_head']['admin']		="Admin";
+
+// menu Admin ###################################################
+$lang['menu_admin']['commands']="Commands";
+$lang['menu_admin']['sensors']	="Sensors";
+$lang['menu_admin']['devices']	="Devices";
 
 // classes ###################################################
 $lang['classes']['scene']	="scene";

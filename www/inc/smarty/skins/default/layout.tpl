@@ -2,6 +2,9 @@
 
 <div id="lay_page">
 {include file='global/inc_head.tpl'}
+{if $p.section=='admin'}
+	{include file='global/inc_head_admin.tpl'}
+{/if}
 
 	<div id='lay_content'>
 		<div class='container{if $cont_fluid}-fluid{/if}'>

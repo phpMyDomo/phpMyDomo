@@ -9,12 +9,12 @@
 			<td class="td_name">	{$i.name}</td>
 			<td class="td_value">	<a href='#' title="{$i.value}">{$my_val}</a></td>
 			<td class="td_unit">	{$i.unit|default:$p.units.{$i.type}}</td>
-{if $p.code=='devices' or $p.code=='sensors'}
+{if $p.code=='admin_devices' or $p.code=='admin_sensors'}
 			<td class="td_type">	{$lg.types.{$i.type}|default:"<u>{$i.type}</u>"}<br><i>{$lg.classes.{$i.class}|ucwords}</i></td>
 {/if}
-{if $p.code=='devices'}
+{if $p.code=='admin_devices'}
 			<td class="td_id">		{$i.uid}<br><i>{$i.address}</i></td>
-{elseif $p.code=='commands'}
+{elseif $p.code=='admin_commands'}
 <!--
 TODO : Implement Buttons ON, OFF
 			<td class="td_value">	<a href='#' class="btn btn-default">ON</a> <a href='#' class="btn btn-default">OFF</a></td> 

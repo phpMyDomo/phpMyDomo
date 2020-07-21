@@ -152,6 +152,15 @@ class PMD_Root_Page extends PMD_Root{
 	}
 
 	//----------------------------------------------------------------------------------
+	function DisplayAdmin($page=array()){
+		$page['section']='admin';
+		if(!in_array('admin',$this->conf['menu_head'])){
+			$this->conf['menu_head'][]='admin';
+		}
+		$this->Display($page);
+	}
+
+	//----------------------------------------------------------------------------------
 	function Display($page=array()){
 		$this->SetHeader('css/main.css','css_global');
 		$this->SetHeader('css/skin.css','css');
@@ -170,10 +179,16 @@ class PMD_Root_Page extends PMD_Root{
 		$page['urls']				=$this->conf['urls'];
 		$page['urls']['server_admin']=$this->conf['api']['urls']['admin'];
 		$page['headers']			=$this->_getHeaders();
-		$page['menu_urls']			=$this->conf['menu_urls'];	
+
 		$page['menu_head']			=$this->conf['menu_head'];	
 		$page['menu_foot']			=$this->conf['menu_foot'];	
+		$page['menu_urls']			=$this->conf['menu_urls'];	
 		$page['menu_icons']			=$this->conf['menu_icons'];
+
+		$page['menu_admin']			=$this->conf['menu_admin'];	
+		$page['menu_admin_urls']	=$this->conf['menu_admin_urls'];	
+		$page['menu_admin_icons']	=$this->conf['menu_admin_icons'];	
+
 		$page['groups']				=$this->conf['groups'];
 		$page['groups_names']		=$this->conf['groups_names'];
 		$page['blocks']				=$this->conf['blocks'];
