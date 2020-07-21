@@ -1,5 +1,5 @@
 <div id='lay_header'>
-    <header class="navbar navbar-inverse navbar-fixed-top role="banner">
+    <header class="navbar navbar-inverse navbar-fixed-top" role="banner">
 		<div class="container">
 			<div class="navbar-header">
 				<button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
