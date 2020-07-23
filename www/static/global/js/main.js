@@ -570,10 +570,16 @@ function RefreshOwStations(index,obj,time){
 						}
 						html = html + '<li class="ow_stat'+blank_class+'">'
 									+'<div class="ow_stat_1"><span class="ow_stat_mac">' 
-									+ station.mac + '</span> <span class="ow_stat_name">'+station.info.name+'</span></div>'
+									+ station.mac + '</span> <span class="ow_stat_name">'
+									+ station.info.name +'</span></div>'
 									+'<div class="ow_stat_2"><span class="ow_stat_ip">' 
 									+ vendor_span
-									+ station.info.ip + '</span> <span class="ow_stat_host">'+station.info.host+'</span></div>'
+									+ station.info.ip + '</span> <span class="ow_stat_host">'
+									+ station.info.host +'</span></div>'
+									+'<div class="ow_stat_3"><span class="ow_stat_rx"><i class="fa fa-download"></i>' 
+									+ (station.rx.rate /1000).toFixed(1) + '</span> <span class="ow_stat_tx"><i class="fa fa-upload"></i>'
+									+ (station.tx.rate /1000).toFixed(1)+ '</span> <span class="ow_stat_signal"><i class="fa fa-signal"></i>'
+									+ station.signal +' <b>dB</b></span></div>'
 									+"</li>\n";
 					});
 					target = obj.find('.jsOwIf_'+ifname+' .jsOwStations');

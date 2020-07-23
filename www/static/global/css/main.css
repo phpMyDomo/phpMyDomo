@@ -1804,11 +1804,14 @@ TABLE.table_devices TR TD{
 	font-size: 12px;
 	overflow: hidden;
 }
+#body_admin_openwrt .ow_stat_1{
+}
 #body_admin_openwrt .ow_stat_blank{
 	background: #F0F0FF;
 }
 #body_admin_openwrt .ow_stat_name{
 	color: #000;
+	font-weight: bold;
 }
 #body_admin_openwrt .ow_stat_mac{
 	font-family: Courier, mono;
@@ -1817,7 +1820,7 @@ TABLE.table_devices TR TD{
 	float: right;
 }
 #body_admin_openwrt .ow_stat_2{
-	color: #888;
+	color: #444;
 	font-size: 11px;
 }
 #body_admin_openwrt .ow_stat_ip{
@@ -1825,6 +1828,29 @@ TABLE.table_devices TR TD{
 }
 #body_admin_openwrt .ow_stat_host{
 }
+#body_admin_openwrt .ow_stat_3 {
+	font-size: 11px;
+	color: #333;
+}
+#body_admin_openwrt .ow_stat_3 .fa{
+	color: #999;
+	padding-right: 3px;
+}
+#body_admin_openwrt .ow_stat_3 B{
+	font-weight: normal;
+	color: #888;	
+}
+
+#body_admin_openwrt .ow_stat_rx{
+	
+}
+#body_admin_openwrt .ow_stat_tx{
+	padding-left: 10px;
+}
+#body_admin_openwrt .ow_stat_signal{
+	float: right;
+}
+
 
 /* @end */
 
