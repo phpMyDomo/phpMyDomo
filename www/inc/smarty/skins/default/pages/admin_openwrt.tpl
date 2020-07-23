@@ -5,12 +5,14 @@
 	<div class="col-md-{$data.bs_col}">
 		<div class="panel panel-default pmd_panel jsOwRouter"  data-query='{$router.json_interfaces}'>
 			<div class="panel-heading">
+				<span class="jsOwLoading ow_loading"></span>
 				<a href="http://{$router.sys_board.hostname}/cgi-bin/luci/" target="_blank">{$router.sys_board.hostname}</a>
 			</div>
 			<div class="panel-body">
 				<small>
 				{$router.sys_board.model}<br>
-				{$router.sys_board.release.description}
+				{$router.sys_board.release.description}<br>
+				Load Avg : <span class='jsOwLoad'></span>
 				</small>
 			</div>
 			<ul class="list-group pmd_panel_group">
