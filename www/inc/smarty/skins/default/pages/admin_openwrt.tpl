@@ -29,7 +29,7 @@
 					</div>
 					
 					{foreach from=$radio.interfaces item=interface}
-					<div class="ow_if jsOwIf_{$interface.ifname}">
+					<div class="ow_if jsOwInterface jsOwIf_{$interface.ifname}" data-ifname="{$interface.ifname}">
 						<div class="ow_if_title">
 							<span class="ow_if_name">{$interface.config.ssid}</span>
 							<span class="badge pull-right">{$interface.ifname}</span>

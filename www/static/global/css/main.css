@@ -1851,6 +1851,10 @@ TABLE.table_devices TR TD{
 #body_admin_openwrt .ow_stat_signal{
 	float: right;
 }
+#body_admin_openwrt .ow_stat_disconnect .fa{
+	color: blue;
+}
+
 
 
 /* @end */

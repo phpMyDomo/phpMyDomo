@@ -84,6 +84,9 @@ class PMD_Page extends PMD_Root_Page{
 		if($query['act']=='stations'){
 			$out['data']['stations']=$this->_ListStations($query);
 		}
+		elseif($query['act']=='disconnect'){
+			$this->owa->CallUbus('hostapd.'.$query['ifname'], 'del_client', array('addr'=>$query['mac'],'ban_time'=>60000,'deauth'=>true,'reason'=>5));
+		}
 		elseif($query['act']=='reboot'){
 			//if($out['data']=$this->owa->CallUbus('system','reboot',array())){
 			if($out['data']=$this->owa->CallUbus('file','exec',array('command'=>'/sbin/reboot'))){
@@ -92,7 +95,6 @@ class PMD_Page extends PMD_Root_Page{
 			else{
 				$out['debug_errors']=$this->owa->GetErrors();
 			}
-
 		}
 		echo json_encode($out);
 		exit;	

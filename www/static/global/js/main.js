@@ -16,6 +16,7 @@ jQuery( document ).ready(function() {
 		if (!pageYOffset) window.scrollTo(0, 1);
 	}, 500);
 
+	/* #### DASHBOARD ##################################################################### */
 	if($('#body_home').length){
 
 		/* Sleep Mode Reload page -------------------------------------- */
@@ -315,7 +316,7 @@ jQuery( document ).ready(function() {
 		});
 	} /* End Dashboard */
 
-	/* ### admin: openwrt ################################################# */
+	/* #### ADMIN: OpenWRT ##################################################################### */
 	if($('#body_admin_openwrt').length){
 		var $i=0;
 		var host='';
@@ -333,6 +334,24 @@ jQuery( document ).ready(function() {
 			obj.find('.jsOwStations').html('');
 			SetTimerOwStations(host,obj,60);
 			var query=JSON.stringify( {act:'reboot',host:host} ) ;
+			$.getJSON( '?', { ajax: query } );
+		});
+
+		$('BODY').on('click','.jsOwDisconnect',function(e){
+			e.preventDefault();
+			console.log('disco');
+			var router=$(this).closest('.jsOwRouter');
+			var host=router.attr('data-host');
+
+			var interface=$(this).closest('.jsOwInterface');
+			var ifname=interface.attr('data-ifname');
+			
+			var station=$(this).closest('.jsOwStation');
+			var mac=station.attr('data-mac');
+			station.html('');
+
+			SetTimerOwStations(host,router,5);
+			var query=JSON.stringify( {act:'disconnect',host:host, mac:mac, ifname:ifname} ) ;
 			$.getJSON( '?', { ajax: query } );
 		});
 
@@ -364,7 +383,7 @@ jQuery( document ).ready(function() {
 
 
 
-	/* Admin Devices DEBUG ------------------------------------------------------------------------ */
+	/* ### ADMIN: Devices DEBUG ################################################################# */
 
 	$('#body_admin_devices .jsPopoverDebug').popover({
 		trigger: 'click',
@@ -579,7 +598,7 @@ function RefreshOwStations(index,obj){
 							blank_class=' ow_stat_blank';
 							vendor_span='<span class="ow_stat_vendor">'+station.info.vendor+'</span>';
 						}
-						html = html + '<li class="ow_stat'+blank_class+'">'
+						html = html + '<li class="ow_stat jsOwStation'+blank_class+'" data-mac="'+station.mac+'">'
 									+'<div class="ow_stat_1"><span class="ow_stat_mac">' 
 									+ station.mac + '</span> <span class="ow_stat_name">'
 									+ station.info.name +'</span></div>'
@@ -589,7 +608,7 @@ function RefreshOwStations(index,obj){
 									+ station.info.host +'</span></div>'
 									+'<div class="ow_stat_3"><span class="ow_stat_rx"><i class="fa fa-download"></i>' 
 									+ (station.rx.rate /1000).toFixed(1) + '</span> <span class="ow_stat_tx"><i class="fa fa-upload"></i>'
-									+ (station.tx.rate /1000).toFixed(1)+ '</span> <span class="ow_stat_signal"><i class="fa fa-signal"></i>'
+									+ (station.tx.rate /1000).toFixed(1)+ '</span> <span class="ow_stat_signal"><a href="#" class="ow_stat_disconnect jsOwDisconnect" title="Disconnect: '+ station.info.name+'"><i class="fa fa-sign-out"></i></a><i class="fa fa-signal"></i>'
 									+ station.signal +' <b>dB</b></span></div>'
 									+"</li>\n";
 					});
