@@ -6,7 +6,7 @@ var feedback_time		=0.001;
 var sleep_time			=25;
 var global_class_on		='btn-success';
 
-var ow_stations_time=4;
+var ow_stations_time=5;
 
 
 jQuery( document ).ready(function() {
@@ -317,9 +317,10 @@ jQuery( document ).ready(function() {
 
 
 	if($('#body_admin_openwrt').length){
-
+		var $i=0;
 		$('.jsOwRouter').each(function(index){
-			SetTimerOwStations(index,$(this),ow_stations_time);
+			SetTimerOwStations(index,$(this),ow_stations_time + $i);
+			$i++;
 		});
 
 		
@@ -548,14 +549,17 @@ function SetTimerOwStations(index,obj,time){
 }
 function RefreshOwStations(index,obj,time){
 	var query=obj.attr('data-query');
+	var obj_loading=obj.find('.jsOwLoading');
+	obj_loading.addClass('loading');
 	$.getJSON( '?', { ajax: query } )
 		.done(function( json ) {	
 			if(json.error==0){
+				/* stations ------- */
 				var html="";
 				var target;
 				var blank_class="";
 				var vendor_span="";
-				$.each(json.data, function(ifname,stations){
+				$.each(json.data.stations, function(ifname,stations){
 					html='';
 					$.each(stations, function(mac,station){
 						blank_class='';
@@ -575,14 +579,22 @@ function RefreshOwStations(index,obj,time){
 					target = obj.find('.jsOwIf_'+ifname+' .jsOwStations');
 					target.html(html);
 				});
+				/* sys info ------- */
+				html= (json.data.sys_info.load[0] /65535.0).toFixed(2)
+							+ ', '+(json.data.sys_info.load[1] /65535.0).toFixed(2)
+							+ ', '+(json.data.sys_info.load[2] /65535.0).toFixed(2);
+				target = obj.find('.jsOwLoad');
+				target.html(html);
 			}
 			else{
 				console.log('ERROR');
 			}
+			obj_loading.removeClass('loading');
 		})
 		.fail(function( jqxhr, textStatus, error ) {
 			var err = textStatus + ", " + error;
 			console.log( "Ow Station Failed: " + err );
+			obj_loading.removeClass('loading');
 	});
 	SetTimerOwStations(index, obj,time);
 }
