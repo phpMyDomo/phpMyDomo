@@ -68,7 +68,7 @@ class PMD_Page extends PMD_Root_Page{
 			if($session_id=$this->_loadSession($host['host'])){
 				$this->owa->SetSessionId($session_id);
 			}
-			if($this->owa->CallUbus('system','info') ){
+			if($out['data']['sys_info']=$this->owa->CallUbus('system','info') ){
 				$logged_in=true;
 			}
 			else{
@@ -78,7 +78,7 @@ class PMD_Page extends PMD_Root_Page{
 			}
 			if($logged_in){
 				foreach($query['interfaces'] as $if){
-					$out['data'][$if]=$this->_ListStations($if);
+					$out['data']['stations'][$if]=$this->_ListStations($if);
 				}
 			}
 			else{
@@ -156,7 +156,15 @@ class PMD_Page extends PMD_Root_Page{
 		}
 		else{
 			$lines=file('http://standards-oui.ieee.org/oui.txt');
-			file_put_contents($cache_file,implode("",$lines));
+			//file_put_contents($cache_file,implode("",$lines));
+
+			//keep only hex lines
+			foreach ($lines as $line) {
+				if(preg_match("#([a-f0-9-]{8})[^\(]+\(hex\)\t\t(.*)#i",$line,$match)){
+					$oui_data .="$line";
+				}
+			}
+			file_put_contents($cache_file,$oui_data);
 		}
 
 		foreach ($lines as $line) {
