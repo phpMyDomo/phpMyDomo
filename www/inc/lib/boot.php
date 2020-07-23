@@ -67,6 +67,7 @@ $conf['libs']['jsonrpc_client']	=$conf['paths']['vendors']."JsonRPC/src/JsonRPC/
 $conf['libs']['growl_atoload']	=$conf['paths']['vendors']."PEAR/Net_Growl/Net/Growl/Autoload.php";
 $conf['libs']['mysensors']		=$conf['paths']['vendors']."MySensors_php_API/src/mysensors.class.php";
 $conf['libs']['smarty']			=$conf['paths']['vendors']."Smarty/libs/Smarty.class.php";
+$conf['libs']['openwrtapi']		=$conf['paths']['vendors']."OpenWrtApi/src/owa.php";
 $conf['paths']['static']		=$conf['paths']['www'].'static/';
 
 
