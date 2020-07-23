@@ -6,6 +6,8 @@ var feedback_time		=0.001;
 var sleep_time			=25;
 var global_class_on		='btn-success';
 
+var ow_stations_time=4;
+
 
 jQuery( document ).ready(function() {
 	
@@ -314,6 +316,16 @@ jQuery( document ).ready(function() {
 	} /* End Dashboard */
 
 
+	if($('#body_admin_openwrt').length){
+
+		$('.jsOwRouter').each(function(index){
+			SetTimerOwStations(index,$(this),ow_stations_time);
+		});
+
+		
+
+	}
+
 
 	/* Clear Popover on click outside  ------------------------------------------------------------------------ */
 	$(document).on('click', function (e) {
@@ -499,14 +511,13 @@ function SetTimerRefresh(time){
 		global_timer_refresh=setTimeout("RefreshPage()", time * 1000);		
 	}
 }
-
-
 /* RefreshPage -------------------------------------- */
 function RefreshPage() {
 		//location.reload();
 		AjaxRefreshData();
 		SetTimerRefresh(refresh_time);
 };
+
 
 var global_timer_sleep;
 /* SetTimerSleep -------------------------------------- */
@@ -524,6 +535,57 @@ function JumpSleep() {
 	}
 };
 
+
+var global_timer_ow_stations=[];
+/* SetTimerOwStations -------------------------------------- */
+function SetTimerOwStations(index,obj,time){
+	clearTimeout(global_timer_ow_stations[index]);
+	if(time > 0){
+		global_timer_ow_stations[index]=setTimeout(function(){
+			RefreshOwStations(index,obj,time);
+		}, time * 1000);
+	}
+}
+function RefreshOwStations(index,obj,time){
+	var query=obj.attr('data-query');
+	$.getJSON( '?', { ajax: query } )
+		.done(function( json ) {	
+			if(json.error==0){
+				var html="";
+				var target;
+				var blank_class="";
+				var vendor_span="";
+				$.each(json.data, function(ifname,stations){
+					html='';
+					$.each(stations, function(mac,station){
+						blank_class='';
+						vendor_span="";
+						if(station.info.ip==''){
+							blank_class=' ow_stat_blank';
+							vendor_span='<span class="ow_stat_vendor">'+station.info.vendor+'</span>';
+						}
+						html = html + '<li class="ow_stat'+blank_class+'">'
+									+'<div class="ow_stat_1"><span class="ow_stat_mac">' 
+									+ station.mac + '</span> <span class="ow_stat_name">'+station.info.name+'</span></div>'
+									+'<div class="ow_stat_2"><span class="ow_stat_ip">' 
+									+ vendor_span
+									+ station.info.ip + '</span> <span class="ow_stat_host">'+station.info.host+'</span></div>'
+									+"</li>\n";
+					});
+					target = obj.find('.jsOwIf_'+ifname+' .jsOwStations');
+					target.html(html);
+				});
+			}
+			else{
+				console.log('ERROR');
+			}
+		})
+		.fail(function( jqxhr, textStatus, error ) {
+			var err = textStatus + ", " + error;
+			console.log( "Ow Station Failed: " + err );
+	});
+	SetTimerOwStations(index, obj,time);
+}
 
 
 
