@@ -114,6 +114,8 @@ $api['fields']['address']		="idx";
 $api['fields']['name']			="Name";
 $api['fields']['battery_level']	="BatteryLevel";
 $api['fields']['signal_level']	="SignalLevel";
+$api['fields']['description']	="Description";
+
 
 //json_get definition ----------------------------------------------------------
 $api['json']['status']="status";	//field with the Status of the response
