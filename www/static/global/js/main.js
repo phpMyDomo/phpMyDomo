@@ -315,15 +315,26 @@ jQuery( document ).ready(function() {
 		});
 	} /* End Dashboard */
 
-
+	/* ### admin: openwrt ################################################# */
 	if($('#body_admin_openwrt').length){
 		var $i=0;
+		var host='';
 		$('.jsOwRouter').each(function(index){
-			SetTimerOwStations(index,$(this),ow_stations_time + $i);
+			host=$(this).closest('.jsOwRouter').attr('data-host');
+			SetTimerOwStations(host,$(this),ow_stations_time + $i);
 			$i++;
 		});
 
-		
+		$('.jsOwReboot').click(function(e){
+			e.preventDefault();
+			var obj=$(this).closest('.jsOwRouter');
+			var host=obj.attr('data-host');
+			obj.find('.jsOwLoading').addClass('loading');
+			obj.find('.jsOwStations').html('');
+			SetTimerOwStations(host,obj,60);
+			var query=JSON.stringify( {act:'reboot',host:host} ) ;
+			$.getJSON( '?', { ajax: query } );
+		});
 
 	}
 
@@ -537,17 +548,17 @@ function JumpSleep() {
 };
 
 
-var global_timer_ow_stations=[];
+var global_timer_ow_stations={};
 /* SetTimerOwStations -------------------------------------- */
 function SetTimerOwStations(index,obj,time){
 	clearTimeout(global_timer_ow_stations[index]);
 	if(time > 0){
 		global_timer_ow_stations[index]=setTimeout(function(){
-			RefreshOwStations(index,obj,time);
+			RefreshOwStations(index,obj);
 		}, time * 1000);
 	}
 }
-function RefreshOwStations(index,obj,time){
+function RefreshOwStations(index,obj){
 	var query=obj.attr('data-query');
 	var obj_loading=obj.find('.jsOwLoading');
 	obj_loading.addClass('loading');
@@ -602,7 +613,7 @@ function RefreshOwStations(index,obj,time){
 			console.log( "Ow Station Failed: " + err );
 			obj_loading.removeClass('loading');
 	});
-	SetTimerOwStations(index, obj,time);
+	SetTimerOwStations(index, obj, ow_stations_time);
 }
 
 

@@ -3,16 +3,17 @@
 <div class="row">
 {foreach from=$data.routers item=router}
 	<div class="col-md-{$data.bs_col}">
-		<div class="panel panel-default pmd_panel jsOwRouter"  data-query='{$router.json_interfaces}'>
+		<div class="panel panel-default pmd_panel jsOwRouter"  data-query='{$router.json_interfaces}' data-host='{$router.sys_board.hostname}'>
 			<div class="panel-heading">
 				<span class="jsOwLoading ow_loading"></span>
-				<a href="http://{$router.sys_board.hostname}/cgi-bin/luci/" target="_blank">{$router.sys_board.hostname}</a>
+				<a href="http://{$router.sys_board.hostname}/cgi-bin/luci/" target="_blank" title="View LUCI for {$router.sys_board.hostname}">{$router.sys_board.hostname}</a>
 			</div>
 			<div class="panel-body">
 				<small>
 				{$router.sys_board.model}<br>
 				{$router.sys_board.release.description}<br>
-				Load Avg : <span class='jsOwLoad'></span>
+				Load Avg : <span class='jsOwLoad'></span><br>
+				<a href='#' class='jsOwReboot' title='Reboot {$router.sys_board.hostname}'><i class='fa fa-power-off'></i></a>
 				</small>
 			</div>
 			<ul class="list-group pmd_panel_group">

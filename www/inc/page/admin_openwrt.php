@@ -61,7 +61,9 @@ class PMD_Page extends PMD_Root_Page{
 	private function _Ajax($query){
 		$hosts=$this->_ListHosts();
 		$host=$hosts[$query['host']];
-		
+		$out['error']=0;
+		$out['error_txt']='OK';
+	
 		$this->owa= new OpenWrtApi('http://'.$host['host']);
 		if($session_id=$this->_loadSession($host['host'])){
 			$this->owa->SetSessionId($session_id);
@@ -77,30 +79,34 @@ class PMD_Page extends PMD_Root_Page{
 		if(!$logged_in){
 			$out['error']=1;
 			$out['error_txt']='Login failed';
-			echo json_encode($out);
-			exit;	
 		}
 
 		if($query['act']=='stations'){
-			$this->_AjaxListStations($query);
+			$out['data']['stations']=$this->_ListStations($query);
 		}
-	}
-	//----------------------------------------------------------------------------------
-	private function _AjaxListStations($query){
-		$out=array();
-		$out['error']=0;
-		$out['error_txt']='OK';
-		if(is_array($query['interfaces'])){
-			foreach($query['interfaces'] as $if){
-				$out['data']['stations'][$if]=$this->_ListStations($if);
+		elseif($query['act']=='reboot'){
+			//if($out['data']=$this->owa->CallUbus('system','reboot',array())){
+			if($out['data']=$this->owa->CallUbus('file','exec',array('command'=>'/sbin/reboot'))){
+				$out['data']['msg']="rebooting...";
 			}
-		}
-		else{
-			$out['error']=2;
-			$out['error_txt']='Interfaces not set';
+			else{
+				$out['debug_errors']=$this->owa->GetErrors();
+			}
+
 		}
 		echo json_encode($out);
-		exit;
+		exit;	
+	}
+
+	//----------------------------------------------------------------------------------
+	private function _ListStations($query){
+		$out=array();
+		if(is_array($query['interfaces'])){
+			foreach($query['interfaces'] as $if){
+				$out[$if]=$this->_UbusListStations($if);
+			}
+		}
+		return $out;
 	}
 
 	//----------------------------------------------------------------------------------
@@ -114,7 +120,7 @@ class PMD_Page extends PMD_Root_Page{
 
 	//----------------------------------------------------------------------------------
 	private $macs=array();
-	private function _ListStations($ifname){
+	private function _UbusListStations($ifname){
 		$stations=$this->owa->CallUbus('iwinfo','assoclist',array('device'=>$ifname));
 		$indexed_stations=array();
 		if($stations['results']){
