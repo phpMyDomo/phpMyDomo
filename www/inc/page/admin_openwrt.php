@@ -19,7 +19,7 @@ class PMD_Page extends PMD_Root_Page{
 		if($ajax){
 			$query=json_decode($ajax, true);
 			if(is_array($query)){
-				$this->_AjaxListStations($query);
+				$this->_Ajax($query);
 			}
 		}
 		else{
@@ -32,6 +32,7 @@ class PMD_Page extends PMD_Root_Page{
 					$data['routers'][$host['host']]['sys_info']=$this->owa->CallUbus('system','info');
 					if($data['routers'][$host['host']]['radios']=$this->owa->CallUbus('luci-rpc','getWirelessDevices')){
 						$json_query=array();
+						$json_query['act']='stations';
 						$json_query['host']=$host['host'];
 						foreach($data['routers'][$host['host']]['radios'] as $radio => $radio_infos){
 							unset($data['routers'][$host['host']]['radios'][$radio]['interfaces']);
@@ -57,34 +58,46 @@ class PMD_Page extends PMD_Root_Page{
 	}
 
 	//----------------------------------------------------------------------------------
-	private function _AjaxListStations($query){
+	private function _Ajax($query){
 		$hosts=$this->_ListHosts();
 		$host=$hosts[$query['host']];
+		
+		$this->owa= new OpenWrtApi('http://'.$host['host']);
+		if($session_id=$this->_loadSession($host['host'])){
+			$this->owa->SetSessionId($session_id);
+		}
+		if($out['data']['sys_info']=$this->owa->CallUbus('system','info') ){
+			$logged_in=true;
+		}
+		else{
+			if($logged_in=$this->owa->UbusLogin($host['user'],$host['pass'])){
+				$this->_saveSession($host['host']);
+			}
+		}
+		if(!$logged_in){
+			$out['error']=1;
+			$out['error_txt']='Login failed';
+			echo json_encode($out);
+			exit;	
+		}
+
+		if($query['act']=='stations'){
+			$this->_AjaxListStations($query);
+		}
+	}
+	//----------------------------------------------------------------------------------
+	private function _AjaxListStations($query){
 		$out=array();
 		$out['error']=0;
 		$out['error_txt']='OK';
 		if(is_array($query['interfaces'])){
-			$this->owa= new OpenWrtApi('http://'.$host['host']);
-			if($session_id=$this->_loadSession($host['host'])){
-				$this->owa->SetSessionId($session_id);
+			foreach($query['interfaces'] as $if){
+				$out['data']['stations'][$if]=$this->_ListStations($if);
 			}
-			if($out['data']['sys_info']=$this->owa->CallUbus('system','info') ){
-				$logged_in=true;
-			}
-			else{
-				if($logged_in=$this->owa->UbusLogin($host['user'],$host['pass'])){
-					$this->_saveSession($host['host']);
-				}
-			}
-			if($logged_in){
-				foreach($query['interfaces'] as $if){
-					$out['data']['stations'][$if]=$this->_ListStations($if);
-				}
-			}
-			else{
-				$out['error']=1;
-				$out['error_txt']='Login failed';
-			}
+		}
+		else{
+			$out['error']=2;
+			$out['error_txt']='Interfaces not set';
 		}
 		echo json_encode($out);
 		exit;
