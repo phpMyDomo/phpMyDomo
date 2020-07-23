@@ -1768,10 +1768,17 @@ TABLE.table_devices TR TD{
 #body_admin_openwrt .pmd_panel .panel-body{
 	color: #999;
 }
+#body_admin_openwrt .ow_loading.loading{
+	display: inline-block;
+	width: 16px;
+	height: 16px;
+	float: right;
+	background-image: url(../img/loading16.gif);
+	background-repeat: no-repeat;
+}
 #body_admin_openwrt .ow_radio{
 	padding: 0;
 	border-top: 1px solid rgba(0, 0, 0, 0.8) !important;
-	bor der-top: none;
 }
 
 #body_admin_openwrt .ow_radio_title{
