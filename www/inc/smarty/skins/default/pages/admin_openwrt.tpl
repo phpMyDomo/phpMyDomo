@@ -35,9 +35,9 @@
 						<table cellpadding=0 cellspacing=0 >
 							<tr><td class='k'>Radio:	</td><td class='v'>{$radio_name}			</td><td class='k'>Phy:			</td><td class='v'>{$radio.iwinfo.phy}			</td></tr>
 							<tr><td class='k'>Signal:	</td><td class='v'>{$radio.iwinfo.signal}	</td><td class='k'>Noise:		</td><td class='v'>{$radio.iwinfo.noise}		</td></tr>
-							<tr><td class='k'>Channel:	</td><td class='v'>{$radio.iwinfo.channel}	</td><td class='k'>Frequency:	</td><td class='v'>{$radio.iwinfo.frequency}	</td></tr>
-							<tr><td class='k'>HW Mode:	</td><td class='v'>{$radio.config.hwmode}	</td><td class='k'>Country:		</td><td class='v'>{$radio.iwinfo.country}		</td></tr>
-							<tr><td class='k'>TX Power:	</td><td class='v'>{$radio.iwinfo.txpower}	</td><td>						</td><td>										</td></tr>
+							<tr><td class='k'>Chan.:	</td><td class='v'>{$radio.iwinfo.channel}	</td><td class='k'>Freq.:		</td><td class='v'>{$radio.iwinfo.frequency}	</td></tr>
+							<tr><td class='k'>Mode:		</td><td class='v'>{$radio.config.hwmode}	</td><td class='k'>Coun.:		</td><td class='v'>{$radio.iwinfo.country}		</td></tr>
+							<tr><td class='k'>Power:	</td><td class='v'>{$radio.iwinfo.txpower}	</td><td>						</td><td>										</td></tr>
 						</table>
 					</div>
 					
