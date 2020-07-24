@@ -1773,7 +1773,7 @@ TABLE.table_devices TR TD{
 /* @group Page Admin Openwrt 
 ----------------------------------------------------------------- */
 #body_admin_openwrt #ow_div{
-	margin: 0px 10px;
+	margin: 0 0 0 20px;
 	overflow: hidden;
 }
 #body_admin_openwrt .pmd_panel .panel-body{
