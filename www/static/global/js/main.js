@@ -600,14 +600,14 @@ function RefreshOwStations(index,obj){
 	var host=obj.attr('data-host');
 	var obj_loading=obj.find('.jsOwLoading');
 	obj_loading.addClass('loading');
-	if(ow_connected[host] !==undefined){
-		ow_connected_last[host]=ow_connected[host];
-	}
-	ow_connected[host]={};
 	$.getJSON( '?', { ajax: query } )
 		.done(function( json ) {	
 			if(json.error==0){
 				/* stations ------- */
+				if(ow_connected[host] !==undefined){
+					ow_connected_last[host]=ow_connected[host];
+				}
+				ow_connected[host]={};
 				var html="";
 				var target;
 				var blank_class="";
@@ -626,7 +626,7 @@ function RefreshOwStations(index,obj){
 						else{
 							new_class=" ow_stat_new";
 						}
-						ow_connected[host][ifname][mac]=true;
+						ow_connected[host][ifname][mac]=station;
 
 						blank_class='';
 						vendor_span="";
