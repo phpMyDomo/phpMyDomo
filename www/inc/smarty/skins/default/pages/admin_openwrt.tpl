@@ -10,24 +10,35 @@
 			<div class="panel-body">
 				<small>
 				{$router.sys_board.model}<br>
-				{$router.sys_board.release.description}<br>
+				v {$router.sys_board.release.version} - {$router.sys_board.release.revision}<br>
 				Load Avg : <span class='jsOwLoad'></span><br>
 				<a href='#' class='jsOwReboot' title='Reboot {$router.sys_board.hostname}'><i class='fa fa-power-off'></i></a>
 				</small>
 			</div>
 			<ul class="list-group pmd_panel_group">
-			{foreach from=$router.radios item=radio}
-				<li class="list-group-item ow_radio{if !$radio.iwinfo.channel } ow_radio_warning{/if}">
-					<div class="ow_radio_title">
-					<span class="ow_radio_freq">
-						{if $radio.iwinfo.channel}
-							{if $radio.iwinfo.channel < 20}2.4GHz{else}5GHz{/if}
-						{else}
-							<i class="fa fa-warning"></i> OFF
-						{/if}
-					</span>
-					<span class="ow_radio_bssid">{$radio.bssid}</span>
-					<span class="label label-info pull-right">{$radio.iwinfo.channel}{if $radio.config.channel=='auto'} <i class='fa fa-magic'></i>{/if}</span>
+			{foreach from=$router.radios item=radio key=radio_name}
+				<li class="list-group-item ow_radio jsOwRadio{if !$radio.iwinfo.channel } ow_radio_warning{/if}">
+					<div class="ow_radio_title jsOwRadioInfoBut">
+						<span class='ow_radio_caret'><i class='fa fa-caret-right jsOwRadioCaret'></i></span>
+						<span class="ow_radio_freq">
+							{if $radio.iwinfo.channel}
+								{if $radio.iwinfo.channel < 20}2.4GHz{else}5GHz{/if}
+							{else}
+								<i class="fa fa-warning"></i> OFF
+							{/if}
+						</span>
+						<span class="ow_radio_bssid">{$radio.bssid}</span>
+						<span class="label label-info pull-right">{$radio.iwinfo.channel}{if $radio.config.channel=='auto'} <i class='fa fa-magic'></i>{/if}</span>
+					</div>
+
+					<div class='ow_radio_info jsOwRadioInfo' style="display:none">
+						<table cellpadding=0 cellspacing=0 >
+							<tr><td class='k'>Radio:	</td><td class='v'>{$radio_name}			</td><td class='k'>Phy:			</td><td class='v'>{$radio.iwinfo.phy}			</td></tr>
+							<tr><td class='k'>Signal:	</td><td class='v'>{$radio.iwinfo.signal}	</td><td class='k'>Noise:		</td><td class='v'>{$radio.iwinfo.noise}		</td></tr>
+							<tr><td class='k'>Channel:	</td><td class='v'>{$radio.iwinfo.channel}	</td><td class='k'>Frequency:	</td><td class='v'>{$radio.iwinfo.frequency}	</td></tr>
+							<tr><td class='k'>HW Mode:	</td><td class='v'>{$radio.config.hwmode}	</td><td class='k'>Country:		</td><td class='v'>{$radio.iwinfo.country}		</td></tr>
+							<tr><td class='k'>TX Power:	</td><td class='v'>{$radio.iwinfo.txpower}	</td><td>						</td><td>										</td></tr>
+						</table>
 					</div>
 					
 					{foreach from=$radio.interfaces item=interface}

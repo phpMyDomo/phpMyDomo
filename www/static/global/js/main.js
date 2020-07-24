@@ -355,6 +355,22 @@ jQuery( document ).ready(function() {
 			$.getJSON( '?', { ajax: query } );
 		});
 
+
+		$('.jsOwRadioInfoBut').click(function(){
+			var caret=$(this).find('.jsOwRadioCaret');
+			var info=$(this).closest('.jsOwRadio').find('.jsOwRadioInfo');
+			if(caret.hasClass('fa-caret-right')){
+				caret.removeClass('fa-caret-right').addClass('fa-caret-down');
+				info.show();
+			}
+			else{
+				caret.removeClass('fa-caret-down').addClass('fa-caret-right');
+				info.hide();
+			}
+		});
+
+		// $('[data-toggle="popover"]').popover();
+
 	}
 
 

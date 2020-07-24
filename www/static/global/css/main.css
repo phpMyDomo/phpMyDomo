@@ -1788,6 +1788,7 @@ TABLE.table_devices TR TD{
 	background-repeat: no-repeat;
 	opacity: 0.5;
 }
+
 #body_admin_openwrt .ow_radio{
 	padding: 0;
 	border-top: 1px solid rgba(0, 0, 0, 0.8) !important;
@@ -1795,6 +1796,10 @@ TABLE.table_devices TR TD{
 #body_admin_openwrt .ow_radio_title{
 	background: #000;
 	padding: 5px;
+}
+#body_admin_openwrt .ow_radio_caret{
+	display: inline-block;
+	width: 10px;
 }
 #body_admin_openwrt .ow_radio_freq{
 	color: #fff;
@@ -1804,11 +1809,31 @@ TABLE.table_devices TR TD{
 #body_admin_openwrt .ow_radio_warning .ow_radio_freq{
 	color: red;
 }
-
 #body_admin_openwrt .ow_radio_bssid{
 	font-size: 11px;
 	color: rgba(255,255,255,0.6);
 }
+
+#body_admin_openwrt .ow_radio_info{
+	background: #000;
+	padding: 5px;
+	border-top: 1px solid rgba(255,255,255, 0.2);
+}
+#body_admin_openwrt .ow_radio_info TR{
+}
+#body_admin_openwrt .ow_radio_info TD{
+	padding: 2px 5px;
+}
+#body_admin_openwrt .ow_radio_info TD.k{
+	padding-left: 15px;
+	text-align: right;
+}
+#body_admin_openwrt .ow_radio_info TD.v{
+	color: rgba(255,255,255, 0.9);
+}
+
+
+
 #body_admin_openwrt .ow_if{
 	padding-bottom: 10px;
 }
@@ -1902,6 +1927,35 @@ TABLE.table_devices TR TD{
 	margin-left: 5px;
 }
 
+/* @group Openwrt Popover 
+----------------------------------------------------------------- */
+/*#body_admin_openwrt .popover h3{
+	font-weight: bold;
+}
+#body_admin_openwrt .popover .popover-content{
+	padding: 0;
+	margin: 0;
+	
+}
+#body_admin_openwrt .popover TABLE{
+	margin: 0;
+	padding: 0;
+	border-top: 1px solid rgba(0,0,0, 0.1);
+
+}
+#body_admin_openwrt .popover TR{
+	border-bottom: 1px solid rgba(0,0,0, 0.1);
+}
+#body_admin_openwrt .popover TD{
+	padding: 2px 5px;
+}
+#body_admin_openwrt .popover TD.k{
+	text-align: right;
+}
+#body_admin_openwrt .popover TD.v{
+	font-weight: bold;*/
+}
+/* @end */
 
 
 /* @end */
