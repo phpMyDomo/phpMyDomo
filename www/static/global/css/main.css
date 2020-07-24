@@ -1841,9 +1841,15 @@ TABLE.table_devices TR TD{
 	background: #ddd;
 	padding: 2px 5px;
 }
-#body_admin_openwrt .ow_if_name{
+#body_admin_openwrt .ow_if_ssid{
 	color: #222;
 	font-weight: bold;
+}
+#body_admin_openwrt .ow_if_name{
+	color: #222;
+	font-size: 12px;
+	line-height: 19px;
+	float: right;
 }
 #body_admin_openwrt .ow_stat{
 	display: block;
