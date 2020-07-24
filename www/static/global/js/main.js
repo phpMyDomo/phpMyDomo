@@ -601,7 +601,7 @@ function RefreshOwStations(index,obj){
 						}
 						level='';
 						$.each(ow_levels, function(l_name,l_val){
-							if( - station.signal >  - l_val){
+							if( - station.signal >=  - l_val){
 								level=' '+l_name;
 							}
 						});
