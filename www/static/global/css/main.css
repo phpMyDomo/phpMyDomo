@@ -1820,7 +1820,8 @@ TABLE.table_devices TR TD{
 	padding: 3px 0;
 	border-top: 1px solid rgba(255,255,255, 0.2);
 }
-#body_admin_openwrt .ow_radio_info TR{
+#body_admin_openwrt .ow_radio_info TABLE{
+	width: 100%;
 }
 #body_admin_openwrt .ow_radio_info TD{
 	padding: 2px 2px;
@@ -1934,6 +1935,62 @@ TABLE.table_devices TR TD{
 #body_admin_openwrt .ow_stat_signal .ow_stat_disconnect{
 	margin-left: 5px;
 }
+
+
+#body_admin_openwrt #ow_div .col-xs-1,
+#body_admin_openwrt #ow_div .col-sm-1,
+#body_admin_openwrt #ow_div .col-md-1,
+#body_admin_openwrt #ow_div .col-lg-1,
+#body_admin_openwrt #ow_div .col-xs-2,
+#body_admin_openwrt #ow_div .col-sm-2,
+#body_admin_openwrt #ow_div .col-md-2,
+#body_admin_openwrt #ow_div .col-lg-2,
+#body_admin_openwrt #ow_div .col-xs-3,
+#body_admin_openwrt #ow_div .col-sm-3,
+#body_admin_openwrt #ow_div .col-md-3,
+#body_admin_openwrt #ow_div .col-lg-3,
+#body_admin_openwrt #ow_div .col-xs-4,
+#body_admin_openwrt #ow_div .col-sm-4,
+#body_admin_openwrt #ow_div .col-md-4,
+#body_admin_openwrt #ow_div .col-lg-4,
+#body_admin_openwrt #ow_div .col-xs-5,
+#body_admin_openwrt #ow_div .col-sm-5,
+#body_admin_openwrt #ow_div .col-md-5,
+#body_admin_openwrt #ow_div .col-lg-5,
+#body_admin_openwrt #ow_div .col-xs-6,
+#body_admin_openwrt #ow_div .col-sm-6,
+#body_admin_openwrt #ow_div .col-md-6,
+#body_admin_openwrt #ow_div .col-lg-6,
+#body_admin_openwrt #ow_div .col-xs-7,
+#body_admin_openwrt #ow_div .col-sm-7,
+#body_admin_openwrt #ow_div .col-md-7,
+#body_admin_openwrt #ow_div .col-lg-7,
+#body_admin_openwrt #ow_div .col-xs-8,
+#body_admin_openwrt #ow_div .col-sm-8,
+#body_admin_openwrt #ow_div .col-md-8,
+#body_admin_openwrt #ow_div .col-lg-8,
+#body_admin_openwrt #ow_div .col-xs-9,
+#body_admin_openwrt #ow_div .col-sm-9,
+#body_admin_openwrt #ow_div .col-md-9,
+#body_admin_openwrt #ow_div .col-lg-9,
+#body_admin_openwrt #ow_div .col-xs-10,
+#body_admin_openwrt #ow_div .col-sm-10,
+#body_admin_openwrt #ow_div .col-md-10,
+#body_admin_openwrt #ow_div .col-lg-10,
+#body_admin_openwrt #ow_div .col-xs-11,
+#body_admin_openwrt #ow_div .col-sm-11,
+#body_admin_openwrt #ow_div .col-md-11,
+#body_admin_openwrt #ow_div .col-lg-11,
+#body_admin_openwrt #ow_div .col-xs-12,
+#body_admin_openwrt #ow_div .col-sm-12,
+#body_admin_openwrt #ow_div .col-md-12,
+#body_admin_openwrt #ow_div .col-lg-12 {
+  padding-right: 5px;
+  padding-left: 5px;
+}
+
+
+
 
 /* @group Openwrt Popover 
 ----------------------------------------------------------------- */
