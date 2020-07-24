@@ -17,10 +17,14 @@
 			</div>
 			<ul class="list-group pmd_panel_group">
 			{foreach from=$router.radios item=radio}
-				<li class="list-group-item ow_radio">
+				<li class="list-group-item ow_radio{if !$radio.iwinfo.channel } ow_radio_warning{/if}">
 					<div class="ow_radio_title">
 					<span class="ow_radio_freq">
-						{if $radio.iwinfo.channel < 20}2.4GHz{elseif $radio.iwinfo.channel > 20}5GHz{/if}
+						{if $radio.iwinfo.channel}
+							{if $radio.iwinfo.channel < 20}2.4GHz{else}5GHz{/if}
+						{else}
+							<i class="fa fa-warning"></i> OFF
+						{/if}
 					</span>
 					<span class="ow_radio_bssid">{$radio.bssid}</span>
 					<span class="label label-info pull-right">{$radio.iwinfo.channel}{if $radio.config.channel=='auto'} <i class='fa fa-magic'></i>{/if}</span>

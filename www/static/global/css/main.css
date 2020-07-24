@@ -1788,7 +1788,6 @@ TABLE.table_devices TR TD{
 	padding: 0;
 	border-top: 1px solid rgba(0, 0, 0, 0.8) !important;
 }
-
 #body_admin_openwrt .ow_radio_title{
 	background: #000;
 	padding: 5px;
@@ -1798,6 +1797,10 @@ TABLE.table_devices TR TD{
 	font-weight: bold;
 	padding-right:5px	
 }
+#body_admin_openwrt .ow_radio_warning .ow_radio_freq{
+	color: red;
+}
+
 #body_admin_openwrt .ow_radio_bssid{
 	font-size: 11px;
 	color: rgba(255,255,255,0.6);
