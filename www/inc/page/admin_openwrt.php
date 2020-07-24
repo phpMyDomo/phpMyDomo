@@ -59,7 +59,6 @@ class PMD_Page extends PMD_Root_Page{
 		$this->DisplayAdmin();
 	}
 
-
 	//----------------------------------------------------------------------------------
 	private function _Ajax($query){
 		$hosts=$this->_ListHosts();
@@ -114,6 +113,7 @@ class PMD_Page extends PMD_Root_Page{
 		return $out;
 	}
 
+
 	//----------------------------------------------------------------------------------
 	private function _saveSession($host){
 		file_put_contents($this->conf['paths']['caches']."owa_session_$host", $this->owa->GetSessionId() );
@@ -155,9 +155,25 @@ class PMD_Page extends PMD_Root_Page{
 					$this->_UpdateVendorsDb();
 					$indexed_stations[$station['mac']]['info']['vendor']=$this->_GetMacVendor($station['mac']);
 				}
+				//make sort key
+				$sort=$info['name'] or $sort=$info['host'] or $sort=$info['ip'] or $sort=$info['vendor'] or $sort=$indexed_stations[$station['mac']]['info']['vendor'];
+				$indexed_stations[$station['mac']]['sort_key']=strtolower($sort);
+
 			}
 		}
+		if($do_mac_to_ip or $this->vars['mac_to_vendor']){
+			$this->_SortArrayByColumn($indexed_stations,'sort_key');
+		}
 		return $indexed_stations;
+	}
+
+	//----------------------------------------------------------------------------------
+	private function _SortArrayByColumn( &$arr, $col, $dir = SORT_ASC) {
+		$sort_col = array();
+		foreach ($arr as $key=> $row) {
+			$sort_col[$key] = $row[$col];
+		}
+		array_multisort($sort_col, $dir, $arr);
 	}
 
 
