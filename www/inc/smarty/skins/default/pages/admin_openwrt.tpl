@@ -1,6 +1,5 @@
 {capture assign=page_content}
-
-<div class="row">
+<div id="ow_div">
 {foreach from=$data.routers item=router}
 	<div class="col-md-{$data.bs_col}">
 		<div class="panel panel-default pmd_panel jsOwRouter"  data-query='{$router.json_interfaces}' data-host='{$router.sys_board.hostname}'>
@@ -44,10 +43,10 @@
 			</ul>
 		</div>		
 	</div>
-
 {/foreach}
 </div>
+
 {/capture}
 
 
-{include file="{$p.template}/layout.tpl"}
+{include file="{$p.template}/layout.tpl" cont_fluid=1}
