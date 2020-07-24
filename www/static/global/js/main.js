@@ -348,7 +348,7 @@ jQuery( document ).ready(function() {
 			
 			var station=$(this).closest('.jsOwStation');
 			var mac=station.attr('data-mac');
-			station.html('');
+			station.hide();
 
 			SetTimerOwStations(host,router,5);
 			var query=JSON.stringify( {act:'disconnect',host:host, mac:mac, ifname:ifname} ) ;
@@ -593,10 +593,17 @@ function SetTimerOwStations(index,obj,time){
 		}, time * 1000);
 	}
 }
+var ow_connected={};
+var ow_connected_last={};
 function RefreshOwStations(index,obj){
 	var query=obj.attr('data-query');
+	var host=obj.attr('data-host');
 	var obj_loading=obj.find('.jsOwLoading');
 	obj_loading.addClass('loading');
+	if(ow_connected[host] !==undefined){
+		ow_connected_last[host]=ow_connected[host];
+	}
+	ow_connected[host]={};
 	$.getJSON( '?', { ajax: query } )
 		.done(function( json ) {	
 			if(json.error==0){
@@ -605,11 +612,22 @@ function RefreshOwStations(index,obj){
 				var target;
 				var blank_class="";
 				var vendor_span="";
+				var new_class ="";
 				var level ="";
 				var link ="";
 				$.each(json.data.stations, function(ifname,stations){
 					html='';
+					ow_connected[host][ifname]={};
 					$.each(stations, function(mac,station){
+						/* check if new station */
+						if( ow_connected_last[host] !== undefined && ow_connected_last[host][ifname] !== undefined && ow_connected_last[host][ifname][mac] !== undefined ){
+							new_class="";
+						}
+						else{
+							new_class=" ow_stat_new";
+						}
+						ow_connected[host][ifname][mac]=true;
+
 						blank_class='';
 						vendor_span="";
 						if(station.info.ip==''){
@@ -628,7 +646,7 @@ function RefreshOwStations(index,obj){
 						else if(station.info.ip != undefined || station.info.ip != null || station.info.ip != '' ){
 							link=station.info.ip
 						}
-						html = html + '<li class="ow_stat jsOwStation'+blank_class+level+'" data-mac="'+station.mac+'">'
+						html = html + '<li class="ow_stat jsOwStation'+new_class+blank_class+level+'" data-mac="'+station.mac+'">'
 									+'<div class="ow_stat_1"><span class="ow_stat_mac">' 
 									+ station.mac + '</span> <span class="ow_stat_name"><a href="http://'+link+'" target="_blank">'
 									+ station.info.name +'</a></span></div>'

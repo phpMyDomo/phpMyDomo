@@ -1869,6 +1869,9 @@ TABLE.table_devices TR TD{
 #body_admin_openwrt .ow_stat_blank{
 	background: #F0F0FF;
 }
+#body_admin_openwrt .ow_stat_new{
+	background: rgba(0,255,0, 0.15);
+}
 #body_admin_openwrt .ow_stat_name,
 #body_admin_openwrt .ow_stat_name A{
 	color: #000;
