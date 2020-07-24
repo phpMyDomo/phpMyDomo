@@ -589,6 +589,7 @@ function RefreshOwStations(index,obj){
 				var target;
 				var blank_class="";
 				var vendor_span="";
+				var level ="";
 				$.each(json.data.stations, function(ifname,stations){
 					html='';
 					$.each(stations, function(mac,station){
@@ -598,7 +599,13 @@ function RefreshOwStations(index,obj){
 							blank_class=' ow_stat_blank';
 							vendor_span='<span class="ow_stat_vendor">'+station.info.vendor+'</span>';
 						}
-						html = html + '<li class="ow_stat jsOwStation'+blank_class+'" data-mac="'+station.mac+'">'
+						level='';
+						$.each(ow_levels, function(l_name,l_val){
+							if( - station.signal >  - l_val){
+								level=' '+l_name;
+							}
+						});
+						html = html + '<li class="ow_stat jsOwStation'+blank_class+level+'" data-mac="'+station.mac+'">'
 									+'<div class="ow_stat_1"><span class="ow_stat_mac">' 
 									+ station.mac + '</span> <span class="ow_stat_name">'
 									+ station.info.name +'</span></div>'

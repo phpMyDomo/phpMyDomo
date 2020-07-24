@@ -158,3 +158,45 @@ border-color: rgba(255,255,255,0.1) rgba(255,255,255,0.15) rgba(255,255,255,0.15
 }
 
 
+#body_admin_openwrt .ow_if{
+	background: #1A1A1A;
+}
+#body_admin_openwrt .ow_if_title{
+	background: #444;
+}
+#body_admin_openwrt .ow_if_name{
+	color:  rgba(255,255,255,0.5);
+}
+#body_admin_openwrt .ow_stat{
+	border-top: 1px solid rgba(255,255,255,0.1);
+	border-bottom: 1px solid #000;
+}
+
+
+#body_admin_openwrt .ow_stat_name{
+	color:  rgba(255,255,255,1);
+}
+#body_admin_openwrt .ow_stat_mac{
+	color:  rgba(255,255,255,0.6);
+}
+#body_admin_openwrt .ow_stat_2{
+	color:  rgba(255,255,255,0.6);
+}
+#body_admin_openwrt .ow_stat_3 {
+	color:  rgba(255,255,255,0.6);
+}
+#body_admin_openwrt .ow_stat_3 .fa{
+	padding-right: 3px;
+}
+#body_admin_openwrt .ow_stat_3 B{
+	font-weight: normal;
+	color:  rgba(255,255,255,0.4);
+}
+#body_admin_openwrt .mid .ow_stat_signal{
+	color:  rgba(255,255,255,0.9);
+}
+
+
+
+
+

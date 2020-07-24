@@ -1807,7 +1807,7 @@ TABLE.table_devices TR TD{
 }
 #body_admin_openwrt .ow_stat{
 	display: block;
-	padding: 1px 2px 1px 4px;
+	padding: 2px 2px 2px 4px;
 	border-bottom: 1px solid #ddd;
 	font-size: 12px;
 	overflow: hidden;
@@ -1826,10 +1826,12 @@ TABLE.table_devices TR TD{
 	color: #333;
 	font-size: 10px;
 	float: right;
+	line-height: 16px;
 }
 #body_admin_openwrt .ow_stat_2{
 	color: #444;
 	font-size: 11px;
+	line-height: 15px;
 }
 #body_admin_openwrt .ow_stat_ip{
 	float: right;
@@ -1839,11 +1841,16 @@ TABLE.table_devices TR TD{
 #body_admin_openwrt .ow_stat_3 {
 	font-size: 11px;
 	color: #333;
+	line-height: 17px;
 }
 #body_admin_openwrt .ow_stat_3 .fa{
-	color: #999;
 	padding-right: 3px;
 }
+#body_admin_openwrt .ow_stat_rx .fa,
+#body_admin_openwrt .ow_stat_tx .fa{
+	color: #888;
+}
+
 #body_admin_openwrt .ow_stat_3 B{
 	font-weight: normal;
 	color: #888;	
@@ -1857,9 +1864,24 @@ TABLE.table_devices TR TD{
 }
 #body_admin_openwrt .ow_stat_signal{
 	float: right;
+	font-weight: bold;
 }
-#body_admin_openwrt .ow_stat_disconnect .fa{
-	color: blue;
+#body_admin_openwrt .good .ow_stat_signal{
+	color: #008e00;	
+}
+#body_admin_openwrt .mid .ow_stat_signal{
+	color: #444;	
+}
+#body_admin_openwrt .poor .ow_stat_signal{
+	color: orange;
+}
+#body_admin_openwrt .bad .ow_stat_signal{
+	color: red;	
+}
+
+
+#body_admin_openwrt .ow_stat_signal .ow_stat_disconnect .fa{
+	color: rgb(51, 153, 243);
 }
 
 

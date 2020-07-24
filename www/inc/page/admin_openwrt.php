@@ -12,6 +12,8 @@ class PMD_Page extends PMD_Root_Page{
 	function Run(){
 		require_once($this->conf['libs']['openwrtapi']);
 
+		$this->SetHeadJavascript("var ow_levels=". json_encode($this->vars['levels']). ";");
+
 		$hosts=$this->_ListHosts();
 		
 		$ajax=$_GET['ajax'];
@@ -56,6 +58,7 @@ class PMD_Page extends PMD_Root_Page{
 		$this->Assign('data',	$data);
 		$this->DisplayAdmin();
 	}
+
 
 	//----------------------------------------------------------------------------------
 	private function _Ajax($query){
