@@ -19,11 +19,10 @@
 			{foreach from=$router.radios item=radio}
 				<li class="list-group-item ow_radio">
 					<div class="ow_radio_title">
-					{if $radio.iwinfo.channel < 20}
-					2.4GHz
-					{else}
-					5GHz
-					{/if}
+					<span class="ow_radio_freq">
+						{if $radio.iwinfo.channel < 20}2.4GHz{elseif $radio.iwinfo.channel > 20}5GHz{/if}
+					</span>
+					<span class="ow_radio_bssid">{$radio.bssid}</span>
 					<span class="label label-info pull-right">{$radio.iwinfo.channel}{if $radio.config.channel=='auto'} <i class='fa fa-magic'></i>{/if}</span>
 					</div>
 					

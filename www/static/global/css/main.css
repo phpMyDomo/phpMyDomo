@@ -1792,10 +1792,18 @@ TABLE.table_devices TR TD{
 #body_admin_openwrt .ow_radio_title{
 	background: #000;
 	padding: 5px;
+}
+#body_admin_openwrt .ow_radio_freq{
 	color: #fff;
+	font-weight: bold;
+	padding-right:5px	
+}
+#body_admin_openwrt .ow_radio_bssid{
+	font-size: 11px;
+	color: rgba(255,255,255,0.6);
 }
 #body_admin_openwrt .ow_if{
-	padding-bottom: 8px;
+	padding-bottom: 10px;
 }
 #body_admin_openwrt .ow_if_title{
 	background: #ddd;
@@ -1811,6 +1819,9 @@ TABLE.table_devices TR TD{
 	border-bottom: 1px solid #ddd;
 	font-size: 12px;
 	overflow: hidden;
+}
+#body_admin_openwrt .ow_stat:last-child{
+	border-bottom: none;
 }
 #body_admin_openwrt .ow_stat_1{
 }

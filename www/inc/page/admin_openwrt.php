@@ -42,6 +42,8 @@ class PMD_Page extends PMD_Root_Page{
 								$ifname=$interface['ifname'];
 								//$interface['stations']=$this->_ListStations($host['host'], $ifname);
 								$data['routers'][$host['host']]['radios'][$radio]['interfaces'][$ifname]=$interface;
+								//keep (last) bssid in radio
+								$data['routers'][$host['host']]['radios'][$radio]['bssid']=$interface['iwinfo']['bssid'];
 								$json_query['interfaces'][]=$ifname;
 							}
 						}
