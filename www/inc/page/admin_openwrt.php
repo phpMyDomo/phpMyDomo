@@ -33,6 +33,7 @@ class PMD_Page extends PMD_Root_Page{
 					$data['routers'][$host['host']]['sys_board']=$this->owa->CallUbus('system','board');
 					$data['routers'][$host['host']]['sys_info']=$this->owa->CallUbus('system','info');
 					if($data['routers'][$host['host']]['radios']=$this->owa->CallUbus('luci-rpc','getWirelessDevices')){
+						ksort($data['routers'][$host['host']]['radios']);
 						$json_query=array();
 						$json_query['act']='stations';
 						$json_query['host']=$host['host'];
