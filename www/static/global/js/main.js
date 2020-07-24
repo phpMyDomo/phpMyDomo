@@ -622,8 +622,8 @@ function RefreshOwStations(index,obj){
 									+ station.info.host +'</a></span></div>'
 									+'<div class="ow_stat_3"><span class="ow_stat_rx"><i class="fa fa-download"></i>' 
 									+ (station.rx.rate /1000).toFixed(1) + '</span> <span class="ow_stat_tx"><i class="fa fa-upload"></i>'
-									+ (station.tx.rate /1000).toFixed(1)+ '</span> <span class="ow_stat_signal"><a href="#" class="ow_stat_disconnect jsOwDisconnect" title="Disconnect: '+ station.info.name+'"><i class="fa fa-sign-out"></i></a><i class="fa fa-signal"></i>'
-									+ station.signal +' <b>dB</b></span></div>'
+									+ (station.tx.rate /1000).toFixed(1)+ '</span> <span class="ow_stat_signal"><i class="fa fa-signal"></i>'
+									+ station.signal +' <a href="#" class="ow_stat_disconnect jsOwDisconnect" title="Disconnect: '+ station.info.name+'"><i class="fa fa-sign-out"></i></a></span></div>'
 									+"</li>\n";
 					});
 					target = obj.find('.jsOwIf_'+ifname+' .jsOwStations');

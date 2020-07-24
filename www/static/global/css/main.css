@@ -1894,9 +1894,8 @@ TABLE.table_devices TR TD{
 	color: red;	
 }
 
-
-#body_admin_openwrt .ow_stat_signal .ow_stat_disconnect .fa{
-	color: rgb(51, 153, 243);
+#body_admin_openwrt .ow_stat_signal .ow_stat_disconnect{
+	margin-left: 5px;
 }
 
 
