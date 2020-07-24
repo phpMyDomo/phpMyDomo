@@ -590,6 +590,7 @@ function RefreshOwStations(index,obj){
 				var blank_class="";
 				var vendor_span="";
 				var level ="";
+				var link ="";
 				$.each(json.data.stations, function(ifname,stations){
 					html='';
 					$.each(stations, function(mac,station){
@@ -605,14 +606,20 @@ function RefreshOwStations(index,obj){
 								level=' '+l_name;
 							}
 						});
+						if(station.info.host != undefined || station.info.host != null || station.info.host != '' ){
+							link=station.info.host
+						}
+						else if(station.info.ip != undefined || station.info.ip != null || station.info.ip != '' ){
+							link=station.info.ip
+						}
 						html = html + '<li class="ow_stat jsOwStation'+blank_class+level+'" data-mac="'+station.mac+'">'
 									+'<div class="ow_stat_1"><span class="ow_stat_mac">' 
-									+ station.mac + '</span> <span class="ow_stat_name">'
-									+ station.info.name +'</span></div>'
-									+'<div class="ow_stat_2"><span class="ow_stat_ip">' 
+									+ station.mac + '</span> <span class="ow_stat_name"><a href="http://'+link+'" target="_blank">'
+									+ station.info.name +'</a></span></div>'
+									+'<div class="ow_stat_2"><span class="ow_stat_ip"><a href="http://'+station.info.ip+'" target="_blank">' 
 									+ vendor_span
-									+ station.info.ip + '</span> <span class="ow_stat_host">'
-									+ station.info.host +'</span></div>'
+									+ station.info.ip + '</a></span> <span class="ow_stat_host"><a href="http://'+station.info.host+'" target="_blank">'
+									+ station.info.host +'</a></span></div>'
 									+'<div class="ow_stat_3"><span class="ow_stat_rx"><i class="fa fa-download"></i>' 
 									+ (station.rx.rate /1000).toFixed(1) + '</span> <span class="ow_stat_tx"><i class="fa fa-upload"></i>'
 									+ (station.tx.rate /1000).toFixed(1)+ '</span> <span class="ow_stat_signal"><a href="#" class="ow_stat_disconnect jsOwDisconnect" title="Disconnect: '+ station.info.name+'"><i class="fa fa-sign-out"></i></a><i class="fa fa-signal"></i>'

@@ -173,7 +173,8 @@ border-color: rgba(255,255,255,0.1) rgba(255,255,255,0.15) rgba(255,255,255,0.15
 }
 
 
-#body_admin_openwrt .ow_stat_name{
+#body_admin_openwrt .ow_stat_name,
+#body_admin_openwrt .ow_stat_name A{
 	color:  rgba(255,255,255,1);
 }
 #body_admin_openwrt .ow_stat_mac{
