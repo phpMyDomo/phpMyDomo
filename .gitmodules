@@ -1,3 +1,0 @@
-[submodule "www/inc/vendor/OpenWrtApi"]
-	path = www/inc/vendor/OpenWrtApi
-	url = https://github.com/soif/OpenWrtApi.git
