@@ -369,6 +369,26 @@ jQuery( document ).ready(function() {
 			}
 		});
 
+		$('#jsOwStat2But').on('change',function(){
+			if($($(this)).is(':checked')){
+				$('.jsOwRouter').removeClass('hide_stat2');
+			}
+			else{
+				$('.jsOwRouter').addClass('hide_stat2');				
+			}
+		});
+		$('#jsOwStat3But').on('change',function(){
+			if($($(this)).is(':checked')){
+				$('.jsOwRouter').removeClass('hide_stat3');
+			}
+			else{
+				$('.jsOwRouter').addClass('hide_stat3');				
+			}
+		});
+
+		$('#jsOwStat2But').trigger('change');
+		$('#jsOwStat3But').trigger('change');
+
 		// $('[data-toggle="popover"]').popover();
 
 	}
@@ -650,11 +670,11 @@ function RefreshOwStations(index,obj){
 									+'<div class="ow_stat_1"><span class="ow_stat_mac">' 
 									+ station.mac + '</span> <span class="ow_stat_name"><a href="http://'+link+'" target="_blank">'
 									+ station.info.name +'</a></span></div>'
-									+'<div class="ow_stat_2"><span class="ow_stat_ip"><a href="http://'+station.info.ip+'" target="_blank">' 
+									+'<div class="ow_stat_2 jsOwStat2"><span class="ow_stat_ip"><a href="http://'+station.info.ip+'" target="_blank">' 
 									+ vendor_span
 									+ station.info.ip + '</a></span> <span class="ow_stat_host"><a href="http://'+station.info.host+'" target="_blank">'
 									+ station.info.host +'</a></span></div>'
-									+'<div class="ow_stat_3"><span class="ow_stat_rx"><i class="fa fa-arrow-down"></i>' 
+									+'<div class="ow_stat_3 jsOwStat3"><span class="ow_stat_rx"><i class="fa fa-arrow-down"></i>' 
 									+ (station.rx.rate /1000).toFixed(1) + '</span> <span class="ow_stat_tx"><i class="fa fa-arrow-up"></i>'
 									+ (station.tx.rate /1000).toFixed(1)+ '</span> <span class="ow_stat_signal"><i class="fa fa-signal"></i>'
 									+ station.signal +' <a href="#" class="ow_stat_disconnect jsOwDisconnect" title="Disconnect: '+ station.info.name+'"><i class="fa fa-sign-out"></i></a></span></div>'

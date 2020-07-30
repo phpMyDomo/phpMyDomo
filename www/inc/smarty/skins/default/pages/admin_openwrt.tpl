@@ -1,5 +1,19 @@
 {capture assign=page_content}
 <div id="ow_div">
+
+<div id="ow_filters">
+	<div id="ow_filters_block">
+		<span class='ow_filt_title'>View : </span>
+		<label class="checkbox-inline">
+			<input type="checkbox" id="jsOwStat2But"{if $p.prefs.stations_show_ip} checked="checked"{/if}> Hostname & IP
+		</label>
+		<label class="checkbox-inline">
+			<input type="checkbox" id="jsOwStat3But"{if $p.prefs.stations_show_stats} checked="checked"{/if}"> Stats
+		</label>
+	</div>
+</div>
+
+
 {foreach from=$data.routers item=router}
 	<div class="col-md-{$data.bs_col}">
 		<div class="panel panel-default pmd_panel jsOwRouter"  data-query='{$router.json_interfaces}' data-host='{$router.sys_board.hostname}'>

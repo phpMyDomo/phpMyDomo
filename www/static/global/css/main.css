@@ -1779,6 +1779,32 @@ TABLE.table_devices TR TD{
 #body_admin_openwrt .pmd_panel .panel-body{
 	color: #999;
 }
+#body_admin_openwrt #ow_filters{
+	text-align: center;
+}
+#body_admin_openwrt #ow_filters_block{
+	font-size: 11px;
+	line-height: 18px;
+	display: inline-block;
+	margin-bottom: 10px;
+	border: 1px solid rgba(150,150,150, 0.2);
+	padding: 2px 7px;
+}
+#body_admin_openwrt #ow_filters_block .ow_filt_title{
+	padding-right: 5px;
+	font-weight: bold;
+}
+#body_admin_openwrt #ow_filters_block label{
+	margin-left: 15px;
+}
+
+#body_admin_openwrt .pmd_panel.hide_stat2 .ow_stat_2{
+	display: none;
+}
+#body_admin_openwrt .pmd_panel.hide_stat3 .ow_stat_3{
+	display: none;
+}
+
 #body_admin_openwrt .ow_loading.loading{
 	display: inline-block;
 	width: 16px;

@@ -211,6 +211,9 @@ class PMD_Root_Page extends PMD_Root{
 		$page['groups_names']		=$this->conf['groups_names'];
 		$page['blocks']				=$this->conf['blocks'];
 		$page['units']				=$this->conf['units'];
+
+		$page['prefs']				=$this->vars;
+
 		$this->Assign('p',$page);
 		
 		//$this->Debug('Page',$page,0);
