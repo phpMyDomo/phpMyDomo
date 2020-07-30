@@ -2023,7 +2023,8 @@ TABLE.table_devices TR TD{
 
 /* @group Openwrt Popover 
 ----------------------------------------------------------------- */
-/*#body_admin_openwrt .popover h3{
+/*
+#body_admin_openwrt .popover h3{
 	font-weight: bold;
 }
 #body_admin_openwrt .popover .popover-content{
@@ -2047,8 +2048,10 @@ TABLE.table_devices TR TD{
 	text-align: right;
 }
 #body_admin_openwrt .popover TD.v{
-	font-weight: bold;*/
+	font-weight: bold;
 }
+*/
+
 /* @end */
 
 
