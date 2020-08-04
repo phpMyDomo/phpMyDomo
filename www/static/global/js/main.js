@@ -501,11 +501,13 @@ function SetStateSensor(row){
 		if(last_val !=row.value ){
 			sens.html(row.value);
 			bgroup.attr('data-value',row.value);
+			var highlight_time=10;
 			sens.removeClass('changed').addClass('changed');
+			// sens.removeClass('changed').addClass('changed').delay(highlight_time * 1000).removeClass('changed');
+			setTimeout(function() {sens.removeClass('changed'); }, highlight_time * 1000);
 		}
 		else{
-			sens.html(row.value).css('background','none');
-			sens.removeClass('changed');
+			//sens.removeClass('changed');
 		}
 	}
 }
@@ -635,6 +637,7 @@ function RefreshOwStations(index,obj){
 				var new_class ="";
 				var level ="";
 				var link ="";
+				var name ="";
 				$.each(json.data.stations, function(ifname,stations){
 					html='';
 					ow_connected[host][ifname]={};
@@ -666,10 +669,14 @@ function RefreshOwStations(index,obj){
 						else if(station.info.ip != undefined || station.info.ip != null || station.info.ip != '' ){
 							link=station.info.ip
 						}
+						name=station.info.name;
+						if(name ==''){
+							name="???";
+						}
 						html = html + '<li class="ow_stat jsOwStation'+new_class+blank_class+level+'" data-mac="'+station.mac+'">'
 									+'<div class="ow_stat_1"><span class="ow_stat_mac">' 
 									+ station.mac + '</span> <span class="ow_stat_name"><a href="http://'+link+'" target="_blank">'
-									+ station.info.name +'</a></span></div>'
+									+ name +'</a></span></div>'
 									+'<div class="ow_stat_2 jsOwStat2"><span class="ow_stat_ip"><a href="http://'+station.info.ip+'" target="_blank">' 
 									+ vendor_span
 									+ station.info.ip + '</a></span> <span class="ow_stat_host"><a href="http://'+station.info.host+'" target="_blank">'
