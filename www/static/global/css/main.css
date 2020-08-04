@@ -1891,6 +1891,7 @@ TABLE.table_devices TR TD{
 	border-bottom: none;
 }
 #body_admin_openwrt .ow_stat_1{
+	overflow: hidden;
 }
 #body_admin_openwrt .ow_stat_blank{
 	background: #F0F0FF;
@@ -1914,6 +1915,7 @@ TABLE.table_devices TR TD{
 	color: #444;
 	font-size: 11px;
 	line-height: 15px;
+	overflow: hidden;
 }
 #body_admin_openwrt .ow_stat_ip{
 	float: right;
@@ -1924,6 +1926,7 @@ TABLE.table_devices TR TD{
 	font-size: 11px;
 	color: #333;
 	line-height: 17px;
+	overflow: hidden;
 }
 #body_admin_openwrt .ow_stat_3 .fa{
 	padding-right: 3px;
