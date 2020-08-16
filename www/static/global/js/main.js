@@ -2,9 +2,10 @@
 var refresh_time		=3;
 //var refresh_time_blinds	=25;
 var feedback_time		=0.001;
-
 var sleep_time			=25;
+
 var global_class_on		='btn-success';
+var global_class_active	="btn-info";
 
 var ow_stations_time=5;
 
@@ -36,13 +37,13 @@ jQuery( document ).ready(function() {
 			var address	=but.attr('data-address');
 			var target	=but.attr('data-target');
 			var invert	=but.attr('data-invert');
-			but.removeClass('active').addClass('active');
+			but.removeClass(global_class_active).addClass(global_class_active);
 			
 			//var my_refresh_time = refresh_time_blinds;
 					
 			$.getJSON( ajax_url, { mode: "set", a: address, v: target, t: 'blinds', i: invert } )
 				.done(function( json ) {
-					but.removeClass('active');
+					but.removeClass(global_class_active);
 					if(json.status=='ok'){
 						SetTimerRefresh(feedback_time);
 						console.log('OK');
@@ -52,7 +53,7 @@ jQuery( document ).ready(function() {
 					}
 				})
 				.fail(function( jqxhr, textStatus, error ) {
-					but.removeClass('active');
+					but.removeClass(global_class_active);
 					var err = textStatus + ", " + error;
 					console.log( "Switch Request Failed: " + err );
 				});    	
@@ -85,7 +86,7 @@ jQuery( document ).ready(function() {
 				'off': img.attr('data-off'),
 			};
 			
-			but.removeClass('active').addClass('active');
+			but.removeClass(global_class_active).addClass(global_class_active);
 			
 			var target	='on';
 			if(data.state=='on'){
@@ -98,7 +99,7 @@ jQuery( document ).ready(function() {
 			
 			$.getJSON( ajax_url, { mode: "set", a: data.address, v: target, t: data.type, i: data.invert } )
 				.done(function( json ) {
-					but.removeClass('active');
+					but.removeClass(global_class_active);
 					if(json.status=='ok'){
 						SetTimerRefresh(feedback_time);
 						console.log('OK');
@@ -118,7 +119,7 @@ jQuery( document ).ready(function() {
 					}
 				})
 				.fail(function( jqxhr, textStatus, error ) {
-					but.removeClass('active');
+					but.removeClass(global_class_active);
 					var err = textStatus + ", " + error;
 					console.log( "Switch Request Failed: " + err );
 				});    	
@@ -135,13 +136,13 @@ jQuery( document ).ready(function() {
 			var value	=but.attr('data-value');
 			var but_group=but.closest('.jsButGroup').find('.jsButSelector');
 
-			but.removeClass('active').addClass('active');
+			but.removeClass(global_class_active).addClass(global_class_active);
 			
 			//var my_refresh_time = refresh_time;
 					
 			$.getJSON( ajax_url, { mode: "set", a: data.address, v: value, t: 'selector' } )
 			.done(function( json ) {
-					but.removeClass('active');
+					but.removeClass(global_class_active);
 					
 					if(json.status=='ok'){
 						but_group.removeClass(global_class_on);
@@ -154,7 +155,7 @@ jQuery( document ).ready(function() {
 					}
 				})
 			.fail(function( jqxhr, textStatus, error ) {
-					but.removeClass('active');
+					but.removeClass(global_class_active);
 					var err = textStatus + ", " + error;
 					console.log( "Selector Request Failed: " + err );
 			});    	
