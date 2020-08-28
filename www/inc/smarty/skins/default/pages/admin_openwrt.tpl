@@ -26,6 +26,7 @@
 			</div>
 			<div class="panel-body">
 				<small>
+				{if $router.desc}{$router.desc}<br>{/if}
 				{$router.sys_board.model}<br>
 				v {$router.sys_board.release.version} - {$router.sys_board.release.revision}<br>
 				Load Avg : <span class='jsOwLoad'></span><br>

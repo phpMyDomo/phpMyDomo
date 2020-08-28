@@ -28,6 +28,7 @@ class PMD_Page extends PMD_Root_Page{
 			$data['routers_count']=count($hosts);
 			$data['bs_col']=floor(12/$data['routers_count']);
 			foreach($hosts as $host){
+				$data['routers'][$host['host']]['desc']=$host['desc'];
 				$this->owa= new OpenWrtApi('http://'.$host['host']);
 				if($this->owa->UbusLogin($host['user'],$host['pass'])){
 					$data['routers'][$host['host']]['sys_board']=$this->owa->CallUbus('system','board');
