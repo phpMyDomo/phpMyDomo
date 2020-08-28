@@ -328,7 +328,14 @@ jQuery( document ).ready(function() {
 			$i++;
 		});
 
-		$('.jsOwReboot').click(function(e){
+		$('.jsOwButDetails').click(function(e){
+			e.preventDefault();
+			var obj=$(this).closest('.jsOwRouter').find('.jsOwDetails');
+			obj.toggle();
+			console.log("click");
+		});
+
+		$('.jsOwButReboot').click(function(e){
 			e.preventDefault();
 			var obj=$(this).closest('.jsOwRouter');
 			var host=obj.attr('data-host');

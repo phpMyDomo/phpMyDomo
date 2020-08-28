@@ -1805,14 +1805,47 @@ TABLE.table_devices TR TD{
 	display: none;
 }
 
-#body_admin_openwrt .ow_loading.loading{
-	display: inline-block;
-	width: 16px;
-	height: 16px;
+#body_admin_openwrt .ow_router_info{
+	padding: 5px;
+	font-size: 12px;
+}
+#body_admin_openwrt .ow_router_info1{
+	padding-bottom: 5px;
+}
+#body_admin_openwrt .ow_but_details{
+	padding-right: 4px;
+}
+#body_admin_openwrt .ow_buttons{
 	float: right;
+}
+#body_admin_openwrt .ow_router_details{
+	padding-bottom: 5px;
+	display: none;
+}
+#body_admin_openwrt .ow_router_stats2{
+	float: right;
+	font-size: 10px;
+}
+#body_admin_openwrt .ow_router_version{
+	font-size: 11px;
+}
+#body_admin_openwrt .ow_router_version I{
+	padding-left: 8px;
+}
+#body_admin_openwrt .ow_loading{
+	display: inline-block;
+	width: 22px;
+	height: 16px;
+	float: left;
+	opacity: 0.3;
+	padding-right: 7px;	
+}
+#body_admin_openwrt .ow_loading.loading{
 	background-image: url(../img/loading16.gif);
 	background-repeat: no-repeat;
-	opacity: 0.5;
+}
+#body_admin_openwrt .ow_state{
+	padding-left: 2px;
 }
 
 #body_admin_openwrt .ow_radio{

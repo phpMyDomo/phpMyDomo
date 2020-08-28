@@ -18,20 +18,31 @@
 	<div class="col-md-{$data.bs_col}">
 		<div class="panel panel-default pmd_panel jsOwRouter"  data-query='{$router.json_interfaces}' data-host='{$router.sys_board.hostname}'>
 			<div class="panel-heading">
-				<span class="jsOwLoading ow_loading"></span>
-				<span class="jsOwDuration ow_duration"></span>
-				<span class="jsOwState ow_state"></span>
 				
 				<a href="http://{$router.sys_board.hostname}/cgi-bin/luci/" target="_blank" title="View LUCI for {$router.sys_board.hostname}">{$router.sys_board.hostname}</a>
 			</div>
-			<div class="panel-body">
-				<small>
-				{if $router.desc}{$router.desc}<br>{/if}
-				{$router.sys_board.model}<br>
-				v {$router.sys_board.release.version} - {$router.sys_board.release.revision}<br>
-				Load Avg : <span class='jsOwLoad'></span><br>
-				<a href='#' class='jsOwReboot' title='Reboot {$router.sys_board.hostname}'><i class='fa fa-power-off'></i></a>
-				</small>
+			<div class="panel-body ow_router_info">
+				<div class="ow_router_info1">
+					<a href='#' class='jsOwButDetails ow_but_details' title='Show Details'><i class='fa fa-info-circle'></i></a>
+					{if $router.desc}<span class="ow_router_desc">{$router.desc}</span>{/if}
+					<span class="ow_buttons">
+						<a href='#' class='jsOwButReboot' title='Reboot {$router.sys_board.hostname}'><i class='fa fa-power-off'></i></a>
+					</span>
+				</div>
+				<div class="jsOwDetails ow_router_details">
+					<div class="ow_router_model">{$router.sys_board.model}</div>
+					<div class="ow_router_version">v {$router.sys_board.release.version} <i>{$router.sys_board.release.revision}</i></div>
+				</div>	
+				<div class="ow_router_stats">
+					<span class='ow_router_stats1'>
+						Load: <span class='jsOwLoad ow_load'></span>
+					</span>
+					<span class='ow_router_stats2'>
+						<span class="jsOwLoading ow_loading"></span>
+						<span class="jsOwDuration ow_duration"></span>
+						<span class="jsOwState ow_state"></span>
+					</span>
+				</div>
 			</div>
 			<ul class="list-group pmd_panel_group">
 			{foreach from=$router.radios item=radio key=radio_name}
