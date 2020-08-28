@@ -198,16 +198,7 @@ class PMD_Page extends PMD_Root_Page{
 			$lines=file($cache_file);
 		}
 		else{
-			$lines=file('http://standards-oui.ieee.org/oui.txt');
-			//file_put_contents($cache_file,implode("",$lines));
-
-			//keep only hex lines
-			foreach ($lines as $line) {
-				if(preg_match("#([a-f0-9-]{8})[^\(]+\(hex\)\t\t(.*)#i",$line,$match)){
-					$oui_data .="$line";
-				}
-			}
-			file_put_contents($cache_file,$oui_data);
+			$lines=$this->_FetchVendorsDb();
 		}
 
 		foreach ($lines as $line) {
@@ -219,6 +210,35 @@ class PMD_Page extends PMD_Root_Page{
 			}
 		}
 	
+	}
+
+	//----------------------------------------------------------------------------------
+	private function _FetchVendorsDb(){
+		$cache_file	=$this->conf['paths']['caches']."owa_vendors.txt";
+		$lock_file	=$this->conf['paths']['caches']."owa_vendors.lock";
+
+		if(file_exists($lock_file) ){
+			if(filemtime($lock_file) < (time() - 3600)){
+				unlink($lock_file);
+			}
+			$clean_lines=file($cache_file);
+		}
+		else{
+			file_put_contents($lock_file,time());
+			
+			$lines=file('http://standards-oui.ieee.org/oui.txt');
+			//keep only hex lines
+			foreach ($lines as $line) {
+				if(preg_match("#([a-f0-9-]{8})[^\(]+\(hex\)\t\t(.*)#i",$line,$match)){
+					$oui_data .="$line";
+					$clean_lines[]=$line;
+				}
+			}
+			file_put_contents($cache_file,$oui_data);
+			unlink($lock_file);
+		}
+
+		return $clean_lines;
 	}
 
 	//----------------------------------------------------------------------------------
