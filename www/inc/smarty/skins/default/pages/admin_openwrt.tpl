@@ -19,6 +19,9 @@
 		<div class="panel panel-default pmd_panel jsOwRouter"  data-query='{$router.json_interfaces}' data-host='{$router.sys_board.hostname}'>
 			<div class="panel-heading">
 				<span class="jsOwLoading ow_loading"></span>
+				<span class="jsOwDuration ow_duration"></span>
+				<span class="jsOwState ow_state"></span>
+				
 				<a href="http://{$router.sys_board.hostname}/cgi-bin/luci/" target="_blank" title="View LUCI for {$router.sys_board.hostname}">{$router.sys_board.hostname}</a>
 			</div>
 			<div class="panel-body">

@@ -323,6 +323,7 @@ jQuery( document ).ready(function() {
 		var host='';
 		$('.jsOwRouter').each(function(index){
 			host=$(this).closest('.jsOwRouter').attr('data-host');
+			SetIntervalOwDurations(host);
 			SetTimerOwStations(host,$(this),ow_stations_time + $i);
 			$i++;
 		});
@@ -605,6 +606,29 @@ function JumpSleep() {
 	}
 };
 
+var global_ow_durations={};
+/* SetIntervalOwDurations -------------------------------------- */
+function SetIntervalOwDurations(index,state){
+	//console.log(index);
+	var o_router=$(".jsOwRouter[data-host='"+index+"']" );
+	var o_dur	=o_router.find('.jsOwDuration');
+	var o_state	=o_router.find('.jsOwState');
+	if(state==false){
+		o_state.html('<i class="fa fa-warning"></i>');
+	}
+	else if(state==true){
+		global_ow_durations[index]=0;
+		o_state.html('<i class="fa fa-check"></i>');
+	}
+	else{
+		global_ow_durations[index]=0;
+		setInterval( function(){
+			o_dur.html(global_ow_durations[index]);
+			global_ow_durations[index] +=1;
+			//	console.log("Index="+index+" / "+global_ow_durations[index] );
+		}, 1000);	
+	}
+}
 
 var global_timer_ow_stations={};
 /* SetTimerOwStations -------------------------------------- */
@@ -626,6 +650,7 @@ function RefreshOwStations(index,obj){
 	$.getJSON( '?', { ajax: query } )
 		.done(function( json ) {	
 			if(json.error==0){
+				SetIntervalOwDurations(index,true);
 				/* stations ------- */
 				if(ow_connected[host] !==undefined){
 					ow_connected_last[host]=ow_connected[host];
@@ -699,11 +724,13 @@ function RefreshOwStations(index,obj){
 				target.html(html);
 			}
 			else{
+				SetIntervalOwDurations(index,false);
 				console.log('ERROR');
 			}
 			obj_loading.removeClass('loading');
 		})
 		.fail(function( jqxhr, textStatus, error ) {
+			SetIntervalOwDurations(index,false);
 			var err = textStatus + ", " + error;
 			console.log( "Ow Station Failed: " + err );
 			obj_loading.removeClass('loading');
