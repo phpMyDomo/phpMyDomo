@@ -31,9 +31,9 @@ class PMD_Page extends PMD_Root_Page{
 				$data['routers'][$host['host']]['desc']=$host['desc'];
 				$this->owa= new OpenWrtApi('http://'.$host['host']);
 				if($this->owa->UbusLogin($host['user'],$host['pass'])){
-					$data['routers'][$host['host']]['sys_board']=$this->owa->CallUbus('system','board');
-					$data['routers'][$host['host']]['sys_info']=$this->owa->CallUbus('system','info');
-					if($data['routers'][$host['host']]['radios']=$this->owa->CallUbus('luci-rpc','getWirelessDevices')){
+					$data['routers'][$host['host']]['sys_board']=$this->owa->UbusCall('system','board');
+					$data['routers'][$host['host']]['sys_info']=$this->owa->UbusCall('system','info');
+					if($data['routers'][$host['host']]['radios']=$this->owa->UbusCall('luci-rpc','getWirelessDevices')){
 						ksort($data['routers'][$host['host']]['radios']);
 						$json_query=array();
 						$json_query['act']='stations';
@@ -74,7 +74,7 @@ class PMD_Page extends PMD_Root_Page{
 		if($session_id=$this->_loadSession($host['host'])){
 			$this->owa->SetSessionId($session_id);
 		}
-		if($out['data']['sys_info']=$this->owa->CallUbus('system','info') ){
+		if($out['data']['sys_info']=$this->owa->UbusCall('system','info') ){
 			$logged_in=true;
 		}
 		else{
@@ -91,11 +91,11 @@ class PMD_Page extends PMD_Root_Page{
 			$out['data']['stations']=$this->_ListStations($query);
 		}
 		elseif($query['act']=='disconnect'){
-			$this->owa->CallUbus('hostapd.'.$query['ifname'], 'del_client', array('addr'=>$query['mac'],'ban_time'=>60000,'deauth'=>true,'reason'=>5));
+			$this->owa->UbusCall('hostapd.'.$query['ifname'], 'del_client', array('addr'=>$query['mac'],'ban_time'=>60000,'deauth'=>true,'reason'=>5));
 		}
 		elseif($query['act']=='reboot'){
-			//if($out['data']=$this->owa->CallUbus('system','reboot',array())){
-			if($out['data']=$this->owa->CallUbus('file','exec',array('command'=>'/sbin/reboot'))){
+			//if($out['data']=$this->owa->UbusCall('system','reboot',array())){
+			if($out['data']=$this->owa->UbusCall('file','exec',array('command'=>'/sbin/reboot'))){
 				$out['data']['msg']="rebooting...";
 			}
 			else{
@@ -110,11 +110,8 @@ class PMD_Page extends PMD_Root_Page{
 	private function _ListStations($query){
 		$out=array();
 		if(is_array($query['interfaces'])){
-			foreach($query['interfaces'] as $if){
-				$out[$if]=$this->_UbusListStations($if);
-			}
+			return $this->_UbusListStations($query['interfaces']);
 		}
-		return $out;
 	}
 
 
@@ -129,11 +126,11 @@ class PMD_Page extends PMD_Root_Page{
 
 	//----------------------------------------------------------------------------------
 	private $macs=array();
-	private function _UbusListStations($ifname){
-		$stations=$this->owa->CallUbus('iwinfo','assoclist',array('device'=>$ifname));
+	private function _UbusListStations($interfaces){
+		$if_stations=$this->owa->UbusListStations($interfaces);
 		$indexed_stations=array();
-		if($stations['results']){
-
+		if($if_stations){
+			//get MAC infos
 			if($this->vars['mac_to_ip'] and file_exists($this->vars['mac_file'])){
 				$do_mac_to_ip=true;
 				$lines=file($this->vars['mac_file']);
@@ -147,26 +144,30 @@ class PMD_Page extends PMD_Root_Page{
 					);
 				}
 			}
-			foreach($stations['results'] as $station){
-				$indexed_stations[$station['mac']]=$station;
-				$indexed_stations[$station['mac']]['info']=array('mac'=>'','ip'=>'','host'=>'','name'=>'','vendor'=>'');
+			foreach($if_stations as $if => $stations){
+				$indexed_stations[$if]=array();
+				foreach($stations as $station){
+					$indexed_stations[$if][$station['mac']]=$station;
+					$indexed_stations[$if][$station['mac']]['info']=array('mac'=>'','ip'=>'','host'=>'','name'=>'','vendor'=>'');
 
-				if($do_mac_to_ip){
-					$info=$this->macs[$station['mac']] and $indexed_stations[$station['mac']]['info']=$info;
+					if($do_mac_to_ip){
+						$info=$this->macs[$station['mac']] and $indexed_stations[$if][$station['mac']]['info']=$info;
+					}
+
+					if($this->vars['mac_to_vendor']){
+						$this->_UpdateVendorsDb();
+						$indexed_stations[$if][$station['mac']]['info']['vendor']=$this->_GetMacVendor($station['mac']);
+					}
+					//make sort key
+					$sort=$info['name'] or $sort=$info['host'] or $sort=$info['ip'] or $sort=$info['vendor'] or $sort=$indexed_stations[$if][$station['mac']]['info']['vendor'];
+					$indexed_stations[$if][$station['mac']]['sort_key']=strtolower($sort);
+
 				}
 
-				if($this->vars['mac_to_vendor']){
-					$this->_UpdateVendorsDb();
-					$indexed_stations[$station['mac']]['info']['vendor']=$this->_GetMacVendor($station['mac']);
+				if($do_mac_to_ip or $this->vars['mac_to_vendor']){
+					$this->_SortArrayByColumn($indexed_stations[$if],'sort_key');
 				}
-				//make sort key
-				$sort=$info['name'] or $sort=$info['host'] or $sort=$info['ip'] or $sort=$info['vendor'] or $sort=$indexed_stations[$station['mac']]['info']['vendor'];
-				$indexed_stations[$station['mac']]['sort_key']=strtolower($sort);
-
 			}
-		}
-		if($do_mac_to_ip or $this->vars['mac_to_vendor']){
-			$this->_SortArrayByColumn($indexed_stations,'sort_key');
 		}
 		return $indexed_stations;
 	}
@@ -174,10 +175,12 @@ class PMD_Page extends PMD_Root_Page{
 	//----------------------------------------------------------------------------------
 	private function _SortArrayByColumn( &$arr, $col, $dir = SORT_ASC) {
 		$sort_col = array();
-		foreach ($arr as $key=> $row) {
-			$sort_col[$key] = $row[$col];
+		if(is_array($arr)){
+			foreach ($arr as $key => $row) {
+				$sort_col[$key] = $row[$col];
+			}
+			array_multisort($sort_col, $dir, $arr);
 		}
-		array_multisort($sort_col, $dir, $arr);
 	}
 
 

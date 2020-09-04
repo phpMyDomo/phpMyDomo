@@ -27,7 +27,7 @@
 
 class OpenWrtApi{
 
-	var $version='1.0.1';
+	var $version='1.1.0';
 
 	private $timeout	=5;
 	private $debug		=false;
@@ -58,6 +58,9 @@ class OpenWrtApi{
         'Accept: application/json'
     );
 
+	private $rpc_multi		=array();
+	private $rpc_multi_id	=0;
+
 	//---------------------------------------------------------------
 	function __construct($url, $debug=false){
 		$this->url=$url."/cgi-bin/luci/admin/ubus";
@@ -75,7 +78,7 @@ class OpenWrtApi{
 
 	//---------------------------------------------------------------
 	public function UbusLogin($user,$pass){
-		if($result=$this->CallUbus('session','login',array("username" => $user, "password" => $pass ))){
+		if($result=$this->UbusCall('session','login',array("username" => $user, "password" => $pass ))){
 			$this->ubus_session=$result['ubus_rpc_session'];
 			return $result;
 		}
@@ -87,12 +90,12 @@ class OpenWrtApi{
 	}
 
 	//---------------------------------------------------------------
-	public function getSessionId(){
+	public function GetSessionId(){
 		return $this->ubus_session;
 	}
 
 	//---------------------------------------------------------------
-	public function CallUbus($path, $method, array $args = array()){
+	public function UbusCall($path, $method, array $args = array()){
 		if($path=='session' and $method=='login'){
 			$session_id="00000000000000000000000000000000";
 		}
@@ -126,7 +129,7 @@ class OpenWrtApi{
 	}
 
 	//---------------------------------------------------------------
-	public function ListUbus(array $args = array()){
+	public function UbusList(array $args = array()){
 		$params=$args;
 		$result = $this->_jsonRPC('list',$params);
 		if($this->debug){
@@ -137,8 +140,56 @@ class OpenWrtApi{
 	}
 
 	//---------------------------------------------------------------
+	public function UbusListStations($interfaces_names){
+		if(is_array($interfaces_names)){
+			foreach($interfaces_names as $if){
+				$this->_MultiAdd('iwinfo','assoclist',array('device'=>$if));
+			}
+			$answer=$this->_MultiCall();
+			if(is_array($answer)){
+				foreach($answer as $k => $a){
+					$out[$interfaces_names[$k]]=$a['results'];
+				}
+				return $out;
+			}
+		}
+	}
+
+	//---------------------------------------------------------------
+	private function _MultiAdd($path, $method, array $args = array()){
+		if($session_id=$this->ubus_session){
+			$params=array(
+				$session_id,
+				$path,
+				$method,
+				$args
+			);
+			$this->rpc_multi[]=$this->_FormatJsonRPC('call',$params,$this->rpc_multi_id);
+			$this->rpc_multi_id++;
+			return $this->rpc_multi_id;
+		}
+	}
+
+	//---------------------------------------------------------------
+	private function _MultiCall(){
+		if(is_array($this->rpc_multi) and count($this->rpc_multi)){
+			$answer = $this->_CurlRequest($this->rpc_multi);
+			$this->rpc_multi=array();
+			$this->rpc_multi_id=0;
+			if(is_array($answer)){
+				foreach($answer as $rpc){
+					$rpc['result'] and $out[$rpc['id']]=$rpc['result'][1];
+				}
+				return $out;
+			}
+		}
+	}
+
+	//---------------------------------------------------------------
 	private function _FormatJsonRPC($method, array $params = array(), $id='' ){
-		$id or $id = mt_rand();
+		if($id ===''){
+			$id = mt_rand();
+		}
 
 		$payload = array(
 			'jsonrpc'	=> '2.0',
@@ -155,15 +206,15 @@ class OpenWrtApi{
 	//---------------------------------------------------------------
 	private function _jsonRPC($method, array $params = array() ){
 		$payload=$this->_FormatJsonRPC($method,$params);
-		$result = $this->_CurlRequest($payload);
+		$answer = $this->_CurlRequest($payload);
 
-		if (isset($result['id']) && $result['id'] == $payload['id'] && array_key_exists('result', $result)) {
+		if (isset($answer['id']) && $answer['id'] == $payload['id'] && array_key_exists('result', $answer)) {
 
-			return $result['result'];
+			return $answer['result'];
 		}
-		else if ($this->debug && isset($result['error'])) {
-			echo "* JsonRPC Result Error:	";
-			print_r($result['error']);
+		else if ($this->debug && isset($answer['error'])) {
+			echo "* JsonRPC answer Error:	";
+			print_r($answer['error']);
 		}
 	}
 
@@ -188,8 +239,8 @@ class OpenWrtApi{
 		curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($payload));
 
 
-		$result = curl_exec($ch);
-		$response = json_decode($result, true);
+		$answer = curl_exec($ch);
+		$response = json_decode($answer, true);
 
 		$this->curl_error_code=curl_errno($ch);
 		$this->curl_error_text=curl_error($ch);
