@@ -707,8 +707,8 @@ function RefreshOwStations(index,obj){
 							name="???";
 						}
 						html = html + '<li class="ow_stat jsOwStation'+new_class+blank_class+level+'" data-mac="'+station.mac+'">'
-									+'<div class="ow_stat_1"><span class="ow_stat_mac">' 
-									+ station.mac + '</span> <span class="ow_stat_name"><a href="http://'+link+'" target="_blank">'
+									+'<div class="ow_stat_1"><span class="ow_stat_mac"><a href="#" title="'+station.info.vendor+'">' 
+									+ station.mac + '</a></span> <span class="ow_stat_name"><a href="http://'+link+'" target="_blank">'
 									+ name +'</a></span></div>'
 									+'<div class="ow_stat_2 jsOwStat2"><span class="ow_stat_ip"><a href="http://'+station.info.ip+'" target="_blank">' 
 									+ vendor_span

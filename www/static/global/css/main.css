@@ -1944,6 +1944,13 @@ TABLE.table_devices TR TD{
 	float: right;
 	line-height: 16px;
 }
+#body_admin_openwrt .ow_stat_mac A{
+	color: #666;
+}
+#body_admin_openwrt .ow_stat_mac A:hover{
+	color: #888;
+	text-decoration: none;
+}
 #body_admin_openwrt .ow_stat_2{
 	color: #444;
 	font-size: 11px;
