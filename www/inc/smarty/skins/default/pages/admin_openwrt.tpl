@@ -8,7 +8,7 @@
 			<input type="checkbox" id="jsOwStat2But"{if $p.prefs.stations_show_ip} checked="checked"{/if}> Hostname & IP
 		</label>
 		<label class="checkbox-inline">
-			<input type="checkbox" id="jsOwStat3But"{if $p.prefs.stations_show_stats} checked="checked"{/if}"> Stats
+			<input type="checkbox" id="jsOwStat3But"{if $p.prefs.stations_show_stats} checked="checked"{/if}> Stats
 		</label>
 	</div>
 </div>
