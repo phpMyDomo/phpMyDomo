@@ -7,7 +7,8 @@ var sleep_time			=25;
 var global_class_on		='btn-success';
 var global_class_active	="btn-info";
 
-var ow_stations_time=5;
+var ow_ajax_timeout=5;
+var ow_ajax_refresh=3;
 
 
 jQuery( document ).ready(function() {
@@ -319,12 +320,12 @@ jQuery( document ).ready(function() {
 
 	/* #### ADMIN: OpenWRT ##################################################################### */
 	if($('#body_admin_openwrt').length){
-		var $i=0;
+		var $i=1;
 		var host='';
 		$('.jsOwRouter').each(function(index){
 			host=$(this).closest('.jsOwRouter').attr('data-host');
 			SetIntervalOwDurations(host);
-			SetTimerOwStations(host,$(this),ow_stations_time + $i);
+			SetTimerOwStations(host,$(this),$i);
 			$i++;
 		});
 
@@ -654,7 +655,17 @@ function RefreshOwStations(index,obj){
 	var host=obj.attr('data-host');
 	var obj_loading=obj.find('.jsOwLoading');
 	obj_loading.addClass('loading');
-	$.getJSON( '?', { ajax: query } )
+	$.ajax({ 
+			dataType: "json",
+			url:'?ajax='+query,
+			//data: {ajax: query},
+			//processData: false,
+			timeout: ow_ajax_timeout * 1000,
+			complete: function(){
+				SetTimerOwStations(index, obj, ow_ajax_refresh);
+				console.log("Completed "+index);	
+			}
+		} )
 		.done(function( json ) {	
 			if(json.error==0){
 				SetIntervalOwDurations(index,true);
@@ -736,13 +747,14 @@ function RefreshOwStations(index,obj){
 			}
 			obj_loading.removeClass('loading');
 		})
-		.fail(function( jqxhr, textStatus, error ) {
+		.error(function( jqxhr, textStatus, error ) {
 			SetIntervalOwDurations(index,false);
 			var err = textStatus + ", " + error;
-			console.log( "Ow Station Failed: " + err );
-			obj_loading.removeClass('loading');
+			console.log( "Ow Station "+index+" Failed: " + err );
+			obj_loading.removeClass('loading')
+		.complete(function(jqxhr, textStatus){
+		});
 	});
-	SetTimerOwStations(index, obj, ow_stations_time);
 }
 
 
