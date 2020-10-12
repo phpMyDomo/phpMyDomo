@@ -146,22 +146,24 @@ class PMD_Page extends PMD_Root_Page{
 			}
 			foreach($if_stations as $if => $stations){
 				$indexed_stations[$if]=array();
-				foreach($stations as $station){
-					$indexed_stations[$if][$station['mac']]=$station;
-					$indexed_stations[$if][$station['mac']]['info']=array('mac'=>'','ip'=>'','host'=>'','name'=>'','vendor'=>'');
-
-					if($do_mac_to_ip){
-						$info=$this->macs[$station['mac']] and $indexed_stations[$if][$station['mac']]['info']=$info;
-					}
-
-					if($this->vars['mac_to_vendor']){
-						$this->_UpdateVendorsDb();
-						$indexed_stations[$if][$station['mac']]['info']['vendor']=$this->_GetMacVendor($station['mac']);
-					}
-					//make sort key
-					$sort=$info['name'] or $sort=$info['host'] or $sort=$info['ip'] or $sort=$info['vendor'] or $sort=$indexed_stations[$if][$station['mac']]['info']['vendor'];
-					$indexed_stations[$if][$station['mac']]['sort_key']=strtolower($sort);
-
+				if(is_array($stations)){
+					foreach($stations as $station){
+						$indexed_stations[$if][$station['mac']]=$station;
+						$indexed_stations[$if][$station['mac']]['info']=array('mac'=>'','ip'=>'','host'=>'','name'=>'','vendor'=>'');
+	
+						if($do_mac_to_ip){
+							$info=$this->macs[$station['mac']] and $indexed_stations[$if][$station['mac']]['info']=$info;
+						}
+	
+						if($this->vars['mac_to_vendor']){
+							$this->_UpdateVendorsDb();
+							$indexed_stations[$if][$station['mac']]['info']['vendor']=$this->_GetMacVendor($station['mac']);
+						}
+						//make sort key
+						$sort=$info['name'] or $sort=$info['host'] or $sort=$info['ip'] or $sort=$info['vendor'] or $sort=$indexed_stations[$if][$station['mac']]['info']['vendor'];
+						$indexed_stations[$if][$station['mac']]['sort_key']=strtolower($sort);
+	
+					}	
 				}
 
 				if($do_mac_to_ip or $this->vars['mac_to_vendor']){
