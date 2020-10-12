@@ -25,8 +25,13 @@
 				<div class="ow_router_info1">
 					<a href='#' class='jsOwButDetails ow_but_details' title='Show Details'><i class='fa fa-info-circle'></i></a>
 					{if $router.desc}<span class="ow_router_desc">{$router.desc}</span>{/if}
-					<span class="ow_buttons">
+					<span class="ow_router_buttons">
 						<a href='#' class='jsOwButReboot' title='Reboot {$router.sys_board.hostname}'><i class='fa fa-power-off'></i></a>
+					</span>
+					<span class='ow_router_refresh'>
+						<span class="jsOwLoading ow_loading"></span>
+						<span class="jsOwDuration ow_duration"></span>
+						<span class="jsOwState ow_state"></span>
 					</span>
 				</div>
 				<div class="jsOwDetails ow_router_details">
@@ -35,12 +40,10 @@
 				</div>	
 				<div class="ow_router_stats">
 					<span class='ow_router_stats1'>
-						Load: <span class='jsOwLoad ow_load'></span>
+						<i class="fa fa-area-chart"></i> <span class='jsOwLoad ow_load'></span>
 					</span>
 					<span class='ow_router_stats2'>
-						<span class="jsOwLoading ow_loading"></span>
-						<span class="jsOwDuration ow_duration"></span>
-						<span class="jsOwState ow_state"></span>
+						<a href="#" class="jsOwMemoryTitle" title=""><span class="jsOwMemoryIcon"><i class="fa fa-battery-2"></i></span> <span class='jsOwMemory ow_memory'></span></a>
 					</span>
 				</div>
 			</div>

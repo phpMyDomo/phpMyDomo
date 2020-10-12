@@ -1815,22 +1815,15 @@ TABLE.table_devices TR TD{
 #body_admin_openwrt .ow_but_details{
 	padding-right: 4px;
 }
-#body_admin_openwrt .ow_buttons{
+#body_admin_openwrt .ow_router_buttons{
 	float: right;
+	padding-left: 8px;
+	padding-top: 2px;
 }
-#body_admin_openwrt .ow_router_details{
-	padding-bottom: 5px;
-	display: none;
-}
-#body_admin_openwrt .ow_router_stats2{
+
+#body_admin_openwrt .ow_router_refresh{
 	float: right;
 	font-size: 10px;
-}
-#body_admin_openwrt .ow_router_version{
-	font-size: 11px;
-}
-#body_admin_openwrt .ow_router_version I{
-	padding-left: 8px;
 }
 #body_admin_openwrt .ow_loading{
 	display: inline-block;
@@ -1846,6 +1839,25 @@ TABLE.table_devices TR TD{
 }
 #body_admin_openwrt .ow_state{
 	padding-left: 2px;
+}
+
+#body_admin_openwrt .ow_router_details{
+	padding-bottom: 5px;
+	display: none;
+}
+#body_admin_openwrt .ow_router_version{
+	font-size: 11px;
+}
+#body_admin_openwrt .ow_router_version I{
+	padding-left: 8px;
+}
+
+#body_admin_openwrt .ow_router_stats A{
+	color: #999;
+	text-decoration: none;	
+}
+#body_admin_openwrt .ow_router_stats2{
+	float: right;
 }
 
 #body_admin_openwrt .ow_radio{
