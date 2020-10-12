@@ -661,9 +661,9 @@ function RefreshOwStations(index,obj){
 			//data: {ajax: query},
 			//processData: false,
 			timeout: ow_ajax_timeout * 1000,
-			complete: function(){
+			complete: function(jqxhr, textStatus){
 				SetTimerOwStations(index, obj, ow_ajax_refresh);
-				console.log("Completed "+index);	
+				//console.log("Ow Station "+index+" Completed: "+textStatus);	
 			}
 		} )
 		.done(function( json ) {	
@@ -751,10 +751,8 @@ function RefreshOwStations(index,obj){
 			SetIntervalOwDurations(index,false);
 			var err = textStatus + ", " + error;
 			console.log( "Ow Station "+index+" Failed: " + err );
-			obj_loading.removeClass('loading')
-		.complete(function(jqxhr, textStatus){
-		});
-	});
+			obj_loading.removeClass('loading');
+		})
 }
 
 
