@@ -43,7 +43,7 @@
 						<i class="fa fa-area-chart"></i> <span class='jsOwLoad ow_load'></span>
 					</span>
 					<span class='ow_router_stats2'>
-						<a href="#" class="jsOwMemoryTitle" title=""><span class="jsOwMemoryIcon"><i class="fa fa-battery-2"></i></span> <span class='jsOwMemory ow_memory'></span></a>
+						<a href="#" class="jsOwMemoryTitle" title=""><span class="jsOwMemoryIcon"><i class="fa fa-battery-0"></i></span> <span class='jsOwMemory ow_memory'></span></a>
 					</span>
 				</div>
 			</div>
