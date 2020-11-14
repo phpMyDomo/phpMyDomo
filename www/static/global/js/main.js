@@ -10,6 +10,8 @@ var global_class_active	="btn-info";
 var ow_ajax_timeout=5;
 var ow_ajax_refresh=3;
 
+var demo_mode=false;
+
 
 jQuery( document ).ready(function() {
 	
@@ -318,6 +320,51 @@ jQuery( document ).ready(function() {
 		});
 	} /* End Dashboard */
 
+	/* Clear Popover on click outside  ------------------------------------------------------------------------ */
+	$(document).on('click', function (e) {
+		$('[data-toggle="popover"],[data-original-title]').each(function () {
+			//the 'is' for buttons that trigger popups
+			//the 'has' for icons within a button that triggers a popup
+			if (!$(this).is(e.target) && $(this).has(e.target).length === 0 && $('.popover').has(e.target).length === 0 ) {                
+				//(($(this).popover('hide').data('bs.popover')||{}).inState||{}).click = false  // fix for BS 3.3.6
+				
+				/* https://stackoverflow.com/questions/13442749/how-to-check-whether-a-twitter-bootstrap-popover-is-visible-or-not/13442857 */
+				var isVisible = false;
+				if($(this).data('bs.popover') !== undefined){
+					isVisible = $(this).data('bs.popover').tip().hasClass('in');
+				}
+				//var isVisible = $('#element').data('bs.popover')._activeTrigger.click; //bs 4
+				
+				if(isVisible){
+					console.log("visible");
+					$(this).popover('toggle');
+				}
+			}
+		});
+	});
+
+
+
+	/* ### ADMIN: Devices DEBUG ################################################################# */
+
+	$('#body_admin_devices .jsPopoverDebug').popover({
+		trigger: 'click',
+		html: true,
+		template: '<div class="popover popover_debug" role="tooltip"><div class="arrow"></div><div class="popover-title"></div><div class="popover-content"></div></div>'
+	});
+	$('#body_admin_devices .jsPopoverDebug').on('show.bs.popover',function(){
+		$(this).closest('TR').addClass('selected');
+	});
+	$('#body_admin_devices .jsPopoverDebug').on('hide.bs.popover',function(){
+		$(this).closest('TR').removeClass('selected');
+	});
+	$('#body_admin_devices .jsPopoverDebug').on('shown.bs.popover',function(){
+		var po=$(this).next();
+		var new_top =parseInt( po.css('top')) + parseInt(po.height()/ 2) - 16;
+		po.css('top',new_top + 'px');
+	});
+
+
 	/* #### ADMIN: OpenWRT ##################################################################### */
 	if($('#body_admin_openwrt').length){
 		var $i=1;
@@ -327,7 +374,16 @@ jQuery( document ).ready(function() {
 			SetIntervalOwDurations(host);
 			SetTimerOwStations(host,$(this),$i);
 			$i++;
+
 		});
+
+		$('.jsOwRadio').each(function(index){
+			var bssid=$(this).find('.jsOwRadioBssid');
+			bssid.html(formatMacAddress(bssid.html()));
+			console.log(bssid);
+		});
+
+
 
 		$('.jsOwButDetails').click(function(e){
 			e.preventDefault();
@@ -402,55 +458,10 @@ jQuery( document ).ready(function() {
 		// $('[data-toggle="popover"]').popover();
 
 	}
-
-
-	/* Clear Popover on click outside  ------------------------------------------------------------------------ */
-	$(document).on('click', function (e) {
-		$('[data-toggle="popover"],[data-original-title]').each(function () {
-			//the 'is' for buttons that trigger popups
-			//the 'has' for icons within a button that triggers a popup
-			if (!$(this).is(e.target) && $(this).has(e.target).length === 0 && $('.popover').has(e.target).length === 0 ) {                
-				//(($(this).popover('hide').data('bs.popover')||{}).inState||{}).click = false  // fix for BS 3.3.6
-				
-				/* https://stackoverflow.com/questions/13442749/how-to-check-whether-a-twitter-bootstrap-popover-is-visible-or-not/13442857 */
-				var isVisible = false;
-				if($(this).data('bs.popover') !== undefined){
-					isVisible = $(this).data('bs.popover').tip().hasClass('in');
-				}
-				//var isVisible = $('#element').data('bs.popover')._activeTrigger.click; //bs 4
-				
-				if(isVisible){
-					console.log("visible");
-					$(this).popover('toggle');
-				}
-			}
-		});
-	});
-
-
-
-	/* ### ADMIN: Devices DEBUG ################################################################# */
-
-	$('#body_admin_devices .jsPopoverDebug').popover({
-		trigger: 'click',
-		html: true,
-		template: '<div class="popover popover_debug" role="tooltip"><div class="arrow"></div><div class="popover-title"></div><div class="popover-content"></div></div>'
-	});
-	$('#body_admin_devices .jsPopoverDebug').on('show.bs.popover',function(){
-		$(this).closest('TR').addClass('selected');
-	});
-	$('#body_admin_devices .jsPopoverDebug').on('hide.bs.popover',function(){
-		$(this).closest('TR').removeClass('selected');
-	});
-	$('#body_admin_devices .jsPopoverDebug').on('shown.bs.popover',function(){
-		var po=$(this).next();
-		var new_top =parseInt( po.css('top')) + parseInt(po.height()/ 2) - 16;
-		po.css('top',new_top + 'px');
-	});
-
 	
 
 });
+
 
 /* FUNCTIONS ################################################################################### */
 
@@ -638,6 +649,15 @@ function SetIntervalOwDurations(index,state){
 	}
 }
 
+/* Format MAC Address -------------------------------------- */
+function formatMacAddress(mac){
+	mac=mac.toUpperCase();
+	if(demo_mode){
+		mac=mac.replace(/:\w+:\w+$/gi,':xx:xx');
+	}
+	return mac;
+}
+
 var global_timer_ow_stations={};
 /* SetTimerOwStations -------------------------------------- */
 function SetTimerOwStations(index,obj,time){
@@ -719,7 +739,7 @@ function RefreshOwStations(index,obj){
 						}
 						html = html + '<li class="ow_stat jsOwStation'+new_class+blank_class+level+'" data-mac="'+station.mac+'">'
 									+'<div class="ow_stat_1"><span class="ow_stat_mac"><a href="#" title="'+station.info.vendor+'">' 
-									+ station.mac + '</a></span> <span class="ow_stat_name"><a href="http://'+link+'" target="_blank">'
+									+ formatMacAddress(station.mac) + '</a></span> <span class="ow_stat_name"><a href="http://'+link+'" target="_blank">'
 									+ name +'</a></span></div>'
 									+'<div class="ow_stat_2 jsOwStat2"><span class="ow_stat_ip"><a href="http://'+station.info.ip+'" target="_blank">' 
 									+ vendor_span

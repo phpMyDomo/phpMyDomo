@@ -59,7 +59,7 @@
 								<i class="fa fa-warning"></i> OFF
 							{/if}
 						</span>
-						<span class="ow_radio_bssid">{$radio.bssid}</span>
+						<span class="ow_radio_bssid jsOwRadioBssid">{$radio.bssid}</span>
 						<span class="label label-info pull-right">{$radio.iwinfo.channel}{if $radio.config.channel=='auto'} <i class='fa fa-magic'></i>{/if}</span>
 					</div>
 
