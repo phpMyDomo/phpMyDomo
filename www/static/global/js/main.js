@@ -7,7 +7,7 @@ var sleep_time			=25;
 var global_class_on		='btn-success';
 var global_class_active	="btn-info";
 
-var ow_ajax_timeout=5;
+var ow_ajax_timeout=10;
 var ow_ajax_refresh=3;
 
 var demo_mode=false;
