@@ -464,6 +464,9 @@ function SqzRefreshInformationData(player){
 function SqzRefreshField(el, row){
 	var field = el.data('field');
 	var type = el.data('type');
+	if(row == undefined){
+		return false;
+	}
 	if(field in row){
 		var value=row[field];
 		var is_empty=false;
