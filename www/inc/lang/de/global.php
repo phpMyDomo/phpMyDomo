@@ -68,6 +68,10 @@ $lang['types']['time']		="Time";		//To translate
 $lang['types']['push']		="Push Button";	//To translate
 $lang['types']['rgb']		="RGB Light";	//To translate
 $lang['types']['rgbw']		="RGBW Light";	//To translate
+$lang['types']['percent']	="Percentage";	//To translate
+$lang['types']['current']	="Current";		//To translate
+$lang['types']['power']		="Power";		//To translate
+$lang['types']['smoke']		="Smoke";		//To translate
 
 // infos ################################################################
 $lang['infos']['sunset']	="Sonnenuntergang";

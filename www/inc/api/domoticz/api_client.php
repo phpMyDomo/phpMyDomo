@@ -147,12 +147,42 @@ class PMD_ApiClient extends PMD_Root_ApiClient{
 					$d['value']	=trim($v);
 					$d['unit']	=trim(strtolower($u));
 				}
-
 				elseif($raw['Type']=='Temp'){
 					$d['class']	='sensor';
 					$d['type']	='temp';
 					$d['value']	=$raw['Temp'];
 				}
+				elseif($raw['Type']=='General' and $raw['SubType'] =='Percentage' ){
+					$d['class']	='sensor';
+					$d['type']	='percent';
+					$d['value']	=trim(str_replace('%','',$raw['Data']));
+					$d['unit']	='%';
+				}
+				elseif($raw['Type']=='General' and $raw['SubType'] =='Current' ){
+					$d['class']	='sensor';
+					$d['type']	='current';
+					$d['value']	=$raw['Current'];
+					$d['unit']	='A';
+				}
+				elseif($raw['Type']=='Usage' and $raw['SubType'] =='Electric' ){
+					$d['class']	='sensor';
+					$d['type']	='power';
+					$d['value']	=trim(str_replace('Watt','',$raw['Data']));
+					$d['unit']	='Watt';
+				}
+				elseif($raw['Type']=='General' and $raw['SubType'] =='kWh' ){
+					$d['class']	='sensor';
+					$d['type']	='counter';
+					$d['value']	=trim(str_replace('Watt','',$raw['Usage']));
+					$d['unit']	='kWh';
+				}
+				elseif($raw['Type']=='Light/Switch' and $raw['SwitchType'] =='Smoke Detector' ){
+					$d['class']	='sensor';
+					$d['type']	='smoke';
+					$d['value']	=$raw['Status'];
+					$d['state']	=strtolower($raw['Status']);
+				}
+
 				elseif($raw['Type']=='Temp + Humidity'){
 					$d['class']	='sensor';
 					

@@ -68,6 +68,10 @@ $lang['types']['time']		="Heure";
 $lang['types']['push']		="Poussoir";
 $lang['types']['rgb']		="Eclairage RGB";	//To translate
 $lang['types']['rgbw']		="Eclairage RGBW";	//To translate
+$lang['types']['percent']	="Pourcentage";
+$lang['types']['current']	="Courant";
+$lang['types']['power']		="Puissance";
+$lang['types']['smoke']		="Fumée";
 
 // infos ################################################################
 $lang['infos']['sunset']	="Coucher de Soleil";

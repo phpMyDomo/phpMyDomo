@@ -42,15 +42,70 @@ Required fields (for each device)) :
 	uid 			=> 'unique id' per reported value, auto-created. When a hardware device report multiple values, you must create one device per value 
 					(ie: A hardware device with id=223 reports temperature + barometer, then you must create 2 devices: 223_temp + 223_baro)
 	address			=> needed for commands: id to pass to the remote json API to control the device
-	state			=> Current state value of the device: 'on' | 'off' | 'mixed' (for groups)
-	value			=> Current value of the device: (int) for dimmers | (float) for sensors) | (hex) for rgb | '' for switches
-	class 			=> Class of device: command | sensor  | scene | camera | security
+	state			=> Current state value of the device: 
+						-'on'
+						- 'off'
+						- 'mixed' (for groups)
+	value			=> Current value of the device: 
+						- (int) for dimmers
+						- (float) for sensors)
+						- (hex) for rgb
+						- '' for switches
+	class 			=> Class of device: 
+						- command
+						- sensor 
+						- scene
+						- camera
+						- security
 	type			=> Type of the device
-						-For Commands	: switch | push | dimmer | heating | shutter | fan | rgb | rgbw | therm | blind
-						-For Sensors	: temp | wind_speed | wind_gust | wind_temp | wind_chill | rain | baro | hygro | uv | pir | gas | bool | consum | counter | visibility | radiation | door | distance | lux | custom | text | date | time | mediaplayer
-						-For Scenes 	: scene | group
-						-For Cameras 	: cam_ip
-						-For Security 	: door | window
+						* For Commands	: 
+										- switch
+										- push
+										- dimmer
+										- heating
+										- shutter
+										- fan
+										- rgb
+										- rgbw
+										- therm
+										- blind
+						* For Sensors	: 
+										- temp
+										- wind_speed
+										- wind_gust
+										- wind_temp
+										- wind_chill
+										- rain
+										- baro
+										- hygro
+										- uv
+										- pir
+										- gas
+										- bool
+										- consum
+										- counter
+										- visibility
+										- radiation
+										- door
+										- distance
+										- lux
+										- custom
+										- text
+										- date
+										- time
+										- mediaplayer
+										- percent
+										- current
+										- power
+										- smoke
+						* For Scenes 	: 
+										- scene
+										- group
+						* For Cameras 	: 
+										- cam_ip
+						* For Security 	: 
+										- door
+										- window
 	url				=> url of the video stream (for cam_ip only)
 	invert_set		=> undef | true: invert the 'set' command (use on for OFF and off for ON)
 	raw (array)		=> original json from remote server
