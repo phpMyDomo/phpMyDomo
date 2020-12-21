@@ -102,7 +102,13 @@
 	{if $row.warning > 0}
 		{$my_class=" sensor_warn sensor_warn_{$row.warning}"}
 	{/if}
-	<span data-uid="{$row.uid}" data-value="{$my_value}" class='sensor{$my_class}'><img src='{$p.urls.static}{$row.img_url}'> {$my_name} <b class='jsSensorValue'>{$my_value}</b>{$row.unit|default:$p.units.{$row.type}}</span>
+	<span data-uid="{$row.uid}" data-value="{$my_value}" class='sensor{$my_class}'>
+		<img src='{$p.urls.static}{$row.img_url}'> {$my_name} 
+{if $row.url_view_sensor}<A href="{$row.url_view_sensor}" target="_blank">{/if}
+		<b class='jsSensorValue'>{$my_value}</b>
+{if $row.url_view_sensor}</A>{/if}
+		{$row.unit|default:$p.units.{$row.type}}
+	</span>
 {/function}
 
 {function name=number_format_lang from='' count=0 thous_sep=',' dec_sep=',' }

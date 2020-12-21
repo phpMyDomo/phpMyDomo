@@ -313,6 +313,13 @@ A:focus {outline:none;}
 	margin-right: 2px;
 	margin-left: 4px;
 }
+
+#body_home .pmd_panel .sensor A B{
+}
+#body_home .pmd_panel .sensor A:hover B{
+	color: #000;
+}
+
 #body_home .pmd_panel .sensor IMG{
 	height: 16px;
 	margin-left: 15px;
@@ -323,6 +330,7 @@ A:focus {outline:none;}
 #body_home .pmd_panel .sensor_warn B{
 	color: red !important;
 }
+
 
 #body_home .button_color{
 	min-width: 56px;

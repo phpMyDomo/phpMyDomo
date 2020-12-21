@@ -79,6 +79,10 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#2b2d30', end
 #body_home .home_groups .sensor B{
 	color: #555;
 }
+#body_home .pmd_panel .sensor A:hover B{
+	color: #eee;
+}
+
 .div_devices_border{
 	border: 1px solid #222;
 	background-color: #111;

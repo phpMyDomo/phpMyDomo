@@ -83,13 +83,17 @@ body{
 	border-color: rgba(180,180,180,1) rgba(180,180,180,1) rgba(0,0,0,0.7) rgba(180,180,180,1);
 
 }
-.pmd_panel .panel-heading .sensor{
+#body_home .pmd_panel .panel-heading .sensor{
 	text-shadow: -1px -1px 1px rgba(255,255,255,0.1);
-	color: #555;
-}
-.pmd_panel .panel-heading .sensor B{
 	color: #444;
 }
+#body_home .pmd_panel .panel-heading .sensor B{
+	color: #444;
+}
+#body_home .pmd_panel .sensor A:hover B{
+	color: #000;
+}
+
 .pmd_panel .panel-heading .sensor IMG{
 	opacity: 1;
 }
