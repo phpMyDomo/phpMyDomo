@@ -57,14 +57,14 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#2b2d30', end
 }
 #body_home .block_right TD{
 	border-color: #222;
-	color: #666;
+	color: #777;
 }
 #body_home .block_right .td_value{
-	color: #888;
+	color: #999;
 }
 
 #body_home .block_right TABLE .td_value A{
-	color: #888;
+	color: #999;
 }
 #body_home .block_right TABLE .td_value A:hover,
 #body_home .block_right TABLE .td_value A:active{
@@ -73,11 +73,11 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#2b2d30', end
 }
 
 #body_home .home_groups .sensor{
-	color: #444;
+	color: #555;
 	text-shadow: -1px -1px 1px rgba(0,0,0,0.9) ;
 }
 #body_home .home_groups .sensor B{
-	color: #555;
+	color: #777;
 }
 #body_home .pmd_panel .sensor A:hover B{
 	color: #eee;
