@@ -31,8 +31,8 @@ $devices
 			<td class='td_icon'><img src='{$p.urls.static}{$devices.$id.img_url}'></td>
 			<td class='td_name' nowrap>{$my_name|truncate:13:'…':true}</td>
 			<td class='td_value{if $devices.$id.class=='command'} jsCommandView{/if}' data-uid="{$devices.$id.uid}" data-value="{$devices.$id.value}">
-{if $devices.$id.url_view_sensor}<A href="{$devices.$id.url_view_sensor}" target="_blank" class="jsSensorValue">{/if}
-				{if $devices.$id.html_value !=''}{$devices.$id.html_value}{else}{$devices.$id.state|ucwords|default:{call number_format_lang from=$devices.$id.value count=1}}{/if}
+{if $devices.$id.url_view_sensor}<A href="{$devices.$id.url_view_sensor}" target="_blank">{/if}
+				<span class="jsSensorValue">{if $devices.$id.html_value !=''}{$devices.$id.html_value}{else}{$devices.$id.state|ucwords|default:{call number_format_lang from=$devices.$id.value count=1}}{/if}</span>
 {if $devices.$id.url_view_sensor}</A>{/if}
 			</td>
 			<td class='td_unit'>{$devices.$id.unit|default:$p.units.{$devices.$id.type}}</td>
