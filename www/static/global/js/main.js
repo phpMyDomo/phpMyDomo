@@ -687,7 +687,7 @@ function RefreshOwStations(index,obj){
 			}
 		} )
 		.done(function( json ) {	
-			if(json.error==0){
+			if(json !=null && json.error==0){
 				SetIntervalOwDurations(index,true);
 				/* stations ------- */
 				if(ow_connected[host] !==undefined){
@@ -754,21 +754,24 @@ function RefreshOwStations(index,obj){
 					target = obj.find('.jsOwIf_'+ifname+' .jsOwStations');
 					target.html(html);
 				});
-				/* sys info Load ------- */
-				html= (json.data.sys_info.load[0] /65535.0).toFixed(2)
-							+ ', '+(json.data.sys_info.load[1] /65535.0).toFixed(2)
-							+ ', '+(json.data.sys_info.load[2] /65535.0).toFixed(2);
-				target = obj.find('.jsOwLoad');
-				target.html(html);
+				if(json.data.sys_info != null){
+					/* sys info Load ------- */
+					html= (json.data.sys_info.load[0] /65535.0).toFixed(2)
+								+ ', '+(json.data.sys_info.load[1] /65535.0).toFixed(2)
+								+ ', '+(json.data.sys_info.load[2] /65535.0).toFixed(2);
+					target = obj.find('.jsOwLoad');
+					target.html(html);
 
-				/* sys info memory ------- */
-				var mem_free=(json.data.sys_info.memory.free /1048576.0).toFixed(1);
-				var mem_total=(json.data.sys_info.memory.total /1048576.0).toFixed(1);
-				var mem_perc=mem_free/mem_total * 100.0;
-				var mem_level=Math.round(4 - 4 * mem_perc/100);
-				obj.find('.jsOwMemoryIcon I').attr('class','fa fa-battery-'+mem_level);
-				obj.find('.jsOwMemoryTitle').attr('title','Memory: '+mem_free+"Mo Free / "+mem_total+"Mo Total");
-				obj.find('.jsOwMemory').html(mem_perc.toFixed(1)+'%');
+					/* sys info memory ------- */
+					var mem_free=(json.data.sys_info.memory.free /1048576.0).toFixed(1);
+					var mem_total=(json.data.sys_info.memory.total /1048576.0).toFixed(1);
+					var mem_perc=mem_free/mem_total * 100.0;
+					var mem_level=Math.round(4 - 4 * mem_perc/100);
+					obj.find('.jsOwMemoryIcon I').attr('class','fa fa-battery-'+mem_level);
+					obj.find('.jsOwMemoryTitle').attr('title','Memory: '+mem_free+"Mo Free / "+mem_total+"Mo Total");
+					obj.find('.jsOwMemory').html(mem_perc.toFixed(1)+'%');
+
+				}
 			}
 			else{
 				SetIntervalOwDurations(index,false);
