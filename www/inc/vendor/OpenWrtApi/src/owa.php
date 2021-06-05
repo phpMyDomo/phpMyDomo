@@ -27,7 +27,7 @@
 
 class OpenWrtApi{
 
-	var $version='1.1.0';
+	var $version='1.1.1';
 
 	private $timeout	=5;
 	private $debug		=false;
@@ -237,7 +237,8 @@ class OpenWrtApi{
 		curl_setopt($ch, CURLOPT_FOLLOWLOCATION, false);
 		curl_setopt($ch, CURLOPT_CUSTOMREQUEST, 'POST');
 		curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($payload));
-
+		curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
+		curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, false);
 
 		$answer = curl_exec($ch);
 		$response = json_decode($answer, true);
