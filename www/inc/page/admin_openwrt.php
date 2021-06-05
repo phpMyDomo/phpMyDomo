@@ -29,7 +29,11 @@ class PMD_Page extends PMD_Root_Page{
 			$data['bs_col']=floor(12/$data['routers_count']);
 			foreach($hosts as $host){
 				$data['routers'][$host['host']]['desc']=$host['desc'];
-				$this->owa= new OpenWrtApi('http://'.$host['host']);
+				$scheme="http://";
+				if($host['ssl']){
+					$scheme="https://";
+				}
+				$this->owa= new OpenWrtApi($scheme.$host['host']);
 				if($this->owa->UbusLogin($host['user'],$host['pass'])){
 					$data['routers'][$host['host']]['sys_board']=$this->owa->UbusCall('system','board');
 					$data['routers'][$host['host']]['sys_info']=$this->owa->UbusCall('system','info');
@@ -69,8 +73,13 @@ class PMD_Page extends PMD_Root_Page{
 		$host=$hosts[$query['host']];
 		$out['error']=0;
 		$out['error_txt']='OK';
-	
-		$this->owa= new OpenWrtApi('http://'.$host['host']);
+
+		$scheme="http://";
+		if($host['ssl']){
+			$scheme="https://";
+		}
+
+		$this->owa= new OpenWrtApi($scheme.$host['host']);
 		if($session_id=$this->_loadSession($host['host'])){
 			$this->owa->SetSessionId($session_id);
 		}
@@ -234,6 +243,7 @@ class PMD_Page extends PMD_Root_Page{
 			
 			$lines=file('http://standards-oui.ieee.org/oui.txt');
 			//keep only hex lines
+			$oui_data='';
 			foreach ($lines as $line) {
 				if(preg_match("#([a-f0-9-]{8})[^\(]+\(hex\)\t\t(.*)#i",$line,$match)){
 					$oui_data .="$line";
