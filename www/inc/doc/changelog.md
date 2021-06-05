@@ -1,9 +1,18 @@
 # phpMyDomo ChangeLog
 
-## Version : 0.700 - August xx , 2020
-- new: Dashboard is now fully realtime (no longer refresh page)
+## Version : 21.6.5 - June 5 , 2021
+- new: Dashboard is now fully REALTIME (no longer refreshes the page)
+- new: Dashboard sensors values highlighted for a few seconds, when updated
+- fix: Dashboard - Also links group's sensors to (Domoticz only) log pages
 - fix: Domoticz - Dimmer level scale
+- fix: Domoticz - Add new types : Percentage, Power, Current, Smoke
 - fix: Squeeze - Playlist target correctly memorized by cookie
+- fix: Squeeze - No longers bugs when some player are using undefined data (ie ShairTunes)
+- new: Admin Pages reorganized
+- new: OpenWrt Tool page to monitor connections in realtime on multiple AccessPoint (running OWRT) - EXPERIMENTAL
+- fix: typo in some HTML titles
+- fix: Slightly lighter sensors colors (in the Black Skin)
+- new: Version naming follows release's date
 
 ## Version : 0.600 - December 22 , 2019
 - new: Domoticz - Handles RGB, RGBW buttons
