@@ -66,12 +66,14 @@ $lang['types']['text']		="Texte";
 $lang['types']['date']		="Date";
 $lang['types']['time']		="Heure";
 $lang['types']['push']		="Poussoir";
-$lang['types']['rgb']		="Eclairage RGB";	//To translate
-$lang['types']['rgbw']		="Eclairage RGBW";	//To translate
+$lang['types']['rgb']		="Eclairage RGB";
+$lang['types']['rgbw']		="Eclairage RGBW";
 $lang['types']['percent']	="Pourcentage";
 $lang['types']['current']	="Courant";
 $lang['types']['power']		="Puissance";
 $lang['types']['smoke']		="Fumée";
+$lang['types']['volume']	="Volume";
+$lang['types']['volume_sub']="Volume";
 
 // infos ################################################################
 $lang['infos']['sunset']	="Coucher de Soleil";

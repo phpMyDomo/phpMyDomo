@@ -81,6 +81,8 @@ $conf['units']['wind_speed']	="m/s";
 $conf['units']['wind_gust']		="m/s";
 $conf['units']['wind_temp']		="°C";
 $conf['units']['wind_chill']	="°C";
+$conf['units']['volume']		="m3";
+$conf['units']['volume_sub']	="L";
 
 
 

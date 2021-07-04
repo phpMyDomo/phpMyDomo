@@ -98,6 +98,8 @@ Required fields (for each device)) :
 										- current
 										- power
 										- smoke
+										- volume
+										- volume_sub
 						* For Scenes 	: 
 										- scene
 										- group

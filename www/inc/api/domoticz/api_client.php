@@ -248,14 +248,14 @@ class PMD_ApiClient extends PMD_Root_ApiClient{
 				elseif($raw['Type']=='RFXMeter' AND $raw['SubType']=='RFXMeter counter' and $raw['SwitchTypeVal']==2){ //water
 					$d['class']	='sensor';
 					
-					$d['type']	='counter';
+					$d['type']	='volume_sub';
 					$d['value']	=(float) preg_replace('#[^0-9\.]+#','',$raw['CounterToday']);
-					$d['unit']	="liter";
+					//$d['unit']	="liter";
 					$this->RegisterDevice($d,'today');
 
-					$d['type']	='counter';
+					$d['type']	='volume';
 					$d['value']	=(float) preg_replace('#[^0-9\.]+#','',$raw['Counter']);
-					$d['unit']	="m3";
+					//$d['unit']	="m3";
 				}
 				
 				elseif($raw['SwitchType']=='Motion Sensor'){

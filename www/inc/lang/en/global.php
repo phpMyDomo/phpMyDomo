@@ -72,6 +72,8 @@ $lang['types']['percent']	="Percentage";
 $lang['types']['current']	="Current";
 $lang['types']['power']		="Power";
 $lang['types']['smoke']		="Smoke";
+$lang['types']['volume']	="Volume";
+$lang['types']['volume_sub']="Volume";
 
 // infos ################################################################
 $lang['infos']['sunset']	="Sunset";
