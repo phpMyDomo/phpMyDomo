@@ -25,7 +25,22 @@ class PMD_Page extends PMD_Root_Page{
 		$this->_checkNewVersion();
 		$this->Display();
 	}
-	
+
+	//----------------------------------------------------------------------------------
+	private function _fetchUrlContent($url){
+		//return @file_get_contents($url);
+		//usefull, when no internet connection, to prevent waiting for the long default timeout
+		$timeout=5;	
+		$ch=curl_init();
+		curl_setopt($ch, CURLOPT_URL, $url);
+		curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+		curl_setopt($ch, CURLOPT_TIMEOUT, $timeout);
+		curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, $timeout);
+		$result=curl_exec($ch);
+		curl_close($ch);
+		return $result;
+	}
+
 	//----------------------------------------------------------------------------------
 	private function _checkNewVersion(){
 		$cache_last_version=$this->conf['paths']['caches'].'last_version';
@@ -34,7 +49,7 @@ class PMD_Page extends PMD_Root_Page{
 			$os		=urlencode(php_uname('s'));
 			$arch	=urlencode(php_uname('m'));
 			$url="{$this->conf['urls']['pmd_api']}version&version={$this->conf['app']['version']}&api={$this->conf['app']['api']}&os=$os&arch=$arch";
-			if($json=@file_get_contents($url)){
+			if($json=$this->_fetchUrlContent($url)){
 				$arr=json_decode($json,true);
 				if(is_array($arr) and $arr['result'] and $arr['version']){
 					file_put_contents($cache_last_version,$arr['version']);
@@ -47,6 +62,10 @@ class PMD_Page extends PMD_Root_Page{
 						$this->conf['app']['custom_client_api']=1;
 					}					
 				}
+			}
+			else{
+				//do not recheck before 4h (usefull, when no internet connection)
+				touch($cache_last_version, time() - 3600*4); 
 			}
 		}
 	}
