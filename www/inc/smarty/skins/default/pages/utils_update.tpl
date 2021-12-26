@@ -85,7 +85,7 @@
 						<code>unzip phpMyDomo_latest.zip </code> or<br>
 						<code>tar xvfz phpMyDomo_latest.tar.gz </code>
 					</li>
-					<li> 4) remove your current {$c.app.name} "www" directory :<br>
+					<li> 4) remove your current phpMyDomo "www" directory :<br>
 						<code>rm -rf {$data.paths.www}</code>
 					</li>
 					<li> 5) replace it with your newest 'www' directory :<br>
