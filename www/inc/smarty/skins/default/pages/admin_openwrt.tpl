@@ -95,4 +95,4 @@
 {/capture}
 
 
-{include file="{$p.template}/layout.tpl" cont_fluid=1}
+{include file="{$p.dir_templates}/layout.tpl" cont_fluid=1}

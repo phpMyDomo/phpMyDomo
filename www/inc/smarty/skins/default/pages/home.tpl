@@ -39,13 +39,13 @@
 {capture assign=page_right}
 
 {foreach from=$p.blocks key=k item=ids}
-	{include file="{$p.template}/inc_block.tpl" type=$k	ids=$ids devices=$data.devices}
+	{include file="{$p.dir_templates}/inc_block.tpl" type=$k	ids=$ids devices=$data.devices}
 {/foreach}
 
 {*
-	{include file="{$p.template}/inc_block.tpl" type='weather'	devices=$data.devices icon='fa fa-cloud'}
-	{include file="{$p.template}/inc_block.tpl" type='sensors'	devices=$data.devices icon='fa fa-info-circle'}
-	{include file="{$p.template}/inc_block.tpl" type='links'	devices=$data.devices icon='fa fa-bookmark'}
+	{include file="{$p.dir_templates}/inc_block.tpl" type='weather'	devices=$data.devices icon='fa fa-cloud'}
+	{include file="{$p.dir_templates}/inc_block.tpl" type='sensors'	devices=$data.devices icon='fa fa-info-circle'}
+	{include file="{$p.dir_templates}/inc_block.tpl" type='links'	devices=$data.devices icon='fa fa-bookmark'}
 *}
 
 {* Calendar Block -------------------------------------------------- *}
@@ -85,4 +85,4 @@
 
 
 {/capture}
-{include file="{$p.template}/layout.tpl" cont_fluid=1}
+{include file="{$p.dir_templates}/layout.tpl" cont_fluid=1}

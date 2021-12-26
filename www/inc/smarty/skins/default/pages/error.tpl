@@ -3,4 +3,4 @@
 <div class="well"><i class="fa fa-warning"></i> {$p.err_txt}</div>
 {/capture}
 
-{include file="{$p.template}/layout.tpl"}
+{include file="{$p.dir_templates}/layout.tpl"}

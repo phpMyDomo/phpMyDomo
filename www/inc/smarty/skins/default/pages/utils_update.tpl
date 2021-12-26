@@ -131,4 +131,4 @@
 	</div>
 </div>
 {/capture}
-{include file="{$p.template}/layout.tpl"}
+{include file="{$p.dir_templates}/layout.tpl"}

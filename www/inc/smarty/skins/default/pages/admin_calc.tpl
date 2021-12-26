@@ -148,4 +148,4 @@ function PadBinary(n, p, c) {
 {/capture}
 
 
-{include file="{$p.template}/layout.tpl"}
+{include file="{$p.dir_templates}/layout.tpl"}

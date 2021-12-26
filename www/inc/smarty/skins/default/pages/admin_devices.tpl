@@ -1,7 +1,7 @@
 {capture assign=page_content}
-{include file="{$p.template}/inc_devices.tpl"}
+{include file="{$p.dir_templates}/inc_devices.tpl"}
 
 {/capture}
 
 
-{include file="{$p.template}/layout.tpl"}
+{include file="{$p.dir_templates}/layout.tpl"}

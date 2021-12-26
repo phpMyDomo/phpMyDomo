@@ -145,7 +145,7 @@ class PMD_Root_Page extends PMD_Root{
 
 	//----------------------------------------------------------------------------------
 	function RequirePageConf($conf_name=''){
-		$coconf_namenf or $conf_name=$this->conf['app']['page'];
+		$conf_name or $conf_name=$this->conf['app']['page'];
 		$my_conf		=$this->conf['paths']['confs']."$conf_name.php";		
 		if(file_exists($my_conf)){
 			require_once($my_conf);
@@ -190,10 +190,11 @@ class PMD_Root_Page extends PMD_Root{
 			or $page['title']=$this->lang['global']['menu_admin'][$this->conf['app']['page']]
 			or $page['title']=ucwords(str_replace('_',' / ',$this->conf['app']['page']));
 		
+
 		$page['app_name']			=$this->conf['app']['home_name'];
 		$page['api']				=$this->conf['app']['api'];
 		$page['code']				=$this->conf['app']['page'];
-		$page['template']			=$this->dir_template;
+		$page['dir_templates']		=$this->dir_template;
 		$page['urls']				=$this->conf['urls'];
 		$page['urls']['server_admin']=$this->conf['api']['urls']['admin'];
 		$page['headers']			=$this->_getHeaders();
@@ -217,7 +218,9 @@ class PMD_Root_Page extends PMD_Root{
 		$this->Assign('p',$page);
 		
 		//$this->Debug('Page',$page,0);
-		$template='pages/'.$this->conf['app']['page'];
+		$template = $page['template'] or $template=$this->conf['app']['page'];
+		$template='pages/'.$template;
+
 		$this->PrintDisplay($template);
 		exit;
 	}

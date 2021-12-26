@@ -321,4 +321,4 @@ https://github.com/Logitech/slimserver/blob/public/7.9/IR/Default.map
 
 
 {/capture}
-{include file="{$p.template}/layout.tpl"}
+{include file="{$p.dir_templates}/layout.tpl"}
