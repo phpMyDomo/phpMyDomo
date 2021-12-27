@@ -3,7 +3,8 @@
 {capture assign=page_content}
 <meta name='jsvar' id="jsReload" data-time='{$c.app.reload_time}' data-url="{$c.app.screensaver_url}" />
 
-	{foreach from=$p.groups key=gid item=group}	
+	{foreach from=$p.groups_shown item=gid}
+		{$group=$p.groups.$gid}
 		<div class="panel panel-default home_groups pmd_panel">
 			<div class="panel-heading">
 				<i class="fa fa-folder"></i> {$p.groups_names.$gid}
@@ -38,8 +39,8 @@
 {* ##################################################################################### *}
 {capture assign=page_right}
 
-{foreach from=$p.blocks key=k item=ids}
-	{include file="{$p.dir_templates}/inc_block.tpl" type=$k	ids=$ids devices=$data.devices}
+{foreach from=$p.blocks_shown item=k}
+	{include file="{$p.dir_templates}/inc_block.tpl" type=$k	ids=$p.blocks.$k devices=$data.devices}
 {/foreach}
 
 {*

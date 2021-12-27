@@ -80,9 +80,12 @@ class PMD_Kernel{
 		$page=preg_replace('#/$#','',$page);
 		$page=str_replace('/','_',$page);
 		$page or $page='home';
-		
+
 		$this->conf['app']['page']=$page;
-		$file=$this->conf['paths']['pages']."$page.php";
+
+		$file=$this->_HandleCustomPages($page);
+		$file=$this->conf['paths']['pages']."$file.php";
+
 		if(file_exists($file)){
 			require_once($file);
 			$this->o_page= new PMD_Page($this);
@@ -92,7 +95,19 @@ class PMD_Kernel{
 			$this->PageError('404',"<i>$page</i> is not defined !");
 		}
 	}
+
+	//----------------------------------------------------------------------------------
+	private function _HandleCustomPages($page){
+		if( is_array($this->conf['pages']) ){
+			if($arr=$this->conf['pages'][$page]){
+				$page=$arr['type'] or $page='home';
+			}
+		}		
+		return $page;
+	}
 	
+
+
 	//----------------------------------------------------------------------------------
 	function PageError($code='404', $txt="Not Found"){
 		$p['err_code']	=$code;

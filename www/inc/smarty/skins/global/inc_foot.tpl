@@ -9,8 +9,8 @@
 
 <div id='lay_footer'>
 	<ul class="menu_foot">
-{foreach from=$p.menu_foot item=k}
-		<li class="menu_{$k}{if $p.code==$k} active{/if}"><a href='{$p.urls.www}/{$p.menu_urls.$k}'><i class='{$p.menu_icons.$k}'></i> {$lg.menu_head.$k|default:$k}</a></li>	
+{foreach from=$p.menu_foot key=k item=menu}
+		<li class="menu_{$k}{if $menu.active} active{/if}"><a href='{$menu.url}'><i class='{$menu.icon}'></i> {$menu.name}</a></li>	
 {/foreach}
 	</ul>
 	<div class="copyright">

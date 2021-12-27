@@ -22,8 +22,23 @@ class PMD_Page extends PMD_Root_Page{
 		}
 
 		$this->Assign('data',$data);
+
+		// build page 
+		$cur_page=$this->conf['app']['page'] ;
+		$page=array();
+		$page['groups_shown']=$this->conf['pages'][$cur_page]['groups'];
+		$page['blocks_shown']=$this->conf['pages'][$cur_page]['blocks'];
+		if($cur_page == 'home'){
+			$page['groups_shown'] or $page['groups_shown']= array_keys($this->conf['groups']);
+			$page['blocks_shown'] or $page['blocks_shown']= array_keys($this->conf['blocks']);
+		}
+		else{
+			$this->conf['pages'][$cur_page]['title'] and $page['title'] = $this->conf['pages'][$cur_page]['title'];
+			$page['template']='home';
+		}
+
 		$this->_checkNewVersion();
-		$this->Display();
+		$this->Display($page);
 	}
 
 	//----------------------------------------------------------------------------------

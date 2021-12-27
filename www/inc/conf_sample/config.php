@@ -318,6 +318,43 @@ $conf['cameras_sizes']['sandiego']	="640x400";
 
 
 // ##############################################################################
+// Custom Home Pages ##########################################################
+// ##############################################################################
+/*
+	Defining "pages" allow to display differents groups & blocks on differents pages.
+	This might be useful when you have a lot of devices/sensors and want to split them into  differents pages.
+
+	The "pages" array is indexed by a key, that is used to build the url, and also to assign the page into the (head of foot) menus.
+	Possible properties:
+	 - type : 		'home' (default, can be ommitted)
+	 - menu_name : 	name shown in the head or foot menus
+	 - title : 		HTML page Title
+	 - groups : 	(Array) groups to display (default to all groups, if not set)
+	 - blocks : 	(Array) blocks to display (default to all blocks, if not set)
+
+
+	Examples:
+$conf['pages']['home']=array(
+	'groups'	=>array('living','outside'),
+	'blocks'	=>array('weather','sensors'),
+);
+	would show only the living' and 'outside' groups + 'weather' and'sensors' blocks, in the main home page
+
+	
+$conf['pages']['misc']=array(
+	'type'		=>'home',
+	'menu_name'	=>'Misc',
+	'title'		=>'Misc',
+	'groups'	=>array(''heating'),
+	'blocks'	=>array('links','weather'),
+);
+	would create a "Misc" page, at /misc, that only display groups: "heating" + blocks: 'links' &'weather'
+	Note: Dont forget to include the misc page in the menu if you need , ie $conf['menu_head']=array('home','misc','clock','squeeze','cameras');
+
+*/
+
+
+// ##############################################################################
 // Menus To Show ################################################################
 // ##############################################################################
 /*

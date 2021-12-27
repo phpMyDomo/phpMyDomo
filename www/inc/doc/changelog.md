@@ -1,5 +1,9 @@
 # phpMyDomo ChangeLog
 
+## Version : 22.1.x - Jan 1 , 2022
+-new: Allows to spread 'groups' and 'blocks' into multiple pages
+
+
 ## Version : 21.6.5 - June 5 , 2021
 - new: Dashboard is now fully REALTIME (no longer refreshes the page)
 - new: Dashboard sensors values highlighted for a few seconds, when updated

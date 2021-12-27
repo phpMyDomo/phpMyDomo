@@ -199,8 +199,9 @@ class PMD_Root_Page extends PMD_Root{
 		$page['urls']['server_admin']=$this->conf['api']['urls']['admin'];
 		$page['headers']			=$this->_getHeaders();
 
-		$page['menu_head']			=$this->conf['menu_head'];	
-		$page['menu_foot']			=$this->conf['menu_foot'];	
+		//$page['menu_head']			=$this->conf['menu_head'];	
+		$page['menu_head']			=$this->_MakeMenus( $this->conf['menu_head'], $page['section']);	
+		$page['menu_foot']			=$this->_MakeMenus( $this->conf['menu_foot'], $page['section']);
 		$page['menu_urls']			=$this->conf['menu_urls'];	
 		$page['menu_icons']			=$this->conf['menu_icons'];
 
@@ -215,14 +216,39 @@ class PMD_Root_Page extends PMD_Root{
 
 		$page['prefs']				=$this->vars;
 
+		$page['template'] or $page['template']=$this->conf['app']['page'];
+
 		$this->Assign('p',$page);
 		
 		//$this->Debug('Page',$page,0);
-		$template = $page['template'] or $template=$this->conf['app']['page'];
-		$template='pages/'.$template;
-
+		$template='pages/'.$page['template'];
 		$this->PrintDisplay($template);
 		exit;
+	}
+
+	//----------------------------------------------------------------------------------
+	private function _MakeMenus($menu_items, $section){
+		$out=array();
+		foreach ($menu_items as $key) {
+			if($key == $this->conf['app']['page'] or $key == $section){
+				$out[$key]['active']=true;		
+			}
+
+			$page=$this->conf['pages'][$key];
+			if($url=$this->conf['menu_urls'][$key]){
+				$out[$key]['icon']=$page['icon'] 		or $out[$key]['icon']=$this->conf['menu_icons'][$key];
+				$out[$key]['name']=$page['menu_name']	or  $out[$key]['name']=$this->lang['global']['menu_head'][$key];
+			}
+			elseif($page){
+				$url=$page['url'] or $url= $key;
+				$out[$key]['icon']	=$page['icon']	or $out[$key]['icon']='fa fa-globe';
+				$out[$key]['name']	=$page['menu_name'];
+
+			}
+			$out[$key]['url']	=$this->conf['urls']['www'] .'/'. $url;
+			$out[$key]['name'] or $out[$key]['name']=$key;
+		}		
+		return $out;
 	}
 
 

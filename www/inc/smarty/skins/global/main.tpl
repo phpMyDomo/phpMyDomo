@@ -3,7 +3,7 @@
 <HEAD>
 {include file='global/headers.tpl'}
 </HEAD>
-<BODY id="body_{$p.code}" class="{if $p.section}section_{$p.section}{/if}">
+<BODY id="body_{$p.template}" class="body_{$p.code} {if $p.section}section_{$p.section}{/if}">
 
 {$main_content}
 
