@@ -318,10 +318,10 @@ $conf['cameras_sizes']['sandiego']	="640x400";
 
 
 // ##############################################################################
-// Custom Home Pages ##########################################################
+// Custom Dashboard Pages ##########################################################
 // ##############################################################################
 /*
-	Defining "pages" allow to display differents groups & blocks on differents pages.
+	Defining "pages" allow to display differents groups & blocks on differents Dashboard pages.
 	This might be useful when you have a lot of devices/sensors and want to split them into  differents pages.
 
 	The "pages" array is indexed by a key, that is used to build the url, and also to assign the page into the (head of foot) menus.

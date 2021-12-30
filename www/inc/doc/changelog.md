@@ -1,7 +1,7 @@
 # phpMyDomo ChangeLog
 
-## Version : 21.12.26 - Jan 1 , 2022
-- new: Allows to spread 'groups' and 'blocks' into multiple pages
+## Version : 21.12.30 - Dec 30 , 2021
+- new: Allows to spread 'groups' and 'blocks' into multiple Dashboard pages
 - new: Domoticz - Add new 'volume_sub' types  and handle volume sensors (ie Water)
 
 
