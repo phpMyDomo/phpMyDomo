@@ -1,11 +1,11 @@
 # phpMyDomo ChangeLog
 
-## Version : 21.12.30 - Dec 30 , 2021
+## Version : 21.1230 - Dec 30 , 2021
 - new: Allows to spread 'groups' and 'blocks' into multiple Dashboard pages
 - new: Domoticz - Add new 'volume_sub' types  and handle volume sensors (ie Water)
 
 
-## Version : 21.6.5 - June 5 , 2021
+## Version : 21.0605 - June 5 , 2021
 - new: Dashboard is now fully REALTIME (no longer refreshes the page)
 - new: Dashboard sensors values highlighted for a few seconds, when updated
 - fix: Dashboard - Also links group's sensors to (Domoticz only) log pages
