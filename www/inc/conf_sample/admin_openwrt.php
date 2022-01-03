@@ -18,35 +18,35 @@ Print multiple OpenWRT driven routers information on a single page, list all con
 // # ROUTERS (running OpenWrt) ####################################################################
 
 /*
-$prefs['hosts'] : a list of routeur cerdentials, build like :
+$prefs['routers'] : a list of routeur cerdentials, build like :
 
-$prefs['hosts'][INDEX]['host'];	    // (REQUIRED) IP address or host_name (FQDN)
-$prefs['hosts'][INDEX]['user'];	    // (REQUIRED) user name
-$prefs['hosts'][INDEX]['pass'];     // (REQUIRED) password
-$prefs['hosts'][INDEX]['ssl'];     // (OPTIONNAL) set to 1, to use https:// (instead of http://). Required for OpenWRT > v21.0
+$prefs['routers'][INDEX]['host'];		// (REQUIRED) IP address or host_name (FQDN)
+$prefs['routers'][INDEX]['user'];		// (REQUIRED) user name
+$prefs['routers'][INDEX]['pass'];		// (REQUIRED) password
+$prefs['routers'][INDEX]['ssl'];		// (OPTIONNAL) set to 1, to use https:// (instead of http://). Required for OpenWRT > v21.0
 
 Example:
 
 $i=0;
-$prefs['hosts'][$i]['host']	='102.168.1.1';		// IP address or host_name (FQDN)
-$prefs['hosts'][$i]['user']	='root';			// user name
-$prefs['hosts'][$i]['pass']	='MY_PASSWORD';		// password
+$prefs['routers'][$i]['host']	='102.168.1.1';		// IP address or host_name (FQDN)
+$prefs['routers'][$i]['user']	='root';			// user name
+$prefs['routers'][$i]['pass']	='MY_PASSWORD';		// password
 
 $i++;
-$prefs['hosts'][$i]['host']	='wifi2.local';		// IP address or host_name (FQDN)
-$prefs['hosts'][$i]['user']	='root';			// user name
-$prefs['hosts'][$i]['pass']	='MY_PASSWORD_2';				// password
+$prefs['routers'][$i]['host']	='wifi2.local';		// IP address or host_name (FQDN)
+$prefs['routers'][$i]['user']	='root';			// user name
+$prefs['routers'][$i]['pass']	='MY_PASSWORD_2';				// password
 
 $i++;
-$prefs['hosts'][$i]['host']	='wifi3.local';		// IP address or host_name (FQDN)
-$prefs['hosts'][$i]['user']	='root';			// user name
-$prefs['hosts'][$i]['pass']	='MY_PASSWORD_3';	// password
+$prefs['routers'][$i]['host']	='wifi3.local';		// IP address or host_name (FQDN)
+$prefs['routers'][$i]['user']	='root';			// user name
+$prefs['routers'][$i]['pass']	='MY_PASSWORD_3';	// password
 */
 
 $i=0;
-$prefs['hosts'][$i]['host']	='192.168.1.1';		// IP address or host_name (FQDN)
-$prefs['hosts'][$i]['user']	='root';			// user name
-$prefs['hosts'][$i]['pass']	='openwrt';			// password
+$prefs['routers'][$i]['host']	='192.168.1.1';		// IP address or host_name (FQDN)
+$prefs['routers'][$i]['user']	='root';			// user name
+$prefs['routers'][$i]['pass']	='openwrt';			// password
 
 
 
@@ -68,7 +68,7 @@ $prefs['levels']['mid']		= -30;
 $prefs['levels']['poor']	= -65;
 $prefs['levels']['bad']		= -80;
 
-// Default stations filers 
+// Default stations filters 
 $prefs['stations_show_ip']			= false;
 $prefs['stations_show_stats']		= true;
 

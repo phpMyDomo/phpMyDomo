@@ -14,7 +14,7 @@ class PMD_Page extends PMD_Root_Page{
 
 		$this->SetHeadJavascript("var ow_levels=". json_encode($this->vars['levels']). ";");
 
-		$hosts=$this->_ListHosts();
+		$routers=$this->_ListRouters();
 		
 		$ajax=$_GET['ajax'];
 
@@ -25,35 +25,35 @@ class PMD_Page extends PMD_Root_Page{
 			}
 		}
 		else{
-			$data['routers_count']=count($hosts);
+			$data['routers_count']=count($routers);
 			$data['bs_col']=floor(12/$data['routers_count']);
-			foreach($hosts as $host){
-				$data['routers'][$host['host']]['desc']=$host['desc'];
+			foreach($routers as $rout){
+				$data['routers'][$rout['host']]['desc']=$rout['desc'];
 				$scheme="http://";
-				if($host['ssl']){
+				if($rout['ssl']){
 					$scheme="https://";
 				}
-				$this->owa= new OpenWrtApi($scheme.$host['host']);
-				if($this->owa->UbusLogin($host['user'],$host['pass'])){
-					$data['routers'][$host['host']]['sys_board']=$this->owa->UbusCall('system','board');
-					$data['routers'][$host['host']]['sys_info']=$this->owa->UbusCall('system','info');
-					if($data['routers'][$host['host']]['radios']=$this->owa->UbusCall('luci-rpc','getWirelessDevices')){
-						ksort($data['routers'][$host['host']]['radios']);
+				$this->owa= new OpenWrtApi($scheme.$rout['host']);
+				if($this->owa->UbusLogin($rout['user'],$rout['pass'])){
+					$data['routers'][$rout['host']]['sys_board']=$this->owa->UbusCall('system','board');
+					$data['routers'][$rout['host']]['sys_info']=$this->owa->UbusCall('system','info');
+					if($data['routers'][$rout['host']]['radios']=$this->owa->UbusCall('luci-rpc','getWirelessDevices')){
+						ksort($data['routers'][$rout['host']]['radios']);
 						$json_query=array();
 						$json_query['act']='stations';
-						$json_query['host']=$host['host'];
-						foreach($data['routers'][$host['host']]['radios'] as $radio => $radio_infos){
-							unset($data['routers'][$host['host']]['radios'][$radio]['interfaces']);
+						$json_query['host']=$rout['host'];
+						foreach($data['routers'][$rout['host']]['radios'] as $radio => $radio_infos){
+							unset($data['routers'][$rout['host']]['radios'][$radio]['interfaces']);
 							foreach($radio_infos['interfaces'] as $interface){
 								$ifname=$interface['ifname'];
-								//$interface['stations']=$this->_ListStations($host['host'], $ifname);
-								$data['routers'][$host['host']]['radios'][$radio]['interfaces'][$ifname]=$interface;
+								//$interface['stations']=$this->_ListStations($rout['host'], $ifname);
+								$data['routers'][$rout['host']]['radios'][$radio]['interfaces'][$ifname]=$interface;
 								//keep (last) bssid in radio
-								$data['routers'][$host['host']]['radios'][$radio]['bssid']=$interface['iwinfo']['bssid'];
+								$data['routers'][$rout['host']]['radios'][$radio]['bssid']=$interface['iwinfo']['bssid'];
 								$json_query['interfaces'][]=$ifname;
 							}
 						}
-						$data['routers'][$host['host']]['json_interfaces']=json_encode($json_query);
+						$data['routers'][$rout['host']]['json_interfaces']=json_encode($json_query);
 					}
 				}
 			}
@@ -69,26 +69,26 @@ class PMD_Page extends PMD_Root_Page{
 
 	//----------------------------------------------------------------------------------
 	private function _Ajax($query){
-		$hosts=$this->_ListHosts();
-		$host=$hosts[$query['host']];
+		$routers=$this->_ListRouters();
+		$rout=$routers[$query['host']];
 		$out['error']=0;
 		$out['error_txt']='OK';
 
 		$scheme="http://";
-		if($host['ssl']){
+		if($rout['ssl']){
 			$scheme="https://";
 		}
 
-		$this->owa= new OpenWrtApi($scheme.$host['host']);
-		if($session_id=$this->_loadSession($host['host'])){
+		$this->owa= new OpenWrtApi($scheme.$rout['host']);
+		if($session_id=$this->_loadSession($rout['host'])){
 			$this->owa->SetSessionId($session_id);
 		}
 		if($out['data']['sys_info']=$this->owa->UbusCall('system','info') ){
 			$logged_in=true;
 		}
 		else{
-			if($logged_in=$this->owa->UbusLogin($host['user'],$host['pass'])){
-				$this->_saveSession($host['host']);
+			if($logged_in=$this->owa->UbusLogin($rout['user'],$rout['pass'])){
+				$this->_saveSession($rout['host']);
 			}
 		}
 		if(!$logged_in){
@@ -125,12 +125,12 @@ class PMD_Page extends PMD_Root_Page{
 
 
 	//----------------------------------------------------------------------------------
-	private function _saveSession($host){
-		file_put_contents($this->conf['paths']['caches']."owa_session_$host", $this->owa->GetSessionId() );
+	private function _saveSession($rout){
+		file_put_contents($this->conf['paths']['caches']."owa_session_$rout", $this->owa->GetSessionId() );
 	}
 	//----------------------------------------------------------------------------------
-	private function _loadSession($host){
-		return @file_get_contents($this->conf['paths']['caches']."owa_session_$host");
+	private function _loadSession($rout){
+		return @file_get_contents($this->conf['paths']['caches']."owa_session_$rout");
 	}
 
 	//----------------------------------------------------------------------------------
@@ -196,10 +196,10 @@ class PMD_Page extends PMD_Root_Page{
 
 
 	//----------------------------------------------------------------------------------
-	function _ListHosts(){
+	function _ListRouters(){
 		$out=array();
-		foreach($this->vars['hosts'] as $host){
-			$out[$host['host']]=$host;
+		foreach($this->vars['routers'] as $rout){
+			$out[$rout['host']]=$rout;
 		}
 		return $out;
 	}
