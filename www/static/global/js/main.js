@@ -423,7 +423,7 @@ jQuery( document ).ready(function() {
 				{title:"Desc",	field:"f_rout_desc", 	hozAlign:"left",	width:100,	headerFilter:"autocomplete", headerFilterParams:{values:true,sortValuesList:"asc",allowEmpty:true,freetext:true,showListOnEmpty:true} },
 				{title:"SSID",	field:"f_ssid", 		hozAlign:"left",	width:100,	headerFilter:"autocomplete", headerFilterParams:{values:true,sortValuesList:"asc",allowEmpty:true,freetext:true,showListOnEmpty:true} },
 				{title:"If",	field:"f_if_id", 		hozAlign:"left",	width:80,	headerFilter:"autocomplete", headerFilterParams:{values:true,sortValuesList:"asc",allowEmpty:true,freetext:true,showListOnEmpty:true} },
-				{title:"Sig",	field:"signal",			hozAlign:"right",	width:55,	headerFilter:"input", headerFilterFunc:"<=", formatter:formatterSignal},
+				{title:"Sig",	field:"signal",			hozAlign:"right",	width:55,	headerFilter:"input", headerFilterFunc:"<=", headerFilterPlaceholder:'max', formatter:formatterSignal},
 				{title:"Down",	field:"rx.rate",		hozAlign:"right",	width:85,	formatter:formatterBytes},	//, mutatorParams:{fa:'down'}
 				{title:"Up",	field:"tx.rate",		hozAlign:"right",	width:50,	formatter:formatterBytes},
 				{title:"Dur",	field:"f_rout_id",		hozAlign:"right",	width:50,	headerSort:false,	formatter:formatterDuration},
