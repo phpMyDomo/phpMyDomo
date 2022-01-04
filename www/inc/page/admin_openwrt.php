@@ -13,6 +13,9 @@ class PMD_Page extends PMD_Root_Page{
 		require_once($this->conf['libs']['openwrtapi']);
 
 		$this->SetHeadJavascript("var ow_levels=". json_encode($this->vars['levels']). ";");
+		$this->SetHeader('lib/tabulator/dist/css/tabulator.min.css',	'css_global');
+		$this->SetHeader('lib/tabulator/dist/css/tabulator_bootstrap3.min.css',	'css_global');
+		$this->SetHeader('lib/tabulator/dist/js/tabulator.min.js',		'js_global');
 
 		$routers=$this->_ListRouters();
 		
@@ -123,7 +126,6 @@ class PMD_Page extends PMD_Root_Page{
 		}
 	}
 
-
 	//----------------------------------------------------------------------------------
 	private function _saveSession($rout){
 		file_put_contents($this->conf['paths']['caches']."owa_session_$rout", $this->owa->GetSessionId() );
@@ -170,8 +172,8 @@ class PMD_Page extends PMD_Root_Page{
 						}
 						//make sort key
 						$sort=$info['name'] or $sort=$info['host'] or $sort=$info['ip'] or $sort=$info['vendor'] or $sort=$indexed_stations[$if][$station['mac']]['info']['vendor'];
-						$indexed_stations[$if][$station['mac']]['sort_key']=strtolower($sort);
-	
+						$indexed_stations[$if][$station['mac']]['sort_key']=strtolower($sort);						
+
 					}	
 				}
 

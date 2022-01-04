@@ -1,5 +1,8 @@
 # phpMyDomo ChangeLog
 
+## Version : 22.01xx - Jan xx , 2022
+- new: OpenWrt also List stations
+
 ## Version : 21.1230 - Dec 30 , 2021
 - new: Allows to spread 'groups' and 'blocks' into multiple Dashboard pages
 - new: Domoticz - Add new 'volume_sub' types  and handle volume sensors (ie Water)

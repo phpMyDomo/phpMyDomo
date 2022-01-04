@@ -1780,9 +1780,14 @@ TABLE.table_devices TR TD{
 
 /* @group Page Admin Openwrt 
 ----------------------------------------------------------------- */
-#body_admin_openwrt #ow_div{
+#body_admin_openwrt #ow_page{
 	margin: 0 20px 0 20px;
 	overflow: hidden;
+}
+#body_admin_openwrt .ow_div {
+	padding-bottom: 40px;
+	clear: both;
+	overflow: auto;
 }
 #body_admin_openwrt .pmd_panel .panel-body{
 	color: #999;
@@ -1790,19 +1795,20 @@ TABLE.table_devices TR TD{
 #body_admin_openwrt #ow_filters{
 	text-align: center;
 }
-#body_admin_openwrt #ow_filters_block{
+#body_admin_openwrt .ow_filters_block{
 	font-size: 11px;
 	line-height: 18px;
 	display: inline-block;
-	margin-bottom: 10px;
+	margin: 0 5px 10px 5px;
 	border: 1px solid rgba(150,150,150, 0.2);
 	padding: 2px 7px;
+	background-color: rgba(0,0,0,0.2);
 }
-#body_admin_openwrt #ow_filters_block .ow_filt_title{
+#body_admin_openwrt .ow_filters_block .ow_filt_title{
 	padding-right: 5px;
 	font-weight: bold;
 }
-#body_admin_openwrt #ow_filters_block label{
+#body_admin_openwrt .ow_filters_block label{
 	margin-left: 15px;
 }
 
@@ -1831,8 +1837,12 @@ TABLE.table_devices TR TD{
 
 #body_admin_openwrt .ow_router_refresh{
 	float: right;
+}
+#body_admin_openwrt .ow_router_refresh,
+#body_admin_openwrt .ow_router_refresh2{
 	font-size: 10px;
 }
+
 #body_admin_openwrt .ow_loading{
 	display: inline-block;
 	width: 22px;
@@ -1847,6 +1857,12 @@ TABLE.table_devices TR TD{
 }
 #body_admin_openwrt .ow_state{
 	padding-left: 2px;
+}
+#body_admin_openwrt .ow_state .fa-check{
+	color: #0A0;
+}
+#body_admin_openwrt .ow_state .fa-warning{
+	color: #F00;
 }
 
 #body_admin_openwrt .ow_router_details{
@@ -2007,7 +2023,7 @@ TABLE.table_devices TR TD{
 #body_admin_openwrt .ow_stat_tx{
 	padding-left: 10px;
 }
-#body_admin_openwrt .ow_stat_signal{
+#body_admin_openwrt .ow_radio .ow_stat_signal{
 	float: right;
 	font-weight: bold;
 }
@@ -2029,59 +2045,122 @@ TABLE.table_devices TR TD{
 }
 
 
-#body_admin_openwrt #ow_div .col-xs-1,
-#body_admin_openwrt #ow_div .col-sm-1,
-#body_admin_openwrt #ow_div .col-md-1,
-#body_admin_openwrt #ow_div .col-lg-1,
-#body_admin_openwrt #ow_div .col-xs-2,
-#body_admin_openwrt #ow_div .col-sm-2,
-#body_admin_openwrt #ow_div .col-md-2,
-#body_admin_openwrt #ow_div .col-lg-2,
-#body_admin_openwrt #ow_div .col-xs-3,
-#body_admin_openwrt #ow_div .col-sm-3,
-#body_admin_openwrt #ow_div .col-md-3,
-#body_admin_openwrt #ow_div .col-lg-3,
-#body_admin_openwrt #ow_div .col-xs-4,
-#body_admin_openwrt #ow_div .col-sm-4,
-#body_admin_openwrt #ow_div .col-md-4,
-#body_admin_openwrt #ow_div .col-lg-4,
-#body_admin_openwrt #ow_div .col-xs-5,
-#body_admin_openwrt #ow_div .col-sm-5,
-#body_admin_openwrt #ow_div .col-md-5,
-#body_admin_openwrt #ow_div .col-lg-5,
-#body_admin_openwrt #ow_div .col-xs-6,
-#body_admin_openwrt #ow_div .col-sm-6,
-#body_admin_openwrt #ow_div .col-md-6,
-#body_admin_openwrt #ow_div .col-lg-6,
-#body_admin_openwrt #ow_div .col-xs-7,
-#body_admin_openwrt #ow_div .col-sm-7,
-#body_admin_openwrt #ow_div .col-md-7,
-#body_admin_openwrt #ow_div .col-lg-7,
-#body_admin_openwrt #ow_div .col-xs-8,
-#body_admin_openwrt #ow_div .col-sm-8,
-#body_admin_openwrt #ow_div .col-md-8,
-#body_admin_openwrt #ow_div .col-lg-8,
-#body_admin_openwrt #ow_div .col-xs-9,
-#body_admin_openwrt #ow_div .col-sm-9,
-#body_admin_openwrt #ow_div .col-md-9,
-#body_admin_openwrt #ow_div .col-lg-9,
-#body_admin_openwrt #ow_div .col-xs-10,
-#body_admin_openwrt #ow_div .col-sm-10,
-#body_admin_openwrt #ow_div .col-md-10,
-#body_admin_openwrt #ow_div .col-lg-10,
-#body_admin_openwrt #ow_div .col-xs-11,
-#body_admin_openwrt #ow_div .col-sm-11,
-#body_admin_openwrt #ow_div .col-md-11,
-#body_admin_openwrt #ow_div .col-lg-11,
-#body_admin_openwrt #ow_div .col-xs-12,
-#body_admin_openwrt #ow_div .col-sm-12,
-#body_admin_openwrt #ow_div .col-md-12,
-#body_admin_openwrt #ow_div .col-lg-12 {
+#body_admin_openwrt #ow_page .col-xs-1,
+#body_admin_openwrt #ow_page .col-sm-1,
+#body_admin_openwrt #ow_page .col-md-1,
+#body_admin_openwrt #ow_page .col-lg-1,
+#body_admin_openwrt #ow_page .col-xs-2,
+#body_admin_openwrt #ow_page .col-sm-2,
+#body_admin_openwrt #ow_page .col-md-2,
+#body_admin_openwrt #ow_page .col-lg-2,
+#body_admin_openwrt #ow_page .col-xs-3,
+#body_admin_openwrt #ow_page .col-sm-3,
+#body_admin_openwrt #ow_page .col-md-3,
+#body_admin_openwrt #ow_page .col-lg-3,
+#body_admin_openwrt #ow_page .col-xs-4,
+#body_admin_openwrt #ow_page .col-sm-4,
+#body_admin_openwrt #ow_page .col-md-4,
+#body_admin_openwrt #ow_page .col-lg-4,
+#body_admin_openwrt #ow_page .col-xs-5,
+#body_admin_openwrt #ow_page .col-sm-5,
+#body_admin_openwrt #ow_page .col-md-5,
+#body_admin_openwrt #ow_page .col-lg-5,
+#body_admin_openwrt #ow_page .col-xs-6,
+#body_admin_openwrt #ow_page .col-sm-6,
+#body_admin_openwrt #ow_page .col-md-6,
+#body_admin_openwrt #ow_page .col-lg-6,
+#body_admin_openwrt #ow_page .col-xs-7,
+#body_admin_openwrt #ow_page .col-sm-7,
+#body_admin_openwrt #ow_page .col-md-7,
+#body_admin_openwrt #ow_page .col-lg-7,
+#body_admin_openwrt #ow_page .col-xs-8,
+#body_admin_openwrt #ow_page .col-sm-8,
+#body_admin_openwrt #ow_page .col-md-8,
+#body_admin_openwrt #ow_page .col-lg-8,
+#body_admin_openwrt #ow_page .col-xs-9,
+#body_admin_openwrt #ow_page .col-sm-9,
+#body_admin_openwrt #ow_page .col-md-9,
+#body_admin_openwrt #ow_page .col-lg-9,
+#body_admin_openwrt #ow_page .col-xs-10,
+#body_admin_openwrt #ow_page .col-sm-10,
+#body_admin_openwrt #ow_page .col-md-10,
+#body_admin_openwrt #ow_page .col-lg-10,
+#body_admin_openwrt #ow_page .col-xs-11,
+#body_admin_openwrt #ow_page .col-sm-11,
+#body_admin_openwrt #ow_page .col-md-11,
+#body_admin_openwrt #ow_page .col-lg-11,
+#body_admin_openwrt #ow_page .col-xs-12,
+#body_admin_openwrt #ow_page .col-sm-12,
+#body_admin_openwrt #ow_page .col-md-12,
+#body_admin_openwrt #ow_page .col-lg-12 {
   padding-right: 5px;
   padding-left: 5px;
 }
 
 
+
+
+#body_admin_openwrt .ow_list{
+	padding-left: 5px;
+	/*padding: 50px 10px 20px 10px;*/
+	table-layout: fixed;
+	width: 100%;	
+}
+#body_admin_openwrt #ow_table{
+	background: none;
+}
+
+#body_admin_openwrt .tabulator-col{
+	color: #BBB;
+	background: #000;
+	border-right:1px solid rgba(255,255,255,0.25);
+}
+#body_admin_openwrt .tabulator-col[aria-sort="asc"],
+#body_admin_openwrt .tabulator-col[aria-sort="desc"]{
+	color: yellow;
+}
+#body_admin_openwrt .tabulator-header{
+	border-bottom-color: #555;
+	border-bottom-width: 1px;
+	background: none;
+}
+#body_admin_openwrt .tabulator-row{
+	color: #DDD;
+	background: #191919;	
+	border-top: 1px solid #2d2d2d;
+	border-bottom-color: #000 !important;
+	font-size: 12px;
+}
+#body_admin_openwrt .tabulator-row .ow_router_refresh2{
+	color: #888;
+}
+
+#body_admin_openwrt .tabulator-row.ow_stat_blank{
+	background-color: #471847;	
+}
+#body_admin_openwrt .tabulator-row.ow_stat_new{
+	background-color: #030;	
+}
+
+
+
+#body_admin_openwrt .tabulator .tabulator-row.tabulator-selectable:hover{
+	background-color: #001 !important;
+}
+
+/* Define the style when the column is not sorted */
+#body_admin_openwrt .tabulator-col[aria-sort="none"] .tabulator-col-sorter i{
+	display: none;
+}
+
+/* Define the style when the column is sorted in ascending order */
+#body_admin_openwrt .tabulator-col[aria-sort="asc"] .tabulator-col-sorter i{
+}
+
+/* Define the style when the column is sorted in descending order */
+#body_admin_openwrt .tabulator-col[aria-sort="desc"] .tabulator-col-sorter i{
+    transform: scaleY(-1); /* flip the icon vertically so the arrow points down */
+}
 
 
 /* @group Openwrt Popover 

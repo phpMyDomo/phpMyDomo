@@ -9,6 +9,7 @@ var global_class_active	="btn-info";
 
 var ow_ajax_timeout=10;
 var ow_ajax_refresh=3;
+var ow_tabulator;
 
 var demo_mode=false;
 
@@ -365,36 +366,125 @@ jQuery( document ).ready(function() {
 	});
 
 
+
+
+
+
 	/* #### ADMIN: OpenWRT ##################################################################### */
+
 	if($('#body_admin_openwrt').length){
-		var $i=1;
+
+
+
+		
+		// Stations table -------------------
+		var formatterBytes = function(cell, params, onRendered){
+			return (cell.getValue()/1000).toFixed(1);
+		}
+		var formatterDuration = function(cell, params, onRendered){
+			return "<span class='ow_router_refresh2'><span class='jsOwDuration ow_duration'>0</span> <span class='jsOwState ow_state'></span></span>";
+		}
+		var formatterDisconnect = function(cell, params, onRendered){
+			return '<a href="#" class="ow_stat_disconnect jsOwDisconnect2" title="Disconnect: '+cell.getValue() +'"><i class="fa fa-sign-out"></i></a>';
+		}
+		var formatterSignal = function(cell, params, onRendered){
+			var row=cell.getRow();
+	        var data = row.getData();
+			return '<span class="'+data.f_level+'"><span class="ow_stat_signal"><i class="fa fa-signal"></i> '+cell.getValue() +'</span></span>';
+		}
+		var rowFormatter = function(row){
+	        var data = row.getData();
+			row.getElement().classList.add('jsOwRouter','jsOwRouter2');
+			row.getElement().setAttribute('data-host',data.f_rout_id);
+			row.getElement().setAttribute('data-mac',data.mac);
+			//console.log(data.f_level);
+			//row.reformat();
+		}
+
+		ow_tabulator = new Tabulator("#ow_table", {
+			index:'mac',
+			height:900, // set height of table (in CSS or here), this enables the Virtual DOM and improves render speed dramatically (can be any valid css height value)
+			data:[], //assign data to table
+			movableColumns: true,
+			headerSortElement: "<i class='fa fa-caret-up'></i>",
+			headerHozAlign:'center',
+			rowFormatter: rowFormatter,
+			rowFormatterHtmlOutput: rowFormatter,
+			layout:"fitColumns", 
+			columns:[ //Define Table Columns
+				{title:"",		field:"f_name",				hozAlign:"center", width:10,headerSort:false, formatter:formatterDisconnect},
+				{title:"Name",	field:"f_name", 		hozAlign:"left"},
+				{title:"Host",	field:"info.host",		hozAlign:"right", width:180, formatter:'link',formatterParams:{urlPrefix:"http://",target:"_blank"}},
+				{title:"IP",	field:"info.ip",		hozAlign:"left", width:100, formatter:'link',formatterParams:{urlPrefix:"http://",target:"_blank"}},
+				{title:"MAC",	field:"mac", 			hozAlign:"right", width:140},
+				{title:"Brand",	field:"info.vendor",	hozAlign:"left", width:110},
+				{title:"Router",field:"f_rout_id", 	hozAlign:"left", width:120},
+				{title:"Desc",	field:"f_rout_desc", hozAlign:"left", width:100},
+				{title:"SSID",	field:"f_ssid", 	hozAlign:"left", width:100},
+				{title:"If",	field:"f_if_id", 		hozAlign:"left", width:80},
+				{title:"Sig",	field:"signal",			hozAlign:"right", width:55, formatter:formatterSignal},
+				{title:"Down",	field:"rx.rate",		hozAlign:"right", width:85, formatter:formatterBytes},	//, mutatorParams:{fa:'down'}
+				{title:"Up",	field:"tx.rate",		hozAlign:"right", width:50, formatter:formatterBytes},
+				{title:"Dur",	field:"f_rout_id",		hozAlign:"right", width:50,headerSort:false,formatter:formatterDuration},
+				{title:"",		field:"",				hozAlign:"right", width:1,headerSort:false},
+			],
+		});
+		ow_tabulator.on("rowAdded", function(row){
+			//console.log('r add ');
+			ow_highlight(row);
+		});
+		ow_tabulator.on("rowUpdated", function(row){
+			//console.log('r upd ');
+			ow_highlight(row);
+		});
+
+		function ow_highlight(row){
+	        //var data = row.getData();
+			var mac =row.getIndex();
+			var css_new='ow_stat_new';
+			var css_blank='ow_stat_blank';
+			row.getElement().classList.remove(css_new);
+			row.getElement().classList.remove(css_blank);
+			if(ow_stations_table[mac].f_class == css_new){
+				row.getElement().classList.add(css_new);
+			}
+			else if(ow_stations_table[mac].info.ip == ''){
+				row.getElement().classList.add(css_blank);
+			}
+		}
+
+
+		// handle stations ---------------------------------
+
+		var i=1;
 		var host='';
-		$('.jsOwRouter').each(function(index){
-			host=$(this).closest('.jsOwRouter').attr('data-host');
+		$('.jsOwRouter1').each(function(index){
+			host=$(this).attr('data-host');
 			SetIntervalOwDurations(host);
-			SetTimerOwStations(host,$(this),$i);
-			$i++;
+			SetTimerOwStations(host,$(this),i);
+			//console.log('Set timer '+i+' on : '+host)
+			i++;
 
 		});
 
 		$('.jsOwRadio').each(function(index){
 			var bssid=$(this).find('.jsOwRadioBssid');
 			bssid.html(formatMacAddress(bssid.html()));
-			console.log(bssid);
+			//console.log(bssid);
 		});
 
 
 
 		$('.jsOwButDetails').click(function(e){
 			e.preventDefault();
-			var obj=$(this).closest('.jsOwRouter').find('.jsOwDetails');
+			var obj=$(this).closest('.jsOwRouter1').find('.jsOwDetails');
 			obj.toggle();
-			console.log("click");
+			//console.log("click");
 		});
 
 		$('.jsOwButReboot').click(function(e){
 			e.preventDefault();
-			var obj=$(this).closest('.jsOwRouter');
+			var obj=$(this).closest('.jsOwRouter1');
 			var host=obj.attr('data-host');
 			obj.find('.jsOwLoading').addClass('loading');
 			obj.find('.jsOwStations').html('');
@@ -403,10 +493,9 @@ jQuery( document ).ready(function() {
 			$.getJSON( '?', { ajax: query } );
 		});
 
-		$('BODY').on('click','.jsOwDisconnect',function(e){
+		$('BODY').on('click','.jsOwDisconnect1',function(e){
 			e.preventDefault();
-			console.log('disco');
-			var router=$(this).closest('.jsOwRouter');
+			var router=$(this).closest('.jsOwRouter1');
 			var host=router.attr('data-host');
 
 			var interface=$(this).closest('.jsOwInterface');
@@ -414,13 +503,35 @@ jQuery( document ).ready(function() {
 			
 			var station=$(this).closest('.jsOwStation');
 			var mac=station.attr('data-mac');
-			station.hide();
+			station.remove();
+			//console.log('disconnect1: '+ mac);
 
-			SetTimerOwStations(host,router,5);
+			//faster refresh
+			SetTimerOwStations(host,router,6);
+
+			//remove from stations table
+			ow_stations_table[mac]= {};
+			delete ow_stations_table[mac];
+			ow_tabulator.deleteRow(mac);
+			ow_tabulator.redraw();
+
+			//console.log(ow_stations_table[mac]);
+
+			  //send command
 			var query=JSON.stringify( {act:'disconnect',host:host, mac:mac, ifname:ifname} ) ;
 			$.getJSON( '?', { ajax: query } );
+
+
 		});
 
+		$('BODY').on('click','.jsOwDisconnect2',function(e){
+			e.preventDefault();
+			var row=$(this).closest('.jsOwRouter2');
+			var mac=row.attr('data-mac');
+			var target=$('.jsOwStation[data-mac="'+mac+'"] .jsOwDisconnect1')
+			row.remove();
+			target.trigger('click');
+		});
 
 		$('.jsOwRadioInfoBut').click(function(){
 			var caret=$(this).find('.jsOwRadioCaret');
@@ -435,28 +546,48 @@ jQuery( document ).ready(function() {
 			}
 		});
 
-		$('#jsOwStat2But').on('change',function(){
-			if($($(this)).is(':checked')){
-				$('.jsOwRouter').removeClass('hide_stat2');
+
+		$('#jsOwBut_routers_show').on('change',function(){
+			if($(this).is(':checked')){
+				$('.jsOwDivRouters').show();
 			}
 			else{
-				$('.jsOwRouter').addClass('hide_stat2');				
+				$('.jsOwDivRouters').hide();
 			}
 		});
-		$('#jsOwStat3But').on('change',function(){
-			if($($(this)).is(':checked')){
-				$('.jsOwRouter').removeClass('hide_stat3');
+		$('#jsOwBut_list_show').on('change',function(){
+			if($(this).is(':checked')){
+				$('.jsOwDivList').show();
+				ow_tabulator.redraw();
 			}
 			else{
-				$('.jsOwRouter').addClass('hide_stat3');				
+				$('.jsOwDivList').hide();
+			}
+		});
+		$('#jsOwBut_routers_stat2').on('change',function(){
+			if($(this).is(':checked')){
+				$('.jsOwRouter1').removeClass('hide_stat2');
+			}
+			else{
+				$('.jsOwRouter1').addClass('hide_stat2');				
+			}
+		});
+		$('#jsOwBut_routers_stat3').on('change',function(){
+			if($(this).is(':checked')){
+				$('.jsOwRouter1').removeClass('hide_stat3');
+			}
+			else{
+				$('.jsOwRouter1').addClass('hide_stat3');				
 			}
 		});
 
-		$('#jsOwStat2But').trigger('change');
-		$('#jsOwStat3But').trigger('change');
+		$('#jsOwBut_routers_show').trigger('change');
+		$('#jsOwBut_list_show').trigger('change');
+		$('#jsOwBut_routers_stat2').trigger('change');
+		$('#jsOwBut_routers_stat3').trigger('change');
 
 		// $('[data-toggle="popover"]').popover();
-
+	   
 	}
 	
 
@@ -625,7 +756,8 @@ function JumpSleep() {
 	}
 };
 
-var global_ow_durations={};
+var global_ow_durations_times={};
+var global_ow_durations_intervals={};
 /* SetIntervalOwDurations -------------------------------------- */
 function SetIntervalOwDurations(index,state){
 	//console.log(index);
@@ -636,14 +768,15 @@ function SetIntervalOwDurations(index,state){
 		o_state.html('<i class="fa fa-warning"></i>');
 	}
 	else if(state==true){
-		global_ow_durations[index]=0;
+		global_ow_durations_times[index]=0;
 		o_state.html('<i class="fa fa-check"></i>');
 	}
 	else{
-		global_ow_durations[index]=0;
-		setInterval( function(){
-			o_dur.html(global_ow_durations[index]);
-			global_ow_durations[index] +=1;
+		global_ow_durations_times[index]=0;
+		clearInterval(global_ow_durations_intervals[index]);
+		global_ow_durations_intervals[index]=setInterval( function(){
+			o_dur.html(global_ow_durations_times[index]);
+			global_ow_durations_times[index] +=1;
 			//	console.log("Index="+index+" / "+global_ow_durations[index] );
 		}, 1000);	
 	}
@@ -748,12 +881,30 @@ function RefreshOwStations(index,obj){
 									+'<div class="ow_stat_3 jsOwStat3"><span class="ow_stat_rx"><i class="fa fa-arrow-down"></i>' 
 									+ (station.rx.rate /1000).toFixed(1) + '</span> <span class="ow_stat_tx"><i class="fa fa-arrow-up"></i>'
 									+ (station.tx.rate /1000).toFixed(1)+ '</span> <span class="ow_stat_signal"><i class="fa fa-signal"></i>'
-									+ station.signal +' <a href="#" class="ow_stat_disconnect jsOwDisconnect" title="Disconnect: '+ station.info.name+'"><i class="fa fa-sign-out"></i></a></span></div>'
+									+ station.signal +' <a href="#" class="ow_stat_disconnect jsOwDisconnect1" title="Disconnect: '+ station.info.name+'"><i class="fa fa-sign-out"></i></a></span></div>'
 									+"</li>\n";
+
+						//store in global ow_stations_table
+						var save=station;
+						save.f_name	=name;
+						save.f_class=new_class.trim();
+						save.f_level=level.trim();
+						save.f_link	=link;
+						save.f_rout_id	=host;
+						save.f_if_id	=ifname;
+						save.f_ssid		=ow_routers[host].interfaces[ifname].config.ssid;
+						save.f_rout_desc=ow_routers[host].desc;
+						SetOwStationTable(mac,save);
+
 					});
 					target = obj.find('.jsOwIf_'+ifname+' .jsOwStations');
 					target.html(html);
 				});
+
+				//refresh table
+				RefreshOwStationsTableSorted(host);
+
+
 				if(json.data.sys_info != null){
 					/* sys info Load ------- */
 					html= (json.data.sys_info.load[0] /65535.0).toFixed(2)
@@ -782,10 +933,30 @@ function RefreshOwStations(index,obj){
 		.error(function( jqxhr, textStatus, error ) {
 			SetIntervalOwDurations(index,false);
 			var err = textStatus + ", " + error;
-			console.log( "Ow Station "+index+" Failed: " + err );
+			//console.log( "Ow Station "+index+" Failed: " + err );
 			obj_loading.removeClass('loading');
 		})
 }
 
+var ow_stations_table={};
+function SetOwStationTable(mac,data){
+	ow_stations_table[mac]=data;
+}
 
+function RefreshOwStationsTableSorted(host){
+	var data=Object.keys(ow_stations_table).map(key => ow_stations_table[key]);
+	data.sort((a, b) => a.sort_key - b.sort_key);
+	//console.log('ALL Stations:');console.log(data);
+	//ow_tabulator.replaceData(data);
+	ow_tabulator.updateOrAddData(data)
+	.then((row) => {
+		if($('#jsOwBut_list_auto_sort').is(':checked')){
+			ow_tabulator.setSort(ow_tabulator.getSorters());
+		}
+		//row.scollTo();
+	});
+
+	//$('.jsOwStation').show();
+	SetIntervalOwDurations(host); //we need to reset interval, because Table > .jsOwDuration is not ready on init 
+}
 
