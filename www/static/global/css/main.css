@@ -2109,11 +2109,23 @@ TABLE.table_devices TR TD{
 #body_admin_openwrt #ow_table{
 	background: none;
 }
-
+#body_admin_openwrt .tabulator-table{
+	background: rgba(0,0,0,0.4);
+}
+#body_admin_openwrt .tabulator-header-filter INPUT{
+	font-size: 12px;
+	margin-top: 4px;
+	padding: 1px 4px !important;
+	border-radius: 4px ;
+	background-color: rgba(255,255,255,0.15);
+	border-color: rgba(255,255,255,0.1);
+	color: #ccc;
+}
 #body_admin_openwrt .tabulator-col{
 	color: #BBB;
 	background: #000;
 	border-right:1px solid rgba(255,255,255,0.25);
+	text-align: center;
 }
 #body_admin_openwrt .tabulator-col[aria-sort="asc"],
 #body_admin_openwrt .tabulator-col[aria-sort="desc"]{

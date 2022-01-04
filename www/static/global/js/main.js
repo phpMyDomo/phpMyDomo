@@ -405,6 +405,7 @@ jQuery( document ).ready(function() {
 			index:'mac',
 			height:900, // set height of table (in CSS or here), this enables the Virtual DOM and improves render speed dramatically (can be any valid css height value)
 			data:[], //assign data to table
+			headerFilterLiveFilterDelay:500, //wait from last keystroke before triggering filter
 			movableColumns: true,
 			headerSortElement: "<i class='fa fa-caret-up'></i>",
 			headerHozAlign:'center',
@@ -412,21 +413,21 @@ jQuery( document ).ready(function() {
 			rowFormatterHtmlOutput: rowFormatter,
 			layout:"fitColumns", 
 			columns:[ //Define Table Columns
-				{title:"",		field:"f_name",				hozAlign:"center", width:10,headerSort:false, formatter:formatterDisconnect},
-				{title:"Name",	field:"f_name", 		hozAlign:"left"},
-				{title:"Host",	field:"info.host",		hozAlign:"right", width:180, formatter:'link',formatterParams:{urlPrefix:"http://",target:"_blank"}},
-				{title:"IP",	field:"info.ip",		hozAlign:"left", width:100, formatter:'link',formatterParams:{urlPrefix:"http://",target:"_blank"}},
-				{title:"MAC",	field:"mac", 			hozAlign:"right", width:140},
-				{title:"Brand",	field:"info.vendor",	hozAlign:"left", width:110},
-				{title:"Router",field:"f_rout_id", 	hozAlign:"left", width:120},
-				{title:"Desc",	field:"f_rout_desc", hozAlign:"left", width:100},
-				{title:"SSID",	field:"f_ssid", 	hozAlign:"left", width:100},
-				{title:"If",	field:"f_if_id", 		hozAlign:"left", width:80},
-				{title:"Sig",	field:"signal",			hozAlign:"right", width:55, formatter:formatterSignal},
-				{title:"Down",	field:"rx.rate",		hozAlign:"right", width:85, formatter:formatterBytes},	//, mutatorParams:{fa:'down'}
-				{title:"Up",	field:"tx.rate",		hozAlign:"right", width:50, formatter:formatterBytes},
-				{title:"Dur",	field:"f_rout_id",		hozAlign:"right", width:50,headerSort:false,formatter:formatterDuration},
-				{title:"",		field:"",				hozAlign:"right", width:1,headerSort:false},
+				{title:"",		field:"f_name",			hozAlign:"center",	width:10,	headerSort:false, 		formatter:formatterDisconnect},
+				{title:"Name",	field:"f_name", 		hozAlign:"left", 			headerFilter:"input"},
+				{title:"Host",	field:"info.host",		hozAlign:"right",	width:180,	headerFilter:"input",	formatter:'link',	formatterParams:{urlPrefix:"http://",target:"_blank"}},
+				{title:"IP",	field:"info.ip",		hozAlign:"left",	width:100,	headerFilter:"input",	formatter:'link',	formatterParams:{urlPrefix:"http://",target:"_blank"}},
+				{title:"MAC",	field:"mac", 			hozAlign:"right",	width:140,	headerFilter:"input"},
+				{title:"Brand",	field:"info.vendor",	hozAlign:"left",	width:110,	headerFilter:"autocomplete", headerFilterParams:{values:true,sortValuesList:"asc",allowEmpty:true,freetext:true,showListOnEmpty:true} },
+				{title:"Router",field:"f_rout_id", 		hozAlign:"left",	width:120,	headerFilter:"autocomplete", headerFilterParams:{values:true,sortValuesList:"asc",allowEmpty:true,freetext:true,showListOnEmpty:true} },
+				{title:"Desc",	field:"f_rout_desc", 	hozAlign:"left",	width:100,	headerFilter:"autocomplete", headerFilterParams:{values:true,sortValuesList:"asc",allowEmpty:true,freetext:true,showListOnEmpty:true} },
+				{title:"SSID",	field:"f_ssid", 		hozAlign:"left",	width:100,	headerFilter:"autocomplete", headerFilterParams:{values:true,sortValuesList:"asc",allowEmpty:true,freetext:true,showListOnEmpty:true} },
+				{title:"If",	field:"f_if_id", 		hozAlign:"left",	width:80,	headerFilter:"autocomplete", headerFilterParams:{values:true,sortValuesList:"asc",allowEmpty:true,freetext:true,showListOnEmpty:true} },
+				{title:"Sig",	field:"signal",			hozAlign:"right",	width:55,	headerFilter:"input", headerFilterFunc:"<=", formatter:formatterSignal},
+				{title:"Down",	field:"rx.rate",		hozAlign:"right",	width:85,	formatter:formatterBytes},	//, mutatorParams:{fa:'down'}
+				{title:"Up",	field:"tx.rate",		hozAlign:"right",	width:50,	formatter:formatterBytes},
+				{title:"Dur",	field:"f_rout_id",		hozAlign:"right",	width:50,	headerSort:false,	formatter:formatterDuration},
+				{title:"",		field:"",				hozAlign:"right",	width:1,	headerSort:false},
 			],
 		});
 		ow_tabulator.on("rowAdded", function(row){
@@ -509,7 +510,7 @@ jQuery( document ).ready(function() {
 			//faster refresh
 			SetTimerOwStations(host,router,6);
 
-			//remove from stations table
+			//remove from list stations table
 			ow_stations_table[mac]= {};
 			delete ow_stations_table[mac];
 			ow_tabulator.deleteRow(mac);
