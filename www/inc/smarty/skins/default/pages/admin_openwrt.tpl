@@ -22,7 +22,7 @@
 			</label>
 
 			<label class="checkbox-inline">
-				<input type="checkbox" id="jsOwBut_list_auto_sort" checked="checked" > Live Sort
+				<input type="checkbox" id="jsOwBut_list_live" checked="checked" > Live
 			</label>
 
 

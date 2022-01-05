@@ -972,20 +972,18 @@ function RefreshOwStationsTableSorted(host){
 	//console.log(data);
 	//return true;
 
-	//console.log('ALL Stations:');console.log(data);
-	//ow_tabulator.updateOrAddData(data)
-	//ow_tabulator.replaceData(data);
 
-	ow_tabulator.replaceData(data)
-	.then((row) => {
-		if($('#jsOwBut_list_auto_sort').is(':checked')){
-			ow_tabulator.setSort(ow_tabulator.getSorters());
-		}
-		//SetIntervalOwDurations(host); //we need to reset interval, because Table > .jsOwDuration is not ready on init 
-		//DisplayOwDurations(host,true);
-		//row.scollTo();
-	});
+	if($('#jsOwBut_list_live').is(':checked')){
+		//ow_tabulator.updateOrAddData(data)
+		//ow_tabulator.replaceData(data);
+		ow_tabulator.replaceData(data)
+		.then((row) => {
+			// ow_tabulator.setSort(ow_tabulator.getSorters());
+			//SetIntervalOwDurations(host); //we need to reset interval, because Table > .jsOwDuration is not ready on init 
+			//DisplayOwDurations(host,true);
+			//row.scollTo();
+		});	
+	}
 
-	//$('.jsOwStation').show();
 }
 
