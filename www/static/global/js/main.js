@@ -459,6 +459,15 @@ jQuery( document ).ready(function() {
 				{title:"",		field:"",				hozAlign:"right",	width:1,	headerSort:false},
 			],
 		});
+
+		ow_tabulator.on("dataFiltered", function(filters, rows){
+			$(".jsOwCountSearch").html(rows.length);
+		});
+		ow_tabulator.on("dataLoaded", function(data){
+			$(".jsOwCountTotal").html(data.length);
+		});
+
+
 		//ow_tabulator.setData(ow_table);
 
 
@@ -593,6 +602,18 @@ jQuery( document ).ready(function() {
 
 		// $('[data-toggle="popover"]').popover();
 	   
+		$('#jsOwButClearFilters').on('click',function(e){
+			e.preventDefault();
+			console.log('clear fil');
+			ow_tabulator.clearHeaderFilter();
+		});
+		$('#jsOwButClearSort').on('click',function(e){
+			e.preventDefault();
+			console.log('clear sort');
+			ow_tabulator.clearSort();
+		});
+
+
 	}
 	
 

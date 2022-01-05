@@ -111,6 +111,16 @@
 
 
 	<div class="ow_div ow_list jsOwDivList">
+		<div id="ow_counters">
+			<span id='ow_counters1'>
+			Showing <span class='jsOwCountSearch'>0</span> / <b class='jsOwCountTotal'>0</b> devices 
+			</span>
+			
+			<span id='ow_counters2'>
+			<a id='jsOwButClearFilters' class='btn btn-xs btn-default' title="Clear filters" href='#'><i class='fa fa-filter'></i> Reset Filters</a>
+			<a id='jsOwButClearSort'  class='btn btn-xs btn-default' title="Clear sort" href='#'><i class='fa fa-sort-amount-asc'></i> Reset Sort</a>
+			</span>
+		</div>
 		<div id="ow_table"></div>
 	</div>
 

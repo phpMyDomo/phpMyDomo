@@ -2106,6 +2106,18 @@ TABLE.table_devices TR TD{
 	table-layout: fixed;
 	width: 100%;	
 }
+#body_admin_openwrt #ow_counters{
+	margin-bottom: 10px;
+	font-size: 12px;
+	overflow: auto;
+}
+#body_admin_openwrt #ow_counters2{
+	float: right;
+}
+#body_admin_openwrt #ow_counters .btn{
+	margin: 0 5px;
+}
+
 #body_admin_openwrt #ow_table{
 	background: none;
 }
