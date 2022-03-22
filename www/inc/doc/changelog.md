@@ -2,6 +2,8 @@
 
 ## Version : 22.01xx - Jan xx , 2022
 - new: OpenWrt also List stations
+- fix: smaller Ajax responses (/5)
+
 
 ## Version : 21.1230 - Dec 30 , 2021
 - new: Allows to spread 'groups' and 'blocks' into multiple Dashboard pages
