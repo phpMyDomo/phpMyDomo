@@ -21,7 +21,7 @@
 {/strip}{/function}
 
 {function MakeImage data='' field=''}{strip}
-<span class="player_fields field_{$field}"><img class="jsSqzData" src='{$data[$field]}' data-type="image" data-field="{$field}" data-value="{$data[$field]}"></span>
+<span class="player_fields field_{$field}"><img class="jsSqzData" src="{$data[$field]}" data-type="image" data-field="{$field}" data-value="{$data[$field]}"></span>
 {/strip}{/function}
 
 {function MakePlayerTitle row=''}
