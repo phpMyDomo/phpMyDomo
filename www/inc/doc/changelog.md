@@ -3,6 +3,9 @@
 ## Version : 22.01xx - Jan xx , 2022
 - new: OpenWrt also List stations
 - fix: smaller Ajax responses (/5)
+- new: Domoticz - Implements Thermostats
+- dev: Add 'Value' buttons, used by new 'therm' type
+
 
 
 ## Version : 21.1230 - Dec 30 , 2021
