@@ -74,6 +74,7 @@ $lang['types']['power']		="Power";		//To translate
 $lang['types']['smoke']		="Smoke";		//To translate
 $lang['types']['volume']	="Volume";		//To translate
 $lang['types']['volume_sub']="Volume";		//To translate
+$lang['types']['therm']		="Thermostat";	//To translate
 
 // infos ################################################################
 $lang['infos']['sunset']	="Tramonto";

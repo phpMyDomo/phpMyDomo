@@ -74,6 +74,7 @@ $lang['types']['power']		="Puissance";
 $lang['types']['smoke']		="Fumée";
 $lang['types']['volume']	="Volume";
 $lang['types']['volume_sub']="Volume";
+$lang['types']['therm']		="Thermostat";
 
 // infos ################################################################
 $lang['infos']['sunset']	="Coucher de Soleil";
