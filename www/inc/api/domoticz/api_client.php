@@ -257,7 +257,11 @@ class PMD_ApiClient extends PMD_Root_ApiClient{
 					$d['value']	=(float) preg_replace('#[^0-9\.]+#','',$raw['Counter']);
 					//$d['unit']	="m3";
 				}
-				
+				elseif($raw['Type']=='Thermostat' AND $raw['SubType']=='SetPoint'){
+					$d['class']	='command';					
+					$d['type']	='therm';
+					$d['value']	=(float) $raw['SetPoint'];
+				}
 				elseif($raw['SwitchType']=='Motion Sensor'){
 					$d['class']	='sensor';
 					$d['type']	='pir';
