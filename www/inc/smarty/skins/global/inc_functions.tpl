@@ -1,6 +1,7 @@
 {* ##################################################################################### *}
 {$my_popover_created=0}
 {$my_colorwheel_created=0}
+{$my_valuepopup_created=0}
 
 {function name=makeButton row='' style='default'}
 	{$class_on=''}
@@ -8,6 +9,7 @@
 	{$command=$row.type}
 	{if $row.type=='group' || $row.type=='scene'}{$command='scene'}{/if}
 	{if $row.type=='blinds' || $row.type=='shutter'}{$command='blinds'}{/if}
+	{if $row.type=='therm'}{$command='value'}{/if}
 
 <div class="btn-group jsButGroup jsButGroup_{$row.type} jsButGroup_{$row.js_address} button_group button_group_{$row.type}" 
 	data-uid="{$row.uid}"
@@ -24,6 +26,12 @@
 
 {if $command=='dimmer'}
 	<a href='#' data-address='{$row.address}' data-js_address='{$row.js_address}' data-type='dimmer' data-value='{$row.value}'  title="{$row.name}" class='btn btn-lg btn-default jsButDimmer jsPopover button_dim'>{$row.value}</a>
+{/if}
+
+{if $command=='value'}
+	<a tabindex="0" role="button"  href='#' data-js_address='{$row.js_address}'  title="{$row.name}" class='btn btn-lg btn-default jsButValue '>
+	{$row.value}
+	</a>	
 {/if}
 
 {if $command=='rgb' || $command=='rgbw'}
@@ -57,6 +65,14 @@
 {$my_popover_created=1}
 {/if}
 
+{if $command == 'value' && !$my_valuepopup_created}
+<div class="jsValuePopoverHidden_{$row.js_address} hidden">
+	<div class='value_popover_content jsValuePopoverInput'>
+		<input id="jsInput_{$row.js_address}" type="text" name='input_{$row.uid}' value='{$row.value}' class="input_value jsInputValue">
+	</div>
+</div>
+{$my_valuepopup_created=1}
+{/if}
 
 {if $row.color_rgb && !$my_colorwheel_created}
 <div class="jsRgbPopoverHidden_{$row.js_address} hidden">
@@ -81,6 +97,8 @@
 </div>
 {$my_colorwheel_created=1}
 {/if}
+
+
 {/function}
 
 

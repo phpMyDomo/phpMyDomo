@@ -79,6 +79,18 @@ jQuery( document ).ready(function() {
 		/* Button Switch -------------------------------------- */
 		$('.jsButSwitch').click(function(e){
 			e.preventDefault();
+
+			var parent_group = $(this).closest('.jsButGroup');			
+			if( 
+					parent_group.hasClass('jsButGroup_value') || 
+					parent_group.hasClass('jsButGroup_therm') || 
+					parent_group.hasClass('jsButGroup_selector') 
+			 	){
+				return false;
+			}
+
+
+			
 			SetTimerSleep(sleep_time);		
 			var but		=$(this);
 			var data	=GetButData(but);
@@ -223,6 +235,84 @@ jQuery( document ).ready(function() {
 
 
 
+		/* Button Value ------------------------------------------------------------------------------------------ */
+		$('.jsButValue').each(function(){
+			var but				=$(this);
+			var data			=GetButData(but);
+			var address			=data.address;
+
+			var js_address		=but.data('js_address');
+			var popover_id		='.jsValuePopoverHidden_'+ js_address;
+			var popover_input	=$(popover_id).find('.jsValuePopoverInput');
+			var input_sel		='#jsInput_'+ js_address;
+
+			but.popover({
+				//animation: false,
+				html: true,
+				container: 'body',
+				placement: 'bottom',
+				trigger:'manual',
+				content: ValueGetPopoverContent 
+			})
+			.click(function(e){
+					e.preventDefault();
+					SetTimerSleep(sleep_time);		
+					but.popover('toggle');
+			});
+			
+			but.on('shown.bs.popover', function(){
+				popover_input.html('');
+				$(input_sel).val(GetButData(but).value);
+				$(input_sel).focus().select();
+
+				$(input_sel).on('keyup',function(e) {
+					if(e.key === 'Enter' || e.keyCode === 13) {
+						but.popover('toggle');
+					}
+				});
+
+			});
+		
+			but.on('hidden.bs.popover', function(){
+
+				/* Do Ajax Call, avoiding sending continous values */
+				var value=$(input_sel).val();
+				console.log('Sending Value '+value);		
+				$.getJSON( ajax_url, { mode: "set", a: address, v: value, t: 'value' } )
+					.done(function( json ) {
+						if(json.status=='ok'){
+							SetTimerRefresh(feedback_time);
+							console.log('Value OK '+value);
+							//but.html(value);
+						}
+						else{
+							console.log('Value ERROR');
+						}
+					})
+					.fail(function( jqxhr, textStatus, error ) {
+						var err = textStatus + ", " + error;
+						console.log( "Value Request Failed: " + err );
+				});
+
+
+				/* move back to popover hidden div */
+				var last_input_html=$(input_sel)[0].outerHTML;
+				popover_input.html(last_input_html);
+			});
+			
+			
+		});
+
+		function ValueGetPopoverContent(e){
+			var js_address=$(this).data('js_address');
+			var popover_content	=$('.jsValuePopoverHidden_'+ js_address);
+			var html = popover_content.html();
+			html ="<div class='jsValuePopoverShown' data-js_address='"+js_address+"'>"+html+"</div>";
+			return html;
+		}
+
+
+
 		/* Button RGB ------------------------------------------------------------------------------------------ */
 		function RgbGetPopoverContent(e){
 			var js_address=$(this).data('js_address');
@@ -261,12 +351,12 @@ jQuery( document ).ready(function() {
 				placement: 'bottom',
 				trigger:'manual',
 				content: RgbGetPopoverContent //popover_input.html()
-		})
-		.click(function(e){
-				e.preventDefault();
-				SetTimerSleep(sleep_time);		
-				but.popover('toggle');
-				//e.stopPropagation();
+			})
+			.click(function(e){
+					e.preventDefault();
+					SetTimerSleep(sleep_time);		
+					but.popover('toggle');
+					//e.stopPropagation();
 			});
 			
 			but.on('shown.bs.popover', function(){
@@ -645,6 +735,9 @@ function SetState(row){
 		else if(row.type=='selector'){
 			SetStateCommandSelector(row);
 		}
+		else if(row.type=='therm'){
+			SetStateCommandValue(row);
+		}
 		else if(row.type=='rgb' || row.type=='rgbw'){
 			SetStateCommandSwitch(row);
 			SetStateCommandColor(row);
@@ -726,6 +819,21 @@ function SetStateCommandSelector(row){
 		bgroup.attr('data-value',row.value);
 	}
 }
+
+/* ---------------------------------- */
+function SetStateCommandValue(row){
+	var bgroup=$("[data-uid='"+row.uid+"']");
+	if (bgroup.length){
+		var button=bgroup.find(".jsButValue");
+		button.html(row.value);
+		bgroup.attr('data-state',row.state);
+		bgroup.attr('data-value',row.value);
+	}
+}
+
+
+
+
 /* ---------------------------------- */
 function SetStateCommandColor(row){
 	var bgroup=$("[data-uid='"+row.uid+"']");
