@@ -398,8 +398,6 @@ Auto generated fields
 		elseif($row['type']=='text' or $row['type']=='custom'){
 			$row['html_value'] or $row['html_value']=$row['value'];	
 		}
-		// --- html printable objet
-		$row['f_object']=htmlspecialchars(print_r($row,true), ENT_QUOTES, 'UTF-8' ) ;
 		
 		//save
 		$this->devices[$row['uid']]			=$row;
