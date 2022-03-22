@@ -43,8 +43,14 @@ class PMD_Page extends PMD_Root_Page{
 		}
 		isset($_GET['c'])	and $class	=$_GET['c'];
 		isset($_GET['t'])	and $type	=$_GET['t'];
+
 		if($arr['data']=$this->o_api->GetDevices($class,$type)){
-			$this->_jsonOk($arr);
+				if(is_array($arr['data'])){
+					foreach($arr['data'] as $k => $trash){
+						unset($arr['data'][$k]['raw']);
+					}
+				}
+				$this->_jsonOk($arr);
 			exit;
 		}
 		$this->_jsonError();
