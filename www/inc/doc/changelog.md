@@ -6,6 +6,7 @@
 - new: Domoticz - Implements Thermostat type
 - new: Add 'Value' buttons, used by new 'therm' type
 - new: Selectors are shown as Popup Menus, when there is too much items to list (user-defined)
+- new: OpenWrt page: allows to Copy MAC address
 
 
 

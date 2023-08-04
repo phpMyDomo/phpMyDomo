@@ -1989,17 +1989,22 @@ TABLE.table_devices TR TD{
 }
 #body_admin_openwrt .ow_stat_mac{
 	font-family: Courier, mono;
-	color: #333;
+	color: #444;
 	font-size: 10px;
-	float: right;
 	line-height: 16px;
 }
 #body_admin_openwrt .ow_stat_mac A{
-	color: #666;
+	color: #888;
 }
 #body_admin_openwrt .ow_stat_mac A:hover{
-	color: #888;
+	color: #BBB;
 	text-decoration: none;
+}
+#body_admin_openwrt .ow_stat_copy_mac:hover{
+	color: cyan;
+}
+#body_admin_openwrt .ow_stat_mac A.copied{
+	color: #fff;
 }
 #body_admin_openwrt .ow_stat_2{
 	color: #444;
@@ -2018,24 +2023,29 @@ TABLE.table_devices TR TD{
 	line-height: 17px;
 	overflow: hidden;
 }
-#body_admin_openwrt .ow_stat_3 .fa{
+#body_admin_openwrt .ow_stat_rates .fa{
 	padding-right: 3px;
+}
+#body_admin_openwrt .ow_stat_rates{
+	font-size: 11px;
+	float: right;
+	color: #999;
 }
 #body_admin_openwrt .ow_stat_rx .fa,
 #body_admin_openwrt .ow_stat_tx .fa{
 	color: #888;
 }
 
-#body_admin_openwrt .ow_stat_3 B{
+/*#body_admin_openwrt .ow_stat_3 B{
 	font-weight: normal;
 	color: #888;	
-}
+}*/
 
 #body_admin_openwrt .ow_stat_rx{
 	
 }
 #body_admin_openwrt .ow_stat_tx{
-	padding-left: 10px;
+	padding-left: 5px;
 }
 #body_admin_openwrt .ow_radio .ow_stat_signal{
 	float: right;

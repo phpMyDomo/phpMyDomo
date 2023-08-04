@@ -735,6 +735,13 @@ jQuery( document ).ready(function() {
 			ow_tabulator.clearSort();
 		});
 
+		$('BODY').on('click','.jsCopyBut',function(e){
+			e.preventDefault();
+			var o_txt=$(this).closest('SPAN').find('.jsCopyText');
+			var txt=o_txt.text();
+			CopyToClipAndAnimate(txt,o_txt,'Text',1);
+		});
+
 
 	}
 	
@@ -981,6 +988,55 @@ function SetTimerOwStations(rout_id,obj,time){
 	}
 }
 
+/* Copy to Clipboard ----------------------------------- */
+function CopyToClipAndAnimate(txt,obj,err_txt,with_class){
+	var log='';
+	if(err_txt !=''){
+		log='### '+err_txt+' ';
+		log=log.padEnd(76,'#');
+	}
+	console.log(log+'\n'+txt+'\n');
+
+	if (navigator.clipboard && window.isSecureContext) {
+		navigator.clipboard.writeText(txt).then(
+			function() {
+				/* clipboard successfully set */
+				if(with_class){
+				  obj.toggleClass('copied');
+				}
+				obj.fadeOut(200).fadeIn(100);
+			  }, 
+			  function() {
+				/* clipboard write failed */
+				console.log('Opps! Your browser does not support the Clipboard API. '+err_txt+' was : '+txt);
+			  }	  
+		);
+	  } 
+	  else {
+		const textarea = document.createElement('textarea');
+		textarea.value = txt;
+		textarea.style.position = 'absolute';
+		textarea.style.left = '-99999999px';
+		document.body.prepend(textarea);	
+		textarea.select();
+	
+		try {
+			document.execCommand('copy');
+			/* clipboard successfully set */
+			if(with_class){
+				obj.toggleClass('copied');
+			}
+			obj.fadeOut(200).fadeIn(100);
+		} 
+		catch (err) {
+			console.log(err);
+		}
+		finally {
+			textarea.remove();
+		}
+	  }
+
+}
 
 var ow_connected={};
 var ow_connected_last={};
@@ -1055,17 +1111,21 @@ function RefreshOwStations(rout_id,obj){
 							name="???";
 						}
 						html = html + '<li class="ow_stat jsOwStation'+new_class+blank_class+level+'" data-mac="'+station.mac+'">'
-									+'<div class="ow_stat_1"><span class="ow_stat_mac"><a href="#" title="'+station.info.vendor+'">' 
-									+ formatMacAddress(station.mac) + '</a></span> <span class="ow_stat_name"><a href="http://'+link+'" target="_blank">'
-									+ name +'</a></span></div>'
-									+'<div class="ow_stat_2 jsOwStat2"><span class="ow_stat_ip"><a href="http://'+station.info.ip+'" target="_blank">' 
-									+ vendor_span
-									+ station.info.ip + '</a></span> <span class="ow_stat_host"><a href="http://'+station.info.host+'" target="_blank">'
-									+ station.info.host +'</a></span></div>'
-									+'<div class="ow_stat_3 jsOwStat3"><span class="ow_stat_rx"><i class="fa fa-arrow-down"></i>' 
-									+ (station.rx.rate /1000).toFixed(1) + '</span> <span class="ow_stat_tx"><i class="fa fa-arrow-up"></i>'
-									+ (station.tx.rate /1000).toFixed(1)+ '</span> <span class="ow_stat_signal"><i class="fa fa-signal"></i>'
-									+ station.signal +' <a href="#" class="ow_stat_disconnect jsOwDisconnect1" title="Disconnect: '+ station.info.name+'"><i class="fa fa-sign-out"></i></a></span></div>'
+									+'<div class="ow_stat_1">'
+										+'<span class="ow_stat_rates">'
+											+'<span class="ow_stat_rx"><i class="fa fa-arrow-down"></i>' + (station.rx.rate /1000).toFixed(1) + '</span> '
+											+'<span class="ow_stat_tx"><i class="fa fa-arrow-up"></i>' + (station.tx.rate /1000).toFixed(1)+ '</span> '
+										+'</span>'
+										+'<span class="ow_stat_name"><a href="http://'+link+'" target="_blank">'+ name +'</a></span>'
+									+'</div>'
+									+'<div class="ow_stat_2 jsOwStat2">'
+										+'<span class="ow_stat_ip"><a href="http://'+station.info.ip+'" target="_blank">' + vendor_span + station.info.ip + '</a></span> '
+										+'<span class="ow_stat_host"><a href="http://'+station.info.host+'" target="_blank">' + station.info.host +'</a></span>'
+									+'</div>'
+									+'<div class="ow_stat_3 jsOwStat3">'
+									+'<span class="ow_stat_mac"><i class="fa fa-copy jsCopyBut ow_stat_copy_mac"></i> <a href="#" title="'+station.info.vendor+'" class="jsCopyText">'+ formatMacAddress(station.mac) + '</a></span> '
+									+'<span class="ow_stat_signal"><i class="fa fa-signal"></i>' + station.signal +' <a href="#" class="ow_stat_disconnect jsOwDisconnect1" title="Disconnect: '+ station. info.name+'"><i class="fa fa-sign-out"></i></a></span>'
+									+'</div>'
 									+"</li>\n";
 
 						ow_connected[host][mac]=station;
