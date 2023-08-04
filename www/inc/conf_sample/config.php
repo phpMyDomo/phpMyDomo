@@ -41,6 +41,8 @@ $conf['app']['groups_sensors_names']	="0";
 // When using actions, this is the default debounce period (in seconds) : It prevents the same action to be triggered multiple times, if the same action is called within this period.
 $conf['app']['actions_debounce']	="3";
 
+// when there is more than 'selector_thres' items in a selector, it will appear as a Popup menu instead of separate buttons
+$conf['app']['selector_thres']	="10";
 
 //	Urls  #####################################################################
 // Change these, if your domotic server is NOT on the same server than phpMyDomo, or if you are not using default server ports.
