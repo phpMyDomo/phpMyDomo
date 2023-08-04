@@ -271,6 +271,20 @@ A:focus {outline:none;}
 .button_big .but_img IMG{
 	height: 30px;	
 }
+.button_group .button_popup{
+	padding: 4px 8px 5px 6px;
+}
+.button_group .button_popup SELECT{
+	background-color: #333;
+	border-color: #000;
+	color: #fff;
+}
+.button_group .button_popup SELECT:hover{
+	cursor: pointer ;
+}
+.button_group_selector A:first-child:hover{
+	cursor: default ;
+}
 /* @end */
 
 /* @group Page Home

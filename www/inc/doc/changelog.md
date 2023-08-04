@@ -1,10 +1,11 @@
 # phpMyDomo ChangeLog
 
-## Version : 22.01xx - Jan xx , 2022
+## Version : 23.08xx - Aug xx , 2023
 - new: OpenWrt also List stations
 - fix: smaller Ajax responses (/5)
-- new: Domoticz - Implements Thermostats
-- dev: Add 'Value' buttons, used by new 'therm' type
+- new: Domoticz - Implements Thermostat type
+- new: Add 'Value' buttons, used by new 'therm' type
+- new: Selectors are shown as Popup Menus, when there is too much items to list (user-defined)
 
 
 

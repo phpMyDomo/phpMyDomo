@@ -88,8 +88,6 @@ jQuery( document ).ready(function() {
 			 	){
 				return false;
 			}
-
-
 			
 			SetTimerSleep(sleep_time);		
 			var but		=$(this);
@@ -177,6 +175,40 @@ jQuery( document ).ready(function() {
 			});    	
 		});
 
+		/* Button Popup Selector ------------------------------------------------------------------------- */
+		$('.jsButPopup').on('change',function(e){
+			e.preventDefault();
+			SetTimerSleep(sleep_time);		
+			var but		=$(this);
+			var data	=GetButData(but);
+
+			var value	=but.val();
+			var but_group=but.closest('.jsButGroup').find('.jsButSelector');
+
+			but.removeClass(global_class_active).addClass(global_class_active);
+			
+			//var my_refresh_time = refresh_time;
+					
+			$.getJSON( ajax_url, { mode: "set", a: data.address, v: value, t: 'selector' } )
+			.done(function( json ) {
+					but.removeClass(global_class_active);
+					
+					if(json.status=='ok'){
+						but_group.removeClass(global_class_on);
+						//but.addClass(global_class_on);
+						SetTimerRefresh(feedback_time);
+						console.log('OK');
+					}
+					else{
+						console.log('ERROR');
+					}
+				})
+			.fail(function( jqxhr, textStatus, error ) {
+					but.removeClass(global_class_active);
+					var err = textStatus + ", " + error;
+					console.log( "Selector Popup Request Failed: " + err );
+			});    	
+		});
 
 
 		/* Button Dimmer (to finish) --------------------------------------------------------------- */
@@ -810,13 +842,22 @@ function SetStateCommandSwitch(row){
 /* ---------------------------------- */
 function SetStateCommandSelector(row){
 	var bgroup=$("[data-uid='"+row.uid+"']");
-	if (bgroup.length){
-		var buttons=bgroup.find(".jsButSelector");
+	var buttons=bgroup.find(".jsButSelector");
+	if(buttons.length>0){
 		var sel_but=buttons.filter("[data-value="+row.value+"]");	
 		buttons.removeClass(global_class_on);
 		sel_but.addClass(global_class_on);
 		bgroup.attr('data-state',row.state);
 		bgroup.attr('data-value',row.value);
+		console.log('is Sel');
+	}
+	else{
+		var popup	=bgroup.find(".jsButPopup");
+		popup.find('option[value="'+row.value+'"]').prop('selected',true);	
+		bgroup.attr('data-state',row.state);
+		bgroup.attr('data-value',row.value);
+		console.log(popup);
+		console.log('is Pop ' + row.value);
 	}
 }
 

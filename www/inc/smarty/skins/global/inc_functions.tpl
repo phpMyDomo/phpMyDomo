@@ -10,7 +10,12 @@
 	{if $row.type=='group' || $row.type=='scene'}{$command='scene'}{/if}
 	{if $row.type=='blinds' || $row.type=='shutter'}{$command='blinds'}{/if}
 	{if $row.type=='therm'}{$command='value'}{/if}
-
+	{if $command=='selector' and $c.app.selector_thres and  $row.choices|@count >= $c.app.selector_thres}
+		{$my_popup=1}
+	{else}
+		{$my_popup=0}
+	{/if}
+	
 <div class="btn-group jsButGroup jsButGroup_{$row.type} jsButGroup_{$row.js_address} button_group button_group_{$row.type}" 
 	data-uid="{$row.uid}"
 	data-type='{$command}'
@@ -46,11 +51,19 @@
 {/if}
 
 {if $command=='selector'}
-	{foreach from=$row.choices key=cv item=cn}
-		{$my_class=''}
-		{if $row.value==$cv}{$my_class='btn-success'}{/if}
-		<a href='#' data-value='{$cv}' title="" class='btn btn-lg btn-default jsButSelector button_selector {$my_class}'>{$cn}</a>
-	{/foreach}
+	{if $my_popup}
+		<span class='btn btn-{$style} btn-lg button_popup'>
+		<select class="form-control jsButPopup">
+		{html_options options=$row.choices selected=$row.value}
+		</select>
+		</span>
+	{else}
+		{foreach from=$row.choices key=cv item=cn}
+			{$my_class=''}
+			{if $row.value==$cv}{$my_class='btn-success'}{/if}
+			<a href='#' data-value='{$cv}' title="" class='btn btn-lg btn-default jsButSelector button_selector {$my_class}'>{$cn}</a>
+		{/foreach}	
+	{/if}
 {/if}
 
 </div>
