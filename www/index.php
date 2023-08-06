@@ -7,8 +7,12 @@ if(!file_exists($dir.'/.htaccess')){
 	<pre style='color:grey'>mv [ARCHIVE_PATH_OF_PMD]/phpMyDomo/www/.htaccess $dir/</pre>
 	";
 }
+require(dirname(__FILE__).'/_boot.php');
 
 $current_dir=dirname($_SERVER['PHP_SELF']);
 if($current_dir=='/'){$current_dir='';}
-header("location: $current_dir/home");
+$url=$dw->conf['default_home'] or $url="$current_dir/home";
+
+header("location: $url");
+
 ?>

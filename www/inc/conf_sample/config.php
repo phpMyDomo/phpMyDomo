@@ -356,6 +356,19 @@ $conf['pages']['misc']=array(
 */
 
 
+
+// ##############################################################################
+// Home Page per Hosts/IPs ################################################################
+// ##############################################################################
+/*
+	Defines the default home page  for each phpMyDomo browser clients
+	If not set, 'home' page is the default home page
+	Examples:
+$conf['host_homes']['192.168.0.1']		='misc'; 	// a client with IP '192.168.0.1', will have its Home page changed to the 'misc' page
+$conf['host_homes']['my-tabcam.local']	='cameras'; // a client with Hostname 'my-tabcam.local', will have its Home page changed to the 'cameras' page
+*/
+
+
 // ##############################################################################
 // Menus To Show ################################################################
 // ##############################################################################

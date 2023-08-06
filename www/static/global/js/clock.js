@@ -9,7 +9,7 @@ jQuery( document ).ready(function() {
 		if(pmd_clock_goback){
 			$('#jsClockDiv').addClass('clock_cursor');
 			$('#jsClockDiv').click(function(e){
-				window.location.href = pmd_url_www;
+				window.location.href = pmd_url_home;
 			});
 		}
 		

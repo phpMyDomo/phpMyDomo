@@ -63,6 +63,17 @@ class PMD_Kernel{
 		include_once($this->conf['paths']['lang'].'global.php');
 		$this->lang['global']=$this->ArrayMergeRecursive($this->lang['global'],$lang);
 
+		//set Home URL per clients
+		$this->conf['default_home'] = 'home';
+		if(is_array($this->conf['host_homes'])){
+			foreach($this->conf['host_homes'] as $host => $page){
+				if($host==$_SERVER['REMOTE_ADDR'] or gethostbyname($host)==$_SERVER['REMOTE_ADDR'] ){
+					$this->conf['urls']['home'] = $this->conf['urls']['www'].'/'.$page;
+					$this->conf['default_home'] = $page;
+				}
+			}
+		}
+
 		
 		//locale
 		$locale= isset($this->conf['app']['locale']) ? $this->conf['app']['locale'] : $this->lang['global']['locale'];
@@ -79,7 +90,7 @@ class PMD_Kernel{
 		$page=preg_replace('#\?.*#','',$page);
 		$page=preg_replace('#/$#','',$page);
 		$page=str_replace('/','_',$page);
-		$page or $page='home';
+		$page or $page=$this->conf['default_home'] or $page='home';
 
 		$this->conf['app']['page']=$page;
 

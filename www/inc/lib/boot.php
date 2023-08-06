@@ -105,7 +105,7 @@ $conf['urls']['pmd_changelog']	='https://raw.github.com/phpMyDomo/phpMyDomo/mast
 $conf['urls']['ss_pf_album']=$conf['urls']['www'].'/'.$conf['menu_urls']['photos'].'?id=';
 $conf['urls']['ss_clock']	=$conf['urls']['www'].'/'.$conf['menu_urls']['clock'];
 $conf['urls']['pmd_github']	="https://github.com/phpMyDomo/phpMyDomo";
-
+$conf['urls']['home']		=$conf['urls']['www'].'/home';
 
 
 
