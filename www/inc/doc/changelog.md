@@ -1,6 +1,6 @@
 # phpMyDomo ChangeLog
 
-## Version : 23.08xx - Aug xx , 2023
+## Version : 23.0824 - Aug 24 , 2023
 - new: OpenWrt also List stations
 - fix: smaller Ajax responses (/5)
 - new: Domoticz - Implements Thermostat type
