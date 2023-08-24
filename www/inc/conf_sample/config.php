@@ -44,6 +44,9 @@ $conf['app']['actions_debounce']	="3";
 // when there is more than 'selector_thres' items in a selector, it will appear as a Popup menu instead of separate buttons
 $conf['app']['selector_thres']	="10";
 
+// prevents listed devices (array of unique ids) to appear as popup, when 'selector_thres' is reached
+$conf['app']['selector_keep']	=array();
+
 //	Urls  #####################################################################
 // Change these, if your domotic server is NOT on the same server than phpMyDomo, or if you are not using default server ports.
 

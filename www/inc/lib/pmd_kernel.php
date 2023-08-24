@@ -73,8 +73,11 @@ class PMD_Kernel{
 				}
 			}
 		}
+		//ensure 'selector_keep' is an array
+		if(!is_array($this->conf['app']['selector_keep'])){
+			$this->conf['app']['selector_keep']=array();
+		}
 
-		
 		//locale
 		$locale= isset($this->conf['app']['locale']) ? $this->conf['app']['locale'] : $this->lang['global']['locale'];
 		setlocale(LC_TIME,	$locale);

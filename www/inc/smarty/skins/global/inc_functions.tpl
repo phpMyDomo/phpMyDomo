@@ -10,7 +10,7 @@
 	{if $row.type=='group' || $row.type=='scene'}{$command='scene'}{/if}
 	{if $row.type=='blinds' || $row.type=='shutter'}{$command='blinds'}{/if}
 	{if $row.type=='therm'}{$command='value'}{/if}
-	{if $command=='selector' and $c.app.selector_thres and  $row.choices|@count >= $c.app.selector_thres}
+	{if $command=='selector' and $c.app.selector_thres and  $row.choices|@count >= $c.app.selector_thres and ! in_array($row.uid,$c.app.selector_keep)}
 		{$my_popup=1}
 	{else}
 		{$my_popup=0}
