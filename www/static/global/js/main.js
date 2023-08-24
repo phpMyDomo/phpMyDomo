@@ -771,6 +771,9 @@ function SetState(row){
 			SetStateCommandSwitch(row);
 			SetStateCommandView(row);
 		}
+		else if(row.type=='blinds'){
+			SetStateCommandSwitch(row);
+		}
 		else if(row.type=='selector'){
 			SetStateCommandSelector(row);
 		}

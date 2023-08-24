@@ -87,8 +87,8 @@ $api['states']['command']['rgb']['On']			='on';
 $api['states']['command']['rgbw']['Off']		='off';		
 $api['states']['command']['rgbw']['On']			='on';		
 
-$api['states']['command']['blinds']['Open']		='off';		
-$api['states']['command']['blinds']['Closed']	='on';		
+$api['states']['command']['blinds']['Open']		='on';		
+$api['states']['command']['blinds']['Closed']	='off';		
 
 $api['states']['scene']['scene']['Off']			='off';		
 $api['states']['scene']['scene']['On']			='on';		

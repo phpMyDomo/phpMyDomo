@@ -8,7 +8,7 @@
 - new: Selectors are shown as Popup Menus, when there is too much items to list (user-defined)
 - new: OpenWrt page: allows to Copy MAC address
 - new: Separate Dashboard page per client's host or IP address
-
+- fix: Domoticz - State updates, and inverted directions 
 
 
 ## Version : 21.1230 - Dec 30 , 2021
