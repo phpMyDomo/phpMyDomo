@@ -27,7 +27,7 @@
 
 class OpenWrtApi{
 
-	var $version='1.1.1';
+	var $version='1.2.0';
 
 	private $timeout	=5;
 	private $debug		=false;
@@ -102,19 +102,22 @@ class OpenWrtApi{
 		else{
 			$session_id=$this->ubus_session;
 		}
-
 		if(!$session_id){
 			return FALSE;
 		}
 
-		$params=array(
+		$payload=array(
 			$session_id,
 			$path,
-			$method,
-			$args
+			$method
 		);
+		// since OWRT 23.05, ubus call fails when args is empty
+		if (! empty($args)) {
+			$payload[]=$args;
+		}
 
-		$result = $this->_jsonRPC('call',$params);
+
+		$result = $this->_jsonRPC('call',$payload);
 		if($this->debug){
 			echo "* JsonRPC CALL Result:	";
 			print_r($result);	
@@ -158,13 +161,20 @@ class OpenWrtApi{
 	//---------------------------------------------------------------
 	private function _MultiAdd($path, $method, array $args = array()){
 		if($session_id=$this->ubus_session){
-			$params=array(
+			
+			$payload=array(
 				$session_id,
 				$path,
 				$method,
 				$args
 			);
-			$this->rpc_multi[]=$this->_FormatJsonRPC('call',$params,$this->rpc_multi_id);
+			
+			// since OWRT 23.05, ubus call fails when args is empty
+			if (! empty($args)) {
+				$payload[]=$args;
+			}
+
+			$this->rpc_multi[]=$this->_FormatJsonRPC('call',$payload,$this->rpc_multi_id);
 			$this->rpc_multi_id++;
 			return $this->rpc_multi_id;
 		}
